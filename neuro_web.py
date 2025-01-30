@@ -50,6 +50,20 @@ def list_files(service, folder_id='root', page_token=None):
 
     return results.get('files', []), results.get('nextPageToken')
 
+# Função para buscar a pasta chamada 'Neuroscience' e obter seu ID
+def get_neuroscience_folder_id(service):
+    """Busca pela pasta chamada 'Neuroscience' e retorna o ID dela"""
+    results = service.files().list(
+        q="name = 'Neuroscience' and mimeType = 'application/vnd.google-apps.folder' and trashed = false",
+        fields="files(id, name)"
+    ).execute()
+
+    # Se encontrar a pasta, retorna o ID
+    if results.get('files', []):
+        return results['files'][0]['id']
+    else:
+        return None
+
 # Função para upload de arquivo para o Google Drive
 def upload_file_to_drive(service, file, mime_type):
     """Faz o upload de um arquivo para o Google Drive."""
@@ -71,13 +85,20 @@ def main():
     # Autenticar no Google Drive
     service = authenticate()
 
+    # Buscar o ID da pasta "Neuroscience"
+    folder_id = get_neuroscience_folder_id(service)
+    
+    if folder_id is None:
+        st.error("A pasta 'Neuroscience' não foi encontrada no Google Drive.")
+        return
+
     # Barra lateral para listar pastas e arquivos
     st.sidebar.title("Google Drive - Navegação")
     
-    # Listar pastas e arquivos da pasta atual
-    files, next_page_token = list_files(service, folder_id='root')
+    # Listar pastas e arquivos da pasta "Neuroscience"
+    files, next_page_token = list_files(service, folder_id)
 
-    st.sidebar.write("Pastas e Arquivos:")
+    st.sidebar.write("Pastas e Arquivos em 'Neuroscience':")
     for f in files:
         if f['mimeType'] == 'application/vnd.google-apps.folder':
             # Exibir pastas
@@ -89,7 +110,7 @@ def main():
     # Navegação para a próxima página de arquivos
     if next_page_token:
         if st.sidebar.button("Carregar mais arquivos"):
-            more_files, _ = list_files(service, folder_id='root', page_token=next_page_token)
+            more_files, _ = list_files(service, folder_id, next_page_token)
             files.extend(more_files)
             for f in more_files:
                 if f['mimeType'] == 'application/vnd.google-apps.folder':
