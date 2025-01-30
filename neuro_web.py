@@ -2,41 +2,39 @@ import streamlit as st
 import os
 import pickle
 from google.auth.transport.requests import Request
-from google.oauth2.credentials import Credentials
 from googleapiclient.discovery import build
 from google_auth_oauthlib.flow import InstalledAppFlow
 from googleapiclient.http import MediaFileUpload
+from google.oauth2.credentials import Credentials
+import json
 
-st.set_page_config(
-    page_title="Ex-stream-ly Cool App",
-    page_icon="🧊",
-    layout="wide",
-    initial_sidebar_state="expanded",
-    menu_items={
-        'Get Help': 'https://www.extremelycoolapp.com/help',
-        'Report a bug': "https://www.extremelycoolapp.com/bug",
-        'About': "# This is a header. This is an *extremely* cool app!"
-    }
-)
-
-# Definir as permissões e escopo de acesso
+# SCOPES que você já definiu
 SCOPES = ['https://www.googleapis.com/auth/drive.file', 'https://www.googleapis.com/auth/drive.metadata.readonly']
 
-# Função para autenticar no Google Drive
+# Função para autenticar no Google Drive usando o st.secrets
 def authenticate():
     """Autentica o usuário e retorna o serviço da API do Google Drive."""
     creds = None
     if os.path.exists('token.pickle'):
         with open('token.pickle', 'rb') as token:
             creds = pickle.load(token)
-    
+
+    # Se não houver credenciais válidas, fará a autenticação
     if not creds or not creds.valid:
         if creds and creds.expired and creds.refresh_token:
             creds.refresh(Request())
         else:
-            flow = InstalledAppFlow.from_client_secrets_file('credentials.json', SCOPES)
+            # Carregar as credenciais de 'secrets.toml'
+            client_secrets = st.secrets["google_drive"]
+            
+            # Converte o JSON de credenciais para um objeto
+            credentials_data = json.loads(client_secrets["credentials_json"])
+
+            # Utiliza essas credenciais para fazer o fluxo de autenticação
+            flow = InstalledAppFlow.from_client_config(credentials_data, SCOPES)
             creds = flow.run_local_server(port=0)
-        
+
+        # Salvar as credenciais em um arquivo pickle
         with open('token.pickle', 'wb') as token:
             pickle.dump(creds, token)
 
@@ -112,4 +110,3 @@ def main():
 # Executar o Streamlit app
 if __name__ == "__main__":
     main()
-
