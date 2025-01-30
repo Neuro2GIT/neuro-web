@@ -1,9 +1,12 @@
 import streamlit as st
-import json
+import os
+import pickle
 from google.auth.transport.requests import Request
 from googleapiclient.discovery import build
+from google_auth_oauthlib.flow import InstalledAppFlow
 from googleapiclient.http import MediaFileUpload
-from google.oauth2 import service_account
+from google.oauth2.credentials import Credentials
+import json
 
 # SCOPES que você já definiu
 SCOPES = ['https://www.googleapis.com/auth/drive', 'https://www.googleapis.com/auth/drive.metadata.readonly']
