@@ -1,2 +1,2 @@
 [server]
-maxUploadSize = 2147483648  # 2GB in bytes
+maxUploadSize = 2000  # 2GB in bytes
