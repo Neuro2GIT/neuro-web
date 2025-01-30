@@ -6,7 +6,7 @@ from googleapiclient.http import MediaFileUpload
 from google.oauth2 import service_account
 
 # SCOPES que você já definiu
-SCOPES = ['https://www.googleapis.com/auth/drive.file', 'https://www.googleapis.com/auth/drive.metadata.readonly']
+SCOPES = ['https://www.googleapis.com/auth/drive', 'https://www.googleapis.com/auth/drive.metadata.readonly']
 
 # Função para autenticar no Google Drive usando a conta de serviço
 def authenticate():
