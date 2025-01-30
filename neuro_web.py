@@ -37,6 +37,10 @@ def authenticate():
 
     # Cria as credenciais usando o dicionário das credenciais da conta de serviço
     creds = service_account.Credentials.from_service_account_info(credentials_info, scopes=SCOPES)
+    
+    # Verifica se as credenciais estão expiradas e tenta renová-las
+    if creds and creds.expired and creds.refresh_token:
+        creds.refresh(Request())
 
     # Cria o serviço da API do Google Drive com as credenciais
     service = build('drive', 'v3', credentials=creds)
@@ -133,7 +137,7 @@ def main():
             st.session_state['flash_message'] = f"Erro ao enviar o arquivo: {str(e)}"
     
     # Rodapé com cor de fundo personalizada
-    st.markdown("""
+    st.markdown(""" 
         <footer style='text-align: center; background-color: #2C3E50; color: white; padding: 10px;'>
             © 2025 - LABIBIO - Biotério e Neurociência
         </footer>
