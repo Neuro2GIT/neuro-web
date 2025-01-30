@@ -10,7 +10,7 @@ from google.oauth2 import service_account
 import json
 
 # SCOPES que você já definiu
-SCOPES = ['https://www.googleapis.com/auth/drive', 'https://www.googleapis.com/auth/drive.metadata.readonly']
+SCOPES = ['https://www.googleapis.com/auth/drive.files', 'https://www.googleapis.com/auth/drive.metadata.readonly']
 
 # Função para autenticar no Google Drive usando a conta de serviço
 def authenticate():
