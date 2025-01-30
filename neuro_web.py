@@ -1,12 +1,11 @@
 import streamlit as st
-import os
 import pickle
+import json
 from google.auth.transport.requests import Request
 from googleapiclient.discovery import build
 from google_auth_oauthlib.flow import InstalledAppFlow
 from googleapiclient.http import MediaFileUpload
 from google.oauth2.credentials import Credentials
-import json
 
 # SCOPES que você já definiu
 SCOPES = ['https://www.googleapis.com/auth/drive.file', 'https://www.googleapis.com/auth/drive.metadata.readonly']
@@ -15,9 +14,9 @@ SCOPES = ['https://www.googleapis.com/auth/drive.file', 'https://www.googleapis.
 def authenticate():
     """Autentica o usuário e retorna o serviço da API do Google Drive."""
     creds = None
-    if os.path.exists('token.pickle'):
-        with open('token.pickle', 'rb') as token:
-            creds = pickle.load(token)
+    # Verifica se as credenciais já estão salvas na sessão
+    if 'token' in st.session_state:
+        creds = Credentials.from_authorized_user_info(info=st.session_state.token, scopes=SCOPES)
 
     # Se não houver credenciais válidas, fará a autenticação
     if not creds or not creds.valid:
@@ -32,12 +31,14 @@ def authenticate():
 
             # Utiliza essas credenciais para fazer o fluxo de autenticação
             flow = InstalledAppFlow.from_client_config(credentials_data, SCOPES)
-            creds = flow.run_local_server(port=0)
 
-        # Salvar as credenciais em um arquivo pickle
-        with open('token.pickle', 'wb') as token:
-            pickle.dump(creds, token)
+            # Em vez de usar um servidor local, usamos o código de autorização direto
+            creds = flow.run_console()  # Solicita o código no console
 
+            # Armazena as credenciais na sessão
+            st.session_state.token = creds.to_dict()
+
+    # Cria o serviço da API do Google Drive com as credenciais
     service = build('drive', 'v3', credentials=creds)
     return service
 
@@ -52,7 +53,7 @@ def list_files(service, folder_id='root'):
     
     return results.get('files', [])
 
-# Função para upload para o Google Drive
+# Função para upload de arquivo para o Google Drive
 def upload_file_to_drive(service, file, mime_type):
     """Faz o upload de um arquivo para o Google Drive."""
     file_metadata = {'name': file.name}
