@@ -14,13 +14,25 @@ def authenticate():
     creds = None
 
     # Carregar as credenciais da conta de serviço do 'secrets.toml'
-    client_secrets = st.secrets["google_drive"]
+    google_secrets = st.secrets["google"]
     
-    # Converte o JSON de credenciais para um objeto
-    credentials_data = json.loads(client_secrets["credentials_json"])
+    # Extraímos as credenciais do arquivo 'secrets.toml'
+    credentials_info = {
+        "type": "service_account",
+        "project_id": google_secrets["project_id"],
+        "private_key_id": google_secrets["private_key_id"],
+        "private_key": google_secrets["private_key"],
+        "client_email": google_secrets["client_email"],
+        "client_id": google_secrets["client_id"],
+        "auth_uri": google_secrets["auth_uri"],
+        "token_uri": google_secrets["token_uri"],
+        "auth_provider_x509_cert_url": google_secrets["auth_provider_x509_cert_url"],
+        "client_x509_cert_url": google_secrets["client_x509_cert_url"],
+        "universe_domain": google_secrets["universe_domain"]
+    }
 
-    # Cria as credenciais usando o arquivo JSON da conta de serviço
-    creds = service_account.Credentials.from_service_account_info(credentials_data, scopes=SCOPES)
+    # Cria as credenciais usando o dicionário das credenciais da conta de serviço
+    creds = service_account.Credentials.from_service_account_info(credentials_info, scopes=SCOPES)
 
     # Cria o serviço da API do Google Drive com as credenciais
     service = build('drive', 'v3', credentials=creds)
