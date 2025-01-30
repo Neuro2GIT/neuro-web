@@ -25,7 +25,7 @@ def authenticate():
             creds.refresh(Request())
         else:
             # Carregar as credenciais de 'secrets.toml'
-            client_secrets = st.secrets["google_drive"]
+            client_secrets = st.secrets["google"]
             
             # Converte o JSON de credenciais para um objeto
             credentials_data = json.loads(client_secrets["credentials_json"])
