@@ -11,40 +11,37 @@ import json
 # SCOPES que você já definiu
 SCOPES = ['https://www.googleapis.com/auth/drive.files', 'https://www.googleapis.com/auth/drive.metadata.readonly']
 
-# Função para autenticar o usuário usando OAuth 2.0 com os dados do secrets.toml
 def authenticate():
-    """Autentica o usuário e retorna o serviço da API do Google Drive usando OAuth 2.0."""
-    creds = None
-
-    # Carregar as credenciais OAuth 2.0 do secrets.toml
+    """Autenticação com o Google Drive usando as credenciais do Streamlit secrets"""
     google_secrets = st.secrets["google"]
-    client_id = google_secrets["client_id"]
-    client_secret = google_secrets["client_secret"]
-    redirect_uris = google_secrets["redirect_uris"]
-    credentials_info = json.loads(google_secrets["json_credentials"])
-
-    # O arquivo token.pickle armazena as credenciais de acesso do usuário.
-    # Ele é criado automaticamente após a primeira execução do fluxo de autenticação.
-    if os.path.exists('token.pickle'):
-        with open('token.pickle', 'rb') as token:
-            creds = pickle.load(token)
-
-    # Se as credenciais não forem válidas ou expiraram, faça o login novamente
-    if not creds or not creds.valid:
-        if creds and creds.expired and creds.refresh_token:
-            creds.refresh(Request())
-        else:
-            # Se não houver credenciais válidas, faz o login com o OAuth
-            flow = InstalledAppFlow.from_client_config(credentials_info, SCOPES)
-            creds = flow.run_local_server(port=0)
-
-        # Salva as credenciais para a próxima execução
-        with open('token.pickle', 'wb') as token:
-            pickle.dump(creds, token)
-
-    # Cria o serviço da API do Google Drive com as credenciais
-    service = build('drive', 'v3', credentials=creds)
+    credentials_dict = {
+        "type": "service_account",
+        "project_id": google_secrets["project_id"],
+        "private_key_id": google_secrets["private_key_id"],
+        "private_key": google_secrets["private_key"],
+        "client_email": google_secrets["client_email"],
+        "client_id": google_secrets["client_id"],  # Caso necessário
+        "auth_uri": google_secrets["auth_uri"],
+        "token_uri": google_secrets["token_uri"],
+        "auth_provider_x509_cert_url": google_secrets["auth_provider_x509_cert_url"],
+        "client_x509_cert_url": google_secrets["client_x509_cert_url"],
+        "universe_domain": google_secrets["universe_domain"]
+    }
+    credentials = service_account.Credentials.from_service_account_info(credentials_dict, scopes=SCOPES)
+    service = build('drive', 'v3', credentials=credentials)
+    test_authentication(service)
     return service
+
+def test_authentication(service):
+    """Teste simples para verificar se a autenticação foi bem-sucedida"""
+    try:
+        results = service.files().list(pageSize=1).execute()
+        if 'files' in results and len(results['files']) > 0:
+            st.success("Autenticação bem-sucedida!")
+        else:
+            st.error("Nenhum arquivo encontrado, mas autenticação bem-sucedida.")
+    except Exception as e:
+        st.error(f"Erro de autenticação: {e}")
 
 # Função para listar arquivos e pastas do Google Drive
 def list_files(service, folder_id='root', page_token=None):
