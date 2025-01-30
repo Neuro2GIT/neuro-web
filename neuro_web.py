@@ -1,42 +1,26 @@
 import streamlit as st
-import pickle
 import json
 from google.auth.transport.requests import Request
 from googleapiclient.discovery import build
-from google_auth_oauthlib.flow import InstalledAppFlow
 from googleapiclient.http import MediaFileUpload
-from google.oauth2.credentials import Credentials
+from google.oauth2 import service_account
 
 # SCOPES que você já definiu
 SCOPES = ['https://www.googleapis.com/auth/drive.file', 'https://www.googleapis.com/auth/drive.metadata.readonly']
 
-# Função para autenticar no Google Drive usando o st.secrets
+# Função para autenticar no Google Drive usando a conta de serviço
 def authenticate():
-    """Autentica o usuário e retorna o serviço da API do Google Drive."""
+    """Autentica o usuário e retorna o serviço da API do Google Drive usando a conta de serviço."""
     creds = None
-    # Verifica se as credenciais já estão salvas na sessão
-    if 'token' in st.session_state:
-        creds = Credentials.from_authorized_user_info(info=st.session_state.token, scopes=SCOPES)
 
-    # Se não houver credenciais válidas, fará a autenticação
-    if not creds or not creds.valid:
-        if creds and creds.expired and creds.refresh_token:
-            creds.refresh(Request())
-        else:
-            # Carregar as credenciais de 'secrets.toml'
-            client_secrets = st.secrets["google_drive"]
-            
-            # Converte o JSON de credenciais para um objeto
-            credentials_data = json.loads(client_secrets["credentials_json"])
+    # Carregar as credenciais da conta de serviço do 'secrets.toml'
+    client_secrets = st.secrets["google_drive"]
+    
+    # Converte o JSON de credenciais para um objeto
+    credentials_data = json.loads(client_secrets["credentials_json"])
 
-            # Utiliza essas credenciais para fazer o fluxo de autenticação
-            flow = InstalledAppFlow.from_client_config(credentials_data, SCOPES)
-
-            # Em vez de usar um servidor local, usamos o código de autorização direto
-            creds = flow.run_console()  # Solicita o código no console
-
-            # Armazena as credenciais na sessão
-            st.session_state.token = creds.to_dict()
+    # Cria as credenciais usando o arquivo JSON da conta de serviço
+    creds = service_account.Credentials.from_service_account_info(credentials_data, scopes=SCOPES)
 
     # Cria o serviço da API do Google Drive com as credenciais
     service = build('drive', 'v3', credentials=creds)
