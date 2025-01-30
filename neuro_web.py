@@ -6,41 +6,41 @@ from googleapiclient.discovery import build
 from google_auth_oauthlib.flow import InstalledAppFlow
 from googleapiclient.http import MediaFileUpload
 from google.oauth2.credentials import Credentials
-from google.oauth2 import service_account
 import json
 
 # SCOPES que você já definiu
 SCOPES = ['https://www.googleapis.com/auth/drive.files', 'https://www.googleapis.com/auth/drive.metadata.readonly']
 
-# Função para autenticar no Google Drive usando a conta de serviço
+# Função para autenticar o usuário usando OAuth 2.0 com os dados do secrets.toml
 def authenticate():
-    """Autentica o usuário e retorna o serviço da API do Google Drive usando a conta de serviço."""
+    """Autentica o usuário e retorna o serviço da API do Google Drive usando OAuth 2.0."""
     creds = None
 
-    # Carregar as credenciais da conta de serviço do 'secrets.toml'
+    # Carregar as credenciais OAuth 2.0 do secrets.toml
     google_secrets = st.secrets["google"]
-    
-    # Extraímos as credenciais do arquivo 'secrets.toml'
-    credentials_info = {
-        "type": "service_account",
-        "project_id": google_secrets["project_id"],
-        "private_key_id": google_secrets["private_key_id"],
-        "private_key": google_secrets["private_key"],
-        "client_email": google_secrets["client_email"],
-        "client_id": google_secrets["client_id"],
-        "auth_uri": google_secrets["auth_uri"],
-        "token_uri": google_secrets["token_uri"],
-        "auth_provider_x509_cert_url": google_secrets["auth_provider_x509_cert_url"],
-        "client_x509_cert_url": google_secrets["client_x509_cert_url"],
-        "universe_domain": google_secrets["universe_domain"]
-    }
+    client_id = google_secrets["client_id"]
+    client_secret = google_secrets["client_secret"]
+    redirect_uris = google_secrets["redirect_uris"]
+    credentials_info = json.loads(google_secrets["json_credentials"])
 
-    # Cria as credenciais usando o dicionário das credenciais da conta de serviço
-    creds = service_account.Credentials.from_service_account_info(credentials_info, scopes=SCOPES)
-    
-    # Verifica se as credenciais estão expiradas e tenta renová-las
-    if creds and creds.expired and creds.refresh_token:
-        creds.refresh(Request())
+    # O arquivo token.pickle armazena as credenciais de acesso do usuário.
+    # Ele é criado automaticamente após a primeira execução do fluxo de autenticação.
+    if os.path.exists('token.pickle'):
+        with open('token.pickle', 'rb') as token:
+            creds = pickle.load(token)
+
+    # Se as credenciais não forem válidas ou expiraram, faça o login novamente
+    if not creds or not creds.valid:
+        if creds and creds.expired and creds.refresh_token:
+            creds.refresh(Request())
+        else:
+            # Se não houver credenciais válidas, faz o login com o OAuth
+            flow = InstalledAppFlow.from_client_config(credentials_info, SCOPES)
+            creds = flow.run_local_server(port=0)
+
+        # Salva as credenciais para a próxima execução
+        with open('token.pickle', 'wb') as token:
+            pickle.dump(creds, token)
 
     # Cria o serviço da API do Google Drive com as credenciais
     service = build('drive', 'v3', credentials=creds)
