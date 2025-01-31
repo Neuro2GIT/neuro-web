@@ -166,7 +166,7 @@ def main():
         # Rodapé com cor de fundo personalizada
     st.markdown(""" 
         <footer style='text-align: center; background-color: #2C3E50; color: white; padding: 10px;'>
-            © 2025 - LABIBIO - Biotério e Neurociência
+            © 2025 - LABIBIO - Biotério & Neuroscience
         </footer>
     """, unsafe_allow_html=True)
 
