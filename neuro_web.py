@@ -10,8 +10,8 @@ from st_aggrid import AgGrid, GridOptionsBuilder
 import io
 
 st.set_page_config(
-    page_title="Gestor financeiro",
-    page_icon="💲",
+    page_title="Grupo neuroscience",
+    page_icon="🐭",
     layout="centered",
     initial_sidebar_state="auto",
     menu_items={
@@ -90,7 +90,7 @@ def list_files(service, folder_id=None):
     return items
 
 def main():
-    st.title("Gestor financeiro")
+    st.title("🐁Grupo neuroscience")
 
     # Adicionando a barra lateral
     with st.sidebar:
