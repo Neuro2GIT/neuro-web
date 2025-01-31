@@ -109,18 +109,18 @@ def main():
         dataframe = pd.read_csv(uploaded_file)
         st.write(dataframe)
 
-        # Adding sidebar
-        with st.sidebar:
-            st.header("Opções")
-            st.text("Escolha uma das opções abaixo para navegar")
+    # Adding sidebar
+    with st.sidebar:
+        st.header("Opções")
+        st.text("Escolha uma das opções abaixo para navegar")
 
-            # Authentication button (commented out for now)
-            # if st.button("Reautenticar"):
-            #     service = authenticate()
+        # Authentication button (commented out for now)
+        # if st.button("Reautenticar"):
+        #     service = authenticate()
 
-            # Exibir mensagem de status
-            # st.text("Status da autenticação:")
-            # st.text("Autenticação: Bem-sucedida")
+        # Exibir mensagem de status
+        # st.text("Status da autenticação:")
+        # st.text("Autenticação: Bem-sucedida")
 
         # Authentication for Google Drive
         service = authenticate()
