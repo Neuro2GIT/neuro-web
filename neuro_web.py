@@ -114,9 +114,9 @@ def main():
         st.header("Opções")
         st.text("Escolha uma das opções abaixo para navegar")
 
-    # Authentication button (commented out for now)
-    # if st.button("Reautenticar"):
-    #     service = authenticate()
+        # Authentication button (commented out for now)
+        # if st.button("Reautenticar"):
+        #     service = authenticate()
 
     # Exibir mensagem de status
     # st.text("Status da autenticação:")
