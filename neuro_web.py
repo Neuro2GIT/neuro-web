@@ -181,12 +181,29 @@ def main():
                 st.success("Alterações salvas no Google Drive!")
 
     # Footer with custom background color
-    st.markdown(""" 
-        <footer style='text-align: center; background-color: #2C3E50; color: white; padding: 10px;'>
+    #st.markdown(""" 
+        #<footer style='text-align: center; background-color: #2C3E50; color: white; padding: 10px;'>
+            #© 2025 - LABIBIO - Biotério & Neuroscience
+        #</footer>
+    #""", unsafe_allow_html=True)
+    #import streamlit as st
+
+    # Footer with custom background color and fixed to the bottom of the page
+    st.markdown("""
+        <footer style='
+            text-align: center; 
+            background-color: #2C3E50; 
+            color: white; 
+            padding: 10px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+           '>
             © 2025 - LABIBIO - Biotério & Neuroscience
         </footer>
     """, unsafe_allow_html=True)
-
+    
+import streamlit as st
 if __name__ == "__main__":
     main()
 
