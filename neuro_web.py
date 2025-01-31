@@ -190,7 +190,7 @@ def main():
 
     # Footer with custom background color and fixed to the bottom of the page
     st.markdown("""
-        <footer style='text-align: center; background-color: #2C3E50; color: white; padding: 10px; position: fixed; bottom: 0; width: 100%; '>
+        <footer style='text-align: center; background-color: #2C3E50; color: white; padding: 10px; bottom: 0; width: 100%; '>
             © 2025 - LABIBIO - Biotério & Neuroscience
         </footer>
     """, unsafe_allow_html=True)
