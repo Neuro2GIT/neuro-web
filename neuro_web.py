@@ -1,4 +1,3 @@
-
 import hmac
 import streamlit as st
 import pickle
@@ -7,7 +6,7 @@ from googleapiclient.discovery import build
 from googleapiclient.http import MediaIoBaseDownload
 from google.oauth2 import service_account
 from st_aggrid import AgGrid, GridOptionsBuilder
-import io
+from io import StringIO
 
 st.set_page_config(
     page_title="Grupo neuroscience",
@@ -91,6 +90,24 @@ def list_files(service, folder_id=None):
 
 def main():
     st.title("🐁Grupo neuroscience")
+
+    uploaded_file = st.file_uploader("Choose a file")
+if uploaded_file is not None:
+    # To read file as bytes:
+    bytes_data = uploaded_file.getvalue()
+    st.write(bytes_data)
+
+    # To convert to a string based IO:
+    stringio = StringIO(uploaded_file.getvalue().decode("utf-8"))
+    st.write(stringio)
+
+    # To read file as string:
+    string_data = stringio.read()
+    st.write(string_data)
+
+    # Can be used wherever a "file-like" object is accepted:
+    dataframe = pd.read_csv(uploaded_file)
+    st.write(dataframe)
 
     # Adicionando a barra lateral
     with st.sidebar:
