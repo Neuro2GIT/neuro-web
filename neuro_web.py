@@ -1,16 +1,54 @@
-import streamlit as st
-import os
-import pickle
-from google.auth.transport.requests import Request
-from googleapiclient.discovery import build
-from google_auth_oauthlib.flow import InstalledAppFlow
-from googleapiclient.http import MediaFileUpload
-from google.oauth2.credentials import Credentials
-from google.oauth2 import service_account
-import json
 
-# SCOPES que você já definiu
-SCOPES = ['https://www.googleapis.com/auth/drive.files', 'https://www.googleapis.com/auth/drive.metadata.readonly']
+import hmac
+import streamlit as st
+import pickle
+import pandas as pd
+from googleapiclient.discovery import build
+from googleapiclient.http import MediaIoBaseDownload
+from google.oauth2 import service_account
+from st_aggrid import AgGrid, GridOptionsBuilder
+import io
+
+st.set_page_config(
+    page_title="Gestor financeiro",
+    page_icon="💲",
+    layout="centered",
+    initial_sidebar_state="auto",
+    menu_items={
+    }
+)
+
+st.set_option('client.showErrorDetails', True)
+
+def check_password():
+    """Returns `True` if the user had the correct password."""
+
+    def password_entered():
+        """Checks whether a password entered by the user is correct."""
+        if hmac.compare_digest(st.session_state["password"], st.secrets["password"]):
+            st.session_state["password_correct"] = True
+            del st.session_state["password"]  # Don't store the password.
+        else:
+            st.session_state["password_correct"] = False
+
+    # Return True if the password is validated.
+    if st.session_state.get("password_correct", False):
+        return True
+
+    # Show input for password.
+    st.text_input(
+        "Password", type="password", on_change=password_entered, key="password"
+    )
+    if "password_correct" in st.session_state:
+        st.error("😕 Password incorrect")
+    return False
+
+
+if not check_password():
+    st.stop()  # Do not continue if check_password is not True.
+
+# Escopos necessários para acessar o Google Drive
+SCOPES = ['https://www.googleapis.com/auth/drive.readonly', 'https://www.googleapis.com/auth/drive.file']
 
 def authenticate():
     """Autenticação com o Google Drive usando as credenciais do Streamlit secrets"""
@@ -44,103 +82,86 @@ def test_authentication(service):
     except Exception as e:
         st.error(f"Erro de autenticação: {e}")
 
-# Função para listar arquivos e pastas do Google Drive
-def list_files(service, folder_id='root', page_token=None):
-    """Lista arquivos e pastas do Google Drive, dados o folder_id"""
-    results = service.files().list(
-        q=f"'{folder_id}' in parents and trashed = false",
-        fields="nextPageToken, files(id, name, mimeType)",
-        pageSize=1000,
-        pageToken=page_token
-    ).execute()
+def list_files(service, folder_id=None):
+    """Lista arquivos e pastas. Se `folder_id` for passado, lista o conteúdo dessa pasta."""
+    query = f"'{folder_id}' in parents" if folder_id else "trashed = false"
+    results = service.files().list(q=query, pageSize=10, fields="files(id, name, mimeType)").execute()
+    items = results.get('files', [])
+    return items
 
-    return results.get('files', []), results.get('nextPageToken')
-
-# Função para buscar a pasta chamada 'Neuroscience' e obter seu ID
-def get_neuroscience_folder_id(service):
-    """Busca pela pasta chamada 'Neuroscience' e retorna o ID dela"""
-    results = service.files().list(
-        q="name = 'Neuroscience' and mimeType = 'application/vnd.google-apps.folder' and trashed = false",
-        fields="files(id, name)"
-    ).execute()
-
-    # Se encontrar a pasta, retorna o ID
-    if results.get('files', []):
-        return results['files'][0]['id']
-    else:
-        return None
-
-# Função para upload de arquivo para o Google Drive
-def upload_file_to_drive(service, file, mime_type):
-    """Faz o upload de um arquivo para o Google Drive."""
-    file_metadata = {'name': file.name}
-    media = MediaFileUpload(file, mimetype=mime_type)
-
-    file = service.files().create(body=file_metadata, media_body=media, fields='id').execute()
-    return file['id']
-
-# Função principal para o app Streamlit
 def main():
-    st.title("🐁 Servidor - Biotério e Neurociência")
+    st.title("Gestor financeiro")
+
+    # Adicionando a barra lateral
+    with st.sidebar:
+        st.header("Opções")
+        st.text("Escolha uma das opções abaixo para navegar")
     
-    # Flash messages (em Streamlit podemos usar st.success ou st.error)
-    if 'flash_message' in st.session_state:
-        st.success(st.session_state['flash_message'])
-        del st.session_state['flash_message']
-    
-    # Autenticar no Google Drive
+        # Botão de autenticação
+        #if st.button("Reautenticar"):
+            #service = authenticate()
+        
+        # Exibir mensagem de status
+        #st.text("Status da autenticação:")
+        #st.text("Autenticação: Bem-sucedida")
+
+    # Autenticação no Google Drive
     service = authenticate()
 
-    # Buscar o ID da pasta "Neuroscience"
-    folder_id = get_neuroscience_folder_id(service)
-    
-    if folder_id is None:
-        st.error("A pasta 'Neuroscience' não foi encontrada no Google Drive.")
-        return
+    # Listar arquivos e pastas na raiz
+    items = list_files(service)
 
-    # Barra lateral para listar pastas e arquivos
-    st.sidebar.title("Google Drive - Navegação")
-    
-    # Listar pastas e arquivos da pasta "Neuroscience"
-    files, next_page_token = list_files(service, folder_id)
+    # Separar pastas e arquivos
+    folders = [item for item in items if item['mimeType'] == 'application/vnd.google-apps.folder']
+    files = [item for item in items if item['mimeType'] != 'application/vnd.google-apps.folder']
 
-    st.sidebar.write("Pastas e Arquivos em 'Neuroscience':")
-    for f in files:
-        if f['mimeType'] == 'application/vnd.google-apps.folder':
-            # Exibir pastas
-            st.sidebar.write(f"📂 {f['name']}")
+    # Mostrar pastas na barra lateral
+    selected_folder_name = st.sidebar.selectbox("Escolha uma pasta", [folder['name'] for folder in folders] if folders else ["Sem pastas"])
+    selected_folder = next((folder for folder in folders if folder['name'] == selected_folder_name), None)
+    
+    # Mostrar arquivos na barra lateral
+    if selected_folder:
+        selected_folder_id = selected_folder['id']
+        folder_files = list_files(service, folder_id=selected_folder_id)
+        selected_file_name = st.sidebar.selectbox("Escolha um arquivo dentro da pasta", [file['name'] for file in folder_files])
+    else:
+        selected_file_name = st.sidebar.selectbox("Escolha um arquivo na raiz", [file['name'] for file in files])
+
+    # Buscar o arquivo selecionado
+    if selected_file_name:
+        if selected_folder:
+            selected_file = next(file for file in folder_files if file['name'] == selected_file_name)
         else:
-            # Exibir arquivos
-            st.sidebar.write(f"📄 {f['name']}")
+            selected_file = next(file for file in files if file['name'] == selected_file_name)
 
-    # Navegação para a próxima página de arquivos
-    if next_page_token:
-        if st.sidebar.button("Carregar mais arquivos"):
-            more_files, _ = list_files(service, folder_id, next_page_token)
-            files.extend(more_files)
-            for f in more_files:
-                if f['mimeType'] == 'application/vnd.google-apps.folder':
-                    st.sidebar.write(f"📂 {f['name']}")
-                else:
-                    st.sidebar.write(f"📄 {f['name']}")
+        file_id = selected_file['id']
 
-    # Fazer upload de arquivos
-    uploaded_file = st.file_uploader("Escolha um arquivo (até 2GB)", type=['pdf', 'jpg', 'jpeg', 'png', 'txt', 'mp4', 'avi', 'mkv', 'mov', 'flv', 'wmv'])
-    
-    if uploaded_file is not None:
-        try:
-            file_id = upload_file_to_drive(service, uploaded_file, uploaded_file.type)
-            st.session_state['flash_message'] = f"Arquivo '{uploaded_file.name}' enviado para o Google Drive com sucesso!"
-        except Exception as e:
-            st.session_state['flash_message'] = f"Erro ao enviar o arquivo: {str(e)}"
-    
-    # Rodapé com cor de fundo personalizada
-    st.markdown(""" 
-        <footer style='text-align: center; background-color: #2C3E50; color: white; padding: 10px;'>
-            © 2025 - LABIBIO - Biotério e Neurociência
-        </footer>
-    """, unsafe_allow_html=True)
+        # Baixar o arquivo Excel
+        file = service.files().get_media(fileId=file_id).execute()
+        file_path = f"temp_{selected_file_name}.xlsx"
+        with open(file_path, 'wb') as f:
+            f.write(file)
 
-# Executar o Streamlit app
+        # Carregar e exibir o conteúdo do Excel com Pandas
+        df = pd.read_excel(file_path)
+        st.write("Conteúdo do arquivo Excel:", df)
+
+        # Permitir edição da tabela usando st-aggrid
+        gb = GridOptionsBuilder.from_dataframe(df)
+        gb.configure_pagination()  # Ativa paginação
+        gb.configure_default_column(editable=True)  # Permite edição
+        grid_options = gb.build()
+
+        # Exibir a tabela editável com AgGrid
+        edited_df = AgGrid(df, gridOptions=grid_options, editable=True, fit_columns_on_grid_load=True)
+
+        # Permitir o envio do arquivo editado para o Google Drive
+        if st.button("Salvar alterações"):
+            edited_df['data'].to_excel(file_path, index=False)  # Salva as alterações no Excel
+            # Fazer upload do arquivo editado para o Google Drive
+            media = MediaIoBaseDownload(io.open(file_path, 'rb'), mimetype="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
+            service.files().update(fileId=file_id, media_body=media).execute()
+            st.success("Alterações salvas no Google Drive!")
+
 if __name__ == "__main__":
     main()
