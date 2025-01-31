@@ -163,5 +163,12 @@ def main():
             service.files().update(fileId=file_id, media_body=media).execute()
             st.success("Alterações salvas no Google Drive!")
 
+        # Rodapé com cor de fundo personalizada
+    st.markdown(""" 
+        <footer style='text-align: center; background-color: #2C3E50; color: white; padding: 10px;'>
+            © 2025 - LABIBIO - Biotério e Neurociência
+        </footer>
+    """, unsafe_allow_html=True)
+
 if __name__ == "__main__":
     main()
