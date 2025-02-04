@@ -6,7 +6,7 @@ if not st.session_state.get("password_correct", False):
     st.stop()
 
 # Página protegida
-st.title("Outra Página Protegida")
+st.title("Página Protegida")
 st.write("Conteúdo visível apenas para usuários autenticados.")
 
 def main():
