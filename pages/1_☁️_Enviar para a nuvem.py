@@ -15,9 +15,11 @@ def authenticate_google_drive():
 def list_files(service, folder_id=None):
     """Lista arquivos e pastas do Google Drive"""
     try:
-        query = f"'{folder_id}' in parents" if folder_id else "'root' in parents"
-        results = service.files().list(
+        query = f"'{folder_id}' in parents" if folder_id else "trashed = false"
+        results = service.files().list(q=query, pageSize=10, fields="files(id, name, mimeType)").execute()
+        items = results.get('files', [])
             q=query, fields="files(id, name, mimeType)").execute()
+        return items
 
         # Verificando a estrutura da resposta
         if isinstance(results, dict):
