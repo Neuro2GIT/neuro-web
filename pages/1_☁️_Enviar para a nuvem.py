@@ -128,8 +128,8 @@ def main():
     st.title("Nuvem de camundongos")
     uploaded_file = st.file_uploader("Escolha um arquivo para enviar", type=["csv", "txt", "xlsx"])
 
-        # Chama a função para fazer upload para o Google Drive
-        upload_to_drive(uploaded_file.name, uploaded_file, folder_id=selected_folder_id)
+    # Chama a função para fazer upload para o Google Drive
+    upload_to_drive(uploaded_file.name, uploaded_file, folder_id=selected_folder_id)
 
 # Chama a função main() para exibir o conteúdo
 main()
