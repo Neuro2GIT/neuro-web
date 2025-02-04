@@ -1,11 +1,12 @@
 import streamlit as st
 
 # Página protegida
-st.title("Página Protegida")
-st.write("Conteúdo visível apenas para usuários autenticados.")
-
-# Garantir que o usuário esteja autenticado
-if not st.session_state.get("password_correct", False):
+if st.session_state.get("password_correct", False):
+    # Conteúdo da página protegida
+    st.title("Página Protegida")
+    st.write("Conteúdo visível apenas para usuários autenticados.")
+else:
+    # Se o usuário não estiver autenticado, exibe a mensagem de login
     st.warning("Por favor, faça login para acessar esta página.")
     st.stop()
 
