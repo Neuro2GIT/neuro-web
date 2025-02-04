@@ -42,19 +42,6 @@ def check_password():
         st.error("😕 Password incorrect")
     return False
 
-# Verifique a senha antes de carregar a sidebar
-if check_password():
-    # A senha foi verificada corretamente, agora você pode mostrar a sidebar
-    with st.sidebar:
-        st.header("Sidebar")
-        st.write("Bem-vindo! Agora você pode acessar o conteúdo da página.")
-        # Aqui você pode adicionar o conteúdo da sidebar que normalmente teria
-else:
-    st.stop()  # Impede a renderização do resto do app até que a senha seja inserida corretamente
-
-if not check_password():
-    st.stop()  # Do not continue if check_password is not True.
-
 # SCOPES que você já definiu
 SCOPES = ['https://www.googleapis.com/auth/drive.files', 'https://www.googleapis.com/auth/drive.metadata.readonly']
 
