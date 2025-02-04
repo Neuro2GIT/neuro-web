@@ -4,10 +4,8 @@ if not st.session_state.get("password_correct", False):
     st.title("Apenas usuários autorizados")
     st.write("Por favor, faça login para acessar o conteúdo.")
 
+# Página protegida, acessada após login bem-sucedido
 else:
-    # Página protegida, acessada após login bem-sucedido
-    st.title("Página Protegida")
-    st.write("Conteúdo visível apenas para usuários autenticados.")
     
     # Adicione o restante do conteúdo da página protegida aqui
     st.write("Conteúdo adicional da página protegida pode ir aqui.")
