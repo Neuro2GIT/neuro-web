@@ -129,10 +129,10 @@ def main():
     uploaded_file = st.file_uploader("Escolha um arquivo para enviar", type=["csv", "txt", "xlsx"])
 
     # Verifique se um arquivo foi carregado antes de tentar fazer upload
-    if uploaded_file is not None:
-        upload_to_drive(uploaded_file.name, uploaded_file, folder_id=selected_folder_id)
-    else:
-        st.warning("Nenhum arquivo carregado.")
+    #if uploaded_file is not None:
+        #upload_to_drive(uploaded_file.name, uploaded_file, folder_id=selected_folder_id)
+    #else:
+        #st.warning("Nenhum arquivo carregado.")
 
 # Chama a função main() para exibir o conteúdo
 main()
