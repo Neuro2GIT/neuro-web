@@ -123,7 +123,7 @@ def main():
 
     # Adding sidebar
     with st.sidebar:
-        st.header("Opções")
+        st.header("Índice")
         st.text("Escolha uma das opções abaixo para navegar")
 
         # Authentication button (commented out for now)
