@@ -1,7 +1,7 @@
 import streamlit as st
 
 if not st.session_state.get("password_correct", False):
-    st.title("Apenas usúarios autorizados")
+    st.title("Apenas usuários autorizados")
     st.write("Por favor, faça login para acessar o conteúdo.")
 
 else:
