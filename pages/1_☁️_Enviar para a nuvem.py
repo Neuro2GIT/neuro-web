@@ -125,7 +125,7 @@ def main():
                 #st.success("Alterações salvas no Google Drive!")
 
     # Upload de novo arquivo
-    st.title("Nuvem de camundongos")
+    st.title("Faça upload para o drive")
     uploaded_file = st.file_uploader("Escolha um arquivo para enviar", type=["csv", "txt", "xlsx"])
 
     # Verifique se um arquivo foi carregado antes de tentar fazer upload
