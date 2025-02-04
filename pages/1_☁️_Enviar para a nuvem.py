@@ -1,32 +1,40 @@
 import streamlit as st
+import pandas as pd
+from io import StringIO
 
+# Se o usuário não estiver autenticado, pede o login
 if not st.session_state.get("password_correct", False):
     st.title("Apenas usuários autorizados")
     st.write("Por favor, faça login para acessar o conteúdo.")
 
-# Página protegida, acessada após login bem-sucedido
 else:
-    
-    # Adicione o restante do conteúdo da página protegida aqui
+    # Página protegida, acessada após login bem-sucedido
     st.write("Conteúdo adicional da página protegida pode ir aqui.")
 
-def main():
-    st.title("🐁Grupo neuroscience")
+    def main():
+        st.title("🐁Grupo neuroscience")
 
-    uploaded_file = st.file_uploader("Choose a file")
-    if uploaded_file is not None:
-        # To read file as bytes:
-        bytes_data = uploaded_file.getvalue()
-        st.write(bytes_data)
+        uploaded_file = st.file_uploader("Escolha um arquivo", type=["csv", "txt", "xlsx"])
 
-        # To convert to a string based IO:
-        stringio = StringIO(uploaded_file.getvalue().decode("utf-8"))
-        st.write(stringio)
+        if uploaded_file is not None:
+            # Para ler o arquivo como bytes:
+            bytes_data = uploaded_file.getvalue()
+            st.write(bytes_data)
 
-        # To read file as string:
-        string_data = stringio.read()
-        st.write(string_data)
+            # Para converter para uma IO de string:
+            stringio = StringIO(uploaded_file.getvalue().decode("utf-8"))
+            st.write(stringio)
 
-        # Can be used wherever a "file-like" object is accepted:
-        dataframe = pd.read_csv(uploaded_file)
-        st.write(dataframe)
+            # Para ler o arquivo como string:
+            string_data = stringio.read()
+            st.write(string_data)
+
+            # Pode ser usado onde for aceito um objeto "file-like":
+            try:
+                dataframe = pd.read_csv(uploaded_file)
+                st.write(dataframe)
+            except Exception as e:
+                st.error(f"Erro ao ler o arquivo: {e}")
+
+    # Chama a função main() para exibir o conteúdo do upload
+    main()
