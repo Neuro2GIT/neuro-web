@@ -128,26 +128,6 @@ def main():
     st.title("Nuvem de camundongos")
     uploaded_file = st.file_uploader("Escolha um arquivo para enviar", type=["csv", "txt", "xlsx"])
 
-    if uploaded_file is not None:
-        # Exibir conteúdo do arquivo carregado
-        bytes_data = uploaded_file.getvalue()
-        st.write(bytes_data)
-
-        # Para converter para uma IO de string:
-        stringio = StringIO(uploaded_file.getvalue().decode("utf-8"))
-        st.write(stringio)
-
-        # Lê o arquivo como string
-        string_data = stringio.read()
-        st.write(string_data)
-
-        # Exibe o DataFrame (caso o arquivo seja um CSV)
-        try:
-            dataframe = pd.read_csv(uploaded_file)
-            st.write(dataframe)
-        except Exception as e:
-            st.error(f"Erro ao ler o arquivo: {e}")
-
         # Chama a função para fazer upload para o Google Drive
         upload_to_drive(uploaded_file.name, uploaded_file, folder_id=selected_folder_id)
 
