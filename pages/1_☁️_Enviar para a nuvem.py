@@ -9,10 +9,10 @@ if not st.session_state.get("password_correct", False):
 
 else:
     # Página protegida, acessada após login bem-sucedido
-    st.write("Conteúdo adicional da página protegida pode ir aqui.")
 
     def main():
-        st.title("🐁Grupo neuroscience")
+        st.title("🐁Nuvem de camundongos")
+        st.write("Faça upload para o google drive do grupo.")
 
         uploaded_file = st.file_uploader("Escolha um arquivo", type=["csv", "txt", "xlsx"])
 
