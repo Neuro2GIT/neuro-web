@@ -1,17 +1,9 @@
 import streamlit as st
 
 if not st.session_state.get("password_correct", False):
-    st.write("Por favor, faça login para acessar a página.")
-    # Adicionar formulário ou campo para login aqui (por exemplo, um campo de senha)
-    
-    senha = st.text_input("Digite a senha", type="password")
-    
-    if st.button("Entrar"):
-        if senha == "sua_senha_aqui":  # Substitua por sua senha real
-            st.session_state["password_correct"] = True
-            st.success("Login bem-sucedido!")
-        else:
-            st.error("Senha incorreta. Tente novamente.")
+    st.title("Apenas usúarios autorizados")
+    st.write("Por favor, faça login para acessar o conteúdo.")
+
 else:
     # Página protegida, acessada após login bem-sucedido
     st.title("Página Protegida")
