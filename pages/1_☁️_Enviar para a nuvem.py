@@ -1,14 +1,26 @@
 import streamlit as st
 
-# Página protegida
-if st.session_state.get("password_correct", False):
-    # Conteúdo da página protegida
+# Página principal (antes do login)
+if not st.session_state.get("password_correct", False):
+    st.title("Página de Login")
+    st.write("Por favor, faça login para acessar a página protegida.")
+    # Adicionar formulário ou campo para login aqui (por exemplo, um campo de senha)
+    
+    senha = st.text_input("Digite a senha", type="password")
+    
+    if st.button("Entrar"):
+        if senha == "sua_senha_aqui":  # Substitua por sua senha real
+            st.session_state["password_correct"] = True
+            st.success("Login bem-sucedido!")
+        else:
+            st.error("Senha incorreta. Tente novamente.")
+else:
+    # Página protegida, acessada após login bem-sucedido
     st.title("Página Protegida")
     st.write("Conteúdo visível apenas para usuários autenticados.")
-else:
-    # Se o usuário não estiver autenticado, exibe a mensagem de login
-    st.warning("Por favor, faça login para acessar esta página.")
-    st.stop()
+    
+    # Adicione o restante do conteúdo da página protegida aqui
+    st.write("Conteúdo adicional da página protegida pode ir aqui.")
 
 def main():
     st.title("🐁Grupo neuroscience")
