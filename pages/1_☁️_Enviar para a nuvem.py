@@ -97,31 +97,31 @@ def main():
             file_id = selected_file['id']
 
             # Download the file from Google Drive
-            file = service.files().get_media(fileId=file_id).execute()
-            file_path = f"temp_{selected_file_name}.xlsx"
-            with open(file_path, 'wb') as f:
-                f.write(file)
+            #file = service.files().get_media(fileId=file_id).execute()
+            #file_path = f"temp_{selected_file_name}.xlsx"
+            #with open(file_path, 'wb') as f:
+                #f.write(file)
 
             # Load and display the Excel content with Pandas
-            df = pd.read_excel(file_path)
-            st.write("Conteúdo do arquivo Excel:", df)
+            #df = pd.read_excel(file_path)
+            #st.write("Conteúdo do arquivo Excel:", df)
 
             # Allow table editing using st-aggrid
-            gb = GridOptionsBuilder.from_dataframe(df)
-            gb.configure_pagination()  # Enable pagination
-            gb.configure_default_column(editable=True)  # Allow editing
-            grid_options = gb.build()
+            #gb = GridOptionsBuilder.from_dataframe(df)
+            #gb.configure_pagination()  # Enable pagination
+            #gb.configure_default_column(editable=True)  # Allow editing
+            #grid_options = gb.build()
 
             # Display editable table with AgGrid
-            edited_df = AgGrid(df, gridOptions=grid_options, editable=True, fit_columns_on_grid_load=True)
+            #edited_df = AgGrid(df, gridOptions=grid_options, editable=True, fit_columns_on_grid_load=True)
 
             # Allow uploading the edited file back to Google Drive
-            if st.button("Salvar alterações"):
-                edited_df['data'].to_excel(file_path, index=False)  # Save the edits in the Excel file
+            #if st.button("Salvar alterações"):
+                #edited_df['data'].to_excel(file_path, index=False)  # Save the edits in the Excel file
                 # Upload the edited file back to Google Drive
-                media = MediaIoBaseDownload(io.open(file_path, 'rb'), mimetype="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
-                service.files().update(fileId=file_id, media_body=media).execute()
-                st.success("Alterações salvas no Google Drive!")
+                #media = MediaIoBaseDownload(io.open(file_path, 'rb'), mimetype="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
+                #service.files().update(fileId=file_id, media_body=media).execute()
+                #st.success("Alterações salvas no Google Drive!")
 
     # Upload de novo arquivo
     st.title("Upload de Arquivo para o Google Drive")
