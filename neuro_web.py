@@ -42,6 +42,10 @@ def check_password():
         st.error("😕 Password incorrect")
     return False
 
+
+if not check_password():
+    st.stop()  # Do not continue if check_password is not True.
+
 # Escopos necessários para acessar o Google Drive
 SCOPES = ['https://www.googleapis.com/auth/drive.readonly', 'https://www.googleapis.com/auth/drive.file']
 
