@@ -42,44 +42,28 @@ def check_password():
         st.error("😕 Password incorrect")
     return False
 
-# SCOPES que você já definiu
-SCOPES = ['https://www.googleapis.com/auth/drive.files', 'https://www.googleapis.com/auth/drive.metadata.readonly']
+# Escopos necessários para acessar o Google Drive
+SCOPES = ['https://www.googleapis.com/auth/drive.readonly', 'https://www.googleapis.com/auth/drive.file']
 
 def authenticate():
-    """Autenticação com o Google Drive usando as credenciais do Streamlit secrets e armazenando o token no estado de sessão"""
-    # Verificar se as credenciais estão armazenadas na sessão
-    if 'credentials' not in st.session_state:
-        st.session_state.credentials = None
-
-    # Se não houver credenciais armazenadas ou se o token expirou, reautenticar
-    if st.session_state.credentials is None or not st.session_state.credentials.valid:
-        google_secrets = st.secrets["google"]
-        credentials_dict = {
-            "type": "service_account",
-            "project_id": google_secrets["project_id"],
-            "private_key_id": google_secrets["private_key_id"],
-            "private_key": google_secrets["private_key"],
-            "client_email": google_secrets["client_email"],
-            "client_id": google_secrets["client_id"],  # Caso necessário
-            "auth_uri": google_secrets["auth_uri"],
-            "token_uri": google_secrets["token_uri"],
-            "auth_provider_x509_cert_url": google_secrets["auth_provider_x509_cert_url"],
-            "client_x509_cert_url": google_secrets["client_x509_cert_url"],
-            "universe_domain": google_secrets["universe_domain"]
-        }
-
-        # Criação das credenciais com a chave do serviço
-        credentials = service_account.Credentials.from_service_account_info(credentials_dict, scopes=SCOPES)
-        
-        # Armazenar as credenciais no estado de sessão
-        st.session_state.credentials = credentials
-
-    # Construir o serviço com as credenciais
-    service = build('drive', 'v3', credentials=st.session_state.credentials)
-    
-    # Testar a autenticação
+    """Autenticação com o Google Drive usando as credenciais do Streamlit secrets"""
+    google_secrets = st.secrets["google"]
+    credentials_dict = {
+        "type": "service_account",
+        "project_id": google_secrets["project_id"],
+        "private_key_id": google_secrets["private_key_id"],
+        "private_key": google_secrets["private_key"],
+        "client_email": google_secrets["client_email"],
+        "client_id": google_secrets["client_id"],  # Caso necessário
+        "auth_uri": google_secrets["auth_uri"],
+        "token_uri": google_secrets["token_uri"],
+        "auth_provider_x509_cert_url": google_secrets["auth_provider_x509_cert_url"],
+        "client_x509_cert_url": google_secrets["client_x509_cert_url"],
+        "universe_domain": google_secrets["universe_domain"]
+    }
+    credentials = service_account.Credentials.from_service_account_info(credentials_dict, scopes=SCOPES)
+    service = build('drive', 'v3', credentials=credentials)
     test_authentication(service)
-    
     return service
 
 def test_authentication(service):
