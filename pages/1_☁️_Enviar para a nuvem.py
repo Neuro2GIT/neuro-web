@@ -1,3 +1,14 @@
+import streamlit as st
+
+# Garantir que o usuário esteja autenticado
+if not st.session_state.get("password_correct", False):
+    st.warning("Por favor, faça login para acessar esta página.")
+    st.stop()
+
+# Página protegida
+st.title("Outra Página Protegida")
+st.write("Conteúdo visível apenas para usuários autenticados.")
+
 def main():
     st.title("🐁Grupo neuroscience")
 
