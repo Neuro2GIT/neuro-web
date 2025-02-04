@@ -63,8 +63,8 @@ def upload_to_drive(file_name, file_data, folder_id=None):
 def main():
     # Sidebar para navegação e autenticação
     with st.sidebar:
-        st.header("Opções")
-        st.text("Escolha uma das opções abaixo para navegar")
+        st.header("Índice")
+        #st.text("Escolha uma das opções abaixo para navegar")
 
         # Authentication for Google Drive
         service = authenticate_google_drive()
