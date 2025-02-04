@@ -85,7 +85,7 @@ def authenticate():
         st.session_state["google_drive_service"] = service
         st.write("Autenticação concluída com sucesso.")
     
-    else:
+    #else:
         st.write("Já autenticado, reutilizando a conexão.")
 
     return st.session_state["google_drive_service"]
