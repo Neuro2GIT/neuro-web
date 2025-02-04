@@ -128,8 +128,11 @@ def main():
     st.title("Nuvem de camundongos")
     uploaded_file = st.file_uploader("Escolha um arquivo para enviar", type=["csv", "txt", "xlsx"])
 
-    # Chama a função para fazer upload para o Google Drive
-    upload_to_drive(uploaded_file.name, uploaded_file, folder_id=selected_folder_id)
+    # Verifique se um arquivo foi carregado antes de tentar fazer upload
+    if uploaded_file is not None:
+        upload_to_drive(uploaded_file.name, uploaded_file, folder_id=selected_folder_id)
+    else:
+        st.warning("Nenhum arquivo carregado.")
 
 # Chama a função main() para exibir o conteúdo
 main()
