@@ -124,7 +124,7 @@ def main():
     # Adding sidebar
     with st.sidebar:
         st.header("Índice")
-        st.text("Escolha uma das opções abaixo para navegar")
+        #st.text("Escolha uma das opções abaixo para navegar")
 
         # Authentication button (commented out for now)
         # if st.button("Reautenticar"):
