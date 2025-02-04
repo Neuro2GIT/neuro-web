@@ -125,8 +125,8 @@ def main():
                 #st.success("Alterações salvas no Google Drive!")
 
     # Upload de novo arquivo
-    st.title("Upload de Arquivo para o Google Drive")
-    uploaded_file = st.file_uploader("Escolha um arquivo", type=["csv", "txt", "xlsx"])
+    st.title("Nuvem de camundongos")
+    uploaded_file = st.file_uploader("Escolha um arquivo para enviar", type=["csv", "txt", "xlsx"])
 
     if uploaded_file is not None:
         # Exibir conteúdo do arquivo carregado
