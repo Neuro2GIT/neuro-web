@@ -11,7 +11,7 @@ else:
     # Página protegida, acessada após login bem-sucedido
 
     def main():
-        st.title("🐁Nuvem de camundongos")
+        st.title("Nuvem de camundongos")
         st.write("Faça upload para o google drive do grupo.")
 
         uploaded_file = st.file_uploader("Escolha um arquivo", type=["csv", "txt", "xlsx"])
