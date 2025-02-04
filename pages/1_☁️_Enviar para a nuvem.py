@@ -12,13 +12,23 @@ def authenticate_google_drive():
         st.stop()
     return st.session_state["google_drive_service"]
 
-# Função para listar arquivos e pastas do Google Drive
 def list_files(service, folder_id=None):
     """Lista arquivos e pastas do Google Drive"""
-    query = f"'{folder_id}' in parents" if folder_id else "'root' in parents"
-    results = service.files().list(
-        q=query, fields="files(id, name, mimeType)").execute()
-    return results.get('files', [])
+    try:
+        query = f"'{folder_id}' in parents" if folder_id else "'root' in parents"
+        results = service.files().list(
+            q=query, fields="files(id, name, mimeType)").execute()
+
+        # Verificando a estrutura da resposta
+        if isinstance(results, dict):
+            return results.get('files', [])
+        else:
+            st.error("A resposta da API não está no formato esperado. A resposta foi: " + str(results))
+            return []
+    
+    except Exception as e:
+        st.error(f"Erro ao listar arquivos: {e}")
+        return []
 
 # Função para upload de arquivo para o Google Drive
 def upload_to_drive(file_name, file_data, folder_id=None):
