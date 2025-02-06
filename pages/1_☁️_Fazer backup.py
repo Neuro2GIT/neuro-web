@@ -8,8 +8,11 @@ import io
 def authenticate_google_drive():
     """Verifica se já existe um serviço de autenticação com o Google Drive no session_state"""
     if "google_drive_service" not in st.session_state:
+        st.title(''Apenas para usuários cadastrados'')
+        st.write(''Faça login para acessar'')
         st.error("Erro: Usuário não autenticado com o Google Drive. Por favor, faça login na página inicial.")
         st.stop()
+        
     return st.session_state["google_drive_service"]
 
 def list_files(service, folder_id=None):
