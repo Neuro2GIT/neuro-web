@@ -57,8 +57,8 @@ def authenticate():
     """Autenticação com o Google Drive usando as credenciais do Streamlit secrets"""
     
     # A autenticação deve ser feita explicitamente apenas na página inicial
-    if "google_drive_service" not in st.session_state:
-        st.write("Autenticando...")
+    #if "google_drive_service" not in st.session_state:
+        #st.write("Autenticando...")
         
         google_secrets = st.secrets["google"]
         credentials_dict = {
