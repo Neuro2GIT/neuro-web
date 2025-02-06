@@ -58,7 +58,7 @@ def authenticate():
     
     # A autenticação deve ser feita explicitamente apenas na página inicial
     if "google_drive_service" not in st.session_state:
-        st.write("Realizando a autenticação com o Google Drive...")
+        st.write("Autenticando...")
         
         google_secrets = st.secrets["google"]
         credentials_dict = {
