@@ -5,9 +5,6 @@ from googleapiclient.http import MediaIoBaseUpload, MediaIoBaseDownload
 import io
 
 # Função para autenticar e obter o serviço do Google Drive
-def main():
-    st.title("🐁Grupo neuroscience")
-
 def authenticate_google_drive():
     """Verifica se já existe um serviço de autenticação com o Google Drive no session_state"""
     if "google_drive_service" not in st.session_state:
