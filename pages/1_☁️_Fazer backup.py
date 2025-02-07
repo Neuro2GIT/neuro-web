@@ -13,21 +13,36 @@ def authenticate_google_drive():
         
     return st.session_state["google_drive_service"]
 
+#def list_files(service, folder_id=None):
+    #"""Lista arquivos e pastas do Google Drive"""
+    #try:
+        #query = f"'{folder_id}' in parents" if folder_id else "trashed = false"
+        #results = service.files().list(q=query, pageSize=10, fields="files(id, name, mimeType)").execute()
+        #items = results.get('files', [])
+        #return items
+
+        # Verificando a estrutura da resposta
+        #if isinstance(results, dict):
+            #return results.get('files', [])
+        #else:
+            #st.error("A resposta da API não está no formato esperado. A resposta foi: " + str(results))
+            #return []
+    
+    #except Exception as e:
+        #st.error(f"Erro ao listar arquivos: {e}")
+        #return []
+
 def list_files(service, folder_id=None):
     """Lista arquivos e pastas do Google Drive"""
     try:
-        query = f"'{folder_id}' in parents" if folder_id else "trashed = false"
+        # Se não for especificado o folder_id, estamos na raiz
+        query = "trashed = false"
+        if folder_id:
+            query = f"'{folder_id}' in parents and trashed = false"  # Filtra por pastas específicas
+
         results = service.files().list(q=query, pageSize=10, fields="files(id, name, mimeType)").execute()
         items = results.get('files', [])
         return items
-
-        # Verificando a estrutura da resposta
-        if isinstance(results, dict):
-            return results.get('files', [])
-        else:
-            st.error("A resposta da API não está no formato esperado. A resposta foi: " + str(results))
-            return []
-    
     except Exception as e:
         st.error(f"Erro ao listar arquivos: {e}")
         return []
