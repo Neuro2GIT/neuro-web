@@ -170,7 +170,6 @@ def main():
                 width: 100%;
                 bottom: 0;
                 left: 0;
-                position: relative;
             }
         </style>
         <footer>
