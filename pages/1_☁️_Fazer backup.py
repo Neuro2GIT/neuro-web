@@ -13,23 +13,25 @@ def authenticate_google_drive():
         
     return st.session_state["google_drive_service"]
 
-def list_files(service, folder_id=None, shared=False):
-    """Lista arquivos e pastas do Google Drive, incluindo arquivos compartilhados"""
+def list_folders(service, folder_id=None, shared=False):
+    """Lista apenas as pastas do Google Drive, incluindo pastas compartilhadas"""
     try:
         # Se shared=True, vamos listar arquivos compartilhados com o usuário
         if shared:
-            query = "sharedWithMe = true"
+            query = "sharedWithMe = true and mimeType = 'application/vnd.google-apps.folder'"
         else:
-            # Caso contrário, listamos arquivos dentro de uma pasta específica ou todos os arquivos não excluídos
-            query = f"'{folder_id}' in parents and trashed = false" if folder_id else "trashed = false"
+            # Caso contrário, listamos pastas dentro de uma pasta específica ou todas as pastas não excluídas
+            query = f"'{folder_id}' in parents and trashed = false and mimeType = 'application/vnd.google-apps.folder'" if folder_id else "trashed = false and mimeType = 'application/vnd.google-apps.folder'"
 
         # Realiza a busca usando a API
-        results = service.files().list(q=query, pageSize=10, fields="files(id, name, mimeType)").execute()
+        results = service.files().list(q=query, pageSize=10, fields="files(id, name)").execute()
         items = results.get('files', [])
+        
+        # Retorna apenas as pastas
         return items
 
     except Exception as e:
-        st.error(f"Erro ao listar arquivos: {e}")
+        st.error(f"Erro ao listar pastas: {e}")
         return []
 
 # Função para upload de arquivo para o Google Drive
