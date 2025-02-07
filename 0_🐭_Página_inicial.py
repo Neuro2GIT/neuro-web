@@ -8,17 +8,6 @@ from google.oauth2 import service_account
 from st_aggrid import AgGrid, GridOptionsBuilder
 from io import StringIO
 
-st.set_page_config(
-    page_title="Grupo neuroscience",
-    page_icon="🐭",
-    layout="centered",
-    initial_sidebar_state="auto",
-    menu_items={
-    }
-)
-
-st.set_option('client.showErrorDetails', True)
-
 def check_password():
     """Returns `True` if the user had the correct password."""
 
