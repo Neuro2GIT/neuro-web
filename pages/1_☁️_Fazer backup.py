@@ -60,15 +60,56 @@ def upload_to_drive(file_name, file_data, folder_id=None):
     except Exception as e:
         st.error(f"Erro ao fazer upload para o Google Drive: {e}")
 
+# Função principal que encapsula a lógica de exibição
+def main():
+    # Sidebar para navegação e autenticação
+    with st.sidebar:
+        st.header("Índice")
+        
+        # Authentication for Google Drive
+        service = authenticate_google_drive()
+
+        # Seletor para exibir arquivos compartilhados ou não
+        show_shared = st.sidebar.checkbox("Exibir arquivos compartilhados", value=False)
+
+        # Listar arquivos e pastas a partir da raiz ou compartilhados
+        items = list_files(service, shared=show_shared)
+
+        # Separar pastas e arquivos
+        folders = [item for item in items if item['mimeType'] == 'application/vnd.google-apps.folder']
+        files = [item for item in items if item['mimeType'] != 'application/vnd.google-apps.folder']
+
+        # Mostrar pastas na sidebar
+        selected_folder_name = st.sidebar.selectbox("Escolha uma pasta", [folder['name'] for folder in folders] if folders else ["Sem pastas"])
+        selected_folder = next((folder for folder in folders if folder['name'] == selected_folder_name), None)
+        
+        # Mostrar arquivos na sidebar
+        if selected_folder:
+            selected_folder_id = selected_folder['id']
+            folder_files = list_files(service, folder_id=selected_folder_id, shared=show_shared)
+            selected_file_name = st.sidebar.selectbox("Escolha um arquivo dentro da pasta", [file['name'] for file in folder_files])
+        else:
+            selected_file_name = st.sidebar.selectbox("Escolha um arquivo na raiz", [file['name'] for file in files])
+
+        # Fetch the selected file
+        if selected_file_name:
+            if selected_folder:
+                selected_file = next(file for file in folder_files if file['name'] == selected_file_name)
+            else:
+                selected_file = next(file for file in files if file['name'] == selected_file_name)
+
+            file_id = selected_file['id']
+
+            # Download the file from Google Drive
+            # Código para download do arquivo (caso precise)
+
     # Upload de novo arquivo
     st.title("Faça upload para o drive")
     uploaded_file = st.file_uploader("Escolha um arquivo para enviar", type=["csv", "txt", "xlsx"])
 
     # Verifique se um arquivo foi carregado antes de tentar fazer upload
-    #if uploaded_file is not None:
-        #upload_to_drive(uploaded_file.name, uploaded_file, folder_id=selected_folder_id)
-    #else:
-        #st.warning("Nenhum arquivo carregado.")
+    if uploaded_file is not None:
+        upload_to_drive(uploaded_file.name, uploaded_file, folder_id=selected_folder_id)
 
     # Rodapé estilizado para fixar na parte inferior sem sobrepor o conteúdo
     st.markdown("""
@@ -99,4 +140,5 @@ def upload_to_drive(file_name, file_data, folder_id=None):
     """, unsafe_allow_html=True)
 
 # Chama a função main() para exibir o conteúdo
-main()
+if __name__ == "__main__":
+    main()
