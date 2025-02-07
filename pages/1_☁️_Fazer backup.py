@@ -23,7 +23,7 @@ def list_files(service, folder_id=None):
 
         # Verificando a estrutura da resposta
         if isinstance(results, dict):
-            #return results.get('files', [])
+            return results.get('files', [])
         else:
             st.error("A resposta da API não está no formato esperado. A resposta foi: " + str(results))
             return []
