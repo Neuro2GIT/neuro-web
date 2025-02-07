@@ -112,33 +112,16 @@ def main():
         upload_to_drive(uploaded_file.name, uploaded_file, folder_id=selected_folder_id)
 
     # Rodapé estilizado para fixar na parte inferior sem sobrepor o conteúdo
+    
     st.markdown("""
-        <style>
-            body {
-                display: flex;
-                flex-direction: column;
-                min-height: 100vh;
-                margin: 0;
-            }
-            main {
-                flex: 1;
-            }
-            footer {
-                text-align: center;
-                background-color: #2C3E50;
-                color: white;
-                padding: 10px;
-                width: 100%;
-                bottom: 0;
-                left: 0;
-                position: fixed;
-            }
-        </style>
-        <footer>
-            LABIBIO 2025 - Biotério & Neuroscience
-        </footer>
-    """, unsafe_allow_html=True)
-
+    <style>
+        body { display: flex; flex-direction: column; min-height: 100vh; margin: 0; }
+        main { flex: 1; }
+        footer { text-align: center; background-color: #2C3E50; color: white; padding: 10px; position: fixed; width: 100%; bottom: 0; }
+    </style>
+    <footer>LABIBIO 2025 - Biotério & Neuroscience</footer>
+""", unsafe_allow_html=True)
+    
 # Chama a função main() para exibir o conteúdo
 if __name__ == "__main__":
     main()
