@@ -168,6 +168,7 @@ def main():
                 color: white;
                 padding: 10px;
                 width: 100%;
+                bottom: 0;
                 position: relative;
             }
         </style>
