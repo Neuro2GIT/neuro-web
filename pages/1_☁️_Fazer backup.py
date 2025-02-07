@@ -150,12 +150,31 @@ def main():
     #else:
         #st.warning("Nenhum arquivo carregado.")
 
-# Footer with custom background color and fixed to the bottom of the page
-    st.markdown("""
-        <footer style='text-align: center; position: fixed; left: 0;background-color: #2C3E50; color: white; padding: 10px; bottom: 0; width: 100%; '>
-            LABIBIO 2025 - Biotério & Neuroscience
-        </footer>
-    """, unsafe_allow_html=True)
+# Rodapé estilizado para fixar na parte inferior sem sobrepor o conteúdo
+st.markdown("""
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            margin: 0;
+        }
+        main {
+            flex: 1;
+        }
+        footer {
+            text-align: center;
+            background-color: #2C3E50;
+            color: white;
+            padding: 10px;
+            width: 100%;
+            position: relative;
+        }
+    </style>
+    <footer>
+        LABIBIO 2025 - Biotério & Neuroscience
+    </footer>
+""", unsafe_allow_html=True)
 
 # Chama a função main() para exibir o conteúdo
 main()
