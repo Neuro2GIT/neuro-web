@@ -75,7 +75,7 @@ def main():
         show_shared = st.sidebar.checkbox("Exibir arquivos compartilhados", value=False)
 
         # Listar arquivos e pastas a partir da raiz ou compartilhados
-        items = list_files(service, shared=show_shared)
+        items = list_folders(service, shared=show_shared)
 
         # Separar pastas e arquivos
         folders = [item for item in items if item['mimeType'] == 'application/vnd.google-apps.folder']
