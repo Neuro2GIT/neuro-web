@@ -42,7 +42,7 @@ def main():
 
     # Criar as tabs dependendo da seleção da técnica
     if opcao_selecionada == "Preparo de ração CT":
-        tabs = st.tabs(["Tab 1", "Tab 2", "Tab 3"])
+        tabs = st.tabs(["Ingredientes", "Tab 2", "Tab 3"])
 
         # Conteúdo das tabs para "Preparo de ração CT"
         with tabs[0]:
