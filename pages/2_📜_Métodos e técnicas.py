@@ -55,7 +55,7 @@ def main():
             st.write("Placeholder - Preparo de ração CT")
 
     elif opcao_selecionada == "Preparo de ração DT":
-        tabs = st.tabs(["Ingredientes", "Preparo", "Scecagem"])
+        tabs = st.tabs(["Ingredientes", "Preparo", "Secagem"])
 
         # Conteúdo das tabs para "Preparo de ração DT"
         with tabs[0]:
