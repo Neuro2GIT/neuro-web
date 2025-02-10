@@ -42,32 +42,32 @@ def main():
         service = authenticate_google_drive()
 
         # List files and folders from root
-        items = list_files(service)
+        #items = list_files(service)
 
         # Separate folders and files
-        folders = [item for item in items if item['mimeType'] == 'application/vnd.google-apps.folder']
-        files = [item for item in items if item['mimeType'] != 'application/vnd.google-apps.folder']
+        #folders = [item for item in items if item['mimeType'] == 'application/vnd.google-apps.folder']
+        #files = [item for item in items if item['mimeType'] != 'application/vnd.google-apps.folder']
 
         # Show folders in sidebar
-        selected_folder_name = st.sidebar.selectbox("Escolha uma pasta", [folder['name'] for folder in folders] if folders else ["Sem pastas"])
-        selected_folder = next((folder for folder in folders if folder['name'] == selected_folder_name), None)
+        #selected_folder_name = st.sidebar.selectbox("Escolha uma pasta", [folder['name'] for folder in folders] if folders else ["Sem pastas"])
+        #selected_folder = next((folder for folder in folders if folder['name'] == selected_folder_name), None)
         
         # Show files in sidebar
-        if selected_folder:
-            selected_folder_id = selected_folder['id']
-            folder_files = list_files(service, folder_id=selected_folder_id)
-            selected_file_name = st.sidebar.selectbox("Escolha um arquivo dentro da pasta", [file['name'] for file in folder_files])
-        else:
-            selected_file_name = st.sidebar.selectbox("Escolha um arquivo na raiz", [file['name'] for file in files])
+        #if selected_folder:
+            #selected_folder_id = selected_folder['id']
+            #folder_files = list_files(service, folder_id=selected_folder_id)
+            #selected_file_name = st.sidebar.selectbox("Escolha um arquivo dentro da pasta", [file['name'] for file in folder_files])
+        #else:
+            #selected_file_name = st.sidebar.selectbox("Escolha um arquivo na raiz", [file['name'] for file in files])
 
         # Fetch the selected file
-        if selected_file_name:
-            if selected_folder:
-                selected_file = next(file for file in folder_files if file['name'] == selected_file_name)
-            else:
-                selected_file = next(file for file in files if file['name'] == selected_file_name)
+        #if selected_file_name:
+            #if selected_folder:
+                #selected_file = next(file for file in folder_files if file['name'] == selected_file_name)
+            #else:
+                #selected_file = next(file for file in files if file['name'] == selected_file_name)
 
-            file_id = selected_file['id']
+            #file_id = selected_file['id']
 
             # Download the file from Google Drive
             #file = service.files().get_media(fileId=file_id).execute()
