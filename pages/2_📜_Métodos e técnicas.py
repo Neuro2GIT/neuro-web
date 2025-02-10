@@ -38,23 +38,34 @@ def main():
         st.header("Índice")
         #st.text("Escolha uma técnica abaixo")
         # Adicionando a selectbox na sidebar
-        tab_selecionada = st.selectbox(" Escolha uma opção abaixo", ["Preparo de ração CT", "Preparo de Ração DT", "Tab 3"])
+        opcao_selecionada = st.selectbox("Escolha uma opção", ["Preparo de ração CT", "Preparo de ração DT"])
 
-    # Criar as tabs no corpo principal
-    tabs = st.tabs(["Tab 1", "Tab 2", "Tab 3"])
+    # Criar as tabs dependendo da seleção da técnica
+    if opcao_selecionada == "Preparo de ração CT":
+        tabs = st.tabs(["Tab 1", "Tab 2", "Tab 3"])
 
-    # Mostrar conteúdo das tabs de acordo com a seleção na sidebar
-    if tab_selecionada == "Preparo de ração CT":
+        # Conteúdo das tabs para "Preparo de ração CT"
         with tabs[0]:
-            st.write("Conteúdo da Tab 1")
+            st.write("Conteúdo da Tab 1 - Preparo de ração CT")
 
-    elif tab_selecionada == "Preparo de Ração DT":
         with tabs[1]:
-            st.write("Conteúdo da Tab 2")
+            st.write("Conteúdo da Tab 2 - Preparo de ração CT")
 
-    elif tab_selecionada == "Tab 3":
         with tabs[2]:
-            st.write("Conteúdo da Tab 3")
+            st.write("Conteúdo da Tab 3 - Preparo de ração CT")
+
+    elif opcao_selecionada == "Preparo de ração DT":
+        tabs = st.tabs(["Tab 4", "Tab 5", "Tab 6"])
+
+        # Conteúdo das tabs para "Preparo de ração DT"
+        with tabs[0]:
+            st.write("Conteúdo da Tab 4 - Preparo de ração DT")
+
+        with tabs[1]:
+            st.write("Conteúdo da Tab 5 - Preparo de ração DT")
+
+        with tabs[2]:
+            st.write("Conteúdo da Tab 6 - Preparo de ração DT")
 
         # Authentication for Google Drive
         #service = authenticate_google_drive()
