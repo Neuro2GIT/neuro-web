@@ -32,11 +32,11 @@ def list_files(service, folder_id=None):
         return []
 
 # Função principal
-#def main():
+def main():
     # Sidebar para navegação e autenticação
-    #with st.sidebar:
-        #st.header("Índice")
-        #st.text("Escolha uma das opções abaixo para navegar")
+    with st.sidebar:
+        st.header("Índice")
+        st.text("Escolha uma técnica abaixo")
 
         # Authentication for Google Drive
         #service = authenticate_google_drive()
