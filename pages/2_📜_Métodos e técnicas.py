@@ -55,17 +55,17 @@ def main():
             st.write("Placeholder - Preparo de ração CT")
 
     elif opcao_selecionada == "Preparo de ração DT":
-        tabs = st.tabs(["Tab 4", "Tab 5", "Tab 6"])
+        tabs = st.tabs(["Ingredientes", "Preparo", "Scecagem"])
 
         # Conteúdo das tabs para "Preparo de ração DT"
         with tabs[0]:
-            st.write("Conteúdo da Tab 4 - Preparo de ração DT")
+            st.write("Placeholder - Preparo de ração DT")
 
         with tabs[1]:
-            st.write("Conteúdo da Tab 5 - Preparo de ração DT")
+            st.write("Placeholder - Preparo de ração DT")
 
         with tabs[2]:
-            st.write("Conteúdo da Tab 6 - Preparo de ração DT")
+            st.write("Placeholder - Preparo de ração DT")
 
         # Authentication for Google Drive
         #service = authenticate_google_drive()
