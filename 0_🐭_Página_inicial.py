@@ -120,7 +120,7 @@ def list_files(service, folder_id=None):
 
 def main():
     st.title("🐁Grupo neuroscience")
-    st.write(''neuroscience interest group'')
+    st.header(''neuroscience interest group'')
 
     # Adding sidebar
     with st.sidebar:
