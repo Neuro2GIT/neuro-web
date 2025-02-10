@@ -36,9 +36,9 @@ def main():
     # Sidebar para navegação e autenticação
     with st.sidebar:
         st.header("Índice")
-        st.text("Escolha uma técnica abaixo")
+        #st.text("Escolha uma técnica abaixo")
         # Adicionando a selectbox na sidebar
-        tab_selecionada = st.selectbox("", ["Preparo de ração CT", "Preparo de Ração DT", "Tab 3"])
+        tab_selecionada = st.selectbox("Escolha uma opção abaixo", ["Preparo de ração CT", "Preparo de Ração DT", "Tab 3"])
 
     # Criar as tabs no corpo principal
     tabs = st.tabs(["Tab 1", "Tab 2", "Tab 3"])
