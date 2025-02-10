@@ -37,6 +37,24 @@ def main():
     with st.sidebar:
         st.header("Índice")
         st.text("Escolha uma técnica abaixo")
+        # Adicionando a selectbox na sidebar
+        tab_selecionada = st.selectbox("Escolha uma tab", ["Tab 1", "Tab 2", "Tab 3"])
+
+    # Criar as tabs no corpo principal
+    tabs = st.tabs(["Tab 1", "Tab 2", "Tab 3"])
+
+    # Mostrar conteúdo das tabs de acordo com a seleção na sidebar
+    if tab_selecionada == "Tab 1":
+        with tabs[0]:
+            st.write("Conteúdo da Tab 1")
+
+    elif tab_selecionada == "Tab 2":
+        with tabs[1]:
+            st.write("Conteúdo da Tab 2")
+
+    elif tab_selecionada == "Tab 3":
+        with tabs[2]:
+            st.write("Conteúdo da Tab 3")
 
         # Authentication for Google Drive
         #service = authenticate_google_drive()
