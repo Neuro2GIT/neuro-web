@@ -38,17 +38,17 @@ def main():
         st.header("Índice")
         st.text("Escolha uma técnica abaixo")
         # Adicionando a selectbox na sidebar
-        tab_selecionada = st.selectbox("Escolha uma tab", ["Tab 1", "Tab 2", "Tab 3"])
+        tab_selecionada = st.selectbox("", ["Preparo de ração CT", "Preparo de Ração DT", "Tab 3"])
 
     # Criar as tabs no corpo principal
     tabs = st.tabs(["Tab 1", "Tab 2", "Tab 3"])
 
     # Mostrar conteúdo das tabs de acordo com a seleção na sidebar
-    if tab_selecionada == "Tab 1":
+    if tab_selecionada == "Preparo de ração CT":
         with tabs[0]:
             st.write("Conteúdo da Tab 1")
 
-    elif tab_selecionada == "Tab 2":
+    elif tab_selecionada == "Preparo de Ração DT":
         with tabs[1]:
             st.write("Conteúdo da Tab 2")
 
