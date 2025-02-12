@@ -33,6 +33,24 @@ def list_files(service, folder_id=None):
         st.error(f"Erro ao listar arquivos: {e}")
         return []
 
+# Função para baixar o arquivo do Google Drive
+def download_file_from_drive(file_id, service):
+    request = service.files().get_media(fileId=file_id)
+    fh = io.FileIO('modo_de_preparo.docx', 'wb')
+    downloader = MediaIoBaseDownload(fh, request)
+    done = False
+    while done is False:
+        status, done = downloader.next_chunk()
+    return 'modo_de_preparo.docx'
+
+# Função para ler o conteúdo do arquivo .docx
+def read_docx_file(file_path):
+    doc = docx.Document(file_path)
+    full_text = []
+    for para in doc.paragraphs:
+        full_text.append(para.text)
+    return '\n'.join(full_text)
+
 # Função principal
 def main():
     # Sidebar para navegação e autenticação
