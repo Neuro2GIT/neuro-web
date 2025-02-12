@@ -13,25 +13,24 @@ def authenticate_google_drive():
         
     return st.session_state["google_drive_service"]
 
-def list_folders(service, folder_id=None, shared=False):
-    """Lista apenas as pastas do Google Drive, incluindo pastas compartilhadas"""
+# Função para listar arquivos no Google Drive
+def list_files(service, folder_id=None, shared=False):
+    """Lista arquivos e pastas do Google Drive, incluindo arquivos compartilhados"""
     try:
         # Se shared=True, vamos listar arquivos compartilhados com o usuário
         if shared:
-            query = "sharedWithMe = true and mimeType = 'application/vnd.google-apps.folder'"
+            query = "sharedWithMe = true"
         else:
-            # Caso contrário, listamos pastas dentro de uma pasta específica ou todas as pastas não excluídas
-            query = f"'{folder_id}' in parents and trashed = false and mimeType = 'application/vnd.google-apps.folder'" if folder_id else "trashed = false and mimeType = 'application/vnd.google-apps.folder'"
+            # Caso contrário, listamos arquivos dentro de uma pasta específica ou todos os arquivos não excluídos
+            query = f"'{folder_id}' in parents and trashed = false" if folder_id else "trashed = false"
 
         # Realiza a busca usando a API
-        results = service.files().list(q=query, pageSize=10, fields="files(id, name)").execute()
+        results = service.files().list(q=query, pageSize=10, fields="files(id, name, mimeType)").execute()
         items = results.get('files', [])
-        
-        # Retorna apenas as pastas
         return items
 
     except Exception as e:
-        st.error(f"Erro ao listar pastas: {e}")
+        st.error(f"Erro ao listar arquivos: {e}")
         return []
 
 # Função para upload de arquivo para o Google Drive
@@ -68,29 +67,33 @@ def main():
     with st.sidebar:
         st.header("Índice")
         
-        # Authentication for Google Drive
+        # Autenticação para o Google Drive
         service = authenticate_google_drive()
 
         # Seletor para exibir arquivos compartilhados ou não
         show_shared = st.sidebar.checkbox("Exibir arquivos compartilhados", value=False)
 
         # Listar arquivos e pastas a partir da raiz ou compartilhados
-        items = list_folders(service, shared=show_shared)
+        items = list_files(service, shared=show_shared)
 
         # Separar pastas e arquivos
         folders = [item for item in items if item['mimeType'] == 'application/vnd.google-apps.folder']
         files = [item for item in items if item['mimeType'] != 'application/vnd.google-apps.folder']
 
-        # Mostrar pastas na sidebar
-        selected_folder_name = st.sidebar.selectbox("Escolha uma pasta", [folder['name'] for folder in folders] if folders else ["Sem pastas"])
-        selected_folder = next((folder for folder in folders if folder['name'] == selected_folder_name), None)
-        
-        # Mostrar arquivos na sidebar
-        if selected_folder:
-            selected_folder_id = selected_folder['id']
-            folder_files = list_files(service, folder_id=selected_folder_id, shared=show_shared)
-            selected_file_name = st.sidebar.selectbox("Escolha um arquivo dentro da pasta", [file['name'] for file in folder_files])
+        # Mostrar pastas na sidebar (Se houver pastas)
+        if folders:
+            selected_folder_name = st.sidebar.selectbox("Escolha uma pasta", [folder['name'] for folder in folders])
+            selected_folder = next((folder for folder in folders if folder['name'] == selected_folder_name), None)
+
+            # Se uma pasta for selecionada, listar arquivos dentro dela
+            if selected_folder:
+                selected_folder_id = selected_folder['id']
+                folder_files = list_files(service, folder_id=selected_folder_id, shared=show_shared)
+                selected_file_name = st.sidebar.selectbox("Escolha um arquivo dentro da pasta", [file['name'] for file in folder_files])
+            else:
+                selected_file_name = None
         else:
+            selected_folder = None
             selected_file_name = st.sidebar.selectbox("Escolha um arquivo na raiz", [file['name'] for file in files])
 
         # Fetch the selected file
@@ -101,9 +104,9 @@ def main():
                 selected_file = next(file for file in files if file['name'] == selected_file_name)
 
             file_id = selected_file['id']
-
-            # Download the file from Google Drive
-            # Código para download do arquivo (caso precise)
+            st.sidebar.write(f"Você selecionou o arquivo: {selected_file['name']}")
+            # Aqui você pode implementar a lógica de exibição do conteúdo do arquivo, como no código anterior.
+            # Por exemplo, exibir o conteúdo do arquivo .docx ou outro tipo de arquivo conforme necessário.
 
     # Upload de novo arquivo
     st.title("Faça upload para o drive")
