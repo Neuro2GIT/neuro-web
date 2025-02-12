@@ -2,7 +2,9 @@ import streamlit as st
 import pandas as pd
 from io import StringIO
 from googleapiclient.http import MediaIoBaseUpload, MediaIoBaseDownload
+from docx import Document
 import io
+
 
 # Função para autenticar e obter o serviço do Google Drive
 def authenticate_google_drive():
@@ -50,6 +52,24 @@ def main():
 
         with tabs[1]:
             st.write("Placeholder - Preparo de ração CT")
+            with tabs[0]:
+            st.write("Placeholder - Preparo de ração CT")
+
+            # Aqui você pode colocar o código para baixar e exibir o arquivo .docx no placeholder
+            placeholder = st.empty()  # Criando um Placeholder
+
+            # ID do arquivo no Google Drive
+            file_id = 'seu_id_do_arquivo_aqui'  # Substitua pelo seu file_id do Google Drive
+            # Serviço da API do Google Drive (já autenticado)
+            service = None  # Aqui você deve passar o seu objeto `service` de autenticação do Google Drive
+
+            # Baixar o arquivo e ler o conteúdo
+            file_path = download_file_from_drive(file_id, service)
+            docx_content = read_docx_file(file_path)
+
+            # Exibir o conteúdo do arquivo .docx no Placeholder
+            with placeholder:
+                st.markdown(docx_content)
 
         with tabs[2]:
             st.write("Placeholder - Preparo de ração CT")
