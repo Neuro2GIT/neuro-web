@@ -50,11 +50,6 @@ def main():
         with tabs[0]:
             st.write("Placeholder - Preparo de ração CT")
 
-        with tabs[1]:
-            st.write("Placeholder - Preparo de ração CT")
-            with tabs[0]:
-            st.write("Placeholder - Preparo de ração CT")
-
             # Aqui você pode colocar o código para baixar e exibir o arquivo .docx no placeholder
             placeholder = st.empty()  # Criando um Placeholder
 
@@ -70,6 +65,9 @@ def main():
             # Exibir o conteúdo do arquivo .docx no Placeholder
             with placeholder:
                 st.markdown(docx_content)
+
+        with tabs[1]:
+            st.write("Placeholder - Preparo de ração CT")
 
         with tabs[2]:
             st.write("Placeholder - Preparo de ração CT")
