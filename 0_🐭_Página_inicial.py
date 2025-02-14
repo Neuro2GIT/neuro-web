@@ -2,6 +2,7 @@ import hmac
 import streamlit as st
 import pickle
 import pandas as pd
+import pytz
 from datetime import datetime
 from googleapiclient.discovery import build
 from googleapiclient.http import MediaIoBaseDownload
@@ -43,8 +44,14 @@ if not check_password():
     
 # Função para gerar a saudação baseada no horário
 def get_greeting():
-    # Obtém a hora atual
-    current_hour = datetime.now().hour
+    # Definir o fuso horário do Acre (GMT-5)
+    timezone = pytz.timezone("America/Rio_Branco")
+    
+    # Obtém a hora atual no fuso horário do Acre
+    current_time_acre = datetime.now(timezone)
+    
+    # Extrair a hora ajustada
+    current_hour = current_time_acre.hour
     
     # Definir as saudações com base na hora do dia
     if current_hour < 12:
