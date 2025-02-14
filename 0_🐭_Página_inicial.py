@@ -124,7 +124,49 @@ def main():
     # Adding sidebar
     with st.sidebar:
         st.header("Índice")
-        #st.text("Escolha uma das opções abaixo para navegar")
+        #with st.sidebar:
+        st.header("Índice")
+        
+        # Autenticação para o Google Drive
+        service = authenticate_google_drive()
+
+        # Seletor para exibir arquivos compartilhados ou não
+        show_shared = st.sidebar.checkbox("Exibir arquivos compartilhados", value=False)
+
+        # Listar arquivos e pastas a partir da raiz ou compartilhados
+        items = list_files(service, shared=show_shared)
+
+        # Separar pastas e arquivos
+        folders = [item for item in items if item['mimeType'] == 'application/vnd.google-apps.folder']
+        files = [item for item in items if item['mimeType'] != 'application/vnd.google-apps.folder']
+
+        # Mostrar pastas na sidebar (Se houver pastas)
+        if folders:
+            selected_folder_name = st.sidebar.selectbox("Escolha uma pasta", [folder['name'] for folder in folders])
+            selected_folder = next((folder for folder in folders if folder['name'] == selected_folder_name), None)
+
+            # Se uma pasta for selecionada, listar arquivos dentro dela
+            if selected_folder:
+                selected_folder_id = selected_folder['id']
+                folder_files = list_files(service, folder_id=selected_folder_id, shared=show_shared)
+                selected_file_name = st.sidebar.selectbox("Escolha um arquivo dentro da pasta", [file['name'] for file in folder_files])
+            else:
+                selected_file_name = None
+        else:
+            selected_folder = None
+            selected_file_name = st.sidebar.selectbox("Escolha um arquivo na raiz", [file['name'] for file in files])
+
+        # Fetch the selected file
+        if selected_file_name:
+            if selected_folder:
+                selected_file = next(file for file in folder_files if file['name'] == selected_file_name)
+            else:
+                selected_file = next(file for file in files if file['name'] == selected_file_name)
+
+            file_id = selected_file['id']
+            st.sidebar.write(f"Você selecionou o arquivo: {selected_file['name']}")
+            # Aqui você pode implementar a lógica de exibição do conteúdo do arquivo, como no código anterior.
+            # Por exemplo, exibir o conteúdo do arquivo .docx ou outro tipo de arquivo conforme necessário.
 
         # Authentication button (commented out for now)
         # if st.button("Reautenticar"):
@@ -135,7 +177,7 @@ def main():
     # st.text("Autenticação: Bem-sucedida")
 
         # Authentication for Google Drive
-        service = authenticate()
+        #service = authenticate()
 
     # Footer with custom background color
     #st.markdown(""" 
