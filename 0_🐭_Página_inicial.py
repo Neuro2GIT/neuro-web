@@ -70,7 +70,7 @@ def authenticate():
         # Armazena o serviço no session_state
         st.session_state["google_drive_service"] = service
     else:
-        st.write("Bem-vindo! Serviço já autenticado.")
+        st.write("Bem-vindo!.")
 
     return st.session_state["google_drive_service"]
 
