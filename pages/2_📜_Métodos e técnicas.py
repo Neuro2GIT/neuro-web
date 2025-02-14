@@ -32,15 +32,30 @@ def list_files(service, folder_id=None):
         st.error(f"Erro ao listar arquivos: {e}")
         return []
 
-# Função para baixar o arquivo do Google Drive
 def download_file_from_drive(file_id, service):
-    request = service.files().get_media(fileId=file_id)
-    fh = io.FileIO('modo_de_preparo.docx', 'wb')
-    downloader = MediaIoBaseDownload(fh, request)
-    done = False
-    while done is False:
-        status, done = downloader.next_chunk()
-    return 'modo_de_preparo.docx'
+    try:
+        # Tenta obter o arquivo como mídia binária
+        request = service.files().get_media(fileId=file_id)
+        
+        # Caso seja um arquivo do Google Docs, exporta para o formato adequado
+        file = service.files().get(fileId=file_id).execute()
+        mime_type = file['mimeType']
+        
+        # Se for um arquivo do Google Docs, exporta para .docx
+        if mime_type == 'application/vnd.google-apps.document':
+            request = service.files().export_media(fileId=file_id, mimeType='application/vnd.openxmlformats-officedocument.wordprocessingml.document')
+        
+        # Baixa o arquivo
+        fh = io.FileIO('modo_de_preparo.docx', 'wb')
+        downloader = MediaIoBaseDownload(fh, request)
+        done = False
+        while done is False:
+            status, done = downloader.next_chunk()
+        
+        return 'modo_de_preparo.docx'
+    except Exception as e:
+        st.error(f"Erro ao baixar o arquivo: {e}")
+        return None
 
 # Função para ler o conteúdo do arquivo .docx
 def read_docx_file(file_path):
