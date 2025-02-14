@@ -78,7 +78,6 @@ def main():
 
         # Conteúdo das tabs para "Preparo de ração CT"
         with tabs[0]:
-            st.write("Placeholder - Preparo de ração CT")
 
             # Aqui você pode colocar o código para baixar e exibir o arquivo .docx no placeholder
             placeholder = st.empty()  # Criando um Placeholder
