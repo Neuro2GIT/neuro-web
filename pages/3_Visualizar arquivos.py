@@ -53,7 +53,7 @@ def read_docx_file(file_path):
 
 # Função principal
 def main():
-    st.title("🐁)Listagem dos arquivos disponiveis no drive'')
+    st.title("🐁Listagem dos arquivos disponiveis no drive'')
 
 # Footer with custom background color and fixed to the bottom of the page
     st.markdown("""
