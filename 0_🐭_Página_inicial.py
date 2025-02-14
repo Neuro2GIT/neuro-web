@@ -2,6 +2,7 @@ import hmac
 import streamlit as st
 import pickle
 import pandas as pd
+from datetime import datetime
 from googleapiclient.discovery import build
 from googleapiclient.http import MediaIoBaseDownload
 from google.oauth2 import service_account
@@ -39,6 +40,19 @@ def check_password():
 
 if not check_password():
     st.stop()  # Do not continue if check_password is not True.
+    
+# Função para gerar a saudação baseada no horário
+def get_greeting():
+    # Obtém a hora atual
+    current_hour = datetime.now().hour
+    
+    # Definir as saudações com base na hora do dia
+    if current_hour < 12:
+        return "Bom dia!"
+    elif current_hour < 18:
+        return "Boa tarde!"
+    else:
+        return "Boa noite!"
 
 # Função de autenticação com Google Drive
 SCOPES = ['https://www.googleapis.com/auth/drive.readonly', 'https://www.googleapis.com/auth/drive.file']
@@ -93,6 +107,12 @@ def test_authentication(service):
 # Função principal para exibir o conteúdo
 def main():
     st.title("🐁Grupo neuroscience")
+    
+    # Saudação baseada na hora do dia
+    greeting = get_greeting()
+    
+    # Exibir a saudação
+    st.write(f"**{greeting}**")
 
     # Obtém o serviço do Google Drive
     service = authenticate()
