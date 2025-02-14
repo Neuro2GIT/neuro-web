@@ -35,12 +35,24 @@ def list_files(service, folder_id=None, include_shared=False):
         st.error(f"Erro ao listar arquivos: {e}")
         return []
 
-# Função para upload de arquivo para o Google Drive
+from io import BytesIO
+from googleapiclient.http import MediaIoBaseUpload
+
 def upload_to_drive(file_name, file_data, folder_id=None):
-    """Faz o upload do arquivo para o Google Drive"""
+    """Faz o upload de qualquer tipo de arquivo para o Google Drive sem salvar localmente"""
     try:
         # Conectar à API do Google Drive
         service = authenticate_google_drive()
+        
+        # Determinar o tipo MIME do arquivo baseado na extensão
+        if file_name.endswith('.csv'):
+            mime_type = 'text/csv'
+        elif file_name.endswith('.xlsx'):
+            mime_type = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+        elif file_name.endswith('.txt'):
+            mime_type = 'text/plain'
+        else:
+            mime_type = 'application/octet-stream'  # Tipo genérico para outros arquivos
         
         # Cria o arquivo no Google Drive
         file_metadata = {'name': file_name}
@@ -49,8 +61,12 @@ def upload_to_drive(file_name, file_data, folder_id=None):
         if folder_id:
             file_metadata['parents'] = [folder_id]
         
-        media = MediaIoBaseUpload(file_data, mimetype='text/csv')  # Ajuste o mimetype conforme o tipo de arquivo
-
+        # Lê o arquivo carregado diretamente como um fluxo de bytes
+        file_data_bytes = BytesIO(file_data.read())
+        
+        # Cria o MediaIoBaseUpload com os dados binários e o tipo MIME correto
+        media = MediaIoBaseUpload(file_data_bytes, mimetype=mime_type)
+        
         # Faz o upload para o Google Drive
         file = service.files().create(
             body=file_metadata,
