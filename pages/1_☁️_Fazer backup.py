@@ -1,6 +1,5 @@
 import streamlit as st
 import pandas as pd
-from io import StringIO
 from googleapiclient.http import MediaIoBaseUpload, MediaIoBaseDownload
 import io
 
@@ -14,18 +13,21 @@ def authenticate_google_drive():
     return st.session_state["google_drive_service"]
 
 # Função para listar arquivos no Google Drive
-def list_files(service, folder_id=None, shared=False):
+def list_files(service, folder_id=None, include_shared=False):
     """Lista arquivos e pastas do Google Drive, incluindo arquivos compartilhados"""
     try:
-        # Se shared=True, vamos listar arquivos compartilhados com o usuário
-        if shared:
-            query = "sharedWithMe = true"
-        else:
-            # Caso contrário, listamos arquivos dentro de uma pasta específica ou todos os arquivos não excluídos
-            query = f"'{folder_id}' in parents and trashed = false" if folder_id else "trashed = false"
+        query = "trashed = false"
+        
+        # Se houver um folder_id, filtra por essa pasta
+        if folder_id:
+            query += f" and '{folder_id}' in parents"
+
+        # Se include_shared for True, buscamos também pastas compartilhadas como 'Neuroscience'
+        if include_shared:
+            query += " or sharedWithMe = true"
 
         # Realiza a busca usando a API
-        results = service.files().list(q=query, pageSize=10, fields="files(id, name, mimeType)").execute()
+        results = service.files().list(q=query, pageSize=50, fields="files(id, name, mimeType)").execute()
         items = results.get('files', [])
         return items
 
@@ -70,11 +72,8 @@ def main():
         # Autenticação para o Google Drive
         service = authenticate_google_drive()
 
-        # Seletor para exibir arquivos compartilhados ou não
-        show_shared = st.sidebar.checkbox("Exibir arquivos compartilhados", value=False)
-
-        # Listar arquivos e pastas a partir da raiz ou compartilhados
-        items = list_files(service, shared=show_shared)
+        # Listar arquivos e pastas, incluindo compartilhados, por padrão
+        items = list_files(service, include_shared=True)
 
         # Separar pastas e arquivos
         folders = [item for item in items if item['mimeType'] == 'application/vnd.google-apps.folder']
@@ -88,7 +87,7 @@ def main():
             # Se uma pasta for selecionada, listar arquivos dentro dela
             if selected_folder:
                 selected_folder_id = selected_folder['id']
-                folder_files = list_files(service, folder_id=selected_folder_id, shared=show_shared)
+                folder_files = list_files(service, folder_id=selected_folder_id, include_shared=True)
                 selected_file_name = st.sidebar.selectbox("Escolha um arquivo dentro da pasta", [file['name'] for file in folder_files])
             else:
                 selected_file_name = None
@@ -115,12 +114,11 @@ def main():
     # Verifique se um arquivo foi carregado antes de tentar fazer upload
     if uploaded_file is not None:
         upload_to_drive(uploaded_file.name, uploaded_file, folder_id=selected_folder_id)
-    # Footer with custom background color and fixed to the bottom of the page
-    st.markdown("""
-        <footer style='text-align: center; position: fixed; left: 0; background-color: #2C3E50; color: white; padding: 10px; bottom: 0; width: 100%; '>
+    
+    # Footer com custom background color e fixado no fundo da página
+    st.markdown("""<footer style='text-align: center; position: fixed; left: 0; background-color: #2C3E50; color: white; padding: 10px; bottom: 0; width: 100%; '>
             LABIBIO 2025 - Biotério & Neuroscience
-        </footer>
-    """, unsafe_allow_html=True)
+        </footer>""", unsafe_allow_html=True)
     
 # Chama a função main() para exibir o conteúdo
 if __name__ == "__main__":
