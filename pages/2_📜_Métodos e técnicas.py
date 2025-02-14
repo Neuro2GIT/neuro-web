@@ -66,6 +66,7 @@ def read_docx_file(file_path):
     return '\n'.join(full_text)
 
 # Função principal
+
 def main():
     # Sidebar para navegação e autenticação
     with st.sidebar:
@@ -78,8 +79,11 @@ def main():
 
         # Conteúdo das tabs para "Preparo de ração CT"
         with tabs[0]:
-
-            # Aqui você pode colocar o código para baixar e exibir o arquivo .docx no placeholder
+            st.write("Placeholder - Preparo de ração CT")
+        with tabs[1]:
+            st.write("Placeholder - Preparo de ração CT")
+            
+             # Aqui você pode colocar o código para baixar e exibir o arquivo .docx no placeholder
             placeholder = st.empty()  # Criando um Placeholder
 
             # Acessando o file_id de forma segura a partir do secrets.toml
@@ -94,9 +98,6 @@ def main():
                 docx_content = read_docx_file(file_path)
                 with placeholder:
                     st.markdown(docx_content)
-
-        with tabs[1]:
-            st.write("Placeholder - Preparo de ração CT")
 
         with tabs[2]:
             st.write("Placeholder - Preparo de ração CT")
