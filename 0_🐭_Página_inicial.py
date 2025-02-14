@@ -83,12 +83,12 @@ def test_authentication(service):
     except Exception as e:
         st.error(f"Falha na autenticação: {e}")
 
-def list_files(service, folder_id=None):
-    """Lista arquivos do Google Drive"""
-    query = f"'{folder_id}' in parents" if folder_id else "trashed = false"
-    results = service.files().list(q=query, pageSize=10, fields="files(id, name, mimeType)").execute()
-    items = results.get('files', [])
-    return items
+#def list_files(service, folder_id=None):
+    #"""Lista arquivos do Google Drive"""
+    #query = f"'{folder_id}' in parents" if folder_id else "trashed = false"
+    #results = service.files().list(q=query, pageSize=10, fields="files(id, name, mimeType)").execute()
+    #items = results.get('files', [])
+    #return items
 
 # Função principal para exibir o conteúdo
 def main():
