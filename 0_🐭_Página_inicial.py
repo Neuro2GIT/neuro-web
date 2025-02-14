@@ -98,8 +98,8 @@ def main():
     service = authenticate()
 
     # Exemplo de listagem de arquivos na raiz
-    files = list_files(service)
-    st.write(f"Arquivos disponíveis: {files}")
+    #files = list_files(service)
+    #st.write(f"Arquivos disponíveis: {files}")
 
     # Footer
     st.markdown("""
