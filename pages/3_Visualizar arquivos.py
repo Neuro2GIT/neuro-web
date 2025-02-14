@@ -53,67 +53,7 @@ def read_docx_file(file_path):
 
 # Função principal
 def main():
-    # Sidebar para navegação e autenticação
-    with st.sidebar:
-        st.header("Índice")
-
-        # Authentication for Google Drive
-        #service = authenticate_google_drive()
-
-        # List files and folders from root
-        #items = list_files(service)
-
-        # Separate folders and files
-        #folders = [item for item in items if item['mimeType'] == 'application/vnd.google-apps.folder']
-        #files = [item for item in items if item['mimeType'] != 'application/vnd.google-apps.folder']
-
-        # Show folders in sidebar
-        #selected_folder_name = st.sidebar.selectbox("Escolha uma pasta", [folder['name'] for folder in folders] if folders else ["Sem pastas"])
-        #selected_folder = next((folder for folder in folders if folder['name'] == selected_folder_name), None)
-        
-        # Show files in sidebar
-        #if selected_folder:
-            #selected_folder_id = selected_folder['id']
-            #folder_files = list_files(service, folder_id=selected_folder_id)
-            #selected_file_name = st.sidebar.selectbox("Escolha um arquivo dentro da pasta", [file['name'] for file in folder_files])
-        #else:
-            #selected_file_name = st.sidebar.selectbox("Escolha um arquivo na raiz", [file['name'] for file in files])
-
-        # Fetch the selected file
-        #if selected_file_name:
-            #if selected_folder:
-                #selected_file = next(file for file in folder_files if file['name'] == selected_file_name)
-            #else:
-                #selected_file = next(file for file in files if file['name'] == selected_file_name)
-
-            #file_id = selected_file['id']
-
-            # Download the file from Google Drive
-            #file = service.files().get_media(fileId=file_id).execute()
-            #file_path = f"temp_{selected_file_name}.xlsx"
-            #with open(file_path, 'wb') as f:
-                #f.write(file)
-
-            # Load and display the Excel content with Pandas
-            #df = pd.read_excel(file_path)
-            #st.write("Conteúdo do arquivo Excel:", df)
-
-            # Allow table editing using st-aggrid
-            #gb = GridOptionsBuilder.from_dataframe(df)
-            #gb.configure_pagination()  # Enable pagination
-            #gb.configure_default_column(editable=True)  # Allow editing
-            #grid_options = gb.build()
-
-            # Display editable table with AgGrid
-            #edited_df = AgGrid(df, gridOptions=grid_options, editable=True, fit_columns_on_grid_load=True)
-
-            # Allow uploading the edited file back to Google Drive
-            #if st.button("Salvar alterações"):
-                #edited_df['data'].to_excel(file_path, index=False)  # Save the edits in the Excel file
-                # Upload the edited file back to Google Drive
-                #media = MediaIoBaseDownload(io.open(file_path, 'rb'), mimetype="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
-                #service.files().update(fileId=file_id, media_body=media).execute()
-                #st.success("Alterações salvas no Google Drive!")
+    st.title("🐁)Listagem dos arquivos disponiveis no drive'')
 
 # Footer with custom background color and fixed to the bottom of the page
     st.markdown("""
