@@ -5,7 +5,6 @@ from googleapiclient.http import MediaIoBaseUpload, MediaIoBaseDownload
 from docx import Document
 import io
 
-
 # Função para autenticar e obter o serviço do Google Drive
 def authenticate_google_drive():
     """Verifica se já existe um serviço de autenticação com o Google Drive no session_state"""
@@ -72,7 +71,7 @@ def main():
             placeholder = st.empty()  # Criando um Placeholder
 
             # ID do arquivo no Google Drive
-            file_id = 'seu_id_do_arquivo_aqui'  # Substitua pelo seu file_id do Google Drive
+            file_id = '1iaHNRA8wngJ37mD6jGUDKKWbUxh3TsHV8KxVHyy5WOc'  # Substitua pelo seu file_id do Google Drive
             # Serviço da API do Google Drive (já autenticado)
             service = None  # Aqui você deve passar o seu objeto `service` de autenticação do Google Drive
 
