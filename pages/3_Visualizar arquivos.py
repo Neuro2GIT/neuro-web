@@ -1,10 +1,7 @@
 import streamlit as st
 import pandas as pd
-from io import StringIO
-from googleapiclient.http import MediaIoBaseUpload, MediaIoBaseDownload
-from docx import Document
-import io
-
+import streamlit as st
+import pandas as pd
 
 # Função para autenticar e obter o serviço do Google Drive
 def authenticate_google_drive():
@@ -14,91 +11,55 @@ def authenticate_google_drive():
         st.stop()
     return st.session_state["google_drive_service"]
 
-def list_files(service, folder_id=None):
-    """Lista arquivos e pastas do Google Drive"""
+def list_files(service, folder_name="neuroscience"):
+    """Lista arquivos dentro da pasta especificada (por padrão, 'neuroscience') no Google Drive"""
     try:
-        query = f"'{folder_id}' in parents" if folder_id else "trashed = false"
-        results = service.files().list(q=query, pageSize=10, fields="files(id, name, mimeType)").execute()
-        items = results.get('files', [])
-        return items
+        # Busca a pasta 'neuroscience' pelo nome
+        query = f"mimeType = 'application/vnd.google-apps.folder' and name = '{folder_name}'"
+        results = service.files().list(q=query, pageSize=10, fields="files(id, name)").execute()
+        folders = results.get('files', [])
 
-        # Verificando a estrutura da resposta
-        if isinstance(results, dict):
-            return results.get('files', [])
-        else:
-            st.error("A resposta da API não está no formato esperado. A resposta foi: " + str(results))
+        # Se a pasta não for encontrada, retornar um erro
+        if not folders:
+            st.error(f"Pasta '{folder_name}' não encontrada.")
             return []
-    
+
+        folder_id = folders[0]['id']
+        st.write(f"Pasta '{folder_name}' encontrada! Listando arquivos...")
+
+        # Lista os arquivos dentro da pasta 'neuroscience'
+        query = f"'{folder_id}' in parents and trashed = false"
+        results = service.files().list(q=query, pageSize=100, fields="files(id, name, mimeType)").execute()
+        items = results.get('files', [])
+
+        # Criar um DataFrame com os dados dos arquivos
+        if items:
+            df = pd.DataFrame(items)
+            return df
+        else:
+            st.warning("Nenhum arquivo encontrado na pasta 'neuroscience'.")
+            return pd.DataFrame()
+
     except Exception as e:
         st.error(f"Erro ao listar arquivos: {e}")
-        return []
-
-# Função para baixar o arquivo do Google Drive
-def download_file_from_drive(file_id, service):
-    request = service.files().get_media(fileId=file_id)
-    fh = io.FileIO('modo_de_preparo.docx', 'wb')
-    downloader = MediaIoBaseDownload(fh, request)
-    done = False
-    while done is False:
-        status, done = downloader.next_chunk()
-    return 'modo_de_preparo.docx'
-
-# Função para ler o conteúdo do arquivo .docx
-def read_docx_file(file_path):
-    doc = docx.Document(file_path)
-    full_text = []
-    for para in doc.paragraphs:
-        full_text.append(para.text)
-    return '\n'.join(full_text)
+        return pd.DataFrame()
 
 # Função principal
 def main():
-    st.title("🐁Listagem dos arquivos disponiveis no drive")
-    with st.sidebar:
-        st.header("Índice")
-        
-        # Autenticação para o Google Drive
-        service = authenticate_google_drive()
+    st.title("🐁 Listagem dos Arquivos no Google Drive - Pasta 'neuroscience'")
+    
+    # Autenticação do Google Drive
+    service = authenticate_google_drive()
 
-        # Seletor para exibir arquivos compartilhados ou não
-        show_shared = st.sidebar.checkbox("Exibir arquivos compartilhados", value=False)
+    # Buscar e exibir os arquivos na pasta 'neuroscience'
+    df_files = list_files(service)
 
-        # Listar arquivos e pastas a partir da raiz ou compartilhados
-        items = list_files(service, shared=show_shared)
+    # Exibir o DataFrame com os arquivos
+    if not df_files.empty:
+        st.write("Arquivos encontrados na pasta 'neuroscience':")
+        st.dataframe(df_files)  # Exibe o DataFrame com os arquivos
 
-        # Separar pastas e arquivos
-        folders = [item for item in items if item['mimeType'] == 'application/vnd.google-apps.folder']
-        files = [item for item in items if item['mimeType'] != 'application/vnd.google-apps.folder']
-
-        # Mostrar pastas na sidebar (Se houver pastas)
-        if folders:
-            selected_folder_name = st.sidebar.selectbox("Escolha uma pasta", [folder['name'] for folder in folders])
-            selected_folder = next((folder for folder in folders if folder['name'] == selected_folder_name), None)
-
-            # Se uma pasta for selecionada, listar arquivos dentro dela
-            if selected_folder:
-                selected_folder_id = selected_folder['id']
-                folder_files = list_files(service, folder_id=selected_folder_id, shared=show_shared)
-                selected_file_name = st.sidebar.selectbox("Escolha um arquivo dentro da pasta", [file['name'] for file in folder_files])
-            else:
-                selected_file_name = None
-        else:
-            selected_folder = None
-            selected_file_name = st.sidebar.selectbox("Escolha um arquivo na raiz", [file['name'] for file in files])
-
-        # Fetch the selected file
-        if selected_file_name:
-            if selected_folder:
-                selected_file = next(file for file in folder_files if file['name'] == selected_file_name)
-            else:
-                selected_file = next(file for file in files if file['name'] == selected_file_name)
-
-            file_id = selected_file['id']
-            st.sidebar.write(f"Você selecionou o arquivo: {selected_file['name']}")
-            # Aqui você pode implementar a lógica de exibição do conteúdo do arquivo, como no código anterior.
-            # Por exemplo, exibir o conteúdo do arquivo .docx ou outro tipo de arquivo conforme necessário.
-
-# Footer with custom background color and fixed to the bottom of the page
+    # Footer com customização
     st.markdown("""
         <footer style='text-align: center; position: fixed; left: 0; background-color: #2C3E50; color: white; padding: 10px; bottom: 0; width: 100%; '>
             LABIBIO 2025 - Biotério & Neuroscience
@@ -107,3 +68,4 @@ def main():
 
 # Chama a função main() para exibir o conteúdo
 main()
+
