@@ -90,12 +90,6 @@ def main():
         if opcao_selecionada:
             st.session_state.sidebar_collapsed = True  # Marca como colapsada
 
-    # Alterando o layout com base na seleção do usuário
-    if st.session_state.sidebar_collapsed:
-        st.set_option('layout', 'centered')  # Centraliza o conteúdo quando a sidebar está colapsada
-    else:
-        st.set_option('layout', 'wide')  # Layout expandido quando a sidebar está visível
-
     # Criar as tabs dependendo da seleção da técnica
     if opcao_selecionada == "Preparo de ração CT":
         tabs = st.tabs(["Ingredientes", "Preparo", "Secagem"])
