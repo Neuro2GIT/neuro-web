@@ -134,17 +134,6 @@ def main():
         with tabs[2]:
             st.write("Placeholder - Preparo de ração DT")
             
-    # Colapsa a sidebar após uma seleção
-    if opcao_selecionada:
-        # Reconfigura a página para colapsar a sidebar após a escolha
-        st.set_page_config(
-            page_title="Métodos e técnicas",
-            page_icon="🐭",
-            layout="centered",
-            initial_sidebar_state="collapsed",  # Colapsa a sidebar
-            menu_items={},
-        )
-
     # Footer com estilo customizado
     st.markdown("""
         <footer style='text-align: center; position: fixed; left: 0; background-color: #2C3E50; color: white; padding: 10px; bottom: 0; width: 100%; '>
