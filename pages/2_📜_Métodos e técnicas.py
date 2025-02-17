@@ -13,6 +13,10 @@ st.set_page_config(
     menu_items={})
 st.set_option('client.showErrorDetails', True)
 
+# Verificando se o estado da sidebar já existe no session_state
+if 'sidebar_collapsed' not in st.session_state:
+    st.session_state.sidebar_collapsed = False
+
 # Função para autenticar e obter o serviço do Google Drive
 def authenticate_google_drive():
     """Verifica se já existe um serviço de autenticação com o Google Drive no session_state"""
@@ -76,14 +80,21 @@ def read_docx_file(file_path):
 # Função principal
 
 def main():
-    # Controlando o estado da sidebar
-    if "sidebar_collapsed" not in st.session_state:
-        st.session_state.sidebar_collapsed = False
         
     # Sidebar para navegação e autenticação
     with st.sidebar:
         st.header("Índice")
         opcao_selecionada = st.selectbox("Escolha uma opção", ["Preparo de ração CT", "Preparo de ração DT"])
+        
+        # Colapsando a sidebar automaticamente após a seleção
+        if opcao_selecionada:
+            st.session_state.sidebar_collapsed = True  # Marca como colapsada
+
+    # Alterando o layout com base na seleção do usuário
+    if st.session_state.sidebar_collapsed:
+        st.set_option('layout', 'centered')  # Centraliza o conteúdo quando a sidebar está colapsada
+    else:
+        st.set_option('layout', 'wide')  # Layout expandido quando a sidebar está visível
 
     # Criar as tabs dependendo da seleção da técnica
     if opcao_selecionada == "Preparo de ração CT":
@@ -114,10 +125,6 @@ def main():
             # Se uma opção for selecionada, colapsar a sidebar
         if opcao_selecionada:
             st.session_state.sidebar_collapsed = True
-
-        # Colapsa a sidebar automaticamente com base no estado
-    if st.session_state.sidebar_collapsed:
-        st.sidebar.empty()
 
         with tabs[2]:
             st.write("Placeholder - Preparo de ração CT")
