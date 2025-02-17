@@ -3,6 +3,14 @@ import pandas as pd
 import streamlit as st
 import pandas as pd
 
+st.set_page_config(
+    page_title="Métodos e técnicas",
+    page_icon="🐭",
+    layout="centered",
+    initial_sidebar_state="expanded",
+    menu_items={})
+st.set_option('client.showErrorDetails', True)
+
 # Função para autenticar e obter o serviço do Google Drive
 def authenticate_google_drive():
     """Verifica se já existe um serviço de autenticação com o Google Drive no session_state"""
