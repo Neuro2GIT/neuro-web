@@ -9,7 +9,7 @@ st.set_page_config(
     page_title="Métodos e técnicas",
     page_icon="🐭",
     layout="centered",
-    initial_sidebar_state="extended",
+    initial_sidebar_state="expanded",
     menu_items={})
 st.set_option('client.showErrorDetails', True)
 
