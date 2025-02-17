@@ -76,6 +76,10 @@ def read_docx_file(file_path):
 # Função principal
 
 def main():
+    # Controlando o estado da sidebar
+    if "sidebar_collapsed" not in st.session_state:
+        st.session_state.sidebar_collapsed = False
+        
     # Sidebar para navegação e autenticação
     with st.sidebar:
         st.header("Índice")
@@ -106,6 +110,14 @@ def main():
                 docx_content = read_docx_file(file_path)
                 with placeholder:
                     st.markdown(docx_content)
+                    
+            # Se uma opção for selecionada, colapsar a sidebar
+        if opcao_selecionada:
+            st.session_state.sidebar_collapsed = True
+
+        # Colapsa a sidebar automaticamente com base no estado
+    if st.session_state.sidebar_collapsed:
+        st.sidebar.empty()
 
         with tabs[2]:
             st.write("Placeholder - Preparo de ração CT")
