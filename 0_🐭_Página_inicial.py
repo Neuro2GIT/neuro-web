@@ -121,8 +121,6 @@ def get_doi_info(doi):
 # Lista de DOIs estáticos (pode adicionar quantos quiser)
 dois = [
     "10.1126/science.adp3645",
-    "10.1038/s41586-019-1417-9",
-    "10.1038/s41586-020-2063-2",
     "10.1016/j.neuron.2021.02.010"
 ]
 
