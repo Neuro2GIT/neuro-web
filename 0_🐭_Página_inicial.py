@@ -126,7 +126,7 @@ dois = [
 
 # Função principal para exibir o conteúdo
 def main():
-    st.title("🧠Neuroscience interest group")
+    st.title("Neuroscience interest group")
     
     # Saudação baseada na hora do dia
     greeting = get_greeting()
