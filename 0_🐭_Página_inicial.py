@@ -1,14 +1,9 @@
 import hmac
 import streamlit as st
-import pickle
-import pandas as pd
 import pytz
 from datetime import datetime
 from googleapiclient.discovery import build
-from googleapiclient.http import MediaIoBaseDownload
 from google.oauth2 import service_account
-from st_aggrid import AgGrid, GridOptionsBuilder
-from io import StringIO
 import requests
 
 st.set_page_config(
@@ -122,6 +117,14 @@ def get_doi_info(doi):
     else:
         return None, None, None, None
 
+# Lista de DOIs estáticos (pode adicionar quantos quiser)
+dois = [
+    "10.1126/science.adp3645",
+    "10.1038/s41586-019-1417-9",
+    "10.1038/s41586-020-2063-2",
+    "10.1016/j.neuron.2021.02.010"
+]
+
 # Função principal para exibir o conteúdo
 def main():
     st.title("🐁Grupo neuroscience")
@@ -132,13 +135,8 @@ def main():
     # Exibir a saudação
     st.write(f"**{greeting}**")
 
-    # Captura de DOI
-    doi_input = st.text_input("Insira o DOI (por exemplo, doi/10.1126/science.adp3645):")
-    
-    if doi_input:
-        doi = doi_input.replace("doi/", "")  # Remover "doi/" para a consulta correta na API
-        
-        # Obtendo as informações do DOI
+    # Iterar sobre os DOIs para exibir os artigos
+    for doi in dois:
         title, authors, published_year, url = get_doi_info(doi)
         
         if title:
@@ -148,7 +146,7 @@ def main():
             st.markdown(f"**Publicado em**: {published_year}")
             st.markdown(f"[Leia o artigo completo]({url})")
         else:
-            st.error("Não foi possível recuperar informações para esse DOI. Verifique o DOI ou tente novamente.")
+            st.error(f"Não foi possível recuperar informações para o DOI: {doi}. Verifique o DOI ou tente novamente.")
     
     # Obtém o serviço do Google Drive
     service = authenticate()
