@@ -135,16 +135,16 @@ def main():
     # Exibir a saudação
     st.write(f"**{greeting}**")
 
-    # Iterar sobre os DOIs para exibir os artigos
+    # Iterar sobre os DOIs para exibir os artigos dentro de um widget
     for doi in dois:
         title, authors, published_year, url = get_doi_info(doi)
         
         if title:
-            # Exibindo a pré-visualização do DOI
-            st.markdown(f"### {title}")
-            st.markdown(f"**Autores**: {authors}")
-            st.markdown(f"**Publicado em**: {published_year}")
-            st.markdown(f"[Leia o artigo completo]({url})")
+            # Usando um expander para cada artigo, o usuário pode expandir e ver mais detalhes
+            with st.expander(title):
+                st.markdown(f"**Autores**: {authors}")
+                st.markdown(f"**Publicado em**: {published_year}")
+                st.markdown(f"[Leia o artigo completo]({url})")
         else:
             st.error(f"Não foi possível recuperar informações para o DOI: {doi}. Verifique o DOI ou tente novamente.")
     
