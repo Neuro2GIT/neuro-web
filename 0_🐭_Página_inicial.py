@@ -9,6 +9,7 @@ from googleapiclient.http import MediaIoBaseDownload
 from google.oauth2 import service_account
 from st_aggrid import AgGrid, GridOptionsBuilder
 from io import StringIO
+import requests
 
 st.set_page_config(
     page_title="Grupo neuroscience",
@@ -41,7 +42,7 @@ def check_password():
 
 if not check_password():
     st.stop()  # Do not continue if check_password is not True.
-    
+
 # Função para gerar a saudação baseada no horário
 def get_greeting():
     # Definir o fuso horário do Acre (GMT-5)
@@ -104,12 +105,22 @@ def test_authentication(service):
     except Exception as e:
         st.error(f"Falha na autenticação: {e}")
 
-#def list_files(service, folder_id=None):
-    #"""Lista arquivos do Google Drive"""
-    #query = f"'{folder_id}' in parents" if folder_id else "trashed = false"
-    #results = service.files().list(q=query, pageSize=10, fields="files(id, name, mimeType)").execute()
-    #items = results.get('files', [])
-    #return items
+# Função para pegar informações do DOI usando a CrossRef API
+def get_doi_info(doi):
+    base_url = "https://api.crossref.org/works/"
+    url = base_url + doi
+    response = requests.get(url)
+    
+    if response.status_code == 200:
+        data = response.json()
+        title = data['message']['title'][0]
+        authors = ", ".join([author['given'] + " " + author['family'] for author in data['message']['author']])
+        published_year = data['message']['published']['date-parts'][0][0]
+        url = data['message']['URL']
+        
+        return title, authors, published_year, url
+    else:
+        return None, None, None, None
 
 # Função principal para exibir o conteúdo
 def main():
@@ -121,12 +132,26 @@ def main():
     # Exibir a saudação
     st.write(f"**{greeting}**")
 
+    # Captura de DOI
+    doi_input = st.text_input("Insira o DOI (por exemplo, doi/10.1126/science.adp3645):")
+    
+    if doi_input:
+        doi = doi_input.replace("doi/", "")  # Remover "doi/" para a consulta correta na API
+        
+        # Obtendo as informações do DOI
+        title, authors, published_year, url = get_doi_info(doi)
+        
+        if title:
+            # Exibindo a pré-visualização do DOI
+            st.markdown(f"### {title}")
+            st.markdown(f"**Autores**: {authors}")
+            st.markdown(f"**Publicado em**: {published_year}")
+            st.markdown(f"[Leia o artigo completo]({url})")
+        else:
+            st.error("Não foi possível recuperar informações para esse DOI. Verifique o DOI ou tente novamente.")
+    
     # Obtém o serviço do Google Drive
     service = authenticate()
-
-    # Exemplo de listagem de arquivos na raiz
-    #files = list_files(service)
-    #st.write(f"Arquivos disponíveis: {files}")
 
     # Footer
     st.markdown("""
