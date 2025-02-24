@@ -112,10 +112,12 @@ def get_doi_info(doi):
         authors = ", ".join([author['given'] + " " + author['family'] for author in data['message']['author']])
         published_year = data['message']['published']['date-parts'][0][0]
         url = data['message']['URL']
+        abstract = data['message'].get('abstract', 'Resumo não disponível.')
+        cover_image_url = data['message'].get('URL', '')  # Placeholder for images if available
         
-        return title, authors, published_year, url
+        return title, authors, published_year, url, abstract, cover_image_url
     else:
-        return None, None, None, None
+        return None, None, None, None, None, None
 
 # Lista de DOIs estáticos (pode adicionar quantos quiser)
 dois = [
@@ -137,7 +139,7 @@ def main():
 
     # Iterar sobre os DOIs para exibir os artigos dentro de um widget
     for doi in dois:
-        title, authors, published_year, url = get_doi_info(doi)
+        title, authors, published_year, url, abstract, cover_image_url = get_doi_info(doi)
         
         if title:
             # Usando um expander para cada artigo, o usuário pode expandir e ver mais detalhes
@@ -145,6 +147,17 @@ def main():
                 st.markdown(f"**Autores**: {authors}")
                 st.markdown(f"**Publicado em**: {published_year}")
                 st.markdown(f"[Leia o artigo completo]({url})")
+                
+                # Exibir resumo (abstract)
+                st.markdown(f"**Resumo**: {abstract}")
+                
+                # Exibir imagem de capa, se disponível
+                if cover_image_url:
+                    st.image(cover_image_url, caption="Imagem de Capa", use_column_width=True)
+                
+                # Botão para marcar como lido
+                if st.button(f"Marcar {title} como lido"):
+                    st.session_state.read_articles.append(title)  # Armazena os artigos lidos
         else:
             st.error(f"Não foi possível recuperar informações para o DOI: {doi}. Verifique o DOI ou tente novamente.")
     
