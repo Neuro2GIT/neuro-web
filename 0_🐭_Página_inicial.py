@@ -61,6 +61,30 @@ def get_greeting():
     else:
         return "Boa noite!"
 
+# Função para pegar informações do DOI usando a CrossRef API
+def get_doi_info(doi):
+    base_url = "https://api.crossref.org/works/"
+    url = base_url + doi
+    response = requests.get(url)
+    
+    if response.status_code == 200:
+        data = response.json()
+        title = data['message']['title'][0]
+        authors = ", ".join([author['given'] + " " + author['family'] for author in data['message']['author']])
+        published_year = data['message']['published']['date-parts'][0][0]
+        url = data['message']['URL']
+        pdf_link = data['message'].get('link', [{}])[0].get('URL', '')
+        
+        return title, authors, published_year, url, pdf_link
+    else:
+        return None, None, None, None, None
+
+# Lista de DOIs estáticos (pode adicionar quantos quiser)
+dois = [
+    "10.1126/science.adp3645",
+    "10.1016/j.neuron.2021.02.010"
+]
+
 # Função de autenticação com Google Drive
 #SCOPES = ['https://www.googleapis.com/auth/drive.readonly', 'https://www.googleapis.com/auth/drive.file']
 
@@ -121,12 +145,26 @@ def main():
     # Exibir a saudação
     st.write(f"**{greeting}**")
 
-    # Obtém o serviço do Google Drive
-    #service = authenticate()
-
-    # Exemplo de listagem de arquivos na raiz
-    #files = list_files(service)
-    #st.write(f"Arquivos disponíveis: {files}")
+    # Iterar sobre os DOIs para exibir os artigos dentro de um widget
+    for doi in dois:
+        title, authors, published_year, url, pdf_link = get_doi_info(doi)
+        
+        if title:
+            # Usando um expander para cada artigo, o usuário pode expandir e ver mais detalhes
+            with st.expander(title):
+                st.markdown(f"**Autores**: {authors}")
+                st.markdown(f"**Publicado em**: {published_year}")
+                st.markdown(f"[Leia o artigo completo]({url})")
+                
+                # Botão para baixar o PDF, se disponível
+                if pdf_link:
+                    st.markdown(f"[Baixar PDF]({pdf_link})")
+                
+                # Botão para marcar como lido
+                if st.button(f"Marcar {title} como lido"):
+                    st.session_state.read_articles.append(title)  # Armazena os artigos lidos
+        else:
+            st.error(f"Não foi possível recuperar informações para o DOI: {doi}. Verifique o DOI ou tente novamente.")
 
     # Footer
     st.markdown("""
