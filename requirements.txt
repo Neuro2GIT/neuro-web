@@ -1,8 +1,8 @@
 streamlit
+st-pages
 google-api-python-client
 google-auth
 google-auth-oauthlib
 pandas
-streamlit
 streamlit-aggrid
 python-docx
