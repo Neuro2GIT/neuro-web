@@ -122,7 +122,7 @@ def main():
     st.write(f"**{greeting}**")
 
     # Obtém o serviço do Google Drive
-    service = authenticate()
+    #service = authenticate()
 
     # Exemplo de listagem de arquivos na raiz
     #files = list_files(service)
