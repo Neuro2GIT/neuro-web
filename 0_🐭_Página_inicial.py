@@ -113,7 +113,7 @@ def get_greeting():
 
 # Função principal para exibir o conteúdo
 def main():
-    st.title("🐁Grupo neuroscience")
+    st.title("🧠Neuroscience interest group")
     
     # Saudação baseada na hora do dia
     greeting = get_greeting()
