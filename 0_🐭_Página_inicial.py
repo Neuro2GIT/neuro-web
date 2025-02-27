@@ -1,5 +1,6 @@
 import hmac
 import streamlit as st
+import requests
 import pickle
 import pandas as pd
 import pytz
