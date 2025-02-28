@@ -82,8 +82,9 @@ def get_doi_info(doi):
 # Definindo temas e artigos (DOIs) agrupados
 themes = {
     "Introdução": [
-        "",
-        ""
+        "10.54038/ms.v1i1.2",
+        "10.54038/ms.v2i2.20",
+        "10.0.119.110/gscarr.2023.15.3.0167",
     ],
     "Biureto / Bradford e BCA": [
         "10.1016/0003-2697(76)90527-3",
