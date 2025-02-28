@@ -143,37 +143,26 @@ themes = {
     #items = results.get('files', [])
     #return items
 
-# Função principal para exibir o conteúdo
-def main():
-    st.title("🧠Neuroscience interest group")
-    
-    # Saudação baseada na hora do dia
-    #greeting = get_greeting()
-    
-    # Exibir a saudação
-    #st.write(f"**{greeting}**")
-
-    # Iterar pelos temas e artigos
-    for theme, dois in themes.items():
-        with st.expander(theme):
-            for doi in dois:
-                title, authors, published_year, url, pdf_link = get_doi_info(doi)
+# Iterar sobre os DOIs para exibir os artigos dentro de um widget
+    for doi in dois:
+        title, authors, published_year, url, pdf_link = get_doi_info(doi)
+        
+        if title:
+            # Usando um expander para cada artigo, o usuário pode expandir e ver mais detalhes
+            with st.expander(title):
+                st.markdown(f"**Autores**: {authors}")
+                st.markdown(f"**Publicado em**: {published_year}")
+                st.markdown(f"[Leia o artigo completo]({url})")
                 
-                if title:
-                    with st.expander(title):
-                        st.markdown(f"**Autores**: {authors}")
-                        st.markdown(f"**Publicado em**: {published_year}")
-                        st.markdown(f"[Leia o artigo completo]({url})")
-                        
-                        # Botão para baixar o PDF, se disponível
-                        if pdf_link:
-                            st.markdown(f"[Baixar PDF]({pdf_link})")
-                        
-                        # Botão para marcar como lido
-                        if st.button(f"Marcar {title} como lido"):
-                            st.session_state.read_articles.append(title)  # Armazena os artigos lidos
-                else:
-                    st.error(f"Não foi possível recuperar informações para o DOI: {doi}. Verifique o DOI ou tente novamente.")
+                # Botão para baixar o PDF, se disponível
+                if pdf_link:
+                    st.markdown(f"[Baixar PDF]({pdf_link})")
+                
+                # Botão para marcar como lido
+                if st.button(f"Marcar {title} como lido"):
+                    st.session_state.read_articles.append(title)  # Armazena os artigos lidos
+        else:
+            st.error(f"Não foi possível recuperar informações para o DOI: {doi}. Verifique o DOI ou tente novamente.")
 
     # Footer
     st.markdown("""
