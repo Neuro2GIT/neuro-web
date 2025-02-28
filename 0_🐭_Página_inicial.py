@@ -44,23 +44,23 @@ st.set_option('client.showErrorDetails', True)
     #st.stop()  # Do not continue if check_password is not True.
     
 # Função para gerar a saudação baseada no horário
-def get_greeting():
+#def get_greeting():
     # Definir o fuso horário do Acre (GMT-5)
-    timezone = pytz.timezone("America/Rio_Branco")
+    #timezone = pytz.timezone("America/Rio_Branco")
     
     # Obtém a hora atual no fuso horário do Acre
-    current_time_acre = datetime.now(timezone)
+    #current_time_acre = datetime.now(timezone)
     
     # Extrair a hora ajustada
-    current_hour = current_time_acre.hour
+    #current_hour = current_time_acre.hour
     
     # Definir as saudações com base na hora do dia
-    if current_hour < 12:
-        return "Bom dia!"
-    elif current_hour < 18:
-        return "Boa tarde!"
-    else:
-        return "Boa noite!"
+    #if current_hour < 12:
+        #return "Bom dia!"
+    #elif current_hour < 18:
+        #return "Boa tarde!"
+    #else:
+        #return "Boa noite!"
 
 # Função para pegar informações do DOI usando a CrossRef API
 def get_doi_info(doi):
