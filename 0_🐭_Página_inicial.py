@@ -95,6 +95,7 @@ def get_doi_info(doi):
 # Definindo temas e artigos (DOIs) agrupados
 themes = {
     "Introdução": [
+        "10.1080/09168451.2016.1224639",
         "10.54038/ms.v1i1.2",
         "10.54038/ms.v2i2.20",
         "10.30574/gscarr.2023.15.3.0167",
