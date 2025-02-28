@@ -141,7 +141,7 @@ def main():
     st.title("🧠Neuroscience interest group")
     
     # Saudação baseada na hora do dia
-    greeting = get_greeting()
+    #greeting = get_greeting()
     
     # Exibir a saudação
     st.write(f"**{greeting}**")
