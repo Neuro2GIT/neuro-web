@@ -62,7 +62,6 @@ st.set_option('client.showErrorDetails', True)
     #else:
         #return "Boa noite!"
 
-# Função para pegar informações do DOI usando a CrossRef API
 def get_doi_info(doi):
     base_url = "https://api.crossref.org/works/"
     url = base_url + doi
@@ -81,17 +80,11 @@ def get_doi_info(doi):
         return None, None, None, None, None
 
 # Lista de DOIs estáticos (pode adicionar quantos quiser)
-themes = {
-    "Neuroscience": [
-        "10.1016/0003-2697(76)90527-3",
-        "10.1126/science.adp3645",
-        "10.1016/j.neuron.2021.02.010"
-    ],
-    "Artificial Intelligence": [
-        "10.1016/j.artint.2021.103136",
-        "10.1038/s41586-019-1174-4"
-    ]
-}
+dois = [
+    "10.1016/0003-2697(76)90527-3",
+    "10.1126/science.adp3645",
+    "10.1016/j.neuron.2021.02.010"
+]
 
 # Função de autenticação com Google Drive
 #SCOPES = ['https://www.googleapis.com/auth/drive.readonly', 'https://www.googleapis.com/auth/drive.file']
