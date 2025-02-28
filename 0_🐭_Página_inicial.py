@@ -194,7 +194,7 @@ def main():
     # Footer
     st.markdown("""
         <footer style='text-align: center; position: fixed; left: 0; background-color: #2C3E50; color: white; padding: 10px; bottom: 0; width: 100%; '>
-            LABIBIO 2025 - Biotério & Neuroscience
+            LABIBIO 2025 - Neurogroup
         </footer>
     """, unsafe_allow_html=True)
 
