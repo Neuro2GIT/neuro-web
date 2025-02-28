@@ -81,11 +81,15 @@ def get_doi_info(doi):
 
 # Definindo temas e artigos (DOIs) agrupados
 themes = {
-    "Biureto / Bradford e BCA": [
+    "Artificial Intelligence": [
+        "10.1016/j.artint.2021.103136",
+        "10.1038/s41586-019-1174-4"
+    "Biureto / Bradford e BCA":
+    ], [
         "10.1016/0003-2697(76)90527-3",
         "10.1590/S0100-40421998000600020",
         "10.1016/0003-2697(85)90442-7",
-        "10.1016/S0021-9258(18)57021-6",
+        "10.1016/S0021-9258(18)57021-6"
     ],
     "Artificial Intelligence": [
         "10.1016/j.artint.2021.103136",
