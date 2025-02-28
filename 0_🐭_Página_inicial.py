@@ -81,11 +81,17 @@ def get_doi_info(doi):
         return None, None, None, None, None
 
 # Lista de DOIs estáticos (pode adicionar quantos quiser)
-dois = [
-    "10.1016/0003-2697(76)90527-3",
-    "10.1126/science.adp3645",
-    "10.1016/j.neuron.2021.02.010"
-]
+themes = {
+    "Neuroscience": [
+        "10.1016/0003-2697(76)90527-3",
+        "10.1126/science.adp3645",
+        "10.1016/j.neuron.2021.02.010"
+    ],
+    "Artificial Intelligence": [
+        "10.1016/j.artint.2021.103136",
+        "10.1038/s41586-019-1174-4"
+    ]
+}
 
 # Função de autenticação com Google Drive
 #SCOPES = ['https://www.googleapis.com/auth/drive.readonly', 'https://www.googleapis.com/auth/drive.file']
@@ -147,26 +153,27 @@ def main():
     # Exibir a saudação
     #st.write(f"**{greeting}**")
 
-    # Iterar sobre os DOIs para exibir os artigos dentro de um widget
-    for doi in dois:
-        title, authors, published_year, url, pdf_link = get_doi_info(doi)
-        
-        if title:
-            # Usando um expander para cada artigo, o usuário pode expandir e ver mais detalhes
-            with st.expander(title):
-                st.markdown(f"**Autores**: {authors}")
-                st.markdown(f"**Publicado em**: {published_year}")
-                st.markdown(f"[Leia o artigo completo]({url})")
+    # Iterar pelos temas e artigos
+    for theme, dois in themes.items():
+        with st.expander(theme):
+            for doi in dois:
+                title, authors, published_year, url, pdf_link = get_doi_info(doi)
                 
-                # Botão para baixar o PDF, se disponível
-                if pdf_link:
-                    st.markdown(f"[Baixar PDF]({pdf_link})")
-                
-                # Botão para marcar como lido
-                if st.button(f"Marcar {title} como lido"):
-                    st.session_state.read_articles.append(title)  # Armazena os artigos lidos
-        else:
-            st.error(f"Não foi possível recuperar informações para o DOI: {doi}. Verifique o DOI ou tente novamente.")
+                if title:
+                    with st.expander(title):
+                        st.markdown(f"**Autores**: {authors}")
+                        st.markdown(f"**Publicado em**: {published_year}")
+                        st.markdown(f"[Leia o artigo completo]({url})")
+                        
+                        # Botão para baixar o PDF, se disponível
+                        if pdf_link:
+                            st.markdown(f"[Baixar PDF]({pdf_link})")
+                        
+                        # Botão para marcar como lido
+                        if st.button(f"Marcar {title} como lido"):
+                            st.session_state.read_articles.append(title)  # Armazena os artigos lidos
+                else:
+                    st.error(f"Não foi possível recuperar informações para o DOI: {doi}. Verifique o DOI ou tente novamente.")
 
     # Footer
     st.markdown("""
