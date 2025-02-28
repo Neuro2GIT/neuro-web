@@ -144,7 +144,7 @@ def main():
     #greeting = get_greeting()
     
     # Exibir a saudação
-    st.write(f"**{greeting}**")
+    #st.write(f"**{greeting}**")
 
     # Iterar sobre os DOIs para exibir os artigos dentro de um widget
     for doi in dois:
