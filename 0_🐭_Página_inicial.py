@@ -62,6 +62,7 @@ st.set_option('client.showErrorDetails', True)
     #else:
         #return "Boa noite!"
 
+
 def get_doi_info(doi):
     base_url = "https://api.crossref.org/works/"
     url = base_url + doi
@@ -70,9 +71,21 @@ def get_doi_info(doi):
     if response.status_code == 200:
         data = response.json()
         title = data['message']['title'][0]
-        authors = ", ".join([author['given'] + " " + author['family'] for author in data['message']['author']])
+        
+        # Safely handle authors, checking if 'given' and 'family' exist
+        authors = []
+        for author in data['message'].get('author', []):
+            given_name = author.get('given', '')
+            family_name = author.get('family', '')
+            if given_name or family_name:
+                authors.append(f"{given_name} {family_name}".strip())
+        authors = ", ".join(authors)
+        
+        # Get the publication year, ensuring the structure is correct
         published_year = data['message']['published']['date-parts'][0][0]
-        url = data['message']['URL']
+        
+        # Get the URL and PDF link (if available)
+        url = data['message'].get('URL', '')
         pdf_link = data['message'].get('link', [{}])[0].get('URL', '')
         
         return title, authors, published_year, url, pdf_link
