@@ -4,6 +4,9 @@ import requests
 import pickle
 import pandas as pd
 import pytz
+import firebase_admin
+from firebase_admin import credentials, firestore
+import streamlit_authenticator as stauth
 from datetime import datetime
 from googleapiclient.discovery import build
 from googleapiclient.http import MediaIoBaseDownload
@@ -18,6 +21,34 @@ st.set_page_config(
     initial_sidebar_state="auto",
     menu_items={})
 st.set_option('client.showErrorDetails', True)
+
+# Inicializa o Firebase
+if not firebase_admin._apps:
+    cred = credentials.Certificate(st.secrets["firebase"])
+    firebase_admin.initialize_app(cred)
+
+# Conecta ao Firestore
+db = firestore.client()
+
+# Lê credenciais do Firestore
+cred_ref = db.collection("credentials").document("users")
+creds = cred_ref.get()
+
+# Carrega as credenciais no formato adequado para o autenticador
+config = {}
+if creds.exists:
+    config = creds.to_dict()
+
+if "credentials" not in config:
+    config["credentials"] = {}
+
+# Criar objeto autenticador com as credenciais
+authenticator = stauth.Authenticate(
+    config["credentials"],  # Usando credenciais do Firestore
+    "app_cookie_name",
+    "random_signature_key",
+    cookie_expiry_days=30
+)
 
 #def check_password():
     #"""Returns `True` if the user had the correct password."""
