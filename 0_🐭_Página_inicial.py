@@ -111,5 +111,3 @@ for theme, dois in themes.items():
             ''', unsafe_allow_html=True)
         else:
             st.warning(f"Não foi possível recuperar informações para o DOI: {doi}")
-
-if __name__ == "__main__":
