@@ -51,7 +51,7 @@ themes = {
     "Publicações": [
         "10.22289/2446-922X.V10N1A23"
     ],
-    "Introdução": [
+    "Introdução ao modelo DT": [
         "10.1080/09168451.2016.1224639",
         "10.54038/ms.v1i1.2",
         "10.54038/ms.v2i2.20",
@@ -76,7 +76,6 @@ def main():
     # Iterar pelos temas e associar cada um a uma aba
     for i, (theme, dois) in enumerate(themes.items()):
         with tabs[i]:
-            st.markdown("---")  # Linha separadora para melhor organização
 
             for doi in dois:
                 title, authors, published_year, url, pdf_link = get_doi_info(doi)
