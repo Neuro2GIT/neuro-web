@@ -134,13 +134,12 @@ def main():
                             st.session_state.read_articles.append(title)  # Armazena os artigos lidos
                 else:
                     st.error(f"Não foi possível recuperar informações para o DOI: {doi}. Verifique o DOI ou tente novamente.")
-           
-    # Footer
-    st.markdown("""
-        <footer style='text-align: center; position: fixed; left: 0; background-color: #2C3E50; color: white; padding: 10px; bottom: 0; width: 100%; '>
-            Neurogroup
-        </footer>
-    """, unsafe_allow_html=True)
+
+st.markdown("""
+    <footer style='text-align: center; position: fixed; left: 0; background-color: rgba(44, 62, 80, 0.8); color: white; padding: 10px; bottom: 0; width: 100%;'>
+        Neurogroup
+    </footer>
+""", unsafe_allow_html=True)
 
 if __name__ == "__main__":
     main()
