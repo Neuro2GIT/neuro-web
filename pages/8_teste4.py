@@ -22,12 +22,14 @@ def carregar_e_processar_excel(uploaded_file):
     df_racao_ct = df_racao[df_racao['Classe da Caixa'] == 'CT']
     df_racao_dt = df_racao[df_racao['Classe da Caixa'] == 'DT']
 
-    # Calcular a média e erro padrão de consumo de ração para cada dia
+    # Cálculo de desvio padrão e erro padrão para o consumo de ração para cada dia de cada caixa
     medias_racao_ct = df_racao_ct.iloc[:, 2:].mean()
-    erro_padrao_racao_ct = df_racao_ct.iloc[:, 2:].std() / np.sqrt(df_racao_ct.shape[0])
+    desvio_padrao_racao_ct = df_racao_ct.iloc[:, 2:].std()  # Desvio padrão
+    erro_padrao_racao_ct = desvio_padrao_racao_ct / np.sqrt(df_racao_ct.shape[0])  # Erro padrão
 
     medias_racao_dt = df_racao_dt.iloc[:, 2:].mean()
-    erro_padrao_racao_dt = df_racao_dt.iloc[:, 2:].std() / np.sqrt(df_racao_dt.shape[0])
+    desvio_padrao_racao_dt = df_racao_dt.iloc[:, 2:].std()  # Desvio padrão
+    erro_padrao_racao_dt = desvio_padrao_racao_dt / np.sqrt(df_racao_dt.shape[0])  # Erro padrão
 
     # Retornar todas as variáveis necessárias
     return medias_peso, erro_padrao_peso, df_ct, medias_racao_ct, medias_racao_dt, erro_padrao_racao_ct, erro_padrao_racao_dt, df_racao_ct, df_racao_dt
@@ -80,4 +82,5 @@ if uploaded_file is not None:
 
     st.subheader("Tabela de Consumo de Ração para Caixas CT e DT")
     st.write(pd.concat([df_racao_ct, df_racao_dt]))
+
 
