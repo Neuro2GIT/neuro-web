@@ -54,17 +54,20 @@ def criar_planilha():
             worksheet_peso = writer.sheets['Pesagem de Animais']
             worksheet_racao = writer.sheets['Consumo de Ração']
 
+            # Estilo de alinhamento centralizado
+            center_alignment = workbook.add_format({'align': 'center', 'valign': 'vcenter'})
+
             # Ajustar a largura das colunas da planilha de pesagem
             for i, col in enumerate(df_peso.columns):
                 max_len = df_peso[col].apply(lambda x: len(str(x)) if x is not None else 0).max()
                 max_len = max(max_len, len(col))  # Considera o tamanho do cabeçalho também
-                worksheet_peso.set_column(i, i, max_len + 2)  # +2 para garantir um pouco de espaço extra
+                worksheet_peso.set_column(i, i, max_len + 2, center_alignment)  # +2 para garantir um pouco de espaço extra
 
             # Ajustar a largura das colunas da planilha de consumo de ração
             for i, col in enumerate(df_racao.columns):
                 max_len = df_racao[col].apply(lambda x: len(str(x)) if x is not None else 0).max()
                 max_len = max(max_len, len(col))  # Considera o tamanho do cabeçalho também
-                worksheet_racao.set_column(i, i, max_len + 2)  # +2 para garantir um pouco de espaço extra
+                worksheet_racao.set_column(i, i, max_len + 2, center_alignment)  # +2 para garantir um pouco de espaço extra
 
         b.seek(0)
         return b.read()
