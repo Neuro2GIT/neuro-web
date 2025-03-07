@@ -168,36 +168,48 @@ themes = {
 def main():
     st.title("🧠 Neuroscience Interest Group")
 
-    # Iterar pelos temas e artigos
-    for theme, dois in themes.items():
-        st.subheader(theme)  # Exibir o nome do tema como um subtítulo
-        st.markdown("---")  # Linha separadora para melhor organização
+     # Sidebar para navegação e autenticação
+    with st.sidebar:
+        st.header("Índice")
+        opcao_selecionada = st.selectbox("Escolha uma opção", ["Preparo de ração CT", "Preparo de ração DT"])
 
-        for doi in dois:
-            title, authors, published_year, url, pdf_link = get_doi_info(doi)
+    # Criar as tabs dependendo da seleção da técnica
+    if opcao_selecionada == "Artigos":
+        tabs = st.tabs(["Publicações", "Introdução", "Artigos de métodos"])
+
+        with tabs[0]:
+            st.write("Placeholder - Preparo de ração CT")
+
+        # Iterar pelos temas e artigos
+        for theme, dois in themes.items():
+            st.subheader(theme)  # Exibir o nome do tema como um subtítulo
+            st.markdown("---")  # Linha separadora para melhor organização
+
+            for doi in dois:
+                title, authors, published_year, url, pdf_link = get_doi_info(doi)
             
-            if title:
-                with st.expander(title):
-                    st.markdown(f"**Autores**: {authors}")
-                    st.markdown(f"**Publicado em**: {published_year}")
-                    st.markdown(f"[Leia o artigo completo]({url})")
+                if title:
+                    with st.expander(title):
+                        st.markdown(f"**Autores**: {authors}")
+                        st.markdown(f"**Publicado em**: {published_year}")
+                        st.markdown(f"[Leia o artigo completo]({url})")
                     
-                    # Botão para baixar o PDF, se disponível
-                    if pdf_link:
-                        st.markdown(f"[Baixar PDF]({pdf_link})")
+                        # Botão para baixar o PDF, se disponível
+                        if pdf_link:
+                            st.markdown(f"[Baixar PDF]({pdf_link})")
                     
-                    # Botão para marcar como lido
-                    if st.button(f"Marcar {title} como lido"):
-                        if 'read_articles' not in st.session_state:
-                            st.session_state.read_articles = []
-                        st.session_state.read_articles.append(title)  # Armazena os artigos lidos
-            else:
-                st.error(f"Não foi possível recuperar informações para o DOI: {doi}. Verifique o DOI ou tente novamente.")
-
+                        # Botão para marcar como lido
+                        if st.button(f"Marcar {title} como lido"):
+                            if 'read_articles' not in st.session_state:
+                                st.session_state.read_articles = []
+                            st.session_state.read_articles.append(title)  # Armazena os artigos lidos
+                else:
+                    st.error(f"Não foi possível recuperar informações para o DOI: {doi}. Verifique o DOI ou tente novamente.")
+           
     # Footer
     st.markdown("""
         <footer style='text-align: center; position: fixed; left: 0; background-color: #2C3E50; color: white; padding: 10px; bottom: 0; width: 100%; '>
-            LABIBIO 2025 - Neurogroup
+            Neurogroup
         </footer>
     """, unsafe_allow_html=True)
 
