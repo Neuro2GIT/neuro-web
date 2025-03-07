@@ -80,3 +80,4 @@ if uploaded_file is not None:
 
     st.subheader("Tabela de Consumo de Ração para Caixas CT e DT")
     st.write(pd.concat([df_racao_ct, df_racao_dt]))
+
