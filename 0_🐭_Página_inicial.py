@@ -178,7 +178,6 @@ def main():
         tabs = st.tabs(["Publicações", "Introdução", "Artigos de métodos"])
 
         with tabs[0]:
-            st.write("Placeholder - Preparo de ração CT")
 
         # Iterar pelos temas e artigos
         for theme, dois in themes.items():
