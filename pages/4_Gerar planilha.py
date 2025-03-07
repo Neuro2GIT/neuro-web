@@ -45,8 +45,27 @@ def criar_planilha():
     # Criar um arquivo Excel em memória
     with BytesIO() as b:
         with pd.ExcelWriter(b, engine='xlsxwriter') as writer:
+            # Escrever as tabelas no Excel
             df_peso.to_excel(writer, sheet_name='Pesagem de Animais', index=False)
             df_racao.to_excel(writer, sheet_name='Consumo de Ração', index=False)
+
+            # Obter o objeto do workbook e worksheet
+            workbook  = writer.book
+            worksheet_peso = writer.sheets['Pesagem de Animais']
+            worksheet_racao = writer.sheets['Consumo de Ração']
+
+            # Ajustar a largura das colunas da planilha de pesagem
+            for i, col in enumerate(df_peso.columns):
+                max_len = df_peso[col].apply(lambda x: len(str(x)) if x is not None else 0).max()
+                max_len = max(max_len, len(col))  # Considera o tamanho do cabeçalho também
+                worksheet_peso.set_column(i, i, max_len + 2)  # +2 para garantir um pouco de espaço extra
+
+            # Ajustar a largura das colunas da planilha de consumo de ração
+            for i, col in enumerate(df_racao.columns):
+                max_len = df_racao[col].apply(lambda x: len(str(x)) if x is not None else 0).max()
+                max_len = max(max_len, len(col))  # Considera o tamanho do cabeçalho também
+                worksheet_racao.set_column(i, i, max_len + 2)  # +2 para garantir um pouco de espaço extra
+
         b.seek(0)
         return b.read()
 
@@ -62,4 +81,3 @@ st.download_button(
     file_name="dados_experimento.xlsx",
     mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
 )
-
