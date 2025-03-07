@@ -13,22 +13,20 @@ def carregar_e_processar_excel(uploaded_file):
     # Filtrar os dados apenas para a classe CT
     df_ct = df[df['Classe do Animal'] == 'CT']
 
-    # Calcular a média e erro padrão para cada dia de pesagem
-    medias_peso = df_ct.iloc[:, 2:].mean()  # Ignorar as duas primeiras colunas (ID e Classe do Animal)
-    erro_padrao_peso = df_ct.iloc[:, 2:].std() / np.sqrt(df_ct.shape[0])  # Erro padrão
+    # Calcular a média e erro padrão para cada dia de pesagem (por animal)
+    medias_peso = df_ct.iloc[:, 2:].mean(axis=0)  # Calcular média por dia
+    erro_padrao_peso = df_ct.iloc[:, 2:].std(axis=0) / np.sqrt(df_ct.shape[0])  # Erro padrão por dia
 
     # Filtrar as caixas CT e DT para consumo de ração
     df_racao_ct = df_racao[df_racao['Classe da Caixa'] == 'CT']
     df_racao_dt = df_racao[df_racao['Classe da Caixa'] == 'DT']
 
-    # Cálculo de desvio padrão e erro padrão para o consumo de ração para cada dia de cada caixa
-    medias_racao_ct = df_racao_ct.iloc[:, 2:].mean()
-    desvio_padrao_racao_ct = df_racao_ct.iloc[:, 2:].std()  # Desvio padrão
-    erro_padrao_racao_ct = desvio_padrao_racao_ct / np.sqrt(df_racao_ct.shape[0])  # Erro padrão
+    # Calcular as médias e erro padrão para o consumo de ração por dia de cada caixa
+    medias_racao_ct = df_racao_ct.iloc[:, 2:].mean(axis=0)
+    erro_padrao_racao_ct = df_racao_ct.iloc[:, 2:].std(axis=0) / np.sqrt(df_racao_ct.shape[0])
 
-    medias_racao_dt = df_racao_dt.iloc[:, 2:].mean()
-    desvio_padrao_racao_dt = df_racao_dt.iloc[:, 2:].std()  # Desvio padrão
-    erro_padrao_racao_dt = desvio_padrao_racao_dt / np.sqrt(df_racao_dt.shape[0])  # Erro padrão
+    medias_racao_dt = df_racao_dt.iloc[:, 2:].mean(axis=0)
+    erro_padrao_racao_dt = df_racao_dt.iloc[:, 2:].std(axis=0) / np.sqrt(df_racao_dt.shape[0])
 
     # Retornar todas as variáveis necessárias
     return medias_peso, erro_padrao_peso, df_ct, medias_racao_ct, medias_racao_dt, erro_padrao_racao_ct, erro_padrao_racao_dt, df_racao_ct, df_racao_dt
@@ -45,7 +43,7 @@ if uploaded_file is not None:
 
     # Plotar gráfico de pesagem dos animais da classe CT
     fig, ax = plt.subplots(figsize=(10, 6))
-    ax.errorbar(medias_peso.index, medias_peso.values, yerr=erro_padrao_peso.values, fmt='o-', label="Média de Peso (g)", color='b', capsize=5)
+    ax.errorbar(medias_peso.index + 1, medias_peso.values, yerr=erro_padrao_peso.values, fmt='o-', label="Média de Peso (g)", color='b', capsize=5)
     ax.set_xticks(range(1, len(medias_peso) + 1))  # Ajustar os dias para números inteiros
     ax.set_xticklabels(range(1, len(medias_peso) + 1))  # Mostrar apenas os números dos dias
     ax.set_xlabel("Dias de Pesagem")
@@ -60,10 +58,10 @@ if uploaded_file is not None:
     fig_racao, ax_racao = plt.subplots(figsize=(10, 6))
 
     # Plotar Caixa CT
-    ax_racao.errorbar(medias_racao_ct.index, medias_racao_ct.values, yerr=erro_padrao_racao_ct.values, fmt='o-', label="Caixa CT", color='g', capsize=5)
+    ax_racao.errorbar(medias_racao_ct.index + 1, medias_racao_ct.values, yerr=erro_padrao_racao_ct.values, fmt='o-', label="Caixa CT", color='g', capsize=5)
     
     # Plotar Caixa DT
-    ax_racao.errorbar(medias_racao_dt.index, medias_racao_dt.values, yerr=erro_padrao_racao_dt.values, fmt='o-', label="Caixa DT", color='r', capsize=5)
+    ax_racao.errorbar(medias_racao_dt.index + 1, medias_racao_dt.values, yerr=erro_padrao_racao_dt.values, fmt='o-', label="Caixa DT", color='r', capsize=5)
 
     # Ajustando o eixo x para dias numerados de 1 a N
     dias = range(1, len(medias_racao_ct) + 1)
