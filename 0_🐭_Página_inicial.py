@@ -16,7 +16,7 @@ st.markdown("""
         .header {
             background-color: #121212;
             padding: 10px 20px;
-            display: flex;
+            display: top;
             justify-content: space-between;
             align-items: center;
             border-bottom: 2px solid #27ae60;
