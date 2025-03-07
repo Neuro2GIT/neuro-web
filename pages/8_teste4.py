@@ -1,36 +1,3 @@
-import pandas as pd
-import numpy as np
-import streamlit as st
-import matplotlib.pyplot as plt
-from io import BytesIO
-
-# Função para carregar o arquivo e processar as tabelas
-def carregar_e_processar_excel(uploaded_file):
-    # Carregar o arquivo Excel
-    df = pd.read_excel(uploaded_file, sheet_name="Pesagem de Animais")
-    df_racao = pd.read_excel(uploaded_file, sheet_name="Consumo de Ração")
-
-    # Filtrar os dados apenas para a classe CT
-    df_ct = df[df['Classe do Animal'] == 'CT']
-
-    # Calcular a média e erro padrão para cada dia de pesagem (por animal)
-    medias_peso = df_ct.iloc[:, 2:].mean(axis=0)  # Calcular média por dia
-    erro_padrao_peso = df_ct.iloc[:, 2:].std(axis=0) / np.sqrt(df_ct.shape[0])  # Erro padrão por dia
-
-    # Filtrar as caixas CT e DT para consumo de ração
-    df_racao_ct = df_racao[df_racao['Classe da Caixa'] == 'CT']
-    df_racao_dt = df_racao[df_racao['Classe da Caixa'] == 'DT']
-
-    # Calcular as médias e erro padrão para o consumo de ração por dia de cada caixa
-    medias_racao_ct = df_racao_ct.iloc[:, 2:].mean(axis=0)
-    erro_padrao_racao_ct = df_racao_ct.iloc[:, 2:].std(axis=0) / np.sqrt(df_racao_ct.shape[0])
-
-    medias_racao_dt = df_racao_dt.iloc[:, 2:].mean(axis=0)
-    erro_padrao_racao_dt = df_racao_dt.iloc[:, 2:].std(axis=0) / np.sqrt(df_racao_dt.shape[0])
-
-    # Retornar todas as variáveis necessárias
-    return medias_peso, erro_padrao_peso, df_ct, medias_racao_ct, medias_racao_dt, erro_padrao_racao_ct, erro_padrao_racao_dt, df_racao_ct, df_racao_dt
-
 # Página Streamlit
 st.title("Análise de Pesagem e Consumo de Ração dos Animais")
 
@@ -43,10 +10,9 @@ if uploaded_file is not None:
 
     # Plotar gráfico de pesagem dos animais da classe CT
     fig, ax = plt.subplots(figsize=(10, 6))
-    ax_racao.errorbar(np.arange(1, len(medias_racao_ct) + 1), medias_racao_ct.values, yerr=erro_padrao_racao_ct.values, fmt='o-', label="Caixa CT", color='g', capsize=5)
-    ax_racao.errorbar(np.arange(1, len(medias_racao_dt) + 1), medias_racao_dt.values, yerr=erro_padrao_racao_dt.values, fmt='o-', label="Caixa DT", color='r', capsize=5)
-    ax.set_xticks(range(1, len(medias_peso) + 1))  # Ajustar os dias para números inteiros
-    ax.set_xticklabels(range(1, len(medias_peso) + 1))  # Mostrar apenas os números dos dias
+    ax.errorbar(np.arange(1, len(medias_peso) + 1), medias_peso.values, yerr=erro_padrao_peso.values, fmt='o-', label="Média de Peso (g)", color='b', capsize=5)
+    ax.set_xticks(np.arange(1, len(medias_peso) + 1))  # Ajustar os dias para números inteiros
+    ax.set_xticklabels(np.arange(1, len(medias_peso) + 1))  # Mostrar apenas os números dos dias
     ax.set_xlabel("Dias de Pesagem")
     ax.set_ylabel("Peso Médio (g)")
     ax.set_title("Média de Peso dos Animais da Caixa CT com Erro Padrão")
@@ -56,16 +22,16 @@ if uploaded_file is not None:
     st.pyplot(fig)
 
     # Plotar gráfico de consumo de ração com erro padrão
-    fig_racao, ax_racao = plt.subplots(figsize=(10, 6))
+    fig_racao, ax_racao = plt.subplots(figsize=(10, 6))  # Defina o gráfico aqui
 
     # Plotar Caixa CT
-    ax_racao.errorbar(medias_racao_ct.index + 1, medias_racao_ct.values, yerr=erro_padrao_racao_ct.values, fmt='o-', label="Caixa CT", color='g', capsize=5)
+    ax_racao.errorbar(np.arange(1, len(medias_racao_ct) + 1), medias_racao_ct.values, yerr=erro_padrao_racao_ct.values, fmt='o-', label="Caixa CT", color='g', capsize=5)
     
     # Plotar Caixa DT
-    ax_racao.errorbar(medias_racao_dt.index + 1, medias_racao_dt.values, yerr=erro_padrao_racao_dt.values, fmt='o-', label="Caixa DT", color='r', capsize=5)
+    ax_racao.errorbar(np.arange(1, len(medias_racao_dt) + 1), medias_racao_dt.values, yerr=erro_padrao_racao_dt.values, fmt='o-', label="Caixa DT", color='r', capsize=5)
 
     # Ajustando o eixo x para dias numerados de 1 a N
-    dias = range(1, len(medias_racao_ct) + 1)
+    dias = np.arange(1, len(medias_racao_ct) + 1)
     ax_racao.set_xticks(dias)
     ax_racao.set_xticklabels(dias)  # Marcar os dias como números inteiros
     ax_racao.set_xlabel("Dias de Consumo de Ração")
