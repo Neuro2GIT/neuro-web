@@ -135,11 +135,5 @@ def main():
                 else:
                     st.error(f"Não foi possível recuperar informações para o DOI: {doi}. Verifique o DOI ou tente novamente.")
 
-st.markdown("""
-    <footer style='text-align: center; position: fixed; left: 0; background-color: rgba(44, 62, 80, 0.8); color: white; padding: 10px; bottom: 0; width: 100%;'>
-        Neurogroup
-    </footer>
-""", unsafe_allow_html=True)
-
 if __name__ == "__main__":
     main()
