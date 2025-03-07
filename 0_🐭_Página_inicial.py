@@ -16,11 +16,11 @@ def get_doi_info(doi):
     base_url = "https://api.crossref.org/works/"
     url = base_url + doi
     response = requests.get(url)
-    
+
     if response.status_code == 200:
         data = response.json()
-        title = data['message']['title'][0]
-        
+        title = data['message'].get('title', [''])[0]
+
         authors = []
         for author in data['message'].get('author', []):
             given_name = author.get('given', '')
@@ -28,11 +28,11 @@ def get_doi_info(doi):
             if given_name or family_name:
                 authors.append(f"{given_name} {family_name}".strip())
         authors = ", ".join(authors)
-        
-        published_year = data['message']['published']['date-parts'][0][0]
+
+        published_year = data['message'].get('published', {}).get('date-parts', [[None]])[0][0]
         url = data['message'].get('URL', '')
         pdf_link = data['message'].get('link', [{}])[0].get('URL', '')
-        
+
         return title, authors, published_year, url, pdf_link
     else:
         return None, None, None, None, None
@@ -84,10 +84,10 @@ st.markdown('<p class="main-title">🧠 Neuroscience Interest Group</p>', unsafe
 for theme, dois in themes.items():
     st.subheader(theme)
     col1, col2 = st.columns(2)
-    
+
     for i, doi in enumerate(dois):
         title, authors, published_year, url, pdf_link = get_doi_info(doi)
-        
+
         if title:
             with (col1 if i % 2 == 0 else col2):
                 with st.container():
@@ -96,10 +96,10 @@ for theme, dois in themes.items():
                     st.markdown(f"*Autores:* {authors}")
                     st.markdown(f"*Publicado em:* {published_year}")
                     st.markdown(f"[Leia o artigo completo]({url})")
-                    
+
                     if pdf_link:
                         st.markdown(f"[Baixar PDF]({pdf_link})")
-                    
+
                     st.markdown('</div>', unsafe_allow_html=True)
         else:
             st.warning(f"Não foi possível recuperar informações para o DOI: {doi}")
