@@ -21,12 +21,13 @@ def carregar_e_processar_excel(uploaded_file):
     df_racao_ct = df_racao[df_racao['Classe da Caixa'] == 'CT']
     df_racao_dt = df_racao[df_racao['Classe da Caixa'] == 'DT']
 
-    # Calcular a média e erro padrão para o consumo de ração por dia, considerando o número de animais
-    medias_racao_ct = df_racao_ct.iloc[:, 2:].mean()  # Média de cada dia na caixa CT
-    erro_padrao_racao_ct = df_racao_ct.iloc[:, 2:].std() / np.sqrt(df_racao_ct.shape[0])  # Erro padrão para a caixa CT
+    # Para calcular a média e erro padrão para o consumo de ração por dia:
+    # Aqui vamos calcular a média e erro padrão de consumo de ração para cada dia
+    medias_racao_ct = df_racao_ct.iloc[:, 1:].mean(axis=0)  # Média por dia para a caixa CT
+    erro_padrao_racao_ct = df_racao_ct.iloc[:, 1:].std(axis=0) / np.sqrt(df_racao_ct.shape[0])  # Erro padrão por dia
 
-    medias_racao_dt = df_racao_dt.iloc[:, 2:].mean()  # Média de cada dia na caixa DT
-    erro_padrao_racao_dt = df_racao_dt.iloc[:, 2:].std() / np.sqrt(df_racao_dt.shape[0])  # Erro padrão para a caixa DT
+    medias_racao_dt = df_racao_dt.iloc[:, 1:].mean(axis=0)  # Média por dia para a caixa DT
+    erro_padrao_racao_dt = df_racao_dt.iloc[:, 1:].std(axis=0) / np.sqrt(df_racao_dt.shape[0])  # Erro padrão por dia
 
     # Retornar todas as variáveis necessárias
     return medias_peso, erro_padrao_peso, df_ct, medias_racao_ct, medias_racao_dt, erro_padrao_racao_ct, erro_padrao_racao_dt, df_racao_ct, df_racao_dt
