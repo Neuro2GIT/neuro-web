@@ -7,4 +7,4 @@ streamlit
 streamlit-aggrid
 python-docx
 requests
-pip install pandas streamlit xlsxwriter
+xlsxwriter
