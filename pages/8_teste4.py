@@ -43,7 +43,8 @@ if uploaded_file is not None:
 
     # Plotar gráfico de pesagem dos animais da classe CT
     fig, ax = plt.subplots(figsize=(10, 6))
-    ax.errorbar(medias_peso.index + 1, medias_peso.values, yerr=erro_padrao_peso.values, fmt='o-', label="Média de Peso (g)", color='b', capsize=5)
+    ax_racao.errorbar(np.arange(1, len(medias_racao_ct) + 1), medias_racao_ct.values, yerr=erro_padrao_racao_ct.values, fmt='o-', label="Caixa CT", color='g', capsize=5)
+    ax_racao.errorbar(np.arange(1, len(medias_racao_dt) + 1), medias_racao_dt.values, yerr=erro_padrao_racao_dt.values, fmt='o-', label="Caixa DT", color='r', capsize=5)
     ax.set_xticks(range(1, len(medias_peso) + 1))  # Ajustar os dias para números inteiros
     ax.set_xticklabels(range(1, len(medias_peso) + 1))  # Mostrar apenas os números dos dias
     ax.set_xlabel("Dias de Pesagem")
