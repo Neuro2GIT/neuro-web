@@ -22,11 +22,6 @@ st.set_page_config(
     menu_items={})
 st.set_option('client.showErrorDetails', True)
 
-import firebase_admin
-from firebase_admin import credentials, firestore
-import streamlit as st
-import streamlit_authenticator as stauth
-
 # Inicializa o Firebase com as credenciais armazenadas em 'st.secrets'
 if not firebase_admin._apps:
     cred = credentials.Certificate(st.secrets["firebase"])
