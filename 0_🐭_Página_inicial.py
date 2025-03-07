@@ -171,7 +171,7 @@ def main():
      # Sidebar para navegação e autenticação
     with st.sidebar:
         st.header("Índice")
-        opcao_selecionada = st.selectbox("Escolha uma opção", ["Preparo de ração CT", "Preparo de ração DT"])
+        opcao_selecionada = st.selectbox("Escolha uma opção", ["Artigos"])
 
     # Criar as tabs dependendo da seleção da técnica
     if opcao_selecionada == "Artigos":
