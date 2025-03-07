@@ -2,7 +2,6 @@ import pandas as pd
 import numpy as np
 import streamlit as st
 import matplotlib.pyplot as plt
-import seaborn as sns
 from io import BytesIO
 
 # Função para carregar o arquivo e processar as tabelas
@@ -66,8 +65,10 @@ if uploaded_file is not None:
     # Plotar Caixa DT
     ax_racao.errorbar(medias_racao_dt.index, medias_racao_dt.values, yerr=erro_padrao_racao_dt.values, fmt='o-', label="Caixa DT", color='r', capsize=5)
 
-    ax_racao.set_xticks(range(1, len(medias_racao_ct) + 1))  # Ajustar os dias para números inteiros
-    ax_racao.set_xticklabels(range(1, len(medias_racao_ct) + 1))  # Mostrar apenas os números dos dias
+    # Ajustando o eixo x para dias numerados de 1 a N
+    dias = range(1, len(medias_racao_ct) + 1)
+    ax_racao.set_xticks(dias)
+    ax_racao.set_xticklabels(dias)  # Marcar os dias como números inteiros
     ax_racao.set_xlabel("Dias de Consumo de Ração")
     ax_racao.set_ylabel("Consumo Médio de Ração (g)")
     ax_racao.set_title("Consumo Médio de Ração por Caixa com Erro Padrão")
@@ -82,5 +83,3 @@ if uploaded_file is not None:
 
     st.subheader("Tabela de Consumo de Ração para Caixas CT e DT")
     st.write(pd.concat([df_racao_ct, df_racao_dt]))
-
-
