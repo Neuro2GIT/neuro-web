@@ -1,3 +1,38 @@
+import pandas as pd
+import numpy as np
+import streamlit as st  # Aqui é onde importamos o Streamlit
+import matplotlib.pyplot as plt
+from io import BytesIO
+
+# Função para carregar o arquivo e processar as tabelas
+def carregar_e_processar_excel(uploaded_file):
+    # Carregar o arquivo Excel
+    df = pd.read_excel(uploaded_file, sheet_name="Pesagem de Animais")
+    df_racao = pd.read_excel(uploaded_file, sheet_name="Consumo de Ração")
+
+    # Filtrar os dados apenas para a classe CT
+    df_ct = df[df['Classe do Animal'] == 'CT']
+
+    # Calcular a média e erro padrão para cada dia de pesagem
+    medias_peso = df_ct.iloc[:, 2:].mean()  # Ignorar as duas primeiras colunas (ID e Classe do Animal)
+    erro_padrao_peso = df_ct.iloc[:, 2:].std() / np.sqrt(df_ct.shape[0])  # Erro padrão
+
+    # Filtrar as caixas CT e DT para consumo de ração
+    df_racao_ct = df_racao[df_racao['Classe da Caixa'] == 'CT']
+    df_racao_dt = df_racao[df_racao['Classe da Caixa'] == 'DT']
+
+    # Cálculo de desvio padrão e erro padrão para o consumo de ração para cada dia de cada caixa
+    medias_racao_ct = df_racao_ct.iloc[:, 2:].mean()
+    desvio_padrao_racao_ct = df_racao_ct.iloc[:, 2:].std()  # Desvio padrão
+    erro_padrao_racao_ct = desvio_padrao_racao_ct / np.sqrt(df_racao_ct.shape[0])  # Erro padrão
+
+    medias_racao_dt = df_racao_dt.iloc[:, 2:].mean()
+    desvio_padrao_racao_dt = df_racao_dt.iloc[:, 2:].std()  # Desvio padrão
+    erro_padrao_racao_dt = desvio_padrao_racao_dt / np.sqrt(df_racao_dt.shape[0])  # Erro padrão
+
+    # Retornar todas as variáveis necessárias
+    return medias_peso, erro_padrao_peso, df_ct, medias_racao_ct, medias_racao_dt, erro_padrao_racao_ct, erro_padrao_racao_dt, df_racao_ct, df_racao_dt
+
 # Página Streamlit
 st.title("Análise de Pesagem e Consumo de Ração dos Animais")
 
