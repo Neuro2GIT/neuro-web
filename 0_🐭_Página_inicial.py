@@ -76,7 +76,6 @@ def main():
     # Iterar pelos temas e associar cada um a uma aba
     for i, (theme, dois) in enumerate(themes.items()):
         with tabs[i]:
-            st.subheader(theme)  # Exibir o nome do tema como um subtítulo
             st.markdown("---")  # Linha separadora para melhor organização
 
             for doi in dois:
