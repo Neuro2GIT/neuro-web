@@ -4,13 +4,8 @@ import requests
 import pickle
 import pandas as pd
 import pytz
-import firebase_admin
-from firebase_admin import credentials, firestore
 import streamlit_authenticator as stauth
 from datetime import datetime
-from googleapiclient.discovery import build
-from googleapiclient.http import MediaIoBaseDownload
-from google.oauth2 import service_account
 from st_aggrid import AgGrid, GridOptionsBuilder
 from io import StringIO
 
