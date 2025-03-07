@@ -1,22 +1,17 @@
-import hmac
 import streamlit as st
 import requests
-import pickle
-import pandas as pd
 import pytz
-import streamlit_authenticator as stauth
 from datetime import datetime
-from st_aggrid import AgGrid, GridOptionsBuilder
-from io import StringIO
 
+# Configuração da página
 st.set_page_config(
-    page_title="Grupo neuroscience",
+    page_title="Grupo Neuroscience",
     page_icon="🐭",
-    layout="centered",
-    initial_sidebar_state="auto",
-    menu_items={})
-st.set_option('client.showErrorDetails', True)
+    layout="wide",
+    initial_sidebar_state="expanded"
+)
 
+# Função para obter informações do DOI
 def get_doi_info(doi):
     base_url = "https://api.crossref.org/works/"
     url = base_url + doi
@@ -26,7 +21,6 @@ def get_doi_info(doi):
         data = response.json()
         title = data['message']['title'][0]
         
-        # Safely handle authors, checking if 'given' and 'family' exist
         authors = []
         for author in data['message'].get('author', []):
             given_name = author.get('given', '')
@@ -35,10 +29,7 @@ def get_doi_info(doi):
                 authors.append(f"{given_name} {family_name}".strip())
         authors = ", ".join(authors)
         
-        # Get the publication year, ensuring the structure is correct
         published_year = data['message']['published']['date-parts'][0][0]
-        
-        # Get the URL and PDF link (if available)
         url = data['message'].get('URL', '')
         pdf_link = data['message'].get('link', [{}])[0].get('URL', '')
         
@@ -46,11 +37,9 @@ def get_doi_info(doi):
     else:
         return None, None, None, None, None
 
-# Definindo temas e artigos (DOIs) agrupados
+# Definição de categorias e artigos
 themes = {
-    "Publicações": [
-        "10.22289/2446-922X.V10N1A23"
-    ],
+    "Publicações": ["10.22289/2446-922X.V10N1A23"],
     "Introdução ao modelo DT": [
         "10.1080/09168451.2016.1224639",
         "10.54038/ms.v1i1.2",
@@ -65,38 +54,55 @@ themes = {
     ]
 }
 
-# Função principal para exibir o conteúdo
-def main():
-    st.title("🧠 Neuroscience Interest Group")
+# Estilização com CSS
+st.markdown("""
+    <style>
+        body {
+            background-color: #121212;
+            color: white;
+        }
+        .main-title {
+            text-align: center;
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #FF4081;
+        }
+        .article-card {
+            background-color: #1E1E1E;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            box-shadow: 2px 2px 10px rgba(255, 64, 129, 0.2);
+        }
+    </style>
+""", unsafe_allow_html=True)
 
-    # Criar as tabs com base nos temas
-    tab_names = list(themes.keys())
-    tabs = st.tabs(tab_names)
+# Cabeçalho principal
+st.markdown('<p class="main-title">🧠 Neuroscience Interest Group</p>', unsafe_allow_html=True)
+
+# Exibição dos artigos
+for theme, dois in themes.items():
+    st.subheader(theme)
+    col1, col2 = st.columns(2)
     
-    # Iterar pelos temas e associar cada um a uma aba
-    for i, (theme, dois) in enumerate(themes.items()):
-        with tabs[i]:
-
-            for doi in dois:
-                title, authors, published_year, url, pdf_link = get_doi_info(doi)
-            
-                if title:
-                    with st.expander(title):
-                        st.markdown(f"**Autores**: {authors}")
-                        st.markdown(f"**Publicado em**: {published_year}")
-                        st.markdown(f"[Leia o artigo completo]({url})")
+    for i, doi in enumerate(dois):
+        title, authors, published_year, url, pdf_link = get_doi_info(doi)
+        
+        if title:
+            with (col1 if i % 2 == 0 else col2):
+                with st.container():
+                    st.markdown(f'<div class="article-card">', unsafe_allow_html=True)
+                    st.markdown(f"**{title}**")
+                    st.markdown(f"*Autores:* {authors}")
+                    st.markdown(f"*Publicado em:* {published_year}")
+                    st.markdown(f"[Leia o artigo completo]({url})")
                     
-                        # Botão para baixar o PDF, se disponível
-                        if pdf_link:
-                            st.markdown(f"[Baixar PDF]({pdf_link})")
+                    if pdf_link:
+                        st.markdown(f"[Baixar PDF]({pdf_link})")
                     
-                        # Botão para marcar como lido
-                        if st.button(f"Marcar {title} como lido"):
-                            if 'read_articles' not in st.session_state:
-                                st.session_state.read_articles = []
-                            st.session_state.read_articles.append(title)  # Armazena os artigos lidos
-                else:
-                    st.error(f"Não foi possível recuperar informações para o DOI: {doi}. Verifique o DOI ou tente novamente.")
+                    st.markdown('</div>', unsafe_allow_html=True)
+        else:
+            st.warning(f"Não foi possível recuperar informações para o DOI: {doi}")
 
 if __name__ == "__main__":
     main()
