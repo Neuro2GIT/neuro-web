@@ -113,4 +113,3 @@ for theme, dois in themes.items():
             st.warning(f"Não foi possível recuperar informações para o DOI: {doi}")
 
 if __name__ == "__main__":
-    main()
