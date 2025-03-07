@@ -57,7 +57,7 @@ themes = {
         "10.54038/ms.v2i2.20",
         "10.30574/gscarr.2023.15.3.0167"
     ],
-    "Biureto / Bradford e BCA": [
+    "Artigos de métodos - Biureto / Bradford e BCA": [
         "10.1016/0003-2697(76)90527-3",
         "10.1590/S0100-40421998000600020",
         "10.1016/0003-2697(85)90442-7",
@@ -69,19 +69,13 @@ themes = {
 def main():
     st.title("🧠 Neuroscience Interest Group")
 
-     # Sidebar para navegação e autenticação
-    with st.sidebar:
-        st.header("Índice")
-        opcao_selecionada = st.selectbox("Escolha uma opção", ["Artigos"])
-
-    # Criar as tabs dependendo da seleção da técnica
-    if opcao_selecionada == "Artigos":
-        tabs = st.tabs(["Publicações", "Introdução", "Artigos de métodos"])
-
-        with tabs[0]:
-            st.write("Placeholder - Preparo de ração CT")
-        # Iterar pelos temas e artigos
-        for theme, dois in themes.items():
+    # Criar as tabs com base nos temas
+    tab_names = list(themes.keys())
+    tabs = st.tabs(tab_names)
+    
+    # Iterar pelos temas e associar cada um a uma aba
+    for i, (theme, dois) in enumerate(themes.items()):
+        with tabs[i]:
             st.subheader(theme)  # Exibir o nome do tema como um subtítulo
             st.markdown("---")  # Linha separadora para melhor organização
 
