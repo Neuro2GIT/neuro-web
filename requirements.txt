@@ -10,3 +10,4 @@ requests
 xlsxwriter
 matplotlib
 seaborn
+openpyxl
