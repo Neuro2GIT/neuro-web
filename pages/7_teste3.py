@@ -27,7 +27,7 @@ def carregar_e_processar_excel(uploaded_file):
     medias_racao_dt = df_racao_dt.iloc[:, 2:].mean()
 
     # Retornar todas as variáveis necessárias
-    return medias_peso, erro_padrao_peso, df_ct, medias_racao_ct, medias_racao_dt
+    return medias_peso, erro_padrao_peso, df_ct, medias_racao_ct, medias_racao_dt, df_racao_ct, df_racao_dt
 
 # Página Streamlit
 st.title("Análise de Pesagem e Consumo de Ração dos Animais")
@@ -37,7 +37,7 @@ uploaded_file = st.file_uploader("Carregar o arquivo Excel com os dados de pesag
 
 if uploaded_file is not None:
     # Processar o arquivo e calcular as médias e erro padrão
-    medias_peso, erro_padrao_peso, df_ct, medias_racao_ct, medias_racao_dt = carregar_e_processar_excel(uploaded_file)
+    medias_peso, erro_padrao_peso, df_ct, medias_racao_ct, medias_racao_dt, df_racao_ct, df_racao_dt = carregar_e_processar_excel(uploaded_file)
 
     # Plotar gráfico de pesagem dos animais da classe CT
     fig, ax = plt.subplots(figsize=(10, 6))
