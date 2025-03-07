@@ -4,31 +4,41 @@ from io import BytesIO
 
 # Função para criar a planilha Excel com os dados
 def criar_planilha():
-    # Dados para a Tabela de Peso dos Animais
+    # Dados para a Tabela de Peso dos Animais (sem valores fictícios, apenas estrutura com 16 dias)
+    animais = list(range(1, 11))  # ID dos animais 1 a 10
+    classes = ['CT', 'CT', 'CT', 'CT', 'CT', 'DT', 'DT', 'DT', 'DT', 'DT']  # Classes (CT e DT)
+
+    # Inicializando as colunas de pesos (dias de 1 a 16)
+    colunas_peso = ['ID do Animal', 'Classe'] + [f'Peso no Dia {i}' for i in range(1, 17)]
+
+    # Tabela de peso dos animais
     dados_peso = {
-        'ID do Animal': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-        'Classe': ['CT', 'CT', 'CT', 'CT', 'CT', 'DT', 'DT', 'DT', 'DT', 'DT'],
-        'Peso no Dia 1': [2.5, 2.7, 2.6, 2.8, 2.9, 3.0, 3.2, 3.1, 3.4, 3.3],
-        'Peso no Dia 2': [2.6, 2.8, 2.7, 2.9, 3.0, 3.1, 3.3, 3.2, 3.5, 3.4],
-        'Peso no Dia 3': [2.7, 2.9, 2.8, 3.0, 3.1, 3.2, 3.4, 3.3, 3.6, 3.5],
-        # Adicione os dados dos outros dias até o Dia 16
-        'Peso no Dia 16': [3.0, 3.2, 3.1, 3.3, 3.4, 3.5, 3.7, 3.6, 3.9, 3.8]
+        'ID do Animal': animais,
+        'Classe': classes
     }
 
-    # Dados para a Tabela de Consumo de Ração
+    for dia in range(1, 17):
+        dados_peso[f'Peso no Dia {dia}'] = [None] * 10  # Nenhum valor de peso, somente a estrutura
+
+    df_peso = pd.DataFrame(dados_peso, columns=colunas_peso)
+
+    # Dados para a Tabela de Consumo de Ração (somente estrutura)
+    caixas = [1, 2]  # ID das caixas
+    classes_caixas = ['CT', 'DT']  # Classes das caixas
+
+    # Inicializando as colunas de consumo de ração (dias de 1 a 16)
+    colunas_racao = ['ID da Caixa', 'Classe da Caixa'] + [f'Consumo no Dia {i}' for i in range(1, 17)]
+
+    # Tabela de consumo de ração
     dados_racao = {
-        'ID da Caixa': [1, 2],
-        'Classe da Caixa': ['CT', 'DT'],
-        'Consumo no Dia 1': [1.2, 1.5],
-        'Consumo no Dia 2': [1.25, 1.6],
-        'Consumo no Dia 3': [1.3, 1.7],
-        # Adicione os dados dos outros dias até o Dia 16
-        'Consumo no Dia 16': [1.5, 1.9]
+        'ID da Caixa': caixas,
+        'Classe da Caixa': classes_caixas
     }
 
-    # Criar DataFrames com os dados
-    df_peso = pd.DataFrame(dados_peso)
-    df_racao = pd.DataFrame(dados_racao)
+    for dia in range(1, 17):
+        dados_racao[f'Consumo no Dia {dia}'] = [None] * 2  # Nenhum valor de consumo, somente a estrutura
+
+    df_racao = pd.DataFrame(dados_racao, columns=colunas_racao)
 
     # Criar um arquivo Excel em memória
     with BytesIO() as b:
