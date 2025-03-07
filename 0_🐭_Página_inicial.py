@@ -1,7 +1,5 @@
 import streamlit as st
 import requests
-import pytz
-from datetime import datetime
 
 # Configuração da página
 st.set_page_config(
@@ -16,11 +14,10 @@ def get_doi_info(doi):
     base_url = "https://api.crossref.org/works/"
     url = base_url + doi
     response = requests.get(url)
-
+    
     if response.status_code == 200:
         data = response.json()
         title = data['message'].get('title', [''])[0]
-
         authors = []
         for author in data['message'].get('author', []):
             given_name = author.get('given', '')
@@ -28,11 +25,9 @@ def get_doi_info(doi):
             if given_name or family_name:
                 authors.append(f"{given_name} {family_name}".strip())
         authors = ", ".join(authors)
-
         published_year = data['message'].get('published', {}).get('date-parts', [[None]])[0][0]
         url = data['message'].get('URL', '')
-        pdf_link = data['message'].get('link', [{}])[0].get('URL', '')
-
+        pdf_link = next((link.get('URL', '') for link in data['message'].get('link', []) if link.get('content-type') == 'application/pdf'), '')
         return title, authors, published_year, url, pdf_link
     else:
         return None, None, None, None, None
@@ -58,49 +53,62 @@ themes = {
 st.markdown("""
     <style>
         body {
-            background-color: #121212;
-            color: white;
+            background-color: #f5f5f5;
+            color: #333;
+            font-family: 'Arial', sans-serif;
         }
         .main-title {
             text-align: center;
             font-size: 2.5em;
             font-weight: bold;
-            color: #FF4081;
+            color: #2c3e50;
+            margin-bottom: 20px;
         }
         .article-card {
-            background-color: #1E1E1E;
-            padding: 15px;
-            border-radius: 10px;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .article-title {
+            font-size: 1.5em;
+            color: #2980b9;
             margin-bottom: 10px;
-            box-shadow: 2px 2px 10px rgba(255, 64, 129, 0.2);
+        }
+        .article-authors, .article-year {
+            font-size: 1em;
+            color: #7f8c8d;
+        }
+        .article-link {
+            font-size: 1em;
+            color: #27ae60;
+            text-decoration: none;
+        }
+        .article-link:hover {
+            text-decoration: underline;
         }
     </style>
 """, unsafe_allow_html=True)
 
 # Cabeçalho principal
-st.markdown('<p class="main-title">🧠 Neuroscience Interest Group</p>', unsafe_allow_html=True)
+st.markdown('<div class="main-title">🧠 Neuroscience Interest Group</div>', unsafe_allow_html=True)
 
 # Exibição dos artigos
 for theme, dois in themes.items():
     st.subheader(theme)
-    col1, col2 = st.columns(2)
-
-    for i, doi in enumerate(dois):
+    for doi in dois:
         title, authors, published_year, url, pdf_link = get_doi_info(doi)
-
         if title:
-            with (col1 if i % 2 == 0 else col2):
-                with st.container():
-                    st.markdown(f'<div class="article-card">', unsafe_allow_html=True)
-                    st.markdown(f"**{title}**")
-                    st.markdown(f"*Autores:* {authors}")
-                    st.markdown(f"*Publicado em:* {published_year}")
-                    st.markdown(f"[Leia o artigo completo]({url})")
-
-                    if pdf_link:
-                        st.markdown(f"[Baixar PDF]({pdf_link})")
-
-                    st.markdown('</div>', unsafe_allow_html=True)
+            st.markdown(f'''
+                <div class="article-card">
+                    <div class="article-title">{title}</div>
+                    <div class="article-authors"><strong>Autores:</strong> {authors}</div>
+                    <div class="article-year"><strong>Publicado em:</strong> {published_year}</div>
+                    <a class="article-link" href="{url}" target="_blank">Leia o artigo completo</a>
+                    {' | <a class="article-link" href="' + pdf_link + '" target="_blank">Baixar PDF</a>' if pdf_link else ''}
+                </div>
+            ''', unsafe_allow_html=True)
         else:
             st.warning(f"Não foi possível recuperar informações para o DOI: {doi}")
 
