@@ -22,7 +22,7 @@ def carregar_e_processar_excel(uploaded_file):
     df_racao_dt = df_racao[df_racao['Classe da Caixa'] == 'DT']
 
     # Para calcular a média e erro padrão para o consumo de ração por dia:
-    # Aqui vamos calcular a média e erro padrão de consumo de ração para cada dia
+    # Vamos garantir que estamos considerando apenas as colunas de consumo e não a coluna "Classe da Caixa"
     medias_racao_ct = df_racao_ct.iloc[:, 1:].mean(axis=0)  # Média por dia para a caixa CT
     erro_padrao_racao_ct = df_racao_ct.iloc[:, 1:].std(axis=0) / np.sqrt(df_racao_ct.shape[0])  # Erro padrão por dia
 
