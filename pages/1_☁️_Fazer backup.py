@@ -1,4 +1,4 @@
-import streamlit as st
+soimport streamlit as st
 import pandas as pd
 from googleapiclient.http import MediaIoBaseUpload, MediaIoBaseDownload
 import io
@@ -16,7 +16,7 @@ st.set_option('client.showErrorDetails', True)
 def authenticate_google_drive():
     """Verifica se já existe um serviço de autenticação com o Google Drive no session_state"""
     if "google_drive_service" not in st.session_state:
-        st.error("Erro: Usuário não autenticado com o Google Drive. Por favor, faça login na página inicial.")
+        st.error("Erro: Acesso não autorizado. Por favor, faça login.")
         st.stop()
         
     return st.session_state["google_drive_service"]
