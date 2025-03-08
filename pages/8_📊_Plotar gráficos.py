@@ -71,9 +71,9 @@ def plotar_pesagem(medias_peso_ct, erro_padrao_peso_ct, medias_peso_dt, erro_pad
 
     fig.update_layout(
          title="Consumo Médio de Ração",
-    xaxis=dict(title="Dias", tickmode="array", tickvals=np.arange(1, len(medias_racao_ct) + 1)),
-    yaxis_title="Consumo (g)"
-)
+        xaxis=dict(title="Dias", tickmode="array", tickvals=np.arange(1, len(medias_racao_ct) + 1)),
+        yaxis_title="Consumo (g)"
+    )
 
     st.plotly_chart(fig)
     
