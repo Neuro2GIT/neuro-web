@@ -1,87 +1,126 @@
 import pandas as pd
 import numpy as np
 import streamlit as st
-import matplotlib.pyplot as plt
-from io import BytesIO
+import plotly.graph_objects as go
 
-# Função para carregar o arquivo e processar as tabelas
+# Função para carregar e processar os dados do arquivo Excel
 def carregar_e_processar_excel(uploaded_file):
-    # Carregar o arquivo Excel
     df = pd.read_excel(uploaded_file, sheet_name="Pesagem de Animais")
     df_racao = pd.read_excel(uploaded_file, sheet_name="Consumo de Ração")
 
-    # Filtrar os dados apenas para a classe CT
+    # Filtrar a classe CT
     df_ct = df[df['Classe do Animal'] == 'CT']
+    medias_peso = df_ct.iloc[:, 2:].mean()
+    erro_padrao_peso = df_ct.iloc[:, 2:].std() / np.sqrt(df_ct.shape[0])
 
-    # Calcular a média e erro padrão para cada dia de pesagem
-    medias_peso = df_ct.iloc[:, 2:].mean()  # Ignorar as duas primeiras colunas (ID e Classe do Animal)
-    erro_padrao_peso = df_ct.iloc[:, 2:].std() / np.sqrt(df_ct.shape[0])  # Erro padrão
+    # Filtrar a classe DT
+    df_dt = df[df['Classe do Animal'] == 'DT']
+    medias_peso_dt = df_dt.iloc[:, 2:].mean()
+    erro_padrao_peso_dt = df_dt.iloc[:, 2:].std() / np.sqrt(df_dt.shape[0])
 
-    # Filtrar as caixas CT e DT para consumo de ração
-    df_racao_ct = df_racao[df_racao['Classe da Caixa'] == 'CT']
-    df_racao_dt = df_racao[df_racao['Classe da Caixa'] == 'DT']
+    # Filtrar caixas CT e DT para consumo de ração
+    df_racao_ct = df_racao[df_racao['Classe da Caixa'] == 'CT'].copy()
+    df_racao_dt = df_racao[df_racao['Classe da Caixa'] == 'DT'].copy()
 
-    # Forçar as colunas de consumo a serem numéricas, ignorando valores não numéricos (convertendo-os para NaN)
     df_racao_ct.iloc[:, 1:] = df_racao_ct.iloc[:, 1:].apply(pd.to_numeric, errors='coerce')
     df_racao_dt.iloc[:, 1:] = df_racao_dt.iloc[:, 1:].apply(pd.to_numeric, errors='coerce')
 
-    # Calcular a média e erro padrão para o consumo de ração por dia para cada caixa
-    medias_racao_ct = df_racao_ct.iloc[:, 1:].mean(axis=0)  # Média por dia para a caixa CT
-    erro_padrao_racao_ct = df_racao_ct.iloc[:, 1:].std(axis=0) / np.sqrt(df_racao_ct.shape[0])  # Erro padrão por dia
+    medias_racao_ct = df_racao_ct.iloc[:, 1:].mean(axis=0)
+    erro_padrao_racao_ct = df_racao_ct.iloc[:, 1:].std(axis=0) / np.sqrt(df_racao_ct.shape[0])
 
-    medias_racao_dt = df_racao_dt.iloc[:, 1:].mean(axis=0)  # Média por dia para a caixa DT
-    erro_padrao_racao_dt = df_racao_dt.iloc[:, 1:].std(axis=0) / np.sqrt(df_racao_dt.shape[0])  # Erro padrão por dia
+    medias_racao_dt = df_racao_dt.iloc[:, 1:].mean(axis=0)
+    erro_padrao_racao_dt = df_racao_dt.iloc[:, 1:].std(axis=0) / np.sqrt(df_racao_dt.shape[0])
 
-    # Retornar todas as variáveis necessárias
-    return medias_peso, erro_padrao_peso, df_ct, medias_racao_ct, medias_racao_dt, erro_padrao_racao_ct, erro_padrao_racao_dt, df_racao_ct, df_racao_dt
+    return {
+        "medias_peso_ct": medias_peso_ct, "erro_padrao_peso_ct": erro_padrao_peso_ct, "df_ct": df_ct,
+        "medias_peso_dt": medias_peso_dt, "erro_padrao_peso_dt": erro_padrao_peso_dt, "df_dt": df_dt,
+        "medias_racao_ct": medias_racao_ct, "erro_padrao_racao_ct": erro_padrao_racao_ct,
+        "medias_racao_dt": medias_racao_dt, "erro_padrao_racao_dt": erro_padrao_racao_dt,
+        "df_racao_ct": df_racao_ct, "df_racao_dt": df_racao_dt
+    }
 
-# Página Streamlit
+
+def plotar_pesagem(medias_peso_ct, erro_padrao_peso_ct, medias_peso_dt, erro_padrao_peso_dt):
+    fig = go.Figure()
+
+    # Pesagem da classe CT
+    fig.add_trace(go.Scatter(
+        x=np.arange(1, len(medias_peso_ct) + 1),
+        y=medias_peso_ct.values,
+        mode='lines+markers',
+        name="Peso Médio CT",
+        error_y=dict(type='data', array=erro_padrao_peso_ct.values, visible=True),
+        line=dict(color='blue')
+    ))
+
+    # Pesagem da classe DT
+    fig.add_trace(go.Scatter(
+        x=np.arange(1, len(medias_peso_dt) + 1),
+        y=medias_peso_dt.values,
+        mode='lines+markers',
+        name="Peso Médio DT",
+        error_y=dict(type='data', array=erro_padrao_peso_dt.values, visible=True),
+        line=dict(color='red')
+    ))
+
+    fig.update_layout(
+        title="Média de Peso dos Animais (CT e DT)",
+        xaxis_title="Dias",
+        yaxis_title="Peso (g)",
+        legend_title="Classes",
+    )
+
+    st.plotly_chart(fig)
+
+# Função para plotar o gráfico de consumo de ração
+def plotar_consumo_racao(medias_racao_ct, erro_padrao_racao_ct, medias_racao_dt, erro_padrao_racao_dt):
+    fig = go.Figure()
+    
+    fig.add_trace(go.Scatter(
+        x=np.arange(1, len(medias_racao_ct) + 1),
+        y=medias_racao_ct.values,
+        mode='lines+markers',
+        name="Caixa CT",
+        error_y=dict(type='data', array=erro_padrao_racao_ct.values, visible=True),
+        line=dict(color='green')
+    ))
+
+    fig.add_trace(go.Scatter(
+        x=np.arange(1, len(medias_racao_dt) + 1),
+        y=medias_racao_dt.values,
+        mode='lines+markers',
+        name="Caixa DT",
+        error_y=dict(type='data', array=erro_padrao_racao_dt.values, visible=True),
+        line=dict(color='red')
+    ))
+
+    fig.update_layout(title="Consumo Médio de Ração", xaxis_title="Dias", yaxis_title="Consumo (g)")
+    st.plotly_chart(fig)
+
+# Streamlit App
 st.title("Análise de Pesagem e Consumo de Ração dos Animais")
 
-# Widget para o upload do arquivo Excel
 uploaded_file = st.file_uploader("Carregar o arquivo Excel com os dados de pesagem", type=["xlsx"])
 
 if uploaded_file is not None:
-    # Processar o arquivo e calcular as médias e erro padrão
-    medias_peso, erro_padrao_peso, df_ct, medias_racao_ct, medias_racao_dt, erro_padrao_racao_ct, erro_padrao_racao_dt, df_racao_ct, df_racao_dt = carregar_e_processar_excel(uploaded_file)
+    # Processa os dados
+    dados = carregar_e_processar_excel(uploaded_file)
 
-    # Plotar gráfico de pesagem dos animais da classe CT
-    fig, ax = plt.subplots(figsize=(10, 6))
-    ax.errorbar(np.arange(1, len(medias_peso) + 1), medias_peso.values, yerr=erro_padrao_peso.values, fmt='o-', label="Média de Peso (g)", color='b', capsize=5)
-    ax.set_xticks(np.arange(1, len(medias_peso) + 1))  # Ajustar os dias para números inteiros
-    ax.set_xticklabels(np.arange(1, len(medias_peso) + 1))  # Mostrar apenas os números dos dias
-    ax.set_xlabel("Dias de Pesagem")
-    ax.set_ylabel("Peso Médio (g)")
-    ax.set_title("Média de Peso dos Animais da Caixa CT com Erro Padrão")
-    ax.legend()
+    # Plota o gráfico de pesagem para CT e DT
+    plotar_pesagem(
+        dados["medias_peso_ct"], dados["erro_padrao_peso_ct"],
+        dados["medias_peso_dt"], dados["erro_padrao_peso_dt"]
+    )
 
-    # Exibir o gráfico de pesagem
-    st.pyplot(fig)
+    # Plota o gráfico de consumo de ração para CT e DT
+    plotar_consumo_racao(
+        dados["medias_racao_ct"], dados["erro_padrao_racao_ct"],
+        dados["medias_racao_dt"], dados["erro_padrao_racao_dt"]
+    )
 
-    # Plotar gráfico de consumo de ração com erro padrão
-    fig_racao, ax_racao = plt.subplots(figsize=(10, 6))  # Defina o gráfico aqui
-
-    # Plotar Caixa CT
-    ax_racao.errorbar(np.arange(1, len(medias_racao_ct) + 1), medias_racao_ct.values, yerr=erro_padrao_racao_ct.values, fmt='o-', label="Caixa CT", color='g', capsize=5)
-    
-    # Plotar Caixa DT
-    ax_racao.errorbar(np.arange(1, len(medias_racao_dt) + 1), medias_racao_dt.values, yerr=erro_padrao_racao_dt.values, fmt='o-', label="Caixa DT", color='r', capsize=5)
-
-    # Ajustando o eixo x para dias numerados de 1 a N
-    dias = np.arange(1, len(medias_racao_ct) + 1)
-    ax_racao.set_xticks(dias)
-    ax_racao.set_xticklabels(dias)  # Marcar os dias como números inteiros
-    ax_racao.set_xlabel("Dias de Consumo de Ração")
-    ax_racao.set_ylabel("Consumo Médio de Ração (g)")
-    ax_racao.set_title("Consumo Médio de Ração por Caixa com Erro Padrão")
-    ax_racao.legend()
-
-    # Exibir o gráfico de consumo de ração
-    st.pyplot(fig_racao)
-
-    # Exibir as tabelas de dados para referência
-    st.subheader("Tabela de Pesagem para Animais da Classe CT")
-    st.write(df_ct)
+    # Exibe as tabelas
+    st.subheader("Tabela de Pesagem para Animais da Classe CT e DT")
+    st.write(pd.concat([dados["df_ct"], dados["df_dt"]]))
 
     st.subheader("Tabela de Consumo de Ração para Caixas CT e DT")
-    st.write(pd.concat([df_racao_ct, df_racao_dt]))
+    st.write(pd.concat([dados["df_racao_ct"], dados["df_racao_dt"]]))
