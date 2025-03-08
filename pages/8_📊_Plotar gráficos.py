@@ -69,6 +69,13 @@ def plotar_pesagem(medias_peso_ct, erro_padrao_peso_ct, medias_peso_dt, erro_pad
         line=dict(color='red')
     ))
 
+    fig.update_layout(
+        title="Média de Peso dos Animais (CT e DT)",
+        xaxis=dict(title="Dias", tickmode="array", tickvals=dias),
+        yaxis_title="Peso (g)",
+        legend_title="Classes",
+    )
+    
     st.plotly_chart(fig)
     
 # Função para plotar o gráfico de consumo de ração
