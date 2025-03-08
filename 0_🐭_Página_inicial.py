@@ -104,7 +104,7 @@ def main():
                         st.markdown(f"[Baixar PDF]({pdf_link})")
                     
                     # Botão para marcar como lido
-                    if st.button(f"Marcar artigo como lido"):
+                    if st.button(f"Marcar {title} como lido"):
                         if 'read_articles' not in st.session_state:
                             st.session_state.read_articles = []
                         st.session_state.read_articles.append(title)  # Armazena os artigos lidos
