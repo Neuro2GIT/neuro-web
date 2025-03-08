@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 from googleapiclient.http import MediaIoBaseUpload, MediaIoBaseDownload
 import io
+from io import BytesIO
 
 st.set_page_config(
     page_title="Métodos e técnicas",
@@ -42,9 +43,6 @@ def list_files(service, folder_id=None, include_shared=False):
     except Exception as e:
         st.error(f"Erro ao listar arquivos: {e}")
         return []
-
-from io import BytesIO
-from googleapiclient.http import MediaIoBaseUpload
 
 def upload_to_drive(file_name, file_data, folder_id=None):
     """Faz o upload de qualquer tipo de arquivo para o Google Drive sem salvar localmente"""
@@ -91,7 +89,7 @@ def upload_to_drive(file_name, file_data, folder_id=None):
 def main():
 
     # Autenticação para o Google Drive
-        service = authenticate_google_drive()
+    service = authenticate_google_drive()
     
     # Sidebar para navegação e autenticação
     with st.sidebar:
