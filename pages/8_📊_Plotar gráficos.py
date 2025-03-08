@@ -122,8 +122,8 @@ if uploaded_file is not None:
 
     # Plota o gráfico de consumo de ração para CT e DT
     plotar_consumo_racao(
-        dados["medias_racao_ct"], dados["erro_padrao_racao_ct"],
-        dados["medias_racao_dt"], dados["erro_padrao_racao_dt"]
+        dados["medias_racao_ct"], #dados["erro_padrao_racao_ct"],
+        dados["medias_racao_dt"], #dados["erro_padrao_racao_dt"]
     )
 
     # Exibe as tabelas
