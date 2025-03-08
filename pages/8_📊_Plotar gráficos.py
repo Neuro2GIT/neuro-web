@@ -31,11 +31,11 @@ def carregar_e_processar_excel(uploaded_file):
 
     # Calcular média e erro padrão do consumo de ração para CT
     medias_racao_ct = df_racao_ct.iloc[:, 1:].mean(axis=0)
-    erro_padrao_racao_ct = df_racao_ct.iloc[:, 1:].std(axis=0) / np.sqrt(df_racao_ct.shape[0])
+    #erro_padrao_racao_ct = df_racao_ct.iloc[:, 1:].std(axis=0) / np.sqrt(df_racao_ct.shape[0])
 
     # Calcular média e erro padrão do consumo de ração para DT
     medias_racao_dt = df_racao_dt.iloc[:, 1:].mean(axis=0)
-    erro_padrao_racao_dt = df_racao_dt.iloc[:, 1:].std(axis=0) / np.sqrt(df_racao_dt.shape[0])
+    #erro_padrao_racao_dt = df_racao_dt.iloc[:, 1:].std(axis=0) / np.sqrt(df_racao_dt.shape[0])
 
     # Retornar os valores em um dicionário
     return {
@@ -86,19 +86,19 @@ def plotar_consumo_racao(medias_racao_ct, erro_padrao_racao_ct, medias_racao_dt,
     
     fig.add_trace(go.Scatter(
         x=np.arange(1, len(medias_racao_ct) + 1),
-        y=medias_racao_ct.values[:17],
+        y=medias_racao_ct.values,
         mode='lines+markers',
         name="Caixa CT",
-        error_y=dict(type='data', array=erro_padrao_racao_ct.values[:17], visible=True),
+        #error_y=dict(type='data', array=erro_padrao_racao_ct.values, visible=True),
         line=dict(color='green')
     ))
 
     fig.add_trace(go.Scatter(
         x=np.arange(1, len(medias_racao_dt) + 1),
-        y=medias_racao_dt.values[:17],
+        y=medias_racao_dt.values,
         mode='lines+markers',
         name="Caixa DT",
-        error_y=dict(type='data', array=erro_padrao_racao_dt.values[:17], visible=True),
+        #error_y=dict(type='data', array=erro_padrao_racao_dt.values, visible=True),
         line=dict(color='red')
     ))
 
