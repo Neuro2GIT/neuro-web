@@ -5,32 +5,39 @@ import plotly.graph_objects as go
 
 # Função para carregar e processar os dados do arquivo Excel
 def carregar_e_processar_excel(uploaded_file):
+    # Carregar os dados das planilhas
     df = pd.read_excel(uploaded_file, sheet_name="Pesagem de Animais")
     df_racao = pd.read_excel(uploaded_file, sheet_name="Consumo de Ração")
 
-    # Filtrar a classe CT
+    # Filtrar os dados apenas para a classe CT e DT
     df_ct = df[df['Classe do Animal'] == 'CT']
-    medias_peso = df_ct.iloc[:, 2:].mean()
-    erro_padrao_peso = df_ct.iloc[:, 2:].std() / np.sqrt(df_ct.shape[0])
-
-    # Filtrar a classe DT
     df_dt = df[df['Classe do Animal'] == 'DT']
+
+    # Calcular média e erro padrão da pesagem para CT
+    medias_peso_ct = df_ct.iloc[:, 2:].mean()
+    erro_padrao_peso_ct = df_ct.iloc[:, 2:].std() / np.sqrt(df_ct.shape[0])
+
+    # Calcular média e erro padrão da pesagem para DT
     medias_peso_dt = df_dt.iloc[:, 2:].mean()
     erro_padrao_peso_dt = df_dt.iloc[:, 2:].std() / np.sqrt(df_dt.shape[0])
 
-    # Filtrar caixas CT e DT para consumo de ração
-    df_racao_ct = df_racao[df_racao['Classe da Caixa'] == 'CT'].copy()
-    df_racao_dt = df_racao[df_racao['Classe da Caixa'] == 'DT'].copy()
+    # Filtrar as caixas CT e DT para consumo de ração
+    df_racao_ct = df_racao[df_racao['Classe da Caixa'] == 'CT']
+    df_racao_dt = df_racao[df_racao['Classe da Caixa'] == 'DT']
 
+    # Forçar as colunas de consumo a serem numéricas, ignorando valores não numéricos
     df_racao_ct.iloc[:, 1:] = df_racao_ct.iloc[:, 1:].apply(pd.to_numeric, errors='coerce')
     df_racao_dt.iloc[:, 1:] = df_racao_dt.iloc[:, 1:].apply(pd.to_numeric, errors='coerce')
 
+    # Calcular média e erro padrão do consumo de ração para CT
     medias_racao_ct = df_racao_ct.iloc[:, 1:].mean(axis=0)
     erro_padrao_racao_ct = df_racao_ct.iloc[:, 1:].std(axis=0) / np.sqrt(df_racao_ct.shape[0])
 
+    # Calcular média e erro padrão do consumo de ração para DT
     medias_racao_dt = df_racao_dt.iloc[:, 1:].mean(axis=0)
     erro_padrao_racao_dt = df_racao_dt.iloc[:, 1:].std(axis=0) / np.sqrt(df_racao_dt.shape[0])
 
+    # Retornar os valores em um dicionário
     return {
         "medias_peso_ct": medias_peso_ct, "erro_padrao_peso_ct": erro_padrao_peso_ct, "df_ct": df_ct,
         "medias_peso_dt": medias_peso_dt, "erro_padrao_peso_dt": erro_padrao_peso_dt, "df_dt": df_dt,
@@ -38,7 +45,6 @@ def carregar_e_processar_excel(uploaded_file):
         "medias_racao_dt": medias_racao_dt, "erro_padrao_racao_dt": erro_padrao_racao_dt,
         "df_racao_ct": df_racao_ct, "df_racao_dt": df_racao_dt
     }
-
 
 def plotar_pesagem(medias_peso_ct, erro_padrao_peso_ct, medias_peso_dt, erro_padrao_peso_dt):
     fig = go.Figure()
