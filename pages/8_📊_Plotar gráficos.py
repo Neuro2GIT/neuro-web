@@ -89,7 +89,7 @@ def plotar_consumo_racao(medias_racao_ct, erro_padrao_racao_ct, medias_racao_dt,
         y=medias_racao_ct.values,
         mode='lines+markers',
         name="Caixa CT",
-        error_y=dict(type='data', array=erro_padrao_racao_ct.values, visible=True),
+        error_y=dict(type='data', array=erro_padrao_racao_ct.values[:17], visible=True),
         line=dict(color='green')
     ))
 
@@ -98,7 +98,7 @@ def plotar_consumo_racao(medias_racao_ct, erro_padrao_racao_ct, medias_racao_dt,
         y=medias_racao_dt.values,
         mode='lines+markers',
         name="Caixa DT",
-        error_y=dict(type='data', array=erro_padrao_racao_dt.values, visible=True),
+        error_y=dict(type='data', array=erro_padrao_racao_dt.values[:17], visible=True),
         line=dict(color='red')
     ))
 
