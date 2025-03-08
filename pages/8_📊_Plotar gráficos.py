@@ -29,10 +29,10 @@ def carregar_e_processar_excel(uploaded_file):
     df_racao_ct.iloc[:, 1:] = df_racao_ct.iloc[:, 1:].apply(pd.to_numeric, errors='coerce')
     df_racao_dt.iloc[:, 1:] = df_racao_dt.iloc[:, 1:].apply(pd.to_numeric, errors='coerce')
 
-    # Calcular média e erro padrão do consumo de ração para CT
+    # Calcular média do consumo de ração para CT
     medias_racao_ct = df_racao_ct.iloc[:, 1:].mean(axis=0)
 
-    # Calcular média e erro padrão do consumo de ração para DT
+    # Calcular média do consumo de ração para DT
     medias_racao_dt = df_racao_dt.iloc[:, 1:].mean(axis=0)
 
     # Retornar os valores em um dicionário
