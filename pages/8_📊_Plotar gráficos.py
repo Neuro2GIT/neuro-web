@@ -86,7 +86,7 @@ def plotar_consumo_racao(medias_racao_ct, erro_padrao_racao_ct, medias_racao_dt,
     
     fig.add_trace(go.Scatter(
         x=np.arange(1, len(medias_racao_ct) + 1),
-        y=medias_racao_ct.values,
+        y=medias_racao_ct.values[:17],
         mode='lines+markers',
         name="Caixa CT",
         error_y=dict(type='data', array=erro_padrao_racao_ct.values[:17], visible=True),
@@ -95,7 +95,7 @@ def plotar_consumo_racao(medias_racao_ct, erro_padrao_racao_ct, medias_racao_dt,
 
     fig.add_trace(go.Scatter(
         x=np.arange(1, len(medias_racao_dt) + 1),
-        y=medias_racao_dt.values,
+        y=medias_racao_dt.values[:17],
         mode='lines+markers',
         name="Caixa DT",
         error_y=dict(type='data', array=erro_padrao_racao_dt.values[:17], visible=True),
