@@ -87,7 +87,7 @@ def plotar_consumo_racao(medias_racao_ct, medias_racao_dt):
         y=medias_racao_ct.values,
         mode='lines+markers',
         name="Caixa CT",
-        line=dict(color='green')
+        line=dict(color='blue')
     ))
 
     fig.add_trace(go.Scatter(
