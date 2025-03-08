@@ -89,6 +89,10 @@ def upload_to_drive(file_name, file_data, folder_id=None):
 
 # Função principal que encapsula a lógica de exibição
 def main():
+
+    # Autenticação para o Google Drive
+        service = authenticate_google_drive()
+    
     # Sidebar para navegação e autenticação
     with st.sidebar:
         st.header("Índice")
