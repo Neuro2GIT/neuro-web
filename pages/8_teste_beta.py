@@ -47,37 +47,39 @@ def carregar_e_processar_excel(uploaded_file):
     }
 
 def plotar_pesagem(medias_peso_ct, erro_padrao_peso_ct, medias_peso_dt, erro_padrao_peso_dt):
+    dias = np.arange(1, 18)  # Eixo X numerado de 1 a 17
+
     fig = go.Figure()
 
     # Pesagem da classe CT
     fig.add_trace(go.Scatter(
-        x=np.arange(1, len(medias_peso_ct) + 1),
-        y=medias_peso_ct.values,
+        x=dias,
+        y=medias_peso_ct.values[:17],
         mode='lines+markers',
         name="Peso Médio CT",
-        error_y=dict(type='data', array=erro_padrao_peso_ct.values, visible=True),
+        error_y=dict(type='data', array=erro_padrao_peso_ct.values[:17], visible=True),
         line=dict(color='blue')
     ))
 
     # Pesagem da classe DT
     fig.add_trace(go.Scatter(
-        x=np.arange(1, len(medias_peso_dt) + 1),
-        y=medias_peso_dt.values,
+        x=dias,
+        y=medias_peso_dt.values[:17],
         mode='lines+markers',
         name="Peso Médio DT",
-        error_y=dict(type='data', array=erro_padrao_peso_dt.values, visible=True),
+        error_y=dict(type='data', array=erro_padrao_peso_dt.values[:17], visible=True),
         line=dict(color='red')
     ))
 
     fig.update_layout(
         title="Média de Peso dos Animais (CT e DT)",
-        xaxis_title="Dias",
+        xaxis=dict(title="Dias", tickmode="array", tickvals=dias),
         yaxis_title="Peso (g)",
         legend_title="Classes",
     )
 
     st.plotly_chart(fig)
-
+    
 # Função para plotar o gráfico de consumo de ração
 def plotar_consumo_racao(medias_racao_ct, erro_padrao_racao_ct, medias_racao_dt, erro_padrao_racao_dt):
     fig = go.Figure()
