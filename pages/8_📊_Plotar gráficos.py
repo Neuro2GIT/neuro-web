@@ -80,7 +80,7 @@ def plotar_pesagem(medias_peso_ct, erro_padrao_peso_ct, medias_peso_dt, erro_pad
     
 # Função para plotar o gráfico de consumo de ração
 def plotar_consumo_racao(medias_racao_ct, medias_racao_dt):
-    dias = np.arange(1, len(medias_ração_ct) + 1)
+    dias = np.arange(1, len(medias_racao_ct) + 1)
     
     fig = go.Figure()
     
