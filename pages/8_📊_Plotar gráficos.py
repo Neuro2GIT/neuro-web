@@ -41,8 +41,8 @@ def carregar_e_processar_excel(uploaded_file):
     return {
         "medias_peso_ct": medias_peso_ct, "erro_padrao_peso_ct": erro_padrao_peso_ct, "df_ct": df_ct,
         "medias_peso_dt": medias_peso_dt, "erro_padrao_peso_dt": erro_padrao_peso_dt, "df_dt": df_dt,
-        "medias_racao_ct": medias_racao_ct, "erro_padrao_racao_ct": erro_padrao_racao_ct,
-        "medias_racao_dt": medias_racao_dt, "erro_padrao_racao_dt": erro_padrao_racao_dt,
+        "medias_racao_ct": medias_racao_ct, #"erro_padrao_racao_ct": erro_padrao_racao_ct,
+        "medias_racao_dt": medias_racao_dt, #"erro_padrao_racao_dt": erro_padrao_racao_dt,
         "df_racao_ct": df_racao_ct, "df_racao_dt": df_racao_dt
     }
 
