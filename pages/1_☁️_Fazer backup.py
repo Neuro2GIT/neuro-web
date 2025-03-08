@@ -1,4 +1,4 @@
-soimport streamlit as st
+import streamlit as st
 import pandas as pd
 from googleapiclient.http import MediaIoBaseUpload, MediaIoBaseDownload
 import io
