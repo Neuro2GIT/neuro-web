@@ -97,13 +97,7 @@ def plotar_consumo_racao(medias_racao_ct, medias_racao_dt):
         line=dict(color='red')
     ))
 
-    fig.update_layout(
-        title="Consumo médio de ração", 
-        xaxis_title="Dias", 
-        yaxis_title="Consumo (g)")
-    xaxis=dict(title="Dias", tickmode="array", tickvals=np.arange(1, len(medias_racao_ct) + 1)),
-        yaxis_title="Consumo (g)"
-    )
+    fig.update_layout(title="Consumo Médio de Ração", xaxis_title="Dias", yaxis_title="Consumo (g)")
 
     st.plotly_chart(fig)
 
