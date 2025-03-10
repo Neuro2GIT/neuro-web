@@ -72,22 +72,7 @@ def plotar_pesagem(medias_peso_ct, erro_padrao_peso_ct, medias_peso_dt, erro_pad
         xaxis=dict(title="Dias", range=[dias.min(), dias.max()], scaleanchor="y"),  # Limite do eixo X (dias)
         height=600,
         width=600
-        #yaxis_scaleanchor=("x"),
-        #yaxis=dict(title="Peso (g)", range=[min(medias_peso_ct.min(), medias_peso_dt.min()) - 10, max(medias_peso_ct.max(), medias_peso_dt.max()) + 10]),  # Limites ajustados para o eixo Y
-        #margin=dict(l=50, r=50, t=50, b=100),
-        #height=(500),
-        #width=(700),
-        #autosize=True
     )
-    
-    #fig.update_layout(
-        #title="Peso médio dos animais em 16 dias de experimento",
-        #xaxis=dict(title="Dias",scaleanchor="y"),
-        #yaxis_title="Peso (g)",
-        #legend=dict(orientation="h", x=0.5, y=-0.2, xanchor="center")
-        #margin=dict(l=0, r=150, t=50, b=50),
-        #legend_title="Classes"
-    #)
     
     st.plotly_chart(fig)
 
@@ -99,9 +84,9 @@ def plotar_pesagem_area(medias_peso_ct, erro_padrao_peso_ct, medias_peso_dt, err
 
     # Faixa sombreada para CT
     fig.add_trace(go.Scatter(
-        x=np.concatenate((dias, dias[::-1])),
-        y=np.concatenate((medias_peso_ct.values + erro_padrao_peso_ct.values, 
-                          (medias_peso_ct.values - erro_padrao_peso_ct.values)[::-1])),
+        #x=np.concatenate((dias, dias[::-1])),
+        #y=np.concatenate((medias_peso_ct.values + erro_padrao_peso_ct.values, 
+                          #(medias_peso_ct.values - erro_padrao_peso_ct.values)[::-1])),
         fill='toself',
         fillcolor='rgba(0, 0, 255, 0.2)',
         line=dict(color='rgba(255,255,255,0)'),
