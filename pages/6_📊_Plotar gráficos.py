@@ -76,7 +76,6 @@ def plotar_pesagem(medias_peso_ct, erro_padrao_peso_ct, medias_peso_dt, erro_pad
                max(medias_peso_ct.max(), medias_peso_dt.max()) + 10]  # Limites ajustados para o eixo Y
         ),
         plot_bgcolor="lightgray",  # Cor de fundo do gráfico
-        paper_bgcolor="whitesmoke",  # Cor de fundo fora do gráfico (área de papel)
         margin=dict(l=50, r=50, t=50, b=50),  # Margens do gráfico
 
         # Adicionando uma borda arredondada ao gráfico com um shape
