@@ -147,12 +147,12 @@ def plotar_consumo_racao(medias_racao_ct, medias_racao_dt):
 
     fig.update_layout(
         title="Consumo médio de ração em 16 dias de experimento",
-        width=600,  # Largura fixa
-        height=500,  # Altura fixa
+        width=600,
+        height=500,
         xaxis=dict(title="Dias"),
-        #xaxis=dict(title="Dias",scaleanchor="y", constrain="domain"),
         yaxis_title="Consumo (g)",
-        legend=dict(orientation="h", x=0.5, y=-0.2, xanchor="center")
+        legend=dict(orientation="h", x=0.5, y=-0.2, xanchor="center",xanchor="right")
+    #xaxis=dict(title="Dias",scaleanchor="y", constrain="domain"),
     )
 
     st.plotly_chart(fig)
