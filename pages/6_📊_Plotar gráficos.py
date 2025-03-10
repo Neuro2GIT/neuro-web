@@ -75,7 +75,7 @@ def plotar_pesagem(medias_peso_ct, erro_padrao_peso_ct, medias_peso_dt, erro_pad
         legend=dict(orientation="h", x=0.5, y=-0.2, xanchor="center"),
         #height=(500),
         #width=(700),
-        autosize=True,
+        autosize=True
     )
     
     #fig.update_layout(
