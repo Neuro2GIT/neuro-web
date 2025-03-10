@@ -8,25 +8,27 @@ def carregar_e_processar_excel(uploaded_file):
     df = pd.read_excel(uploaded_file, sheet_name="Pesagem de Animais")
     df_racao = pd.read_excel(uploaded_file, sheet_name="Consumo de Ração")
 
+    # Separar dados de peso por classe
     df_ct = df[df['Classe do Animal'] == 'CT']
     df_dt = df[df['Classe do Animal'] == 'DT']
 
+    # Separar dados de consumo por classe
     df_racao_ct = df_racao[df_racao['Classe da Caixa'] == 'CT']
     df_racao_dt = df_racao[df_racao['Classe da Caixa'] == 'DT']
 
+    # Calculo da média do peso e erro padrão para animais CT
     medias_peso_ct = df_ct.iloc[:, 2:].mean()
     erro_padrao_peso_ct = df_ct.iloc[:, 2:].std() / np.sqrt(df_ct.shape[0])
 
+    # Calculo da média do peso e erro padrão para animais DT
     medias_peso_dt = df_dt.iloc[:, 2:].mean()
     erro_padrao_peso_dt = df_dt.iloc[:, 2:].std() / np.sqrt(df_dt.shape[0])
 
-    # Forçar as colunas de consumo a serem numéricas, ignorando valores não numéricos
-    #df_racao_ct.iloc[:, 1:] = df_racao_ct.iloc[:, 1:].apply(pd.to_numeric, errors='coerce')
-    #df_racao_dt.iloc[:, 1:] = df_racao_dt.iloc[:, 1:].apply(pd.to_numeric, errors='coerce')
-
+    # Calculo da média do consumo de ração CT e DT
     medias_racao_ct = df_racao_ct.iloc[:, 2:].mean()
     medias_racao_dt = df_racao_dt.iloc[:, 2:].mean()
 
+    # Dicionário com o resultado dos dados processados
     return {
         "medias_peso_ct": medias_peso_ct, "erro_padrao_peso_ct": erro_padrao_peso_ct, "df_ct": df_ct,
         "medias_peso_dt": medias_peso_dt, "erro_padrao_peso_dt": erro_padrao_peso_dt, "df_dt": df_dt,
