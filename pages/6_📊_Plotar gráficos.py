@@ -147,7 +147,7 @@ def plotar_consumo_racao(medias_racao_ct, medias_racao_dt):
 
     fig.update_layout(
         title="Consumo médio de ração em 16 dias de experimento",
-        width=800,  # Largura fixa
+        width=700,  # Largura fixa
         height=500,  # Altura fixa
         xaxis=dict(title="Dias"),
         #xaxis=dict(title="Dias",scaleanchor="y", constrain="domain"),
