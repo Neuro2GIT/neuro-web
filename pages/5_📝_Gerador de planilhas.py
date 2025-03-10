@@ -3,7 +3,8 @@ import streamlit as st
 from io import BytesIO
 
 # Função para criar a planilha Excel com os dados
-def criar_planilha(num_animais_ct, num_animais_dt, num_dias):
+def criar_planilha(num_animais_ct, num_animais_dt, num_dias, num_caixas):
+    
     # Dados para a Tabela de Peso dos Animais
     animais_ct = list(range(1, num_animais_ct + 1))  # ID dos animais da classe CT
     animais_dt = list(range(num_animais_ct + 1, num_animais_ct + num_animais_dt + 1))  # ID dos animais da classe DT
@@ -26,9 +27,8 @@ def criar_planilha(num_animais_ct, num_animais_dt, num_dias):
     df_peso = pd.DataFrame(dados_peso, columns=colunas_peso)
 
     # Dados para a Tabela de Consumo de Ração
-    num_caixas = 2  # Apenas duas caixas (CT e DT)
-    caixas = [1, 2]  # ID das caixas
-    classes_caixas = ['CT', 'DT']  # Classes das caixas
+    caixas = list(range(2, num_caixas + 1))  # IDs das caixas, de 1 até o número de caixas informado
+    classes_caixas = ['CT' if i % 2 != 0 else 'DT' for i in range(1, num_caixas + 1)]  # Alternando entre CT e DT
 
     # Inicializando as colunas de consumo de ração (dias de 1 até num_dias)
     colunas_racao = ['ID da Caixa', 'Classe da Caixa'] + [f'Consumo no Dia {i} (g)' for i in range(1, num_dias + 1)]
@@ -82,6 +82,7 @@ st.title("Peso dos animais e consumo de ração")
 num_animais_ct = st.number_input("Número de animais na classe CT:", min_value=1, value=5, step=1)
 num_animais_dt = st.number_input("Número de animais na classe DT:", min_value=1, value=5, step=1)
 num_dias = st.number_input("Número de dias do experimento:", min_value=1, value=16, step=1)
+num_caixas = st.number_input("Número de caixas:", min_value=1, value=2, step=1)
 
 # Botão para gerar o arquivo Excel e permitir o download
 if st.button("Gerar Planilha"):
