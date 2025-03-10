@@ -91,7 +91,7 @@ def plotar_pesagem_area(medias_peso_ct, erro_padrao_peso_ct, medias_peso_dt, err
         x=dias,
         y=medias_peso_ct.values,
         mode='lines+markers',
-        name="Peso Médio CT",
+        name="Controle",
         line=dict(color='blue')
     ))
 
@@ -110,7 +110,7 @@ def plotar_pesagem_area(medias_peso_ct, erro_padrao_peso_ct, medias_peso_dt, err
         x=dias,
         y=medias_peso_dt.values,
         mode='lines+markers',
-        name="Peso Médio DT",
+        name="Deficiente em tiamina",
         line=dict(color='red')
     ))
 
@@ -133,7 +133,7 @@ def plotar_consumo_racao(medias_racao_ct, medias_racao_dt):
         x=dias,
         y=medias_racao_ct.values,
         mode='lines+markers',
-        name="Caixa CT",
+        name="Ração CT",
         line=dict(color='blue')
     ))
 
@@ -141,12 +141,12 @@ def plotar_consumo_racao(medias_racao_ct, medias_racao_dt):
         x=dias,
         y=medias_racao_dt.values,
         mode='lines+markers',
-        name="Caixa DT",
+        name="Ração DT",
         line=dict(color='red')
     ))
 
     fig.update_layout(
-        title="Consumo médio de ração ",
+        title="Consumo médio de ração em 16 dias de experimento",
         xaxis=dict(title="Dias"),
         yaxis_title="Consumo (g)"
     )
