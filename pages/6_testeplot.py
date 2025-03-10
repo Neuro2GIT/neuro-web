@@ -6,7 +6,7 @@ import plotly.graph_objects as go
 # Função para carregar e processar os dados do arquivo Excel
 def carregar_e_processar_excel(uploaded_file):
     df = pd.read_excel(uploaded_file, sheet_name="Pesagem de Animais")
-    df_racao = pd.read_excel(uploaded_file, sheet_name="Consumo de Ração", , header=0)
+    df_racao = pd.read_excel(uploaded_file, sheet_name="Consumo de Ração", header=0)
 
     df_ct = df[df['Classe do Animal'] == 'CT']
     df_dt = df[df['Classe do Animal'] == 'DT']
