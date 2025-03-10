@@ -67,9 +67,9 @@ def plotar_pesagem(medias_peso_ct, erro_padrao_peso_ct, medias_peso_dt, erro_pad
     fig.update_layout(
         title=("Peso médio dos animais em 16 dias de experimento"),
         title_x=(0.5),
-        xaxis=dict(title="Dias", range=[dias.min(), dias.max()], scaleanchor="y"),  # Limite do eixo X (dias)
         title_xanchor=('center'),
         legend=dict(orientation="h", x=0.5, y=-0.2, xanchor="center"),
+        xaxis=dict(title="Dias", range=[dias.min(), dias.max()], scaleanchor="y"),  # Limite do eixo X (dias)
         height=600,
         width=600
         #yaxis_scaleanchor=("x"),
@@ -139,9 +139,9 @@ def plotar_pesagem_area(medias_peso_ct, erro_padrao_peso_ct, medias_peso_dt, err
         title="Peso médio dos animais em 16 dias de experimento - erro padrão sombreado",
         xaxis=dict(title="Dias"),
         yaxis_title="Peso (g)",
-        #legend=dict(orientation="h", x=0.5, y=-0.2, xanchor="center")
-        #legend_title="Classes"
-        #margin=dict(l=0, r=150, t=50, b=50),
+        title_x=(0.5),
+        title_xanchor=('center'),
+        legend=dict(orientation="h", x=0.5, y=-0.2, xanchor="center"),
     )
 
     st.plotly_chart(fig)
@@ -173,11 +173,9 @@ def plotar_consumo_racao(medias_racao_ct, medias_racao_dt):
         xaxis=dict(title="Dias"),
         yaxis_title="Consumo (g)",
         title_font_shadow="auto",
-        #paper_bgcolor="#84998d",
-        #plot_bgcolor="#ffffff",
-        #legend=dict(orientation="h", x=0.5, y=-0.2, xanchor="center")
-        #margin=dict(l=0, r=150, t=50, b=50),
-        #xaxis=dict(title="Dias",scaleanchor="y", constrain="domain"),
+        title_x=(0.5),
+        title_xanchor=('center'),
+        legend=dict(orientation="h", x=0.5, y=-0.2, xanchor="center"),
     )
 
     st.plotly_chart(fig)
