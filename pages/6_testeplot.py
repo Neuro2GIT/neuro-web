@@ -47,7 +47,7 @@ def plotar_pesagem(medias_peso_ct, erro_padrao_peso_ct, medias_peso_dt, erro_pad
         x=dias,
         y=medias_peso_ct.values,
         mode='lines+markers',
-        name="Peso Médio CT",
+        name="Controle",
         error_y=dict(type='data', array=erro_padrao_peso_ct.values, visible=True),
         line=dict(color='blue')
     ))
@@ -56,7 +56,7 @@ def plotar_pesagem(medias_peso_ct, erro_padrao_peso_ct, medias_peso_dt, erro_pad
         x=dias,
         y=medias_peso_dt.values,
         mode='lines+markers',
-        name="Peso Médio DT",
+        name="Deficiente em tiamina",
         error_y=dict(type='data', array=erro_padrao_peso_dt.values, visible=True),
         line=dict(color='red')
     ))
