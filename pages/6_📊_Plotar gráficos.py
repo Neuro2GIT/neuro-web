@@ -84,8 +84,8 @@ def plotar_pesagem_area(medias_peso_ct, erro_padrao_peso_ct, medias_peso_dt, err
 
     # Faixa sombreada para CT
     fig.add_trace(go.Scatter(
-        #x=np.concatenate((dias, dias[::-1])),
-        #y=np.concatenate((medias_peso_ct.values + erro_padrao_peso_ct.values, 
+        x=np.concatenate((dias, dias[::-1])),
+        y=np.concatenate((medias_peso_ct.values + erro_padrao_peso_ct.values, 
                           #(medias_peso_ct.values - erro_padrao_peso_ct.values)[::-1])),
         fill='toself',
         fillcolor='rgba(0, 0, 255, 0.2)',
