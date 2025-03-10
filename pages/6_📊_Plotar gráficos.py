@@ -163,7 +163,8 @@ def plotar_consumo_racao(medias_racao_ct, medias_racao_dt):
     )
 
     st.plotly_chart(fig)
-
+    
+# Função para plotar o gráfico de linhas com erro padrão usando matplotlib
 def plotar_pesagem_mat(medias_peso_ct, erro_padrao_peso_ct, medias_peso_dt, erro_padrao_peso_dt):
     dias = np.arange(1, len(medias_peso_ct) + 1)
 
@@ -180,6 +181,150 @@ def plotar_pesagem_mat(medias_peso_ct, erro_padrao_peso_ct, medias_peso_dt, erro
     ax.set_title("Peso médio dos animais em 16 dias de experimento", fontsize=16)
     ax.set_xlabel("Dias", fontsize=12)
     ax.set_ylabel("Peso (g)", fontsize=12)
+
+    # Adicionando a legenda
+    ax.legend()
+
+    # Exibindo o gráfico
+    st.pyplot(fig)
+
+# Função para plotar o gráfico de área sombreada usando matplotlib
+def plotar_pesagem_area_mat(medias_peso_ct, erro_padrao_peso_ct, medias_peso_dt, erro_padrao_peso_dt):
+    dias = np.arange(1, len(medias_peso_ct) + 1)
+
+    # Criando a figura e os eixos
+    fig, ax = plt.subplots(figsize=(10, 6))
+
+    # Faixa sombreada para Controle (CT)
+    ax.fill_between(dias, 
+                    medias_peso_ct.values - erro_padrao_peso_ct.values, 
+                    medias_peso_ct.values + erro_padrao_peso_ct.values, 
+                    color='blue', alpha=0.2, label='Controle - Erro padrão')
+
+    # Linha para Controle (CT)
+    ax.plot(dias, medias_peso_ct.values, '-o', color='blue', label='Controle')
+
+    # Faixa sombreada para Deficiente em tiamina (DT)
+    ax.fill_between(dias, 
+                    medias_peso_dt.values - erro_padrao_peso_dt.values, 
+                    medias_peso_dt.values + erro_padrao_peso_dt.values, 
+                    color='red', alpha=0.2, label='Deficiente em tiamina - Erro padrão')
+
+    # Linha para Deficiente em tiamina (DT)
+    ax.plot(dias, medias_peso_dt.values, '-o', color='red', label='Deficiente em tiamina')
+
+    # Definindo o título e os rótulos dos eixos
+    ax.set_title("Peso médio dos animais em 16 dias de experimento - erro padrão sombreado", fontsize=16)
+    ax.set_xlabel("Dias", fontsize=12)
+    ax.set_ylabel("Peso (g)", fontsize=12)
+
+    # Adicionando a legenda
+    ax.legend()
+
+    # Exibindo o gráfico
+    st.pyplot(fig)
+    
+# Função para plotar o gráfico de consumo de ração usando matplotlib
+def plotar_consumo_racao_mat(medias_racao_ct, medias_racao_dt):
+    dias = np.arange(1, len(medias_racao_ct) + 1)
+
+    # Criando a figura e os eixos
+    fig, ax = plt.subplots(figsize=(10, 6))
+
+    # Plotando a linha para Ração CT
+    ax.plot(dias, medias_racao_ct.values, '-o', color='blue', label='Ração CT')
+
+    # Plotando a linha para Ração DT
+    ax.plot(dias, medias_racao_dt.values, '-o', color='red', label='Ração DT')
+
+    # Definindo o título e os rótulos dos eixos
+    ax.set_title("Consumo médio de ração em 16 dias de experimento", fontsize=16)
+    ax.set_xlabel("Dias", fontsize=12)
+    ax.set_ylabel("Consumo (g)", fontsize=12)
+
+    # Adicionando a legenda
+    ax.legend()
+
+    # Exibindo o gráfico
+    st.pyplot(fig)
+    
+# Função para plotar o gráfico de linhas com erro padrão usando seaborn
+def plotar_pesagem_seaborn(medias_peso_ct, erro_padrao_peso_ct, medias_peso_dt, erro_padrao_peso_dt):
+    dias = np.arange(1, len(medias_peso_ct) + 1)
+
+    # Criando a figura e os eixos
+    fig, ax = plt.subplots(figsize=(10, 6))
+
+    # Plotando as linhas e barras de erro para Controle (CT)
+    ax.errorbar(dias, medias_peso_ct.values, yerr=erro_padrao_peso_ct.values, fmt='-o', color='blue', label='Controle', capsize=5)
+
+    # Plotando as linhas e barras de erro para Deficiente em tiamina (DT)
+    ax.errorbar(dias, medias_peso_dt.values, yerr=erro_padrao_peso_dt.values, fmt='-o', color='red', label='Deficiente em tiamina', capsize=5)
+
+    # Definindo o título e os rótulos dos eixos
+    ax.set_title("Peso médio dos animais em 16 dias de experimento", fontsize=16)
+    ax.set_xlabel("Dias", fontsize=12)
+    ax.set_ylabel("Peso (g)", fontsize=12)
+
+    # Adicionando a legenda
+    ax.legend()
+
+    # Exibindo o gráfico
+    st.pyplot(fig)
+    
+# Função para plotar o gráfico de área sombreada usando seaborn
+def plotar_pesagem_area_seaborn(medias_peso_ct, erro_padrao_peso_ct, medias_peso_dt, erro_padrao_peso_dt):
+    dias = np.arange(1, len(medias_peso_ct) + 1)
+
+    # Criando a figura e os eixos
+    fig, ax = plt.subplots(figsize=(10, 6))
+
+    # Plotando a área sombreada para Controle (CT)
+    ax.fill_between(dias, 
+                    medias_peso_ct.values - erro_padrao_peso_ct.values, 
+                    medias_peso_ct.values + erro_padrao_peso_ct.values, 
+                    color='blue', alpha=0.2, label='Controle - Erro padrão')
+
+    # Plotando a linha para Controle (CT) usando seaborn
+    sns.lineplot(x=dias, y=medias_peso_ct.values, ax=ax, color='blue', label='Controle', marker='o')
+
+    # Plotando a área sombreada para Deficiente em tiamina (DT)
+    ax.fill_between(dias, 
+                    medias_peso_dt.values - erro_padrao_peso_dt.values, 
+                    medias_peso_dt.values + erro_padrao_peso_dt.values, 
+                    color='red', alpha=0.2, label='Deficiente em tiamina - Erro padrão')
+
+    # Plotando a linha para Deficiente em tiamina (DT) usando seaborn
+    sns.lineplot(x=dias, y=medias_peso_dt.values, ax=ax, color='red', label='Deficiente em tiamina', marker='o')
+
+    # Definindo o título e os rótulos dos eixos
+    ax.set_title("Peso médio dos animais em 16 dias de experimento - erro padrão sombreado", fontsize=16)
+    ax.set_xlabel("Dias", fontsize=12)
+    ax.set_ylabel("Peso (g)", fontsize=12)
+
+    # Adicionando a legenda
+    ax.legend()
+
+    # Exibindo o gráfico
+    st.pyplot(fig)
+
+# Função para plotar o gráfico de consumo de ração usando matplotlib
+def plotar_consumo_racao_seaborn(medias_racao_ct, medias_racao_dt):
+    dias = np.arange(1, len(medias_racao_ct) + 1)
+
+    # Criando a figura e os eixos
+    fig, ax = plt.subplots(figsize=(10, 6))
+
+    # Plotando a linha para Ração CT com Seaborn
+    sns.lineplot(x=dias, y=medias_racao_ct.values, ax=ax, color='blue', label='Ração CT', marker='o')
+
+    # Plotando a linha para Ração DT com Seaborn
+    sns.lineplot(x=dias, y=medias_racao_dt.values, ax=ax, color='red', label='Ração DT', marker='o')
+
+    # Definindo o título e os rótulos dos eixos
+    ax.set_title("Consumo médio de ração em 16 dias de experimento", fontsize=16)
+    ax.set_xlabel("Dias", fontsize=12)
+    ax.set_ylabel("Consumo (g)", fontsize=12)
 
     # Adicionando a legenda
     ax.legend()
