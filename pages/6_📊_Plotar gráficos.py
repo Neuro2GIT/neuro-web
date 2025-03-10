@@ -64,7 +64,8 @@ def plotar_pesagem(medias_peso_ct, erro_padrao_peso_ct, medias_peso_dt, erro_pad
     fig.update_layout(
         title="Peso médio dos animais em 16 dias de experimento",
         xaxis=dict(title="Dias",scaleanchor="y"),
-        yaxis_title="Peso (g)"
+        yaxis_title="Peso (g)",
+        legend=dict(orientation="h", x=0.5, y=-0.2, xanchor="center")
         #legend_title="Classes"
     )
     
