@@ -117,8 +117,8 @@ def plotar_pesagem_area(medias_peso_ct, erro_padrao_peso_ct, medias_peso_dt, err
     fig.update_layout(
         title="Peso médio dos animais em 16 dias de experimento - erro padrão sombreado",
         xaxis=dict(title="Dias"),
-        yaxis_title="Peso (g)",
-        legend_title="Classes"
+        yaxis_title="Peso (g)"
+        #legend_title="Classes"
     )
 
     st.plotly_chart(fig)
