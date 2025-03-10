@@ -178,7 +178,7 @@ if uploaded_file is not None:
     )
 
     # Exibe as tabelas
-    st.subheader("Tabela de peso pdos animais CT e DT")
+    st.subheader("Tabela de peso dos animais CT e DT")
     st.write(pd.concat([dados["df_ct"], dados["df_dt"]]))
 
     st.subheader("Tabela de consumo de ração das caixas CT e DT")
