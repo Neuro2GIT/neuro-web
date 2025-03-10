@@ -86,7 +86,7 @@ def plotar_pesagem_area(medias_peso_ct, erro_padrao_peso_ct, medias_peso_dt, err
     fig.add_trace(go.Scatter(
         x=np.concatenate((dias, dias[::-1])),
         y=np.concatenate((medias_peso_ct.values + erro_padrao_peso_ct.values, 
-                          #(medias_peso_ct.values - erro_padrao_peso_ct.values)[::-1])),
+                          (medias_peso_ct.values - erro_padrao_peso_ct.values)[::-1])),
         fill='toself',
         fillcolor='rgba(0, 0, 255, 0.2)',
         line=dict(color='rgba(255,255,255,0)'),
@@ -122,7 +122,7 @@ def plotar_pesagem_area(medias_peso_ct, erro_padrao_peso_ct, medias_peso_dt, err
 
     fig.update_layout(
         title="Peso médio dos animais em 16 dias de experimento - erro padrão sombreado",
-        xaxis=dict(title="Dias"),
+        xaxis=dict(title="Dias", range=[dias.min(), dias.max()], scaleanchor="y"),
         yaxis_title="Peso (g)",
         title_x=(0.5),
         title_xanchor=('center'),
@@ -157,7 +157,7 @@ def plotar_consumo_racao(medias_racao_ct, medias_racao_dt):
 
     fig.update_layout(
         title="Consumo médio de ração em 16 dias de experimento",
-        xaxis=dict(title="Dias"),
+        xaxis=dict(title="Dias", range=[dias.min(), dias.max()], scaleanchor="y")),
         yaxis_title="Consumo (g)",
         title_font_shadow="auto",
         title_x=(0.5),
