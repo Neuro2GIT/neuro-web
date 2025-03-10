@@ -1,0 +1,10 @@
+Agora, vamos adaptar a função plotar_pesagem_area para Seaborn. 
+Para isso, vamos utilizar seaborn.lineplot para plotar as linhas e matplotlib para gerar a área sombreada, 
+já que o Seaborn não tem uma função nativa para áreas sombreadas, mas podemos combinar com o fill_between do Matplotlib.
+def plotar_pesagem_area_seaborn
+
+
+Agora, vamos criar uma versão da função plotar_pesagem usando Seaborn e Matplotlib para plotar as linhas com erro padrão. 
+O Seaborn não tem suporte direto para adicionar barras de erro como o Plotly, mas podemos fazer isso com Matplotlib usando plt.errorbar(), que é um método apropriado para isso.
+Aqui está a versão adaptada usando Seaborn para as linhas e Matplotlib para as barras de erro:
+def plotar_pesagem_seaborn
