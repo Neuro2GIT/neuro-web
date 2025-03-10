@@ -59,7 +59,7 @@ def plotar_pesagem(medias_peso_ct, erro_padrao_peso_ct, medias_peso_dt, erro_pad
     ))
 
     fig.update_layout(
-        title="Média de Peso dos Animais (CT e DT)",
+        title="Peso médio dos animais em 16 dias de experimento",
         xaxis=dict(title="Dias"),
         yaxis_title="Peso (g)",
         legend_title="Classes",
@@ -112,7 +112,7 @@ def plotar_pesagem_area(medias_peso_ct, erro_padrao_peso_ct, medias_peso_dt, err
     ))
 
     fig.update_layout(
-        title="Média de Peso dos Animais (CT e DT) com Erro Padrão",
+        title="Peso médio dos animais em 16 dias de experimento - erro padrão sombreado",
         xaxis=dict(title="Dias"),
         yaxis_title="Peso (g)",
         legend_title="Classes"
@@ -143,7 +143,7 @@ def plotar_consumo_racao(medias_racao_ct, medias_racao_dt):
     ))
 
     fig.update_layout(
-        title="Consumo Médio de Ração",
+        title="Consumo médio de ração ",
         xaxis=dict(title="Dias"),
         yaxis_title="Consumo (g)"
     )
@@ -151,9 +151,9 @@ def plotar_consumo_racao(medias_racao_ct, medias_racao_dt):
     st.plotly_chart(fig)
 
 # Streamlit App
-st.title("Análise de Pesagem e Consumo de Ração dos Animais")
+st.title("Análise do peso e consumo de ração")
 
-uploaded_file = st.file_uploader("Carregar o arquivo Excel com os dados de pesagem", type=["xlsx"])
+uploaded_file = st.file_uploader("Carregar o arquivo excel com os dados", type=["xlsx"])
 
 if uploaded_file is not None:
     # Processa os dados
@@ -178,8 +178,8 @@ if uploaded_file is not None:
     )
 
     # Exibe as tabelas
-    st.subheader("Tabela de Pesagem para Animais da Classe CT e DT")
+    st.subheader("Tabela de peso pdos animais CT e DT")
     st.write(pd.concat([dados["df_ct"], dados["df_dt"]]))
 
-    st.subheader("Tabela de Consumo de Ração para Caixas CT e DT")
+    st.subheader("Tabela de consumo de ração das caixas CT e DT")
     st.write(pd.concat([dados["df_racao_ct"], dados["df_racao_dt"]]))
