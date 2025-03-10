@@ -3,6 +3,7 @@ import numpy as np
 import streamlit as st
 import plotly.graph_objects as go
 import matplotlib.pyplot as plt
+import seaborn as sns
 
 # Função para carregar e processar os dados do arquivo Excel
 def carregar_e_processar_excel(uploaded_file):
