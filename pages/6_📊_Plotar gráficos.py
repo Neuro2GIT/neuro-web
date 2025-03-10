@@ -345,7 +345,7 @@ def plotar_consumo_racao_seaborn(medias_racao_ct, medias_racao_dt):
     st.pyplot(fig)
 
 # Streamlit App
-st.title("Análise do peso e consumo de ração")
+st.title("Gráficos - peso e consumo de ração")
 
 uploaded_file = st.file_uploader("Carregar o arquivo excel com os dados", type=["xlsx"])
 
