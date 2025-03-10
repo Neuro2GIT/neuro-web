@@ -63,16 +63,52 @@ def plotar_pesagem(medias_peso_ct, erro_padrao_peso_ct, medias_peso_dt, erro_pad
         line=dict(color='red')
     ))
 
-    # Atualizando o layout para ajustar a escala
+    # Atualizando o layout para ajustar a escala e adicionar borda arredondada
     fig.update_layout(
-        title=("Peso médio dos animais em 16 dias de experimento"),
-        xaxis=dict(title="Dias", range=[dias.min(), dias.max()]),  # Limite do eixo X (dias)
-        yaxis=dict(title="Peso (g)", range=[min(medias_peso_ct.min(), medias_peso_dt.min()) - 10, max(medias_peso_ct.max(), medias_peso_dt.max()) + 10]),  # Limites ajustados para o eixo Y
-        plot_bgcolor=("lightgray"),  # Cor de fundo do gráfico
-        paper_bgcolor=("whitesmoke"), # Cor de fundo fora do gráfico (área de papel)
-        margin=dict(l=50, r=50, t=50, b=50),
-    
+        title="Peso médio dos animais em 16 dias de experimento",
+        xaxis=dict(
+        title="Dias", 
+        range=[dias.min(), dias.max()]  # Limite do eixo X (dias)
+        ),
+        yaxis=dict(
+        title="Peso (g)", 
+        range=[min(medias_peso_ct.min(), medias_peso_dt.min()) - 10, 
+               max(medias_peso_ct.max(), medias_peso_dt.max()) + 10]  # Limites ajustados para o eixo Y
+        ),
+        plot_bgcolor="lightgray",  # Cor de fundo do gráfico
+        paper_bgcolor="whitesmoke",  # Cor de fundo fora do gráfico (área de papel)
+        margin=dict(l=50, r=50, t=50, b=50),  # Margens do gráfico
+
+        # Adicionando uma borda arredondada ao gráfico com um shape
+        shapes=[
+            dict(
+            type="rect",  # Forma de retângulo
+            x0=0, y0=0, 
+            x1=1, y1=1,  # Posições do retângulo no gráfico (de 0 a 1, para todo o gráfico)
+            xref="paper", yref="paper",  # Referência para toda a área do gráfico
+            line=dict(
+                color="black",  # Cor da borda
+                width=2,        # Largura da borda
+                dash="solid"    # Estilo da borda
+            ),
+            fillcolor="rgba(245, 245, 245, 0.3)",  # Cor de fundo da área do gráfico
+            layer="below",  # Coloca atrás do gráfico
+            opacity=0.8,    # Opacidade para suavizar
+            path="M 0,0 Q 0,0 0,0 C 0,0 0,0 0,0"  # Definindo um caminho customizado
+        )
+    ]
     )
+
+    
+    # Atualizando o layout para ajustar a escala
+    #fig.update_layout(
+        #title=("Peso médio dos animais em 16 dias de experimento"),
+        #xaxis=dict(title="Dias", range=[dias.min(), dias.max()]),  # Limite do eixo X (dias)
+        #yaxis=dict(title="Peso (g)", range=[min(medias_peso_ct.min(), medias_peso_dt.min()) - 10, max(medias_peso_ct.max(), medias_peso_dt.max()) + 10]),  # Limites ajustados para o eixo Y
+        #plot_bgcolor=("lightgray"),  # Cor de fundo do gráfico
+        #paper_bgcolor=("whitesmoke"), # Cor de fundo fora do gráfico (área de papel)
+        #margin=dict(l=50, r=50, t=50, b=50),
+    #)
     
     #fig.update_layout(
         #title="Peso médio dos animais em 16 dias de experimento",
