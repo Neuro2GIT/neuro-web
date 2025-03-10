@@ -86,7 +86,7 @@ num_caixas = st.number_input("Número de caixas:", min_value=1, value=2, step=1)
 
 # Botão para gerar o arquivo Excel e permitir o download
 if st.button("Gerar Planilha"):
-    excel_file = criar_planilha(num_animais_ct, num_animais_dt, num_dias)
+    excel_file = criar_planilha(num_animais_ct, num_animais_dt, num_dias, num_caixas)
     
     st.download_button(
         label="Baixar Planilha Excel",
