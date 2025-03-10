@@ -27,7 +27,7 @@ def criar_planilha(num_animais_ct, num_animais_dt, num_dias, num_caixas):
     df_peso = pd.DataFrame(dados_peso, columns=colunas_peso)
 
     # Dados para a Tabela de Consumo de Ração
-    caixas = list(range(2, num_caixas + 1))  # IDs das caixas, de 1 até o número de caixas informado
+    caixas = list(range(1, num_caixas + 1))  # IDs das caixas, de 1 até o número de caixas informado
     classes_caixas = ['CT' if i % 2 != 0 else 'DT' for i in range(1, num_caixas + 1)]  # Alternando entre CT e DT
 
     # Inicializando as colunas de consumo de ração (dias de 1 até num_dias)
