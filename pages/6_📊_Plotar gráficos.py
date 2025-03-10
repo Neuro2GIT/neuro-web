@@ -67,10 +67,9 @@ def plotar_pesagem(medias_peso_ct, erro_padrao_peso_ct, medias_peso_dt, erro_pad
     fig.update_layout(
         title=("Peso médio dos animais em 16 dias de experimento"),
         title_x=(0.5),
-        xaxis=dict(title="Dias", range=[dias.min(), dias.max()]),  # Limite do eixo X (dias)
+        xaxis=dict(title="Dias", range=[dias.min(), dias.max()], scaleanchor="y"),  # Limite do eixo X (dias)
         title_xanchor=('center'),
         legend=dict(orientation="h", x=0.5, y=-0.2, xanchor="center"),
-        scaleanchor=("y"),
         #yaxis_scaleanchor=("x"),
         #yaxis=dict(title="Peso (g)", range=[min(medias_peso_ct.min(), medias_peso_dt.min()) - 10, max(medias_peso_ct.max(), medias_peso_dt.max()) + 10]),  # Limites ajustados para o eixo Y
         #margin=dict(l=50, r=50, t=50, b=100),
