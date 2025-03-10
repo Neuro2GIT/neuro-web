@@ -77,7 +77,7 @@ def plotar_pesagem(medias_peso_ct, erro_padrao_peso_ct, medias_peso_dt, erro_pad
         ),
         plot_bgcolor="lightgray",  # Cor de fundo do gráfico
         paper_bgcolor="whitesmoke" # Cor de fundo fora do gráfico (área de papel)
-)
+    )
     )
     
     #fig.update_layout(
