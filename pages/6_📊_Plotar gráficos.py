@@ -63,14 +63,28 @@ def plotar_pesagem(medias_peso_ct, erro_padrao_peso_ct, medias_peso_dt, erro_pad
         line=dict(color='red')
     ))
 
+    # Atualizando o layout para ajustar a escala
     fig.update_layout(
         title="Peso médio dos animais em 16 dias de experimento",
-        xaxis=dict(title="Dias",scaleanchor="y"),
-        yaxis_title="Peso (g)",
+        xaxis=dict(
+            title="Dias",
+            range=[dias.min(), dias.max()]  # Limite do eixo X (dias)
+        ),
+        yaxis=dict(
+            title="Peso (g)",
+            range=[min(medias_peso_ct.min(), medias_peso_dt.min()) - 10, 
+                   max(medias_peso_ct.max(), medias_peso_dt.max()) + 10]  # Limites ajustados para o eixo Y
+        )
+    )
+    
+    #fig.update_layout(
+        #title="Peso médio dos animais em 16 dias de experimento",
+        #xaxis=dict(title="Dias",scaleanchor="y"),
+        #yaxis_title="Peso (g)",
         #legend=dict(orientation="h", x=0.5, y=-0.2, xanchor="center")
         #margin=dict(l=0, r=150, t=50, b=50),
         #legend_title="Classes"
-    )
+    #)
     
     st.plotly_chart(fig)
 
