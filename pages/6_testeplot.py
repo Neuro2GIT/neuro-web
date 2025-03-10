@@ -24,8 +24,8 @@ def carregar_e_processar_excel(uploaded_file):
     df_racao_ct.iloc[:, 1:] = df_racao_ct.iloc[:, 1:].apply(pd.to_numeric, errors='coerce')
     df_racao_dt.iloc[:, 1:] = df_racao_dt.iloc[:, 1:].apply(pd.to_numeric, errors='coerce')
 
-    medias_racao_ct = df_racao_ct.iloc[:, 1:].mean(axis=0)
-    medias_racao_dt = df_racao_dt.iloc[:, 1:].mean(axis=0)
+    medias_racao_ct = df_racao_ct.iloc[:, 2:].mean()
+    medias_racao_dt = df_racao_dt.iloc[:, 2:].mean()
 
     return {
         "medias_peso_ct": medias_peso_ct, "erro_padrao_peso_ct": erro_padrao_peso_ct, "df_ct": df_ct,
