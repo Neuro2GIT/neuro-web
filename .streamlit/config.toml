@@ -1,6 +1,6 @@
-[theme]
-base="dark"
-primaryColor="purple"
+#[theme]
+#base="dark"
+#primaryColor="purple"
 
-[server]
-maxUploadSize = 2000  # 2GB in bytes
+#[server]
+#maxUploadSize = 20  # 2GB in bytes
