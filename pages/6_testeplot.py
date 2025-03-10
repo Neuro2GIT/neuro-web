@@ -20,6 +20,10 @@ def carregar_e_processar_excel(uploaded_file):
     df_racao_ct = df_racao[df_racao['Classe da Caixa'] == 'CT']
     df_racao_dt = df_racao[df_racao['Classe da Caixa'] == 'DT']
 
+    # Forçar as colunas de consumo a serem numéricas, ignorando valores não numéricos
+    df_racao_ct.iloc[:, 1:] = df_racao_ct.iloc[:, 1:].apply(pd.to_numeric, errors='coerce')
+    df_racao_dt.iloc[:, 1:] = df_racao_dt.iloc[:, 1:].apply(pd.to_numeric, errors='coerce')
+
     medias_racao_ct = df_racao_ct.iloc[:, 1:].mean(axis=0)
     medias_racao_dt = df_racao_dt.iloc[:, 1:].mean(axis=0)
 
