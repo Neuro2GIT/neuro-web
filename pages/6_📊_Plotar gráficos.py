@@ -164,8 +164,8 @@ def plotar_consumo_racao(medias_racao_ct, medias_racao_dt):
         title_x=(0.5),
         title_xanchor=('center'),
         legend=dict(orientation="h", x=0.5, y=-0.2, xanchor="center"),
-        height=600,
-        width=600
+        #height=600,
+        #width=600
     )
 
     st.plotly_chart(fig)
