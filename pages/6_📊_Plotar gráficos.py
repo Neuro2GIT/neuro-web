@@ -154,7 +154,8 @@ def plotar_consumo_racao(medias_racao_ct, medias_racao_dt):
         xaxis=dict(title="Dias"),
         yaxis_title="Consumo (g)",
         title_font_shadow="auto",
-        paper_bgcolor="#84998d",
+        #paper_bgcolor="#84998d",
+        plot_bgcolor="#ffffff",
         #legend=dict(orientation="h", x=0.5, y=-0.2, xanchor="center")
         #margin=dict(l=0, r=150, t=50, b=50),
         #xaxis=dict(title="Dias",scaleanchor="y", constrain="domain"),
