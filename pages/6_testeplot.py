@@ -11,14 +11,14 @@ def carregar_e_processar_excel(uploaded_file):
     df_ct = df[df['Classe do Animal'] == 'CT']
     df_dt = df[df['Classe do Animal'] == 'DT']
 
+    df_racao_ct = df_racao[df_racao['Classe da Caixa'] == 'CT']
+    df_racao_dt = df_racao[df_racao['Classe da Caixa'] == 'DT']
+
     medias_peso_ct = df_ct.iloc[:, 2:].mean()
     erro_padrao_peso_ct = df_ct.iloc[:, 2:].std() / np.sqrt(df_ct.shape[0])
 
     medias_peso_dt = df_dt.iloc[:, 2:].mean()
     erro_padrao_peso_dt = df_dt.iloc[:, 2:].std() / np.sqrt(df_dt.shape[0])
-
-    df_racao_ct = df_racao[df_racao['Classe da Caixa'] == 'CT']
-    df_racao_dt = df_racao[df_racao['Classe da Caixa'] == 'DT']
 
     # Forçar as colunas de consumo a serem numéricas, ignorando valores não numéricos
     #df_racao_ct.iloc[:, 1:] = df_racao_ct.iloc[:, 1:].apply(pd.to_numeric, errors='coerce')
