@@ -6,7 +6,7 @@ import plotly.graph_objects as go
 # Função para carregar e processar os dados do arquivo Excel
 def carregar_e_processar_excel(uploaded_file):
     df = pd.read_excel(uploaded_file, sheet_name="Pesagem de Animais")
-    df_racao = pd.read_excel(uploaded_file, sheet_name="Consumo de Ração", header=0)
+    df_racao = pd.read_excel(uploaded_file, sheet_name="Consumo de Ração")
 
     df_ct = df[df['Classe do Animal'] == 'CT']
     df_dt = df[df['Classe do Animal'] == 'DT']
@@ -19,9 +19,6 @@ def carregar_e_processar_excel(uploaded_file):
 
     df_racao_ct = df_racao[df_racao['Classe da Caixa'] == 'CT']
     df_racao_dt = df_racao[df_racao['Classe da Caixa'] == 'DT']
-
-    df_racao_ct.iloc[:, 1:] = df_racao_ct.iloc[:, 1:].apply(pd.to_numeric, errors='coerce')
-    df_racao_dt.iloc[:, 1:] = df_racao_dt.iloc[:, 1:].apply(pd.to_numeric, errors='coerce')
 
     medias_racao_ct = df_racao_ct.iloc[:, 1:].mean(axis=0)
     medias_racao_dt = df_racao_dt.iloc[:, 1:].mean(axis=0)
