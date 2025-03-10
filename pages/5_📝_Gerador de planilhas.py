@@ -76,7 +76,7 @@ def criar_planilha(num_animais_ct, num_animais_dt, num_dias, num_caixas):
         return b.read()
 
 # Configuração do Streamlit
-st.title("Peso dos animais e consumo de ração")
+st.title("Peso e consumo de ração")
 
 # Widgets para o número de animais e dias do experimento
 num_animais_ct = st.number_input("Número de animais na classe CT:", min_value=1, value=5, step=1)
