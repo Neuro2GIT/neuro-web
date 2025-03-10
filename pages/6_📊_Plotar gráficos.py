@@ -39,7 +39,7 @@ def carregar_e_processar_excel(uploaded_file):
 
 # Função para plotar o gráfico de linhas com erro padrão
 def plotar_pesagem(medias_peso_ct, erro_padrao_peso_ct, medias_peso_dt, erro_padrao_peso_dt):
-    dias = np.arange(1, len(medias_peso_ct) + 1)
+    dias = np.arange(1, len(medias_peso_ct))
 
     fig = go.Figure()
 
