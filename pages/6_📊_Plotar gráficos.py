@@ -2,6 +2,7 @@ import pandas as pd
 import numpy as np
 import streamlit as st
 import plotly.graph_objects as go
+import matplotlib.pyplot as plt
 
 # Função para carregar e processar os dados do arquivo Excel
 def carregar_e_processar_excel(uploaded_file):
@@ -37,7 +38,7 @@ def carregar_e_processar_excel(uploaded_file):
         "df_racao_ct": df_racao_ct, "df_racao_dt": df_racao_dt
     }
 
-# Função para plotar o gráfico de linhas com erro padrão
+# Função para plotar o gráfico de linhas com erro padrão usando plotly
 def plotar_pesagem(medias_peso_ct, erro_padrao_peso_ct, medias_peso_dt, erro_padrao_peso_dt):
     dias = np.arange(1, len(medias_peso_ct) + 1)
 
@@ -72,7 +73,7 @@ def plotar_pesagem(medias_peso_ct, erro_padrao_peso_ct, medias_peso_dt, erro_pad
     
     st.plotly_chart(fig)
 
-# Função para plotar o gráfico de área sombreada
+# Função para plotar o gráfico de área sombreada usando plotly
 def plotar_pesagem_area(medias_peso_ct, erro_padrao_peso_ct, medias_peso_dt, erro_padrao_peso_dt):
     dias = np.arange(1, len(medias_peso_ct) + 1)
 
@@ -127,7 +128,7 @@ def plotar_pesagem_area(medias_peso_ct, erro_padrao_peso_ct, medias_peso_dt, err
 
     st.plotly_chart(fig)
 
-# Função para plotar o gráfico de consumo de ração
+# Função para plotar o gráfico de consumo de ração usando plotly
 def plotar_consumo_racao(medias_racao_ct, medias_racao_dt):
     dias = np.arange(1, len(medias_racao_ct) + 1)
     
@@ -162,6 +163,29 @@ def plotar_consumo_racao(medias_racao_ct, medias_racao_dt):
     )
 
     st.plotly_chart(fig)
+
+def plotar_pesagem_mat(medias_peso_ct, erro_padrao_peso_ct, medias_peso_dt, erro_padrao_peso_dt):
+    dias = np.arange(1, len(medias_peso_ct) + 1)
+
+    # Criando a figura e os eixos
+    fig, ax = plt.subplots(figsize=(10, 6))
+
+    # Plotando os dados para Controle
+    ax.errorbar(dias, medias_peso_ct.values, yerr=erro_padrao_peso_ct.values, fmt='-o', color='blue', label='Controle')
+
+    # Plotando os dados para Deficiente em tiamina
+    ax.errorbar(dias, medias_peso_dt.values, yerr=erro_padrao_peso_dt.values, fmt='-o', color='red', label='Deficiente em tiamina')
+
+    # Definindo o título e os rótulos dos eixos
+    ax.set_title("Peso médio dos animais em 16 dias de experimento", fontsize=16)
+    ax.set_xlabel("Dias", fontsize=12)
+    ax.set_ylabel("Peso (g)", fontsize=12)
+
+    # Adicionando a legenda
+    ax.legend()
+
+    # Exibindo o gráfico
+    st.pyplot(fig)
 
 # Streamlit App
 st.title("Análise do peso e consumo de ração")
