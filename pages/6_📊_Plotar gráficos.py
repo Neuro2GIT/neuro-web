@@ -346,11 +346,11 @@ with st.sidebar:
     #st.write("Índice") header
         #opcao_selecionada = st.selectbox("Escolha uma opção", ["Preparo de ração CT", "Preparo de ração DT"])
 
-    with st.container(border=True):
-        st.write("Selecione um arquivo excel (.xlsx) em 'Browse files' ou arraste para carregar os gráficos")    
+    #with st.container(border=True):
+        #st.write("Selecione um arquivo excel (.xlsx) em 'Browse files' ou arraste para carregar os gráficos")    
 
 with st.container(border=True):
-    st.write()
+    st.write("Selecione um arquivo excel (.xlsx) em 'Browse files' ou arraste para carregar os gráficos")
     uploaded_file = st.file_uploader("Carregar o arquivo excel com os dados", type=["xlsx"])
 
 if uploaded_file is not None:
