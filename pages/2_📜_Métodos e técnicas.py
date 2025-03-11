@@ -80,7 +80,7 @@ def main():
     # Sidebar para navegação e autenticação
     with st.sidebar:
         st.header("Índice")
-        opcao_selecionada = st.selectbox("Escolha uma opção", ["Preparo de ração CT", "Preparo de ração DT"])
+        #opcao_selecionada = st.selectbox("Escolha uma opção", ["Preparo de ração CT", "Preparo de ração DT"])
 
         tecnica_selecionada = st.radio(
                 "Ração",
@@ -88,7 +88,7 @@ def main():
             )
 
     # Criar as tabs dependendo da seleção da técnica
-    if opcao_selecionada == "Preparo de ração CT":
+    if tecnica_selecionada == "Controle":
         tabs = st.tabs(["Ingredientes", "Preparo", "Secagem"])
 
         # Conteúdo das tabs para "Preparo de ração CT"
