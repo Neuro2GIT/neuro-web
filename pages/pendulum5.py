@@ -4,7 +4,7 @@ from matplotlib.animation import FuncAnimation
 import streamlit as st
 from io import BytesIO
 import base64
-from matplotlib.animation import PillowWriter  # Usando PillowWriter
+from PIL import Image
 
 # Parâmetros do pêndulo
 g = 9.81  # aceleração devido à gravidade (m/s^2)
@@ -38,15 +38,14 @@ def create_pendulum_animation():
     ani = FuncAnimation(fig, animate, frames=np.linspace(0, 10, 200),
                         init_func=init, blit=True)
 
-    # Criar o writer e passar fps na sua criação
-    writer = PillowWriter(fps=30)
-
-    # Salvar a animação como um arquivo temporário em memória
+    # Gravar a animação em memória
     buf = BytesIO()
-    ani.save(buf, writer=writer)  # Não passamos fps aqui, já foi passado na criação do writer
+
+    # Inicializar o writer e salvar a animação no buffer
+    ani.save(buf, writer='pillow', fps=30)
     buf.seek(0)
 
-    # Codificar a animação em base64 para exibir no Streamlit
+    # Convertendo o conteúdo do buffer para base64
     gif_data = base64.b64encode(buf.read()).decode('utf-8')
     buf.close()
 
@@ -60,4 +59,3 @@ gif_data = create_pendulum_animation()
 
 # Exibir a animação na página
 st.image(f"data:image/gif;base64,{gif_data}", use_column_width=True)
-
