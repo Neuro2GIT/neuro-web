@@ -95,7 +95,7 @@ def main():
                 #)
 
     # Criar as tabs dependendo da seleção da técnica
-    if tecnica_selecionada == "Controle":
+    if tecnica_selecionada == "Ração - CT":
         tabs = st.tabs(["Ingredientes", "Preparo"])
 
         # Conteúdo das tabs para "Preparo de ração CT"
@@ -103,6 +103,14 @@ def main():
             st.write("Placeholder - Preparo de ração CT")
         with tabs[1]:
             st.write("Preparo da ração controle")
+
+    if tecnica_selecionada == "Ração - DT":
+
+        # Conteúdo das tabs para "Preparo de ração DT"
+        with tabs[0]:
+            st.write("Placeholder - Preparo de ração DT")
+        with tabs[1]:
+            st.write("Preparo da ração dt")
             
              # Aqui você pode colocar o código para baixar e exibir o arquivo .docx no placeholder
             placeholder = st.empty()  # Criando um Placeholder
