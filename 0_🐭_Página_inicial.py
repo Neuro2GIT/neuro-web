@@ -84,7 +84,9 @@ themes = {
 # Função principal para exibir o conteúdo
 def main():
     st.title("🧠 Neuroscience Interest Group")
-    st.write("")
+    
+    st.markdown("<br>", unsafe_allow_html=True)
+    
     # Iterar pelos temas e artigos
     for theme, dois in themes.items():
         with st.container(border=True):
