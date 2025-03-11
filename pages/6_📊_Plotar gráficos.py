@@ -356,11 +356,12 @@ if uploaded_file is not None:
 
         if aba_selecionada == "Plotly":
             st.subheader("Gráficos com Plotly")
-            # Plota todos os gráficos relacionados ao Plotly
-            plotar_pesagem(
-                dados["medias_peso_ct"], dados["erro_padrao_peso_ct"],
-                dados["medias_peso_dt"], dados["erro_padrao_peso_dt"]
-            )
+            
+            with st.container(border=True):# Plota todos os gráficos relacionados ao Plotly
+                plotar_pesagem(
+                    dados["medias_peso_ct"], dados["erro_padrao_peso_ct"],
+                    dados["medias_peso_dt"], dados["erro_padrao_peso_dt"]
+                )
             plotar_pesagem_area(
                 dados["medias_peso_ct"], dados["erro_padrao_peso_ct"],
                 dados["medias_peso_dt"], dados["erro_padrao_peso_dt"]
