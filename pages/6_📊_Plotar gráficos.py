@@ -380,22 +380,22 @@ if uploaded_file is not None:
             
             # Plota todos os gráficos relacionados ao Matplotlib
             with st.container(border=True):
-            plotar_pesagem_mat(
-                dados["medias_peso_ct"], dados["erro_padrao_peso_ct"],
-                dados["medias_peso_dt"], dados["erro_padrao_peso_dt"]
-            )
+                plotar_pesagem_mat(
+                    dados["medias_peso_ct"], dados["erro_padrao_peso_ct"],
+                    dados["medias_peso_dt"], dados["erro_padrao_peso_dt"]
+                )
 
             with st.container(border=True):
-            plotar_pesagem_area_mat(
-                dados["medias_peso_ct"], dados["erro_padrao_peso_ct"],
-                dados["medias_peso_dt"], dados["erro_padrao_peso_dt"]
-            )
+                plotar_pesagem_area_mat(
+                    dados["medias_peso_ct"], dados["erro_padrao_peso_ct"],
+                    dados["medias_peso_dt"], dados["erro_padrao_peso_dt"]
+                )
 
             with st.container(border=True):
-            plotar_consumo_racao_mat(
-                dados["medias_racao_ct"],
-                dados["medias_racao_dt"],
-            )
+                plotar_consumo_racao_mat(
+                    dados["medias_racao_ct"],
+                    dados["medias_racao_dt"],
+                )
             
 
         elif aba_selecionada == "Seaborn":
@@ -403,22 +403,22 @@ if uploaded_file is not None:
             
             # Plota todos os gráficos relacionados ao Seaborn
             with st.container(border=True):
-            plotar_pesagem_seaborn(
-                dados["medias_peso_ct"], dados["erro_padrao_peso_ct"],
-                dados["medias_peso_dt"], dados["erro_padrao_peso_dt"]
-            )
+                plotar_pesagem_seaborn(
+                    dados["medias_peso_ct"], dados["erro_padrao_peso_ct"],
+                    dados["medias_peso_dt"], dados["erro_padrao_peso_dt"]
+                )
 
             with st.container(border=True):
-            plotar_pesagem_area_seaborn(
-                dados["medias_peso_ct"], dados["erro_padrao_peso_ct"],
-                dados["medias_peso_dt"], dados["erro_padrao_peso_dt"]
-            )
+                plotar_pesagem_area_seaborn(
+                    dados["medias_peso_ct"], dados["erro_padrao_peso_ct"],
+                    dados["medias_peso_dt"], dados["erro_padrao_peso_dt"]
+                )
 
             with st.container(border=True):
-            plotar_consumo_racao_seaborn(
-                dados["medias_racao_ct"],
-                dados["medias_racao_dt"],
-            )
+                plotar_consumo_racao_seaborn(
+                    dados["medias_racao_ct"],
+                    dados["medias_racao_dt"],
+                )
 
     # Exibe as tabelas abaixo das abas
     st.subheader("Tabela de peso dos animais CT e DT")
