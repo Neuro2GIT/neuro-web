@@ -1,9 +1,8 @@
 import numpy as np
 import matplotlib.pyplot as plt
-from matplotlib.animation import FuncAnimation
-import streamlit as st
 from io import BytesIO
 import base64
+import streamlit as st
 from PIL import Image
 
 # Parâmetros do pêndulo
@@ -17,35 +16,35 @@ def pendulum(t, theta_0):
 
 # Função para criar a animação e retornar como imagem codificada em base64
 def create_pendulum_animation():
-    # Criar o gráfico
+    # Configurar o gráfico
     fig, ax = plt.subplots()
     ax.set_xlim(-1.2, 1.2)
     ax.set_ylim(-1.2, 1.2)
 
     line, = ax.plot([], [], 'o-', lw=2)
 
-    def init():
-        line.set_data([], [])
-        return line,
+    # Lista para armazenar os quadros da animação
+    frames = []
 
-    def animate(t):
+    # Gerar os quadros da animação
+    for t in np.linspace(0, 10, 200):
         x = L * np.sin(pendulum(t, theta_0))
         y = -L * np.cos(pendulum(t, theta_0))
         line.set_data([0, x], [0, y])
-        return line,
 
-    # Animação
-    ani = FuncAnimation(fig, animate, frames=np.linspace(0, 10, 200),
-                        init_func=init, blit=True)
+        # Salvar o quadro como imagem e adicionar à lista de frames
+        fig.canvas.draw()
+        img = np.frombuffer(fig.canvas.tostring_rgb(), dtype=np.uint8)
+        img = img.reshape(fig.canvas.get_width_height()[::-1] + (3,))
+        pil_img = Image.fromarray(img)
+        frames.append(pil_img)
 
-    # Gravar a animação em memória
+    # Salvar os quadros como um GIF em memória
     buf = BytesIO()
-
-    # Inicializar o writer e salvar a animação no buffer
-    ani.save(buf, writer='pillow', fps=30)
+    frames[0].save(buf, save_all=True, append_images=frames[1:], optimize=True, duration=100, loop=0)
     buf.seek(0)
 
-    # Convertendo o conteúdo do buffer para base64
+    # Codificar a animação em base64 para exibir no Streamlit
     gif_data = base64.b64encode(buf.read()).decode('utf-8')
     buf.close()
 
