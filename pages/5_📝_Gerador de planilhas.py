@@ -78,11 +78,13 @@ def criar_planilha(num_animais_ct, num_animais_dt, num_dias, num_caixas):
 # Configuração do Streamlit
 st.title("Peso e consumo de ração")
 
-# Widgets para o número de animais e dias do experimento
-num_animais_ct = st.number_input("Número de animais na classe CT:", min_value=1, value=5, step=1)
-num_animais_dt = st.number_input("Número de animais na classe DT:", min_value=1, value=5, step=1)
-num_dias = st.number_input("Número de dias do experimento:", min_value=1, value=16, step=1)
-num_caixas = st.number_input("Número de caixas:", min_value=1, value=2, step=1)
+with st.container(border=True):
+            
+    # Widgets para o número de animais e dias do experimento
+    num_animais_ct = st.number_input("Número de animais na classe CT:", min_value=1, value=5, step=1)
+    num_animais_dt = st.number_input("Número de animais na classe DT:", min_value=1, value=5, step=1)
+    num_dias = st.number_input("Número de dias do experimento:", min_value=1, value=16, step=1)
+    num_caixas = st.number_input("Número de caixas:", min_value=1, value=2, step=1)
 
 # Botão para gerar o arquivo Excel e permitir o download
 if st.button("Gerar Planilha"):
