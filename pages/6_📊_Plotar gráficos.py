@@ -357,19 +357,23 @@ if uploaded_file is not None:
         if aba_selecionada == "Plotly":
             st.subheader("Gráficos com Plotly")
             
-            with st.container(border=True):# Plota todos os gráficos relacionados ao Plotly
+            with st.container(border=True):
+                # Plota todos os gráficos relacionados ao Plotly
                 plotar_pesagem(
                     dados["medias_peso_ct"], dados["erro_padrao_peso_ct"],
                     dados["medias_peso_dt"], dados["erro_padrao_peso_dt"]
                 )
-            plotar_pesagem_area(
-                dados["medias_peso_ct"], dados["erro_padrao_peso_ct"],
-                dados["medias_peso_dt"], dados["erro_padrao_peso_dt"]
-            )
-            plotar_consumo_racao(
-                dados["medias_racao_ct"],
-                dados["medias_racao_dt"],
-            )
+                
+            with st.container(border=True):
+                plotar_pesagem_area(
+                    dados["medias_peso_ct"], dados["erro_padrao_peso_ct"],
+                    dados["medias_peso_dt"], dados["erro_padrao_peso_dt"]
+                )
+            with st.container(border=True):
+                plotar_consumo_racao(
+                    dados["medias_racao_ct"],
+                    dados["medias_racao_dt"],
+                )
 
         elif aba_selecionada == "Matplotlib":
             st.subheader("Gráficos com Matplotlib")
