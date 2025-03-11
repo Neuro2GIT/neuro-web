@@ -82,10 +82,11 @@ def main():
         #st.write("Índice") header
         #opcao_selecionada = st.selectbox("Escolha uma opção", ["Preparo de ração CT", "Preparo de ração DT"])
 
-        tecnica_selecionada = st.radio(
-                "Ração",
-                ("Controle", "Sem tiamina")
-            )
+        with st.container(border=True):
+            tecnica_selecionada = st.radio(
+                    "Ração",
+                    ("Controle", "Sem tiamina")
+                )
 
     # Criar as tabs dependendo da seleção da técnica
     if tecnica_selecionada == "Controle":
