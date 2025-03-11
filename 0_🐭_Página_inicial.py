@@ -92,18 +92,18 @@ def main():
                 st.subheader(theme)  # Exibir o nome do tema como um subtítulo
                 st.markdown("---")  # Linha separadora para melhor organização
 
-            for doi in dois:
-                title, authors, published_year, url, pdf_link = get_doi_info(doi)
+                for doi in dois:
+                    title, authors, published_year, url, pdf_link = get_doi_info(doi)
             
-                if title:
-                    with st.expander(title):
-                        st.markdown(f"**Autores**: {authors}")
-                        st.markdown(f"**Publicado em**: {published_year}")
-                        st.markdown(f"[Leia o artigo completo]({url})")
+                    if title:
+                        with st.expander(title):
+                            st.markdown(f"**Autores**: {authors}")
+                            st.markdown(f"**Publicado em**: {published_year}")
+                            st.markdown(f"[Leia o artigo completo]({url})")
                     
-                        # Botão para baixar o PDF, se disponível
-                        if pdf_link:
-                            st.markdown(f"[Baixar PDF]({pdf_link})")
+                            # Botão para baixar o PDF, se disponível
+                            if pdf_link:
+                                st.markdown(f"[Baixar PDF]({pdf_link})")
                     
                     # Botão para marcar como lido
                     #if st.button(f"Marcar {title} como lido"):
