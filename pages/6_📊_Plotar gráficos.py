@@ -351,7 +351,7 @@ with st.sidebar:
 
 with st.container(border=True):
         st.write("Selecione um arquivo excel (.xlsx) em 'Browse files' ou arraste para carregar os gráficos")
-    uploaded_file = st.file_uploader("Carregar o arquivo excel com os dados", type=["xlsx"])
+        uploaded_file = st.file_uploader("Carregar o arquivo excel com os dados", type=["xlsx"])
 
 if uploaded_file is not None:
     # Processa os dados
