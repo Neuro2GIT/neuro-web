@@ -79,7 +79,7 @@ def main():
         
     # Sidebar para navegação e autenticação
     with st.sidebar:
-        st.write("Índice")
+        #st.write("Índice") header
         #opcao_selecionada = st.selectbox("Escolha uma opção", ["Preparo de ração CT", "Preparo de ração DT"])
 
         tecnica_selecionada = st.radio(
