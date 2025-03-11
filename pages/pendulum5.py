@@ -34,8 +34,10 @@ def create_pendulum_animation():
 
         # Salvar o quadro como imagem e adicionar à lista de frames
         fig.canvas.draw()
-        img = np.frombuffer(fig.canvas.tostring_rgb(), dtype=np.uint8)
-        img = img.reshape(fig.canvas.get_width_height()[::-1] + (3,))
+
+        # Usando print_to_buffer() para capturar a imagem
+        buf = fig.canvas.print_to_buffer()
+        img = np.frombuffer(buf[0], dtype=np.uint8).reshape(buf[1][::-1] + (4,))
         pil_img = Image.fromarray(img)
         frames.append(pil_img)
 
