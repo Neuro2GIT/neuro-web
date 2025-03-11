@@ -12,3 +12,4 @@ matplotlib
 seaborn
 openpyxl
 plotly
+pillow
