@@ -75,9 +75,5 @@ with st.container():
     # Aplicando a classe personalizada ao container
     st.markdown('<div class="custom-container">', unsafe_allow_html=True)
     
-    # Conteúdo do container
-    st.title('Título dentro do container com fundo colorido!')
-    st.write('Aqui está um exemplo de como adicionar um fundo colorido ao container.')
-    
     st.markdown('</div>', unsafe_allow_html=True)
 
