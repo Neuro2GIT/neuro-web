@@ -348,35 +348,35 @@ if uploaded_file is not None:
     dados = carregar_e_processar_excel(uploaded_file)
 
     with st.container():
-    # Cria as abas usando st.radio
-    aba_selecionada = st.radio(
-        "Escolha o tipo de gráfico",
-        ("Plotly", "Matplotlib", "Seaborn")
-    )
-
-    if aba_selecionada == "Plotly":
-        st.subheader("Gráficos com Plotly")
-        # Plota todos os gráficos relacionados ao Plotly
-        plotar_pesagem(
-            dados["medias_peso_ct"], dados["erro_padrao_peso_ct"],
-            dados["medias_peso_dt"], dados["erro_padrao_peso_dt"]
-        )
-        plotar_pesagem_area(
-            dados["medias_peso_ct"], dados["erro_padrao_peso_ct"],
-            dados["medias_peso_dt"], dados["erro_padrao_peso_dt"]
-        )
-        plotar_consumo_racao(
-            dados["medias_racao_ct"],
-            dados["medias_racao_dt"],
+        # Cria as abas usando st.radio
+        aba_selecionada = st.radio(
+            "Escolha o tipo de gráfico",
+            ("Plotly", "Matplotlib", "Seaborn")
         )
 
-    elif aba_selecionada == "Matplotlib":
-        st.subheader("Gráficos com Matplotlib")
-        # Plota todos os gráficos relacionados ao Matplotlib
-        plotar_pesagem_mat(
-            dados["medias_peso_ct"], dados["erro_padrao_peso_ct"],
-            dados["medias_peso_dt"], dados["erro_padrao_peso_dt"]
-        )
+        if aba_selecionada == "Plotly":
+            st.subheader("Gráficos com Plotly")
+            # Plota todos os gráficos relacionados ao Plotly
+            plotar_pesagem(
+                dados["medias_peso_ct"], dados["erro_padrao_peso_ct"],
+                dados["medias_peso_dt"], dados["erro_padrao_peso_dt"]
+            )
+            plotar_pesagem_area(
+                dados["medias_peso_ct"], dados["erro_padrao_peso_ct"],
+                dados["medias_peso_dt"], dados["erro_padrao_peso_dt"]
+            )
+            plotar_consumo_racao(
+                dados["medias_racao_ct"],
+                dados["medias_racao_dt"],
+            )
+
+        elif aba_selecionada == "Matplotlib":
+            st.subheader("Gráficos com Matplotlib")
+            # Plota todos os gráficos relacionados ao Matplotlib
+            plotar_pesagem_mat(
+                dados["medias_peso_ct"], dados["erro_padrao_peso_ct"],
+                dados["medias_peso_dt"], dados["erro_padrao_peso_dt"]
+            )
         plotar_pesagem_area_mat(
             dados["medias_peso_ct"], dados["erro_padrao_peso_ct"],
             dados["medias_peso_dt"], dados["erro_padrao_peso_dt"]
@@ -384,23 +384,23 @@ if uploaded_file is not None:
         plotar_consumo_racao_mat(
             dados["medias_racao_ct"],
             dados["medias_racao_dt"],
-        )
+            )
 
-    elif aba_selecionada == "Seaborn":
-        st.subheader("Gráficos com Seaborn")
-        # Plota todos os gráficos relacionados ao Seaborn
-        plotar_pesagem_seaborn(
-            dados["medias_peso_ct"], dados["erro_padrao_peso_ct"],
-            dados["medias_peso_dt"], dados["erro_padrao_peso_dt"]
-        )
-        plotar_pesagem_area_seaborn(
-            dados["medias_peso_ct"], dados["erro_padrao_peso_ct"],
-            dados["medias_peso_dt"], dados["erro_padrao_peso_dt"]
-        )
-        plotar_consumo_racao_seaborn(
-            dados["medias_racao_ct"],
-            dados["medias_racao_dt"],
-        )
+        elif aba_selecionada == "Seaborn":
+            st.subheader("Gráficos com Seaborn")
+            # Plota todos os gráficos relacionados ao Seaborn
+            plotar_pesagem_seaborn(
+                dados["medias_peso_ct"], dados["erro_padrao_peso_ct"],
+                dados["medias_peso_dt"], dados["erro_padrao_peso_dt"]
+            )
+            plotar_pesagem_area_seaborn(
+                dados["medias_peso_ct"], dados["erro_padrao_peso_ct"],
+                dados["medias_peso_dt"], dados["erro_padrao_peso_dt"]
+            )
+            plotar_consumo_racao_seaborn(
+                dados["medias_racao_ct"],
+                dados["medias_racao_dt"],
+            )
 
     # Exibe as tabelas abaixo das abas
     st.subheader("Tabela de peso dos animais CT e DT")
