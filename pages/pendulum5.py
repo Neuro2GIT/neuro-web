@@ -38,10 +38,12 @@ def create_pendulum_animation():
     ani = FuncAnimation(fig, animate, frames=np.linspace(0, 10, 200),
                         init_func=init, blit=True)
 
-    # Salvar a animação como um arquivo temporário em memória usando PillowWriter
+    # Criar o writer e passar fps na sua criação
+    writer = PillowWriter(fps=30)
+
+    # Salvar a animação como um arquivo temporário em memória
     buf = BytesIO()
-    writer = PillowWriter(fps=30)  # Usando o escritor Pillow
-    ani.save(buf, writer=writer, fps=30)
+    ani.save(buf, writer=writer)  # Não passamos fps aqui, já foi passado na criação do writer
     buf.seek(0)
 
     # Codificar a animação em base64 para exibir no Streamlit
@@ -58,3 +60,4 @@ gif_data = create_pendulum_animation()
 
 # Exibir a animação na página
 st.image(f"data:image/gif;base64,{gif_data}", use_column_width=True)
+
