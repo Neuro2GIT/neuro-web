@@ -87,6 +87,12 @@ def main():
                     "Ração",
                     ("Controle", "Sem tiamina")
                 )
+            
+        with st.container(border=True):
+            tecnica_selecionada = st.radio(
+                    "Dosagem",
+                    ("Cálcio", "proteínas")
+                )
 
     # Criar as tabs dependendo da seleção da técnica
     if tecnica_selecionada == "Controle":
