@@ -52,8 +52,6 @@ dias_dissec = st.number_input("Dias até a Dissecação", min_value=1, value=1)
 if st.button("Gerar Linha do Tempo"):
     plot_timeline(dias_aclim, dias_trat, dias_teste, dias_dissec)
 
-import streamlit as st
-
 # Usando CSS para definir a cor de fundo do container
 st.markdown(
     """
@@ -63,7 +61,7 @@ st.markdown(
         padding: 20px;
         border-radius: 10px;
         border: 2px solid #000000;  /* Cor da borda */
-        display: block;  /* Para garantir que o conteúdo seja exibido corretamente */
+        position: relative;  /* Posicionamento para o conteúdo */
     }
     </style>
     """, 
@@ -72,8 +70,12 @@ st.markdown(
 
 # Criando o container
 with st.container():
-    # Aplicando a classe personalizada ao container
+    # Início da `div` que envolve o conteúdo, aplicando a classe personalizada
     st.markdown('<div class="custom-container">', unsafe_allow_html=True)
-    
-    st.markdown('</div>', unsafe_allow_html=True)
 
+    # Conteúdo do container
+    st.title('Título dentro do container com fundo colorido!')
+    st.write('Aqui está um exemplo de como adicionar um fundo colorido ao container, com o conteúdo sobre ele.')
+
+    # Fim da `div` que fecha o container personalizado
+    st.markdown('</div>', unsafe_allow_html=True)
