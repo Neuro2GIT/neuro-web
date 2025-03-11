@@ -88,8 +88,9 @@ def main():
     # Iterar pelos temas e artigos
     with st.container(border=True):
         for theme, dois in themes.items():
-            st.subheader(theme)  # Exibir o nome do tema como um subtítulo
-            st.markdown("---")  # Linha separadora para melhor organização
+            with st.container(border=True):
+                st.subheader(theme)  # Exibir o nome do tema como um subtítulo
+                st.markdown("---")  # Linha separadora para melhor organização
 
             for doi in dois:
                 title, authors, published_year, url, pdf_link = get_doi_info(doi)
