@@ -340,8 +340,10 @@ def plotar_consumo_racao_seaborn(medias_racao_ct, medias_racao_dt):
 
 # Streamlit App
 st.title("Gráficos - peso e consumo de ração")
-st.write()
-uploaded_file = st.file_uploader("Carregar o arquivo excel com os dados", type=["xlsx"])
+
+with st.container(border=True):
+    st.write()
+    uploaded_file = st.file_uploader("Carregar o arquivo excel com os dados", type=["xlsx"])
 
 if uploaded_file is not None:
     # Processa os dados
