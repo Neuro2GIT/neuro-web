@@ -73,4 +73,3 @@ with st.container(border=True):
     st.title('Título dentro do container com fundo colorido!')
     st.write('Aqui está um exemplo de como adicionar um fundo colorido a um container.')
     st.markdown('</div>', unsafe_allow_html=True)
-Explicação:
