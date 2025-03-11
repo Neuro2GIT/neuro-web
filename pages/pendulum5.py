@@ -43,7 +43,7 @@ def create_pendulum_animation():
 
     # Salvar os quadros como um GIF em memória
     buf = BytesIO()
-    frames[0].save(buf, save_all=True, append_images=frames[1:], optimize=True, duration=100, loop=0)
+    frames[0].save(buf, format='GIF', save_all=True, append_images=frames[1:], optimize=True, duration=100, loop=0)
     buf.seek(0)
 
     # Codificar a animação em base64 para exibir no Streamlit
