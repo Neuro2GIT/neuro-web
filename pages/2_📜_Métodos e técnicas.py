@@ -84,9 +84,12 @@ def main():
 
         with st.container(border=True):
             tecnica_selecionada = st.radio(
-                    "Ração", "Dosagem"
-                    ("Controle", "Sem tiamina"), ("Cálcio", "Proteínas")   
+                    "Ração",
+                    ("Controle", "Sem tiamina")   
                 )
+            tecnica_selecionada = st.radio(
+                    "Dosagem",
+                    ("Cálcio", "Proteínas")
             
         #with st.container(border=True):
             #tecnica_selecionada = st.radio(
