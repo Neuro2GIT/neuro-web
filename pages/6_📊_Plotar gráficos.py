@@ -350,7 +350,7 @@ if uploaded_file is not None:
     with st.container(border=True):
         # Cria as abas usando st.radio
         aba_selecionada = st.radio(
-            "Escolha o tipo de gráfico",
+            "Escolha a biblioteca",
             ("Plotly", "Matplotlib", "Seaborn")
         )
 
