@@ -104,12 +104,12 @@ def main():
                         st.markdown(f"[Baixar PDF]({pdf_link})")
                     
                     # Botão para marcar como lido
-                    if st.button(f"Marcar {title} como lido"):
-                        if 'read_articles' not in st.session_state:
-                            st.session_state.read_articles = []
-                        st.session_state.read_articles.append(title)  # Armazena os artigos lidos
-            else:
-                st.error(f"Não foi possível recuperar informações para o DOI: {doi}. Verifique o DOI ou tente novamente.")
+                    #if st.button(f"Marcar {title} como lido"):
+                        #if 'read_articles' not in st.session_state:
+                            #st.session_state.read_articles = []
+                        #st.session_state.read_articles.append(title)  # Armazena os artigos lidos
+            #else:
+                #st.error(f"Não foi possível recuperar informações para o DOI: {doi}. Verifique o DOI ou tente novamente.")
 
     # Footer
     #st.markdown("""
