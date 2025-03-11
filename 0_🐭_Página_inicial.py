@@ -102,7 +102,7 @@ def main():
                     
                         # Botão para baixar o PDF, se disponível
                         if pdf_link:
-                            st.markdown(f"[Baixar PDF]({pdf_link})")
+                        st.markdown(f"[Baixar PDF]({pdf_link})")
                     
                     # Botão para marcar como lido
                     #if st.button(f"Marcar {title} como lido"):
