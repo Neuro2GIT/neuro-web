@@ -377,13 +377,13 @@ if uploaded_file is not None:
                 dados["medias_peso_ct"], dados["erro_padrao_peso_ct"],
                 dados["medias_peso_dt"], dados["erro_padrao_peso_dt"]
             )
-        plotar_pesagem_area_mat(
-            dados["medias_peso_ct"], dados["erro_padrao_peso_ct"],
-            dados["medias_peso_dt"], dados["erro_padrao_peso_dt"]
-        )
-        plotar_consumo_racao_mat(
-            dados["medias_racao_ct"],
-            dados["medias_racao_dt"],
+            plotar_pesagem_area_mat(
+                dados["medias_peso_ct"], dados["erro_padrao_peso_ct"],
+                dados["medias_peso_dt"], dados["erro_padrao_peso_dt"]
+            )
+            plotar_consumo_racao_mat(
+                dados["medias_racao_ct"],
+                dados["medias_racao_dt"],
             )
 
         elif aba_selecionada == "Seaborn":
