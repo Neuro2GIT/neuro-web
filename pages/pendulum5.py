@@ -59,4 +59,4 @@ st.title('Animação do Pêndulo')
 gif_data = create_pendulum_animation()
 
 # Exibir a animação na página
-st.image(f"data:image/gif;base64,{gif_data}", use_column_width=True)
+st.image(f"data:image/gif;base64,{gif_data}", use_container_width=True)  # Alteração aqui!
