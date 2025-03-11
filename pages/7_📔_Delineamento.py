@@ -58,7 +58,7 @@ st.markdown(
     <style>
     .custom-container {
         background-color: #ADD8E6;  /* Cor de fundo azul claro */
-        padding: 20px;
+        padding: 1px;
         border-radius: 10px;
         border: 2px solid #000000;  /* Cor da borda */
     }
