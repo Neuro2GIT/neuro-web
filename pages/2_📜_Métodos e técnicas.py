@@ -82,10 +82,10 @@ def main():
         st.header("Índice")
         opcao_selecionada = st.selectbox("Escolha uma opção", ["Preparo de ração CT", "Preparo de ração DT"])
 
-    aba_selecionada = st.radio(
-            "Escolha a biblioteca",
-            ("Plotly", "Matplotlib", "Seaborn")
-        )
+        aba_selecionada = st.radio(
+                "Escolha a biblioteca",
+                ("Plotly", "Matplotlib", "Seaborn")
+            )
 
     # Criar as tabs dependendo da seleção da técnica
     if opcao_selecionada == "Preparo de ração CT":
