@@ -347,6 +347,7 @@ if uploaded_file is not None:
     # Processa os dados
     dados = carregar_e_processar_excel(uploaded_file)
 
+    container = st.container(border=True)
     # Cria as abas usando st.radio
     aba_selecionada = st.radio(
         "Escolha o tipo de gráfico",
