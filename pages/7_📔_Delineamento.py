@@ -51,3 +51,26 @@ dias_dissec = st.number_input("Dias até a Dissecação", min_value=1, value=1)
 
 if st.button("Gerar Linha do Tempo"):
     plot_timeline(dias_aclim, dias_trat, dias_teste, dias_dissec)
+
+# Usando CSS para definir a cor de fundo
+st.markdown(
+    """
+    <style>
+    .custom-container {
+        background-color: #ADD8E6;  /* Cor de fundo azul claro */
+        padding: 20px;
+        border-radius: 10px;
+        border: 2px solid #000000;  /* Cor da borda */
+    }
+    </style>
+    """, 
+    unsafe_allow_html=True
+)
+
+# Criando o container
+with st.container(border=True):
+    st.markdown('<div class="custom-container">', unsafe_allow_html=True)
+    st.title('Título dentro do container com fundo colorido!')
+    st.write('Aqui está um exemplo de como adicionar um fundo colorido a um container.')
+    st.markdown('</div>', unsafe_allow_html=True)
+Explicação:
