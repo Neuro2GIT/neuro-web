@@ -341,6 +341,18 @@ def plotar_consumo_racao_seaborn(medias_racao_ct, medias_racao_dt):
 # Streamlit App
 st.title("Gráficos - peso e consumo de ração")
 
+# Sidebar informativa
+    with st.sidebar:
+        #st.write("Índice") header
+        #opcao_selecionada = st.selectbox("Escolha uma opção", ["Preparo de ração CT", "Preparo de ração DT"])
+
+        with st.container(border=True):
+        st.write("Selecione um arquivo excel (.xlsx) em 'Browse files' ou arraste para carregar os gráficos")    
+            tecnica_selecionada = st.radio(
+                    "Ração",
+                    ("Controle", "Sem tiamina")
+                )
+
 with st.container(border=True):
     st.write()
     uploaded_file = st.file_uploader("Carregar o arquivo excel com os dados", type=["xlsx"])
