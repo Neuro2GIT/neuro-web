@@ -41,7 +41,7 @@ def plot_timeline(aclim, trat, teste, disseccao):
     
     st.pyplot(fig)
 
-st.title("Delineamento Experimental - Linha do Tempo")
+st.title("Delineamento Experimental")
 
 # Entrada do usuário
 dias_aclim = st.number_input("Dias de Aclimatação", min_value=1, value=3)
