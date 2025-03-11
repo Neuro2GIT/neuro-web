@@ -100,9 +100,9 @@ def main():
                          st.markdown(f"**Publicado em**: {published_year}")
                          st.markdown(f"[Leia o artigo completo]({url})")
                     
-                        # Botão para baixar o PDF, se disponível
-                        if pdf_link:
-                            st.markdown(f"[Baixar PDF]({pdf_link})")
+                         # Botão para baixar o PDF, se disponível
+                         if pdf_link:
+                             st.markdown(f"[Baixar PDF]({pdf_link})")
                     
                     # Botão para marcar como lido
                     #if st.button(f"Marcar {title} como lido"):
