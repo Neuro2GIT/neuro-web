@@ -347,7 +347,7 @@ with st.sidebar:
         #opcao_selecionada = st.selectbox("Escolha uma opção", ["Preparo de ração CT", "Preparo de ração DT"])
 
     with st.container(border=True):
-    st.write("Selecione um arquivo excel (.xlsx) em 'Browse files' ou arraste para carregar os gráficos")    
+        st.write("Selecione um arquivo excel (.xlsx) em 'Browse files' ou arraste para carregar os gráficos")    
 
 with st.container(border=True):
     st.write()
