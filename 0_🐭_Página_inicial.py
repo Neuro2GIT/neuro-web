@@ -84,7 +84,7 @@ themes = {
 # Função principal para exibir o conteúdo
 def main():
     st.title("🧠 Neuroscience Interest Group")
-    st.empty("")
+    st.write("")
     # Iterar pelos temas e artigos
     for theme, dois in themes.items():
         with st.container(border=True):
