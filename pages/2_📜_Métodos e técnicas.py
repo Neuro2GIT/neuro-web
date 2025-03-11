@@ -104,7 +104,7 @@ def main():
         with tabs[1]:
             st.write("Preparo da ração controle")
 
-    if tecnica_selecionada == "Ração - DT":
+    elif tecnica_selecionada == "Ração - DT":
 
         # Conteúdo das tabs para "Preparo de ração DT"
         with tabs[0]:
