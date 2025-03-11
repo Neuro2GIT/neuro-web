@@ -52,16 +52,22 @@ dias_dissec = st.number_input("Dias até a Dissecação", min_value=1, value=1)
 if st.button("Gerar Linha do Tempo"):
     plot_timeline(dias_aclim, dias_trat, dias_teste, dias_dissec)
 
-# Usando CSS para definir a cor de fundo do container
+import streamlit as st
+
+# Usando CSS para definir a cor de fundo apenas no conteúdo dentro do container
 st.markdown(
     """
     <style>
     .custom-container {
-        background-color: #ADD8E6;  /* Cor de fundo azul claro */
+        background-color: transparent;  /* Container transparente */
+        padding: 20px;
+    }
+
+    .custom-container-content {
+        background-color: #ADD8E6;  /* Cor de fundo azul claro no conteúdo */
         padding: 20px;
         border-radius: 10px;
         border: 2px solid #000000;  /* Cor da borda */
-        position: relative;  /* Posicionamento para o conteúdo */
     }
     </style>
     """, 
@@ -70,12 +76,18 @@ st.markdown(
 
 # Criando o container
 with st.container():
-    # Início da `div` que envolve o conteúdo, aplicando a classe personalizada
+    # Início da `div` para o container transparente
     st.markdown('<div class="custom-container">', unsafe_allow_html=True)
+
+    # Início do conteúdo com a cor de fundo aplicada
+    st.markdown('<div class="custom-container-content">', unsafe_allow_html=True)
 
     # Conteúdo do container
     st.title('Título dentro do container com fundo colorido!')
-    st.write('Aqui está um exemplo de como adicionar um fundo colorido ao container, com o conteúdo sobre ele.')
+    st.write('Aqui está um exemplo de como adicionar um fundo colorido ao conteúdo dentro do container.')
 
-    # Fim da `div` que fecha o container personalizado
+    # Fim do conteúdo com a cor de fundo aplicada
+    st.markdown('</div>', unsafe_allow_html=True)
+
+    # Fim do container
     st.markdown('</div>', unsafe_allow_html=True)
