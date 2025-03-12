@@ -469,5 +469,5 @@ if uploaded_file is not None:
     #st.plotly_chart(fig)
 
     # Exibir os valores de forma destacada
-    st.metric(label="Média do consumo CT", value=round(racao_processada["media_geral_racao_ct"], 2))
-    st.metric(label="Média do consumo DT", value=round(racao_processada["media_geral_racao_dt"], 2))
+    #st.metric(label="Média do consumo CT", value=round(racao_processada["media_geral_racao_ct"], 2))
+    #st.metric(label="Média do consumo DT", value=round(racao_processada["media_geral_racao_dt"], 2))
