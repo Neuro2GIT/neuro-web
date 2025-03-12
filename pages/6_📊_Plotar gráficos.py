@@ -450,13 +450,13 @@ if uploaded_file is not None:
     # Criar DataFrame para consumo feral de racao
     df_medias_gerais = pd.DataFrame({
     "Grupo": ["CT", "DT"],
-    "Média geral de consumo de ração por grupo": [racao_processada["media_geral_racao_ct"], racao_processada["media_geral_racao_dt"]]})
+    "Média do consumo de ração": [racao_processada["media_geral_racao_ct"], racao_processada["media_geral_racao_dt"]]})
 
     # Exibir os dados em formato de tabela
     st.write("### Média geral do consumo de ração")
     st.dataframe(df_medias_gerais)
 
-    # Criar gráfico de barras para visualização
+    # Criar gráfico de barras usando dados do DataFrame
     fig = px.bar(df_medias_gerais, x="Grupo", y="Média do consumo de ração",
                  title="Média geral de consumo de ração por grupo", text_auto=True)
     st.plotly_chart(fig)
