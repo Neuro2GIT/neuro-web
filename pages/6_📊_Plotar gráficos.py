@@ -457,7 +457,7 @@ if uploaded_file is not None:
     st.dataframe(df_medias_gerais)
 
     # Criar gráfico de barras para visualização
-    fig = px.bar(df_medias_gerais, x="Grupo", y="Média geral do consumo ração",
+    fig = px.bar(df_medias_gerais, x="Grupo", y="Média do consumo de ração",
                  title="Média geral de consumo de ração por grupo", text_auto=True)
     st.plotly_chart(fig)
 
