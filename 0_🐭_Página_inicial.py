@@ -105,6 +105,8 @@ def main():
                          # Botão para baixar o PDF, se disponível
                          if pdf_link:
                              st.markdown(f"[Baixar PDF]({pdf_link})")
+
+                         #LINK DA TESE DO PROFESSOR: http://hdl.handle.net/1843/33624 PDF: https://repositorio.ufmg.br/bitstream/1843/33624/1/Tese%20vers%c3%a3o%20FINAL.pdf
                     
                     # Botão para marcar como lido
                     #if st.button(f"Marcar {title} como lido"):
