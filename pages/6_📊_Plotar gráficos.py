@@ -447,7 +447,7 @@ if uploaded_file is not None:
     # Carregar as médias de ração
     racao_processada = carregar_e_processar_excel(uploaded_file)
     
-    # Criar DataFrame para consumo feral de racao
+    # Criar DataFrame para consumo geral de racao
     df_medias_gerais = pd.DataFrame({
     "Grupo": ["CT", "DT"],
     "Média do consumo de ração": [racao_processada["media_geral_racao_ct"], racao_processada["media_geral_racao_dt"]]})
@@ -457,9 +457,9 @@ if uploaded_file is not None:
     st.dataframe(df_medias_gerais)
 
     # Criar gráfico de barras usando dados do DataFrame
-    fig = px.bar(df_medias_gerais, x="Grupo", y="Média do consumo de ração",
-                 title="Média geral de consumo de ração por grupo", text_auto=True)
-    st.plotly_chart(fig)
+    #fig = px.bar(df_medias_gerais, x="Grupo", y="Média do consumo de ração",
+                 #title="Média geral de consumo de ração por grupo", text_auto=True)
+    #st.plotly_chart(fig)
 
     # Exibir os valores de forma destacada
     st.metric(label="Média do consumo CT", value=round(racao_processada["media_geral_racao_ct"], 2))
