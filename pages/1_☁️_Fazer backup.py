@@ -1,5 +1,5 @@
 import streamlit as st
-import streamlit_authenticator as stauth
+import hmac
 import pandas as pd
 from googleapiclient.http import MediaIoBaseUpload, MediaIoBaseDownload
 import io
