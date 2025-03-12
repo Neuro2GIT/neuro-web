@@ -410,6 +410,7 @@ if uploaded_file is not None:
                 )
 
             with st.container(border=True):
+                st.header('Section 1')
                 plotar_pesagem_area_mat(
                     dados["medias_peso_ct"], dados["erro_padrao_peso_ct"],
                     dados["medias_peso_dt"], dados["erro_padrao_peso_dt"]
