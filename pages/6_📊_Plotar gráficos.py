@@ -365,13 +365,13 @@ if uploaded_file is not None:
     dados = carregar_e_processar_excel(uploaded_file)
 
     with st.container(border=True):
-        # Cria as abas usando st.radio
         # Sidebar com as ancoras
-        st.sidebar.markdown('''
+        #st.sidebar.markdown('''
         # Sections
-        - [Section 1](#section-1)
-        - [Section 2](#section-2)
-        ''', unsafe_allow_html=True)
+        #- [Section 1](#section-1)
+        #- [Section 2](#section-2)
+        #''', unsafe_allow_html=True)
+        
         # Cria as abas usando st.radio
         aba_selecionada = st.radio(
             "Escolha a biblioteca",
@@ -379,7 +379,6 @@ if uploaded_file is not None:
         )
 
         if aba_selecionada == "Plotly":
-            st.header('Section 1')
             st.subheader("Gráficos com Plotly")
             
             with st.container(border=True):
