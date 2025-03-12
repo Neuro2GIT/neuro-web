@@ -175,8 +175,8 @@ def main():
 
         # Mostrar pastas na sidebar (Se houver pastas)
         #if folders:
-            selected_folder_name = st.sidebar.selectbox("Escolha uma pasta", [folder['name'] for folder in folders])
-            selected_folder = next((folder for folder in folders if folder['name'] == selected_folder_name), None)
+            #selected_folder_name = st.sidebar.selectbox("Escolha uma pasta", [folder['name'] for folder in folders])
+            #selected_folder = next((folder for folder in folders if folder['name'] == selected_folder_name), None)
 
             # Se uma pasta for selecionada, listar arquivos dentro dela
             #if selected_folder:
