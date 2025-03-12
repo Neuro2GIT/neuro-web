@@ -450,7 +450,7 @@ if uploaded_file is not None:
     # Criar DataFrame para consumo feral de racao
     df_medias_gerais = pd.DataFrame({
     "Grupo": ["CT", "DT"],
-    "Média Geral Consumo Ração": [racao_processada["media_geral_racao_ct"], racao_processada["media_geral_racao_dt"]]})
+    "Média geral de consumo de ração por grupo": [racao_processada["media_geral_racao_ct"], racao_processada["media_geral_racao_dt"]]})
 
     # Exibir os dados em formato de tabela
     st.write("### Média geral do consumo de ração")
