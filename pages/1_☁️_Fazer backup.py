@@ -170,8 +170,8 @@ def main():
         #items = list_files(service, include_shared=True)
 
         # Separar pastas e arquivos
-        folders = [item for item in items if item['mimeType'] == 'application/vnd.google-apps.folder']
-        files = [item for item in items if item['mimeType'] != 'application/vnd.google-apps.folder']
+        #folders = [item for item in items if item['mimeType'] == 'application/vnd.google-apps.folder']
+        #files = [item for item in items if item['mimeType'] != 'application/vnd.google-apps.folder']
 
         # Mostrar pastas na sidebar (Se houver pastas)
         #if folders:
