@@ -348,13 +348,6 @@ def plotar_consumo_racao_seaborn(medias_racao_ct, medias_racao_dt):
 # Streamlit App
 st.title("Gráficos - peso e consumo de ração")
 
-# Sidebar com as ancoras
-st.sidebar.markdown('''
-# Sections
-- [Section 1](#section-1)
-- [Section 2](#section-2)
-''', unsafe_allow_html=True)
-
 # Sidebar informativa
 #with st.sidebar:
     #st.write("Índice") header
@@ -372,6 +365,13 @@ if uploaded_file is not None:
     dados = carregar_e_processar_excel(uploaded_file)
 
     with st.container(border=True):
+        # Cria as abas usando st.radio
+        # Sidebar com as ancoras
+        st.sidebar.markdown('''
+        # Sections
+        - [Section 1](#section-1)
+        - [Section 2](#section-2)
+        ''', unsafe_allow_html=True)
         # Cria as abas usando st.radio
         aba_selecionada = st.radio(
             "Escolha a biblioteca",
