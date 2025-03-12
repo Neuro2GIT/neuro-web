@@ -4,6 +4,7 @@ import streamlit as st
 import plotly.graph_objects as go
 import matplotlib.pyplot as plt
 import seaborn as sns
+import plotly.express as px
 
 # Função para carregar e processar os dados do arquivo Excel
 def carregar_e_processar_excel(uploaded_file):
@@ -446,21 +447,20 @@ if uploaded_file is not None:
     # Carregar as médias de ração
     racao_processada = carregar_e_processar_excel(uploaded_file)
     
-    # Criar DataFrame de exibição (sem precisar guardá-lo antes)
+    # Criar DataFrame para consumo feral de racao
     df_medias_gerais = pd.DataFrame({
     "Grupo": ["CT", "DT"],
-    "Média Geral Consumo Ração": [racao_processada["media_geral_racao_ct"], racao_processada["media_geral_racao_dt"]]
-    })
+    "Média Geral Consumo Ração": [racao_processada["media_geral_racao_ct"], racao_processada["media_geral_racao_dt"]]})
 
     # Exibir os dados em formato de tabela
-    st.write("### Média Geral do Consumo de Ração")
+    st.write("### Média geral do consumo de ração")
     st.dataframe(df_medias_gerais)
 
     # Criar gráfico de barras para visualização
-    fig = px.bar(df_medias_gerais, x="Grupo", y="Média Geral Consumo Ração",
-                 title="Média Geral de Consumo de Ração por Grupo", text_auto=True)
+    fig = px.bar(df_medias_gerais, x="Grupo", y="Média geral do consumo ração",
+                 title="Média geral de consumo de ração por grupo", text_auto=True)
     st.plotly_chart(fig)
 
     # Exibir os valores de forma destacada
-    st.metric(label="Média Geral Consumo CT", value=round(racao_processada["media_geral_racao_ct"], 2))
-    st.metric(label="Média Geral Consumo DT", value=round(racao_processada["media_geral_racao_dt"], 2))
+    st.metric(label="Média do consumo CT", value=round(racao_processada["media_geral_racao_ct"], 2))
+    st.metric(label="Média do consumo DT", value=round(racao_processada["media_geral_racao_dt"], 2))
