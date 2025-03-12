@@ -40,6 +40,46 @@ def check_password():
 if not check_password():
     st.stop()  # Do not continue if check_password is not True.
 
+# Escopos necessários para acessar o Google Drive
+SCOPES = ['https://www.googleapis.com/auth/drive.readonly', 'https://www.googleapis.com/auth/drive.file']
+
+def authenticate():
+    """Autenticação com o Google Drive usando as credenciais do Streamlit secrets"""
+    
+    # A autenticação deve ser feita explicitamente apenas na página inicial
+    if "google_drive_service" not in st.session_state:
+        #st.write("Autenticando.")
+        
+        google_secrets = st.secrets["google"]
+        credentials_dict = {
+            "type": "service_account",
+            "project_id": google_secrets["project_id"],
+            "private_key_id": google_secrets["private_key_id"],
+            "private_key": google_secrets["private_key"],
+            "client_email": google_secrets["client_email"],
+            "client_id": google_secrets["client_id"],
+            "auth_uri": google_secrets["auth_uri"],
+            "token_uri": google_secrets["token_uri"],
+            "auth_provider_x509_cert_url": google_secrets["auth_provider_x509_cert_url"],
+            "client_x509_cert_url": google_secrets["client_x509_cert_url"],
+            "universe_domain": google_secrets["universe_domain"]
+        }
+        
+        credentials = service_account.Credentials.from_service_account_info(credentials_dict, scopes=SCOPES)
+        service = build('drive', 'v3', credentials=credentials)
+        
+        # Testa a autenticação (opcional, dependendo do que você deseja verificar)
+        test_authentication(service)
+        
+        # Salva o serviço autenticado no session_state para uso em outras páginas
+        st.session_state["google_drive_service"] = service
+        #st.write("Autenticação concluída com sucesso.")
+    
+    #else:
+        st.write("Bem vindo.")
+
+    return st.session_state["google_drive_service"]
+
 # Função para autenticar e obter o serviço do Google Drive
 def authenticate_google_drive():
     """Verifica se já existe um serviço de autenticação com o Google Drive no session_state"""
