@@ -220,4 +220,4 @@ def main():
     
 # Chama a função main() para exibir o conteúdo
 if __name__ == "__main__":
-    #main()
+main()
