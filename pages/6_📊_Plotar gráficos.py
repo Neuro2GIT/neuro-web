@@ -30,12 +30,18 @@ def carregar_e_processar_excel(uploaded_file):
     medias_racao_ct = df_racao_ct.iloc[:, 2:].mean()
     medias_racao_dt = df_racao_dt.iloc[:, 2:].mean()
 
+    # Cálculo da média geral do consumo de ração CT e DT
+    media_geral_racao_ct = medias_racao_ct.mean()
+    media_geral_racao_dt = medias_racao_dt.mean()
+
     # Dicionário com o resultado dos dados processados
     return {
         "medias_peso_ct": medias_peso_ct, "erro_padrao_peso_ct": erro_padrao_peso_ct, "df_ct": df_ct,
         "medias_peso_dt": medias_peso_dt, "erro_padrao_peso_dt": erro_padrao_peso_dt, "df_dt": df_dt,
         "medias_racao_ct": medias_racao_ct,
         "medias_racao_dt": medias_racao_dt,
+        "media_geral_racao_ct": media_geral_racao_ct,
+        "media_geral_racao_dt": media_geral_racao_dt,
         "df_racao_ct": df_racao_ct, "df_racao_dt": df_racao_dt
     }
 
@@ -436,3 +442,22 @@ if uploaded_file is not None:
 
     st.subheader("Tabela de consumo de ração das caixas CT e DT")
     st.write(pd.concat([dados["df_racao_ct"], dados["df_racao_dt"]]))
+
+    # Criar DataFrame de exibição (sem precisar guardá-lo antes)
+    df_medias_gerais = pd.DataFrame({
+    "Grupo": ["CT", "DT"],
+    "Média Geral Consumo Ração": [dados_processados["media_geral_racao_ct"], dados_processados["media_geral_racao_dt"]]
+    })
+
+    # Exibir os dados em formato de tabela
+    st.write("### Média Geral do Consumo de Ração")
+    st.dataframe(df_medias_gerais)
+
+    # Criar gráfico de barras para visualização
+    fig = px.bar(df_medias_gerais, x="Grupo", y="Média Geral Consumo Ração",
+                 title="Média Geral de Consumo de Ração por Grupo", text_auto=True)
+    st.plotly_chart(fig)
+
+    # Exibir os valores de forma destacada
+    st.metric(label="Média Geral Consumo CT", value=round(dados_processados["media_geral_racao_ct"], 2))
+    st.metric(label="Média Geral Consumo DT", value=round(dados_processados["media_geral_racao_dt"], 2))
