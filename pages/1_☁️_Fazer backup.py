@@ -219,5 +219,5 @@ def main():
         #</footer>""", unsafe_allow_html=True)
     
 # Chama a função main() para exibir o conteúdo
-#if __name__ == "__main__":
+if __name__ == "__main__":
     #main()
