@@ -443,10 +443,13 @@ if uploaded_file is not None:
     st.subheader("Tabela de consumo de ração das caixas CT e DT")
     st.write(pd.concat([dados["df_racao_ct"], dados["df_racao_dt"]]))
 
+    # Carregar as médias de ração
+    racao_processada = carregar_e_processar_excel(uploaded_file)
+    
     # Criar DataFrame de exibição (sem precisar guardá-lo antes)
     df_medias_gerais = pd.DataFrame({
     "Grupo": ["CT", "DT"],
-    "Média Geral Consumo Ração": [dados_processados["media_geral_racao_ct"], dados_processados["media_geral_racao_dt"]]
+    "Média Geral Consumo Ração": [racao_processada["media_geral_racao_ct"], racao_processada["media_geral_racao_dt"]]
     })
 
     # Exibir os dados em formato de tabela
@@ -459,5 +462,5 @@ if uploaded_file is not None:
     st.plotly_chart(fig)
 
     # Exibir os valores de forma destacada
-    st.metric(label="Média Geral Consumo CT", value=round(dados_processados["media_geral_racao_ct"], 2))
-    st.metric(label="Média Geral Consumo DT", value=round(dados_processados["media_geral_racao_dt"], 2))
+    st.metric(label="Média Geral Consumo CT", value=round(racao_processada["media_geral_racao_ct"], 2))
+    st.metric(label="Média Geral Consumo DT", value=round(racao_processada["media_geral_racao_dt"], 2))
