@@ -154,8 +154,8 @@ if not check_password():
         #st.error(f"Erro ao fazer upload para o Google Drive: {e}")
 
 # Upload de novo arquivo
-    st.title("Faça upload para o drive")
-    uploaded_file = st.file_uploader("Escolha um arquivo para enviar", type=["csv", "txt", "xlsx"])
+st.title("Faça upload para o drive")
+uploaded_file = st.file_uploader("Escolha um arquivo para enviar", type=["csv", "txt", "xlsx"])
 
 # Função principal que encapsula a lógica de exibição
 def main():
