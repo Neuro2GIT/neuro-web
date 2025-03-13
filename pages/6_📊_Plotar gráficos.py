@@ -349,12 +349,7 @@ def plotar_consumo_racao_seaborn(medias_racao_ct, medias_racao_dt):
 st.title("Gráficos - peso e consumo de ração")
 
 # Sidebar informativa
-#with st.sidebar:
-    #st.write("Índice") header
-        #opcao_selecionada = st.selectbox("Escolha uma opção", ["Preparo de ração CT", "Preparo de ração DT"])
-
-    #with st.container(border=True):
-        #st.write("Selecione um arquivo excel (.xlsx) em 'Browse files' ou arraste para carregar os gráficos")    
+with st.expander("Como funciona:"):    
 
 with st.container(border=True):
     st.write()
