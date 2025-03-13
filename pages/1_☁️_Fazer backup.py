@@ -153,10 +153,20 @@ if not check_password():
     #except Exception as e:
         #st.error(f"Erro ao fazer upload para o Google Drive: {e}")
 
+# Defina o link do iframe
+link_iframe = "https://www.google.com"
+
+# Inserir o iframe no Streamlit
+html_code = f'<iframe src="{link_iframe}" width="800" height="600"></iframe>'
+
 # Upload de novo arquivo
 st.title("Faça upload para o drive")
 with st.container(border=True):
     uploaded_file = st.file_uploader("Escolha um arquivo para enviar", type=["csv", "txt", "xlsx"])
+
+with st.container(border=True):
+    # Exibir o iframe
+    components.html(html_code, height=600)
 
 # Função principal que encapsula a lógica de exibição
 #def main():
