@@ -85,8 +85,15 @@ def main():
         with st.container(border=True):
             tecnica_selecionada = st.radio(
                     "Técnicas e métodos",
-                    ("Ração - CT", "Ração - DT", "Dosagem de cálcio", "Dosagem de Proteínas")   
+                    ("Ração - CT", "Ração - DT", "Dosagem de cálcio", "Dosagem de Proteínas")
                 )
+
+        with st.expander("Página 1"):
+            st.write("Conteúdo da Página 1")
+        with st.expander("Página 2"):
+            st.write("Conteúdo da Página 2")
+        with st.expander("Página 3"):
+            st.write("Conteúdo da Página 3")
             
         #with st.container(border=True):
             #tecnica_selecionada = st.radio(
