@@ -348,8 +348,8 @@ def plotar_consumo_racao_seaborn(medias_racao_ct, medias_racao_dt):
 # Streamlit App
 st.title("Gráficos - peso e consumo de ração")
 
-with st.expander("Como funciona?"):
-    st.write("A planilha deve estar no formato do gerador")
+with st.expander("Como usar?"):
+    st.write("Converta a sua planilha para o modelo ou gere uma nova no gerador de planilhas")
 
 with st.container(border=True):
     st.write()
