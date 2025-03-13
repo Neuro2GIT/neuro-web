@@ -347,8 +347,7 @@ def plotar_consumo_racao_seaborn(medias_racao_ct, medias_racao_dt):
 
 # Streamlit App
 st.title("Gráficos - peso e consumo de ração")
-    with st.expander("Como funciona:"):
-        st.write("Este es un contenido oculto al principio. Puedes poner cualquier tipo de información aquí.")
+with st.expander("Clique para mais informações sobre o aplicativo"):
 
 with st.container(border=True):
     st.write()
