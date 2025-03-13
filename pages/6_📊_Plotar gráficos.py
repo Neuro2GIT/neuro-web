@@ -349,7 +349,7 @@ def plotar_consumo_racao_seaborn(medias_racao_ct, medias_racao_dt):
 st.title("Gráficos - peso e consumo de ração")
 
 with st.container(border=True):
-    st.expander("Clique para mais informações sobre o aplicativo"):
+    with st.expander("Clique para mais informações sobre o aplicativo"):
     st.write()
 
 with st.container(border=True):
