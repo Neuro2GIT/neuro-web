@@ -1,6 +1,6 @@
 import streamlit as st
 import hmac
-import streamlit.components.v1 as component
+import streamlit.components.v1 as components
 import io
 from io import BytesIO
 
