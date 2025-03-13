@@ -350,7 +350,7 @@ st.title("Gráficos - peso e consumo de ração")
 
 with st.container(border=True):
     with st.expander("Clique para mais informações sobre o aplicativo"):
-    st.write()
+        st.write()
 
 with st.container(border=True):
     st.write()
