@@ -13,4 +13,4 @@ seaborn
 openpyxl
 plotly
 pillow
-st.components.v1.html
+st.components.v1
