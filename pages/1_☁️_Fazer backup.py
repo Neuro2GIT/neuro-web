@@ -1,6 +1,6 @@
 import streamlit as st
 import hmac
-import streamlit.components.v1 as component
+#import streamlit.components.v1 as component
 #import pandas as pd
 #from googleapiclient.http import MediaIoBaseUpload, MediaIoBaseDownload
 import io
