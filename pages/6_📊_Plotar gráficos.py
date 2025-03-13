@@ -351,7 +351,6 @@ st.title("Gráficos - peso e consumo de ração")
 with st.container(border=True):
     st.write()
     uploaded_file = st.file_uploader("Selecione um arquivo excel (.xlsx) em 'Browse files' ou arraste para carregar os gráficos", type=["xlsx"])
-    st.expander("Clique para mais informações sobre o aplicativo"):
     
 if uploaded_file is not None:
     # Processa os dados
@@ -455,6 +454,8 @@ if uploaded_file is not None:
     # Exibir os dados em formato de tabela
     st.write("### Média geral do consumo de ração")
     st.dataframe(df_medias_gerais)
+
+    st.expander("Clique para mais informações sobre o aplicativo"):
 
     # Criar gráfico de barras usando dados do DataFrame
     #fig = px.bar(df_medias_gerais, x="Grupo", y="Média do consumo de ração",
