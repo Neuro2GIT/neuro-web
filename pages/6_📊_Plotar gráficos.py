@@ -350,6 +350,7 @@ st.title("Gráficos - peso e consumo de ração")
 
 with st.container(border=True):
     st.expander("Clique para mais informações sobre o aplicativo"):
+    st.write()
 
 with st.container(border=True):
     st.write()
@@ -458,7 +459,7 @@ if uploaded_file is not None:
     st.write("### Média geral do consumo de ração")
     st.dataframe(df_medias_gerais)
 
-    st.expander("Clique para mais informações sobre o aplicativo"):
+    # st.expander("Clique para mais informações sobre o aplicativo"):
 
     # Criar gráfico de barras usando dados do DataFrame
     #fig = px.bar(df_medias_gerais, x="Grupo", y="Média do consumo de ração",
