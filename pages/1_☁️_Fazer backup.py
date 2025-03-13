@@ -155,14 +155,15 @@ if not check_password():
 
 # Upload de novo arquivo
 st.title("Faça upload para o drive")
-uploaded_file = st.file_uploader("Escolha um arquivo para enviar", type=["csv", "txt", "xlsx"])
+with st.container(border=True):
+    uploaded_file = st.file_uploader("Escolha um arquivo para enviar", type=["csv", "txt", "xlsx"])
 
 # Função principal que encapsula a lógica de exibição
-def main():
+#def main():
 
     # Upload de novo arquivo
-    st.title("Faça upload para o drive")
-    uploaded_file = st.file_uploader("Escolha um arquivo para enviar", type=["csv", "txt", "xlsx"])
+    #st.title("Faça upload para o drive")
+    #uploaded_file = st.file_uploader("Escolha um arquivo para enviar", type=["csv", "txt", "xlsx"])
     
     # Autenticação para o Google Drive
     #service = authenticate_google_drive()
