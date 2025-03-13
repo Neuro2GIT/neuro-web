@@ -347,99 +347,59 @@ def plotar_consumo_racao_seaborn(medias_racao_ct, medias_racao_dt):
     # Exibindo o gráfico
     st.pyplot(fig)
 
+# Dicionário de funções
+plot_funcs = {
+    "Plotly": {
+        "pesagem": plotar_pesagem,
+        "pesagem_area": plotar_pesagem_area,
+        "consumo_racao": plotar_consumo_racao
+    },
+    "Matplotlib": {
+        "pesagem": plotar_pesagem_mat,
+        "pesagem_area": plotar_pesagem_area_mat,
+        "consumo_racao": plotar_consumo_racao_mat
+    },
+    "Seaborn": {
+        "pesagem": plotar_pesagem_seaborn,
+        "pesagem_area": plotar_pesagem_area_seaborn,
+        "consumo_racao": plotar_consumo_racao_seaborn
+    }
+}
+
+
 # Streamlit App
-st.title("Gráficos - peso e consumo de ração")
+st.title("Gráficos - Peso e Consumo de Ração")
 
 with st.expander("Como usar?"):
     st.write("Converta a sua planilha para o modelo ou gere uma nova no gerador de planilhas")
 
 with st.container(border=True):
-    st.write()
-    uploaded_file = st.file_uploader("Selecione um arquivo excel (.xlsx) em 'Browse files' ou arraste para carregar os gráficos", type=["xlsx"])
-    
+    uploaded_file = st.file_uploader("Selecione um arquivo excel (.xlsx)", type=["xlsx"])
+
 if uploaded_file is not None:
     # Processa os dados
     dados = carregar_e_processar_excel(uploaded_file)
 
+    # Cria as abas usando st.radio
+    aba_selecionada = st.radio(
+        "Escolha a biblioteca",
+        ("Plotly", "Matplotlib", "Seaborn")
+    )
+
+    # Seleciona as funções de acordo com a biblioteca escolhida
+    plotar_funcoes = plot_funcs[aba_selecionada]
+
+    st.subheader(f"Gráficos com {aba_selecionada}")
+
+    # Exibe os gráficos correspondentes
     with st.container(border=True):
-        # Sidebar com as ancoras
-        #st.sidebar.markdown('''
-        # Sections
-        #- [Section 1](#section-1)
-        #- [Section 2](#section-2)
-        #''', unsafe_allow_html=True)
-        
-        # Cria as abas usando st.radio
-        aba_selecionada = st.radio(
-            "Escolha a biblioteca",
-            ("Plotly", "Matplotlib", "Seaborn")
-        )
+        plotar_funcoes["pesagem"](dados["medias_peso_ct"], dados["erro_padrao_peso_ct"], dados["medias_peso_dt"], dados["erro_padrao_peso_dt"])
 
-        if aba_selecionada == "Plotly":
-            st.subheader("Gráficos com Plotly")
-            
-            with st.container(border=True):
-                # Plota todos os gráficos relacionados ao Plotly
-                plotar_pesagem(
-                    dados["medias_peso_ct"], dados["erro_padrao_peso_ct"],
-                    dados["medias_peso_dt"], dados["erro_padrao_peso_dt"]
-                )
-                
-            with st.container(border=True):
-                plotar_pesagem_area(
-                    dados["medias_peso_ct"], dados["erro_padrao_peso_ct"],
-                    dados["medias_peso_dt"], dados["erro_padrao_peso_dt"]
-                )
-            with st.container(border=True):
-                plotar_consumo_racao(
-                    dados["medias_racao_ct"],
-                    dados["medias_racao_dt"],
-                )
+    with st.container(border=True):
+        plotar_funcoes["pesagem_area"](dados["medias_peso_ct"], dados["erro_padrao_peso_ct"], dados["medias_peso_dt"], dados["erro_padrao_peso_dt"])
 
-        elif aba_selecionada == "Matplotlib":
-            st.subheader("Gráficos com Matplotlib")
-            
-            # Plota todos os gráficos relacionados ao Matplotlib
-            with st.container(border=True):
-                plotar_pesagem_mat(
-                    dados["medias_peso_ct"], dados["erro_padrao_peso_ct"],
-                    dados["medias_peso_dt"], dados["erro_padrao_peso_dt"]
-                )
-
-            with st.container(border=True):
-                plotar_pesagem_area_mat(
-                    dados["medias_peso_ct"], dados["erro_padrao_peso_ct"],
-                    dados["medias_peso_dt"], dados["erro_padrao_peso_dt"]
-                )
-
-            with st.container(border=True):
-                plotar_consumo_racao_mat(
-                    dados["medias_racao_ct"],
-                    dados["medias_racao_dt"],
-                )
-            
-
-        elif aba_selecionada == "Seaborn":
-            st.subheader("Gráficos com Seaborn")
-            
-            # Plota todos os gráficos relacionados ao Seaborn
-            with st.container(border=True):
-                plotar_pesagem_seaborn(
-                    dados["medias_peso_ct"], dados["erro_padrao_peso_ct"],
-                    dados["medias_peso_dt"], dados["erro_padrao_peso_dt"]
-                )
-
-            with st.container(border=True):
-                plotar_pesagem_area_seaborn(
-                    dados["medias_peso_ct"], dados["erro_padrao_peso_ct"],
-                    dados["medias_peso_dt"], dados["erro_padrao_peso_dt"]
-                )
-
-            with st.container(border=True):
-                plotar_consumo_racao_seaborn(
-                    dados["medias_racao_ct"],
-                    dados["medias_racao_dt"],
-                )
+    with st.container(border=True):
+        plotar_funcoes["consumo_racao"](dados["medias_racao_ct"], dados["medias_racao_dt"])
 
     # Exibe as tabelas abaixo das abas
     st.subheader("Tabela de peso dos animais CT e DT")
@@ -450,11 +410,12 @@ if uploaded_file is not None:
 
     # Carregar as médias de ração
     racao_processada = carregar_e_processar_excel(uploaded_file)
-    
-    # Criar DataFrame para consumo geral de racao
+
+    # Criar DataFrame para consumo geral de ração
     df_medias_gerais = pd.DataFrame({
-    "Grupo": ["CT", "DT"],
-    "Média do consumo de ração": [racao_processada["media_geral_racao_ct"], racao_processada["media_geral_racao_dt"]]})
+        "Grupo": ["CT", "DT"],
+        "Média do consumo de ração": [racao_processada["media_geral_racao_ct"], racao_processada["media_geral_racao_dt"]]
+    })
 
     # Exibir os dados em formato de tabela
     st.write("### Média geral do consumo de ração")
