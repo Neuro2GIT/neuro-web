@@ -351,7 +351,7 @@ st.title("Gráficos - peso e consumo de ração")
 with st.container(border=True):
     st.write()
     uploaded_file = st.file_uploader("Selecione um arquivo excel (.xlsx) em 'Browse files' ou arraste para carregar os gráficos", type=["xlsx"])
-with st.expander("Clique para mais informações sobre o aplicativo"):
+    st.expander("Clique para mais informações sobre o aplicativo"):
     
 if uploaded_file is not None:
     # Processa os dados
