@@ -1,8 +1,6 @@
 import streamlit as st
 import hmac
 import streamlit.components.v1 as component
-#import pandas as pd
-#from googleapiclient.http import MediaIoBaseUpload, MediaIoBaseDownload
 import io
 from io import BytesIO
 
@@ -237,3 +235,5 @@ with st.container(border=True):
 # Chama a função main() para exibir o conteúdo
 #if __name__ == "__main__":
 #main()
+#import pandas as pd
+#from googleapiclient.http import MediaIoBaseUpload, MediaIoBaseDownload
