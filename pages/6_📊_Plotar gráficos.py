@@ -398,9 +398,9 @@ plot_funcs = {
         "consumo_racao": plotar_consumo_racao_seaborn
     },
     "Altair": {
-        "pesagem": plotar_pesagem_seaborn,
+        "pesagem": plotar_pesagem_seaborn
+    }
 }
-
 
 # Streamlit App
 st.title("Gráficos - Peso e Consumo de Ração")
