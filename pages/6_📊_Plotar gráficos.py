@@ -347,6 +347,39 @@ def plotar_consumo_racao_seaborn(medias_racao_ct, medias_racao_dt):
     # Exibindo o gráfico
     st.pyplot(fig)
 
+# Função para plotar o gráfico de linhas com erro padrão usando Altair
+def plotar_pesagem(medias_peso_ct, erro_padrao_peso_ct, medias_peso_dt, erro_padrao_peso_dt):
+    dias = np.arange(1, len(medias_peso_ct) + 1)
+
+    # Criando um DataFrame para os dados
+    df = pd.DataFrame({
+        'dias': np.tile(dias, 2),
+        'peso': np.concatenate([medias_peso_ct.values, medias_peso_dt.values]),
+        'erro': np.concatenate([erro_padrao_peso_ct.values, erro_padrao_peso_dt.values]),
+        'grupo': ['Controle'] * len(dias) + ['Deficiente em tiamina'] * len(dias)
+    })
+
+    # Criando o gráfico com Altair
+    chart = alt.Chart(df).mark_line().encode(
+        x='dias',
+        y='peso',
+        color='grupo',
+        detail='grupo'
+    ).properties(
+        title="Peso médio dos animais em 16 dias de experimento"
+    ) + alt.Chart(df).mark_errorbar().encode(
+        x='dias',
+        y='peso',
+        yError='erro',
+        color='grupo'
+    ).properties(
+        width=600,
+        height=600
+    )
+
+    # Exibir o gráfico no Streamlit
+    st.altair_chart(chart, use_container_width=True)
+
 # Dicionário de funções
 plot_funcs = {
     "Plotly": {
@@ -363,7 +396,9 @@ plot_funcs = {
         "pesagem": plotar_pesagem_seaborn,
         "pesagem_area": plotar_pesagem_area_seaborn,
         "consumo_racao": plotar_consumo_racao_seaborn
-    }
+    },
+    "Altair": {
+        "pesagem": plotar_pesagem_seaborn,
 }
 
 
@@ -383,7 +418,7 @@ if uploaded_file is not None:
     # Cria as abas usando st.radio
     aba_selecionada = st.radio(
         "Escolha a biblioteca",
-        ("Plotly", "Matplotlib", "Seaborn")
+        ("Plotly", "Matplotlib", "Seaborn", "Altair")
     )
 
     # Seleciona as funções de acordo com a biblioteca escolhida
