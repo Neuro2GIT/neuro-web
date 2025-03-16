@@ -403,6 +403,86 @@ plot_funcs = {
     }
 }
 
+# Função para plotar o gráfico de área sombreada usando Altair
+def plotar_pesagem_area_alt(medias_peso_ct, erro_padrao_peso_ct, medias_peso_dt, erro_padrao_peso_dt):
+    dias = np.arange(1, len(medias_peso_ct) + 1)
+
+    # Criando DataFrame para CT (Controle)
+    df_ct = pd.DataFrame({
+        'dias': np.concatenate((dias, dias[::-1])),
+        'peso': np.concatenate((medias_peso_ct.values + erro_padrao_peso_ct.values, 
+                                (medias_peso_ct.values - erro_padrao_peso_ct.values)[::-1])),
+        'grupo': ['CT'] * len(np.concatenate((dias, dias[::-1])))
+    })
+
+    # Criando DataFrame para DT (Deficiente em tiamina)
+    df_dt = pd.DataFrame({
+        'dias': np.concatenate((dias, dias[::-1])),
+        'peso': np.concatenate((medias_peso_dt.values + erro_padrao_peso_dt.values, 
+                                (medias_peso_dt.values - erro_padrao_peso_dt.values)[::-1])),
+        'grupo': ['DT'] * len(np.concatenate((dias, dias[::-1])))
+    })
+
+    # Criando DataFrame para os valores médios de CT e DT
+    df_valores = pd.DataFrame({
+        'dias': dias,
+        'medias_ct': medias_peso_ct.values,
+        'medias_dt': medias_peso_dt.values,
+    })
+
+    # Gráfico de área sombreada para CT
+    area_ct = alt.Chart(df_ct).mark_area(
+        opacity=0.2,
+        line={'color': 'white'}
+    ).encode(
+        x='dias:Q',
+        y='peso:Q',
+        color=alt.Color('grupo:N', scale=alt.Scale(domain=['CT'], range=['blue']))
+    ).properties(
+        width=600,
+        height=600
+    )
+
+    # Gráfico de linha para CT
+    linha_ct = alt.Chart(df_valores).mark_line(
+        color='blue'
+    ).encode(
+        x='dias:Q',
+        y='medias_ct:Q'
+    )
+
+    # Gráfico de área sombreada para DT
+    area_dt = alt.Chart(df_dt).mark_area(
+        opacity=0.2,
+        line={'color': 'white'}
+    ).encode(
+        x='dias:Q',
+        y='peso:Q',
+        color=alt.Color('grupo:N', scale=alt.Scale(domain=['DT'], range=['red']))
+    )
+
+    # Gráfico de linha para DT
+    linha_dt = alt.Chart(df_valores).mark_line(
+        color='red'
+    ).encode(
+        x='dias:Q',
+        y='medias_dt:Q'
+    )
+
+    # Combinando os gráficos
+    grafico_final = (area_ct + linha_ct + area_dt + linha_dt).properties(
+        title='Peso médio dos animais em 16 dias de experimento - erro padrão sombreado',
+        titleAnchor='middle'
+    ).configure_title(
+        fontSize=16,
+        anchor='middle'
+    ).configure_axis(
+        labelFontSize=12,
+        titleFontSize=14
+    )
+
+    st.altair_chart(grafico_final)
+
 # Streamlit App
 st.title("Gráficos - Peso e Consumo de Ração")
 
