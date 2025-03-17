@@ -415,10 +415,10 @@ def plotar_pesagem_alt(medias_peso_ct, erro_padrao_peso_ct, medias_peso_dt, erro
     ).configure_scale(
         bandPaddingInner=0.2
     ).interactive(
-    ).configure_legend(
-    orient='bottom',  # Legenda embaixo
-    labelAlign='center',  # Centralizar os rótulos
-    titleAlign='center'   # Centralizar o título da legenda
+    ).encode(
+    x='Categoria',
+    y='Valor',
+    color=alt.Color('Categoria', legend=alt.Legend(title="Categorias", orient="top"))  # Posição da legenda
     )
 
     # Exibir o gráfico no Streamlit
