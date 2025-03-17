@@ -420,8 +420,6 @@ def plotar_pesagem_area_alt(medias_peso_ct, erro_padrao_peso_ct, medias_peso_dt,
         y=alt.Y('peso:Q', scale=alt.Scale(domain=[0, medias_peso_ct.max() + 10])),  # Escala do eixo Y (peso)
         color=alt.Color('grupo:N', scale=alt.Scale(domain=['CT'], range=['blue']))
     ).properties(
-        width=600,
-        height=600
     )
 
     # Gráfico de linha para CT
