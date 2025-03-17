@@ -75,7 +75,7 @@ def plotar_pesagem(medias_peso_ct, erro_padrao_peso_ct, medias_peso_dt, erro_pad
 
     # Atualizando o layout para ajustar a escala
     fig.update_layout(
-        title=("Peso médio dos animais em 16 dias de experimento"),
+        title=f"Peso médio dos animais em {dias.max() - dias.min() + 1} dias de experimento",
         title_x=(0.5),
         title_xanchor=('center'),
         yaxis_title="Peso (g)",
