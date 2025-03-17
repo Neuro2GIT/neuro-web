@@ -445,6 +445,6 @@ st.expander("Clique para mais informações sobre o aplicativo")
                  #title="Média geral de consumo de ração por grupo", text_auto=True)
     #st.plotly_chart(fig)
 
-    """# Exibir os valores de forma destacada
-    st.metric(label="Média do consumo CT", value=round(racao_processada["media_geral_racao_ct"], 2))
-    st.metric(label="Média do consumo DT", value=round(racao_processada["media_geral_racao_dt"], 2))"""
+    # Exibir os valores de forma destacada
+    #st.metric(label="Média do consumo CT", value=round(racao_processada["media_geral_racao_ct"], 2))
+    #st.metric(label="Média do consumo DT", value=round(racao_processada["media_geral_racao_dt"], 2))
