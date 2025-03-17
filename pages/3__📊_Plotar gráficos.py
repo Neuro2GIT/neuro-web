@@ -542,12 +542,21 @@ if uploaded_file is not None:
     st.write(pd.concat([dados["df_racao_ct"], dados["df_racao_dt"]]))
 
     # Carregar as médias de ração
-    racao_processada = carregar_e_processar_excel(uploaded_file)
+    #racao_processada = carregar_e_processar_excel(uploaded_file)
+
+    ## Criar DataFrame para consumo geral de ração
+    #df_medias_gerais = pd.DataFrame({
+        #"Grupo": ["CT", "DT"],
+        #"Média do consumo de ração": [racao_processada["media_geral_racao_ct"], racao_processada["media_geral_racao_dt"]]
+    #})
 
     # Criar DataFrame para consumo geral de ração
     df_medias_gerais = pd.DataFrame({
         "Grupo": ["CT", "DT"],
-        "Média do consumo de ração": [racao_processada["media_geral_racao_ct"], racao_processada["media_geral_racao_dt"]]
+        "Média do consumo de ração": [
+            dados["media_geral_racao_ct"],  # Usando a variável 'dados' para acessar a média
+            dados["media_geral_racao_dt"]   # Usando a variável 'dados' para acessar a média
+        ]
     })
 
     # Exibir os dados em formato de tabela
