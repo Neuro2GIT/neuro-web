@@ -100,6 +100,13 @@ def main():
             "Referências": "Referências sobre neurociência cognitiva e suas descobertas mais recentes."
         }
     }
+
+    # Exibindo os temas estáticos em expanders
+    for theme, content in static_themes.items():
+        with st.expander(theme):
+            for section_title, section_content in content.items():
+                st.markdown(f"**{section_title}**")
+                st.markdown(section_content)
     
     # Iterar pelos temas e artigos
     for theme, dois in themes.items():
