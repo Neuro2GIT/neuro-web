@@ -379,6 +379,15 @@ def plotar_pesagem_alt(medias_peso_ct, erro_padrao_peso_ct, medias_peso_dt, erro
     x_scale = alt.Scale(domain=[df['Dia'].min(), df['Dia'].max()])  # Ajustando o eixo X com base nos dados
     y_scale = alt.Scale(domain=[df['Peso'].min() - df['Erro'].max(), df['Peso'].max() + df['Erro'].max()])  # Ajustando o eixo Y com base nos dados
 
+    # Criação do gráfico de erro
+    error_chart = alt.Chart(df).mark_errorband(extent='stderr').encode(
+        x='Dia:O',  # Eixo X como ordinal para os dias
+        y='Peso:Q',  # Eixo Y com valores quantitativos para o peso
+        color='Grupo:N',  # Cor por grupo (Controle e Deficiente em tiamina)
+        detail='Grupo:N',  # Detalhamento por grupo para distinguir as linhas
+        size=alt.value(2)  # Espessura da linha do erro
+    )
+    
     # Criação do gráfico de linha
     line_chart = alt.Chart(df).mark_line().encode(
         x='Dia:O',  # Eixo X como ordinal para os dias
@@ -386,14 +395,27 @@ def plotar_pesagem_alt(medias_peso_ct, erro_padrao_peso_ct, medias_peso_dt, erro
         color='Grupo:N',  # Cor por grupo (Controle e Deficiente em tiamina)
         detail='Grupo:N'  # Detalhamento por grupo para distinguir as linhas
     )
-    
-    error_bars = alt.Chart(df).mark_errorbar().encode(
-    x=alt.X('Dia:O', scale=x_scale),  # Eixo X (dias) com escala ajustada
-    y='Peso:Q',  # Eixo Y (peso)
-    y2='Peso + Erro:Q',  # Valor final da barra de erro (Peso + Erro)
-    color='Grupo:N',  # Cor por grupo
-    size=alt.value(10)  # Tamanho da barra de erro
+
+    # Combinando o gráfico de linha com o gráfico de erro
+    final_chart = error_chart + line_chart
+
+    # Ajustando a legenda para ficar centralizada na parte inferior
+    final_chart = final_chart.configure_legend(
+        orient='bottom',  # Legenda embaixo
+        labelAlign='center',  # Centralizar os rótulos
+        titleAlign='center'   # Centralizar o título da legenda
     )
+
+    # Exibindo o gráfico
+    st.altair_chart(final_chart, use_container_width=True)
+    
+    #error_bars = alt.Chart(df).mark_errorbar().encode(
+    #x=alt.X('Dia:O', scale=x_scale),  # Eixo X (dias) com escala ajustada
+    #y='Peso:Q',  # Eixo Y (peso)
+    #y2='Peso + Erro:Q',  # Valor final da barra de erro (Peso + Erro)
+    #color='Grupo:N',  # Cor por grupo
+    #size=alt.value(10)  # Tamanho da barra de erro
+    #)
     
     # Adicionando barras de erro para o gráfico
     #error_bars = alt.Chart(df).mark_errorbar().encode(
@@ -408,21 +430,21 @@ def plotar_pesagem_alt(medias_peso_ct, erro_padrao_peso_ct, medias_peso_dt, erro
     #)
 
     # Combina o gráfico de linha com as barras de erro
-    chart = (line_chart).properties(
-        title=f"Peso médio dos animais em {dias.max() - dias.min() + 1} dias de experimento",
-        width=600,
-        height=400
-    ).configure_scale(
-        bandPaddingInner=0.2
-    ).interactive(
-    ).encode(
-    x='Categoria',
-    y='Valor',
-    color=alt.Color('Categoria', legend=alt.Legend(title="Categorias", orient="top"))  # Posição da legenda
-    )
+    #chart = (line_chart).properties(
+        #title=f"Peso médio dos animais em {dias.max() - dias.min() + 1} dias de experimento",
+        #width=600,
+        #height=400
+    #).configure_scale(
+        #bandPaddingInner=0.2
+    #).interactive(
+    #).encode(
+    #x='Categoria',
+    #y='Valor',
+    #color=alt.Color('Categoria', legend=alt.Legend(title="Categorias", orient="top"))  # Posição da legenda
+    #)
 
     # Exibir o gráfico no Streamlit
-    st.altair_chart(chart, use_container_width=True)
+    #st.altair_chart(chart, use_container_width=True)
 
 # Função para plotar o gráfico de área sombreada usando Altair
 def plotar_pesagem_area_alt(medias_peso_ct, erro_padrao_peso_ct, medias_peso_dt, erro_padrao_peso_dt):
