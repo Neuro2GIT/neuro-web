@@ -362,20 +362,23 @@ def plotar_pesagem_alt(medias_peso_ct, erro_padrao_peso_ct, medias_peso_dt, erro
 
     # Criando o gráfico com Altair
     chart = alt.Chart(df).mark_line().encode(
-        x='dias',
-        y='peso',
-        color='grupo',
-        detail='grupo'
+        x='dias:Q',  # Definindo que 'dias' é numérico
+        y='peso:Q',  # Definindo que 'peso' é numérico
+        color='grupo:N',  # Usando a coluna 'grupo' para a cor
+        detail='grupo:N'  # Detalhando o gráfico por 'grupo' (não altera a linha, mas é importante para as categorias)
     ).properties(
-        title="Peso médio dos animais em 16 dias de experimento"
-    ) + alt.Chart(df).mark_errorbar().encode(
-        x='dias',
-        y='peso',
-        yError='erro',
-        color='grupo'
-    #).properties(
-        #width=600,
-        #height=600
+        title="Peso médio dos animais em 16 dias de experimento",
+        width=800,  # Ajuste da largura do gráfico
+        height=400  # Ajuste da altura do gráfico
+    ).encode(
+        color=alt.Color('grupo:N', legend=alt.Legend(
+            title='Grupo',  # Título da legenda
+            orient='bottom',  # Colocando a legenda na parte inferior
+            labelFontSize=12,  # Tamanho da fonte dos rótulos da legenda
+            titleFontSize=14,  # Tamanho da fonte do título da legenda
+            padding=10,  # Distância entre a legenda e o gráfico
+            offset=20  # Distância adicional entre a legenda e o gráfico
+        ))
     )
 
     # Exibir o gráfico no Streamlit
