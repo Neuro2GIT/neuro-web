@@ -23,6 +23,13 @@ def carregar_e_processar_excel(uploaded_file):
 
 # Função para calcular as estatísticas para o boxplot
 def calc_boxplot_stats(data):
+    if len(data) == 0:  # Se não houver dados, retornamos um DataFrame vazio
+        return pd.DataFrame({
+            'Q1': [None], 'Q3': [None], 'Median': [None],
+            'IQR': [None], 'Lower Whisker': [None],
+            'Upper Whisker': [None], 'Outliers': [[]]
+        })
+    
     Q1 = data.quantile(0.25)  # Primeiro Quartil
     Q3 = data.quantile(0.75)  # Terceiro Quartil
     median = data.median()  # Mediana
@@ -30,6 +37,9 @@ def calc_boxplot_stats(data):
     lower_whisker = Q1 - 1.5 * IQR  # Limite inferior dos bigodes
     upper_whisker = Q3 + 1.5 * IQR  # Limite superior dos bigodes
     outliers = data[(data < lower_whisker) | (data > upper_whisker)]  # Outliers
+    
+    # Verificando se existem outliers para garantir que o 'Outliers' não seja uma lista vazia
+    outliers_list = outliers.tolist() if not outliers.empty else []
     
     # Criando o DataFrame com as estatísticas calculadas
     stats = {
@@ -39,7 +49,7 @@ def calc_boxplot_stats(data):
         'IQR': IQR,
         'Lower Whisker': lower_whisker,
         'Upper Whisker': upper_whisker,
-        'Outliers': outliers.tolist()  # Convertendo os outliers para lista
+        'Outliers': outliers_list  # Convertendo os outliers para lista
     }
     
     return pd.DataFrame(stats, index=[0])  # Retorna um DataFrame com as estatísticas
@@ -120,12 +130,4 @@ def main():
 
         st.subheader("Estatísticas para o Grupo Controle e DT - Objeto Familiar")
         st.write("Controle - Objeto Familiar:")
-        st.dataframe(controle_familiar_stats)  # Exibe o DataFrame com as estatísticas
-        st.write("DT - Objeto Familiar:")
-        st.dataframe(dt_familiar_stats)  # Exibe o DataFrame com as estatísticas
-
-        # Gerando os Boxplots para os tempos de exploração nos objetos
-        gerar_boxplot(df)
-
-if __name__ == "__main__":
-    main()
+        st.dataframe(controle_familiar_st
