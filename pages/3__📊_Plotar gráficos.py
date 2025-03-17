@@ -372,6 +372,9 @@ def plotar_pesagem_alt(medias_peso_ct, erro_padrao_peso_ct, medias_peso_dt, erro
     # Concatenando os dois DataFrames
     df = pd.concat([df_ct, df_dt], ignore_index=True)
 
+     # Exibindo o DataFrame no Streamlit para verificação
+    st.write("Dados do gráfico:", df)
+
     # Criação do gráfico de linha
     line_chart = alt.Chart(df).mark_line().encode(
         x='Dia:O',  # Eixo X como ordinal para os dias
