@@ -383,17 +383,25 @@ def plotar_pesagem_alt(medias_peso_ct, erro_padrao_peso_ct, medias_peso_dt, erro
         detail='Grupo:N'  # Detalhamento por grupo para distinguir as linhas
     )
     
-    # Adicionando barras de erro para o gráfico
     error_bars = alt.Chart(df).mark_errorbar().encode(
-        x='Dia:O',  # Eixo X (dias)
-        y='Peso:Q',  # Eixo Y (peso)
-        y2='Peso + Erro:Q',  # Valor final da barra de erro (Peso + Erro)
+    x=alt.X('Dia:O', scale=x_scale),  # Eixo X (dias) com escala ajustada
+    y='Peso:Q',  # Eixo Y (peso)
+    y2='Peso + Erro:Q',  # Valor final da barra de erro (Peso + Erro)
+    color='Grupo:N',  # Cor por grupo
+    size=alt.value(10)  # Tamanho da barra de erro
+    )
+    
+    # Adicionando barras de erro para o gráfico
+    #error_bars = alt.Chart(df).mark_errorbar().encode(
+        #x='Dia:O',  # Eixo X (dias)
+        #y='Peso:Q',  # Eixo Y (peso)
+        #y2='Peso + Erro:Q',  # Valor final da barra de erro (Peso + Erro)
         #y2='Peso:Q',  # Início da barra de erro
-        color='Grupo:N',  # Cor por grupo
-        size=alt.value(10)  # Tamanho da barra de erro
+        #color='Grupo:N',  # Cor por grupo
+        #size=alt.value(10)  # Tamanho da barra de erro
     #).transform_calculate(
         #y2='datum.Peso + datum.Erro'  # A barra de erro vai de Peso até Peso + Erro
-    )
+    #)
 
     # Combina o gráfico de linha com as barras de erro
     chart = (line_chart + error_bars).properties(
