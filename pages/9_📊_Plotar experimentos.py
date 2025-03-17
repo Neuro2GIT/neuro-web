@@ -406,10 +406,6 @@ if uploaded_file is not None:
         for nome_grafico, funcao in graficos_disponiveis.items():
             st.subheader(nome_grafico)  # Exibe o nome do gráfico
             
-            # Chama a função de plotagem com os parâmetros
-            funcao(*parametros_por_grafico[nome_grafico]) 
-
-
     # Exibe as tabelas abaixo das abas
     st.subheader("Tabela de peso dos animais CT e DT")
     st.write(pd.concat([dados["df_ct"], dados["df_dt"]]))
