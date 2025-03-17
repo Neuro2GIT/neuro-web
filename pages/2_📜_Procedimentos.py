@@ -88,7 +88,7 @@ def main():
     # Criar um container para a técnica selecionada com três expanders
     if tecnica_selecionada == "Preparo de ração":
 
-        with st.container(border=True, background_color="#b4fff2"):
+        with st.container(border=True):
             st.title("Preparo de ração")
             # Expander para "Ingredientes ração"
             with st.expander("Ingredientes ração"):
