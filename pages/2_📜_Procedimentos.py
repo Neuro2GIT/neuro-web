@@ -101,11 +101,11 @@ def main():
             # Expander para "Modo de preparo"
             with st.expander("Modo de preparo"):
                 st.write("""
-                1. **Preparação da Massa Base:**
+                1. **Preparação da massa Base:**
                 Misture bem o amido, o polvilho e a caseína em um recipiente.  
                 Acrescente a água e mexa até dissolver completamente os ingredientes secos.
 
-                2. **Cozimento da Massa:**
+                2. **Cozimento da massa:**
                 Unte a panela com uma parte do óleo.  
                 Despeje a mistura e mexa constantemente.  
                 Conforme a massa começar a ganhar firmeza, mexa com mais vigor.  
@@ -115,7 +115,7 @@ def main():
                 Assim que a massa atingir a temperatura adequada, acrescente os sais minerais, as vitaminas, a celulose e a sacarose.  
                 Acrescente mais uma parte do óleo para ajudar na incorporação e misture.
 
-                4. **Modelagem e Finalização:**
+                4. **Modelagem e finalização:**
                 Faça a sova na massa até homogeneizar bem a mistura.  
                 Modele a massa, em partes, em forma de bastão e corte em pequenos pellets, semelhantes à ração comercial.
                 """)
