@@ -80,7 +80,7 @@ def plotar_pesagem(medias_peso_ct, erro_padrao_peso_ct, medias_peso_dt, erro_pad
         title_xanchor=('center'),
         yaxis_title="Peso (g)",
         legend=dict(orientation="h", x=0.5, y=-0.2, xanchor="center"),
-        #xaxis=dict(title="Dias", range=[dias.min(), dias.max()], scaleanchor="y"),  # Limite do eixo X (dias)
+        xaxis=dict(title="Dias", range=[dias.min() - 1, dias.max()] + 1, scaleanchor="y"),  # Limite do eixo X (dias)
         height=600,
         width=600
     )
