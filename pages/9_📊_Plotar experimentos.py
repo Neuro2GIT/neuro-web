@@ -380,25 +380,16 @@ if uploaded_file is not None:
     dados = carregar_e_processar_excel(uploaded_file)  # Chama a função para carregar e processar os dados
 
     with st.container():
-        # Cria a lista de opções para escolher a biblioteca
+        # Cria as abas usando st.radio
         aba_selecionada = st.radio(
             "Escolha a biblioteca",
-            ("Plotly", "Matplotlib", "Seaborn")  # Escolha da biblioteca
+            ("Plotly", "Matplotlib", "Seaborn", "Altair")
         )
-
-        # Dicionário que mapeia cada tipo de gráfico para os dados correspondentes
-        mapeamento_dados = {
-        "peso": ("medias_peso_ct", "erro_padrao_peso_ct", "medias_peso_dt", "erro_padrao_peso_dt"),
-        "peso em area": ("medias_peso_ct", "erro_padrao_peso_ct", "medias_peso_dt", "erro_padrao_peso_dt"),
-        "consumo de ração": ("medias_racao_ct", "medias_racao_dt"),
-        }
-
-        def plotar_grafico(biblioteca, tipo_grafico, dados):
-            funcao_plotagem = opcoes_bibliotecas[biblioteca][tipo_grafico]
-    
-        # Obtém os dados corretos com base no mapeamento e os passa como argumentos
-        args = [dados[chave] for chave in mapeamento_dados[tipo_grafico]]
-        funcao_plotagem(*args)
+ 
+        # Seleciona as funções de acordo com a biblioteca escolhida
+        plotar_funcoes = plot_funcs[aba_selecionada]
+ 
+        st.subheader(f"Gráficos com {aba_selecionada}")
 
         # Exibe as tabelas abaixo das abas
         st.subheader("Tabela de peso dos animais CT e DT")
