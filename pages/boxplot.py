@@ -31,15 +31,18 @@ def calc_boxplot_stats(data):
     upper_whisker = Q3 + 1.5 * IQR  # Limite superior dos bigodes
     outliers = data[(data < lower_whisker) | (data > upper_whisker)]  # Outliers
     
-    return {
+    # Criando o DataFrame com as estatísticas calculadas
+    stats = {
         'Q1': Q1,
         'Q3': Q3,
         'Median': median,
         'IQR': IQR,
         'Lower Whisker': lower_whisker,
         'Upper Whisker': upper_whisker,
-        'Outliers': outliers
+        'Outliers': outliers.tolist()  # Convertendo os outliers para lista
     }
+    
+    return pd.DataFrame(stats, index=[0])  # Retorna um DataFrame com as estatísticas
 
 # Função para gerar o boxplot
 def gerar_boxplot(df):
@@ -108,14 +111,18 @@ def main():
             "df": df  # DataFrame original
         }
 
-        # Exibindo as estatísticas calculadas
+        # Exibindo as estatísticas calculadas em DataFrames no Streamlit
         st.subheader("Estatísticas para o Grupo Controle e DT - Objeto Novo")
-        st.write("Controle - Objeto Novo:", controle_novo_stats)
-        st.write("DT - Objeto Novo:", dt_novo_stats)
+        st.write("Controle - Objeto Novo:")
+        st.dataframe(controle_novo_stats)  # Exibe o DataFrame com as estatísticas
+        st.write("DT - Objeto Novo:")
+        st.dataframe(dt_novo_stats)  # Exibe o DataFrame com as estatísticas
 
         st.subheader("Estatísticas para o Grupo Controle e DT - Objeto Familiar")
-        st.write("Controle - Objeto Familiar:", controle_familiar_stats)
-        st.write("DT - Objeto Familiar:", dt_familiar_stats)
+        st.write("Controle - Objeto Familiar:")
+        st.dataframe(controle_familiar_stats)  # Exibe o DataFrame com as estatísticas
+        st.write("DT - Objeto Familiar:")
+        st.dataframe(dt_familiar_stats)  # Exibe o DataFrame com as estatísticas
 
         # Gerando os Boxplots para os tempos de exploração nos objetos
         gerar_boxplot(df)
