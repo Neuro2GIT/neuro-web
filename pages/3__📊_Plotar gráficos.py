@@ -387,9 +387,6 @@ def plotar_pesagem_alt(medias_peso_ct, erro_padrao_peso_ct, medias_peso_dt, erro
         height=400
     ).interactive()
 
-    # Exibindo o gráfico
-    return chart
-
     # Exibir o gráfico no Streamlit
     st.altair_chart(chart, use_container_width=True)
 
