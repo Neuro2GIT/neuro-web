@@ -389,7 +389,7 @@ if uploaded_file is not None:
         )
 
         # Obtém a função correspondente do dicionário
-        biblioteca_escolhida = opcoes_graficos[aba_selecionada][grafico_selecionado]
+        aba_selecionada = opcoes_graficos[aba_selecionada][grafico_selecionado]
 
         # Exibe o gráfico chamando a função escolhida
         biblioteca_escolhida(dados)  # Aqui você passa os dados para a função de plotagem
