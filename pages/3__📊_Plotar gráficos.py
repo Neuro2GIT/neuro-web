@@ -377,7 +377,8 @@ def plotar_pesagem_alt(medias_peso_ct, erro_padrao_peso_ct, medias_peso_dt, erro
 
     # Definindo a escala para os eixos X e Y
     #x_scale = alt.Scale(domain=[df['Dia'].min(), df['Dia'].max()])  # Ajustando o eixo X com base nos dados
-    y_scale = alt.Scale(domain=[min(df['Peso']) - 1, max(df['Peso']) + 1])
+    #y_scale = alt.Scale(domain=[min(df['Peso']) - 1, max(df['Peso']) + 1])
+    y_scale = alt.Scale(domain=[df['Peso'].min() - df['Erro'].max(), df['Peso'].max() + df['Erro'].max()])
     #y_scale = alt.Scale(domain=[df['Peso'].min() - df['Erro'].max(), df['Peso'].max() + df['Erro'].max()])  # Ajustando o eixo Y com base nos dados
 
     # Criação do gráfico de erro
