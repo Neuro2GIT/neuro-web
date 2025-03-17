@@ -384,12 +384,7 @@ if uploaded_file is not None:
         # Cria as abas usando st.radio
         aba_selecionada = st.radio(
             "Escolha a biblioteca",
-            ("Plotly", "Matplotlib", "Seaborn")
-        )
-
-        # Selecione o gráfico que o usuário deseja ver
-        grafico_selecionado = st.radio(
-            "Escolha a bibliotéca de gráficos",
+            ("Plotly", "Matplotlib", "Seaborn"),
             list(opcoes_graficos[aba_selecionada].keys())
         )
 
