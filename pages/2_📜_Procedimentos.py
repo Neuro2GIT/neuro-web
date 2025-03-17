@@ -74,14 +74,41 @@ def read_docx_file(file_path):
     return '\n'.join(full_text)
 
 # Função principal
-
 def main():
-        
+    
     # Sidebar para navegação e autenticação
     with st.sidebar:
-        #st.write("Índice") header
-        #opcao_selecionada = st.selectbox("Escolha uma opção", ["Preparo de ração CT", "Preparo de ração DT"])
+        # Opção de seleção da técnica
+        tecnica_selecionada = st.radio(
+            "Índice",
+            ("Preparo de ração", "Dosagem de proteínas", "Dosagem de cálcio")
+        )
 
+    # Criar um container para a técnica selecionada com três expanders
+    if tecnica_selecionada == "Preparo de ração":
+
+        with st.container():
+            # Expander para "Ingredientes ração"
+            with st.expander("Ingredientes ração"):
+                st.write("Conteúdo sobre os ingredientes da ração CT")
+
+            # Expander para "Ingredientes ração DT"
+            with st.expander("Ingredientes ração DT"):
+                st.write("Conteúdo sobre os ingredientes da ração DT")
+
+            # Expander para "Modo de preparo"
+            with st.expander("Modo de preparo"):
+                st.write("Conteúdo sobre o modo de preparo da ração")
+
+    elif tecnica_selecionada == "Dosagem de proteínas":
+        st.write("Conteúdo sobre dosagem de proteínas")
+
+    elif tecnica_selecionada == "Dosagem de cálcio":
+        st.write("Conteúdo sobre dosagem de cálcio")
+
+# Chamada da função principal
+if __name__ == "__main__":
+    main()
         with st.container(border=True):
             tecnica_selecionada = st.radio(
                     "Índice",
