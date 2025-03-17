@@ -24,11 +24,13 @@ def carregar_e_processar_excel(uploaded_file):
 # Função para calcular as estatísticas para o boxplot
 def calc_boxplot_stats(data):
     if len(data) == 0 or data.isnull().all():  # Se os dados estiverem vazios ou todos nulos
-        return pd.DataFrame({
+        # Retornar um DataFrame com None para os valores
+        stats = {
             'Q1': [None], 'Q3': [None], 'Median': [None],
             'IQR': [None], 'Lower Whisker': [None],
             'Upper Whisker': [None], 'Outliers': [None]
-        })
+        }
+        return pd.DataFrame(stats)  # Retorna o DataFrame com dados ausentes ou `None`
     
     Q1 = data.quantile(0.25)  # Primeiro Quartil
     Q3 = data.quantile(0.75)  # Terceiro Quartil
@@ -38,21 +40,18 @@ def calc_boxplot_stats(data):
     upper_whisker = Q3 + 1.5 * IQR  # Limite superior dos bigodes
     outliers = data[(data < lower_whisker) | (data > upper_whisker)]  # Outliers
     
-    # Verificando se existem outliers para garantir que o 'Outliers' não seja uma lista vazia
-    outliers_list = outliers.tolist() if not outliers.empty else []
-    
     # Criando o DataFrame com as estatísticas calculadas
     stats = {
-        'Q1': Q1,
-        'Q3': Q3,
-        'Median': median,
-        'IQR': IQR,
-        'Lower Whisker': lower_whisker,
-        'Upper Whisker': upper_whisker,
-        'Outliers': outliers_list  # Convertendo os outliers para lista
+        'Q1': [Q1],
+        'Q3': [Q3],
+        'Median': [median],
+        'IQR': [IQR],
+        'Lower Whisker': [lower_whisker],
+        'Upper Whisker': [upper_whisker],
+        'Outliers': [outliers.tolist()]  # Convertendo os outliers para lista
     }
     
-    return pd.DataFrame(stats, index=[0])  # Retorna um DataFrame com as estatísticas
+    return pd.DataFrame(stats)  # Retorna um DataFrame com as estatísticas
 
 # Função para gerar o boxplot
 def gerar_boxplot(df):
