@@ -85,7 +85,7 @@ def main():
         with st.container(border=True):
             tecnica_selecionada = st.radio(
                     "Índice",
-                    ("Preparo de ração", "Dosagem de proteínas")
+                    ("Preparo de ração", "Dosagem de proteínas", "Dosagem de cálcio")
                 )
 
             
