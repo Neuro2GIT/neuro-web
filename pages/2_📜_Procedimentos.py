@@ -112,20 +112,20 @@ if __name__ == "__main__":
     main()
       
              # Aqui você pode colocar o código para baixar e exibir o arquivo .docx no placeholder
-            placeholder = st.empty()  # Criando um Placeholder
+            #placeholder = st.empty()  # Criando um Placeholder
 
             # Acessando o file_id de forma segura a partir do secrets.toml
-            file_id = st.secrets["google_drive"]["file_id_preparo_racao_ct"]  # Obtendo o file_id da configuração
+            #file_id = st.secrets["google_drive"]["file_id_preparo_racao_ct"]  # Obtendo o file_id da configuração
 
             # Serviço da API do Google Drive (já autenticado)
-            service = authenticate_google_drive()  # Obtém o serviço autenticado
+            #service = authenticate_google_drive()  # Obtém o serviço autenticado
 
             # Baixar o arquivo e ler o conteúdo
-            file_path = download_file_from_drive(file_id, service)
-            if file_path:
-                docx_content = read_docx_file(file_path)
-                with placeholder:
-                    st.markdown(docx_content)
+            #file_path = download_file_from_drive(file_id, service)
+            #if file_path:
+                #docx_content = read_docx_file(file_path)
+                #with placeholder:
+                    #st.markdown(docx_content)
 
     # Footer com estilo customizado
     #st.markdown("""
