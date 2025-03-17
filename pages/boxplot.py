@@ -130,4 +130,12 @@ def main():
 
         st.subheader("Estatísticas para o Grupo Controle e DT - Objeto Familiar")
         st.write("Controle - Objeto Familiar:")
-        st.dataframe(controle_familiar_st
+        st.dataframe(controle_familiar_stats)  # Exibe o DataFrame com as estatísticas
+        st.write("DT - Objeto Familiar:")
+        st.dataframe(dt_familiar_stats)  # Exibe o DataFrame com as estatísticas
+
+        # Gerando os Boxplots para os tempos de exploração nos objetos
+        gerar_boxplot(df)
+
+if __name__ == "__main__":
+    main()
