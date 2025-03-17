@@ -84,7 +84,6 @@ def main():
 
         with st.container(border=True):
             tecnica_selecionada = st.radio(
-                    "",
                     ("Preparo de ração", "Dosagem de proteínas")
                 )
 
