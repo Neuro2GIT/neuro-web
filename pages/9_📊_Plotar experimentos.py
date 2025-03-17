@@ -394,7 +394,7 @@ if uploaded_file is not None:
         }
 
         def plotar_grafico(biblioteca, tipo_grafico, dados):
-        funcao_plotagem = opcoes_bibliotecas[biblioteca][tipo_grafico]
+            funcao_plotagem = opcoes_bibliotecas[biblioteca][tipo_grafico]
     
         # Obtém os dados corretos com base no mapeamento e os passa como argumentos
         args = [dados[chave] for chave in mapeamento_dados[tipo_grafico]]
