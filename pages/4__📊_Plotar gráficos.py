@@ -370,7 +370,7 @@ plot_funcs = {
 }
 
 # Streamlit App
-st.title("Peso e Consumo de Ração")
+st.title("Peso e consumo de Ração")
 
 with st.expander("Como usar?"):
     st.write("Converta a sua planilha para o modelo ou gere uma nova no gerador de planilhas")
