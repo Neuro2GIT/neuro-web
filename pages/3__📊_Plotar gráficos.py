@@ -438,8 +438,6 @@ if uploaded_file is not None:
     st.write("### Média geral do consumo de ração")
     st.dataframe(df_medias_gerais)
 
-    st.expander("Clique para mais informações sobre o aplicativo")
-
     # Criar gráfico de barras usando dados do DataFrame
     #fig = px.bar(df_medias_gerais, x="Grupo", y="Média do consumo de ração",
                  #title="Média geral de consumo de ração por grupo", text_auto=True)
