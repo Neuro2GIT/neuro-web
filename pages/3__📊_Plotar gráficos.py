@@ -534,6 +534,12 @@ if uploaded_file is not None:
     with st.container(border=True):
         plotar_funcoes["consumo_racao"](dados["medias_racao_ct"], dados["medias_racao_dt"])
 
+    # Exibe os gráficos correspondentes de forma dinâmica
+    #for nome_grafico, funcao in plotar_funcoes.items():
+       # with st.container(border=True):
+            # Chama a função de plotagem com os parâmetros corretos
+            #funcao(*parametros_por_grafico[nome_grafico])
+
     # Exibe as tabelas abaixo das abas
     st.subheader("Tabela de peso dos animais CT e DT")
     st.write(pd.concat([dados["df_ct"], dados["df_dt"]]))
