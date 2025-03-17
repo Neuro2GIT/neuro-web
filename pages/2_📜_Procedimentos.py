@@ -101,7 +101,7 @@ def main():
             # Expander para "Modo de preparo"
             with st.expander("Modo de preparo"):
                 st.write("""
-                1. **Preparação da massa Base:**
+                1. **Preparação da massa base:**
                 Misture bem o amido, o polvilho e a caseína em um recipiente.  
                 Acrescente a água e mexa até dissolver completamente os ingredientes secos.
 
