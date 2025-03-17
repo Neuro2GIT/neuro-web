@@ -390,13 +390,18 @@ if uploaded_file is not None:
         opcoes_graficos = list(opcoes_bibliotecas[aba_selecionada].keys())
         grafico_selecionado = st.selectbox("Escolha o gráfico a ser gerado", opcoes_graficos)
 
-        # Função para gerar o gráfico
+        # Função para gerar o gráfico com os dados carregados
         def plotar_grafico(biblioteca, tipo_grafico, dados):
             funcao_plotagem = opcoes_bibliotecas[biblioteca][tipo_grafico]
-            funcao_plotagem(dados)
+    
+            if tipo_grafico == "peso" or tipo_grafico == "peso em area":
+            # Para gráficos de peso, passamos diretamente as médias de peso e erro padrão para CT e DT
+                funcao_plotagem(dados["medias_peso_ct"], dados["erro_padrao_peso_ct"], dados["medias_peso_dt"], dados["erro_padrao_peso_dt"])
+    
+            elif tipo_grafico == "consumo de ração":
+            # Para o gráfico de consumo de ração, passamos as médias de consumo para CT e DT
+                funcao_plotagem(dados["medias_racao_ct"], dados["medias_racao_dt"])
 
-        # Gerar o gráfico com os dados carregados
-        plotar_grafico(aba_selecionada, grafico_selecionado, dados)
 
     # Exibe as tabelas abaixo das abas
     st.subheader("Tabela de peso dos animais CT e DT")
