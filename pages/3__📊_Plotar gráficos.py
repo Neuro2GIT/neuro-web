@@ -372,16 +372,27 @@ def plotar_pesagem_alt(medias_peso_ct, erro_padrao_peso_ct, medias_peso_dt, erro
     # Concatenando os dois DataFrames
     df = pd.concat([df_ct, df_dt], ignore_index=True)
 
-    # Gráfico de linhas com barras de erro
-    chart = alt.Chart(df).mark_line().encode(
-        x='Dia:O',  # Eixo X com tipo ordinal (dias)
-        y='Peso:Q',  # Eixo Y com tipo quantitativo (peso)
-        color='Grupo:N',  # Diferenciar as linhas por grupo
-        detail='Grupo:N'
-    ).mark_errorbar().encode(
-        y='Erro:Q',  # A quantidade de erro
-        y2='Peso:Q'  # De onde começa o erro
-    ).properties(
+    # Criação do gráfico de linha
+    line_chart = alt.Chart(df).mark_line().encode(
+        x='Dia:O',  # Eixo X como ordinal para os dias
+        y='Peso:Q',  # Eixo Y com valores quantitativos para o peso
+        color='Grupo:N',  # Cor por grupo (Controle e Deficiente em tiamina)
+        detail='Grupo:N'  # Detalhamento por grupo para distinguir as linhas
+    )
+    
+    # Adicionando barras de erro para o gráfico
+    error_bars = alt.Chart(df).mark_errorbar().encode(
+        x='Dia:O',  # Eixo X (dias)
+        y='Peso:Q',  # Eixo Y (peso)
+        y2='Peso:Q',  # Início da barra de erro
+        color='Grupo:N',  # Cor por grupo
+        size=alt.value(2)  # Tamanho da barra de erro
+    ).transform_calculate(
+        y2='datum.Peso + datum.Erro'  # A barra de erro vai de Peso até Peso + Erro
+    )
+
+    # Combina o gráfico de linha com as barras de erro
+    chart = (line_chart + error_bars).properties(
         title=f"Peso médio dos animais em {dias.max() - dias.min() + 1} dias de experimento",
         width=600,
         height=400
