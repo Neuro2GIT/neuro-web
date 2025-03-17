@@ -405,6 +405,12 @@ if uploaded_file is not None:
         # Para cada gráfico disponível, chamamos a função de plotagem
         for nome_grafico, funcao in graficos_disponiveis.items():
             st.subheader(nome_grafico)  # Exibe o nome do gráfico
+
+            # Chama a função de plotagem diretamente com os parâmetros necessários
+                    if nome_grafico == "consumo de ração":
+                        funcao(dados)  # Para "consumo de ração", passamos apenas os dados
+                    else:
+                        funcao(dados, erro_padrao_peso_ct, medias_peso_dt, erro_padrao_peso_dt)  # Para os outros, passamos os dados e os parâmetros adicionais
             
     # Exibe as tabelas abaixo das abas
     st.subheader("Tabela de peso dos animais CT e DT")
