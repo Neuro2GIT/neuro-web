@@ -459,6 +459,17 @@ def plotar_pesagem_area_alt(medias_peso_ct, erro_padrao_peso_ct, medias_peso_dt,
         titleFontSize=14
     )
 
+    grafico_final = (area_ct + linha_ct + area_dt + linha_dt).properties(
+        title='Peso médio dos animais em 16 dias de experimento - erro padrão sombreado'
+    ).configure_title(
+        fontSize=16,
+        align='center',  # Ajuste do alinhamento do título
+        baseline='middle'  # Ajuste da posição vertical do título
+    ).configure_axis(
+        labelFontSize=12,
+        titleFontSize=14
+    )
+
     st.altair_chart(grafico_final)
 
 
