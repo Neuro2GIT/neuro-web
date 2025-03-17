@@ -386,29 +386,26 @@ if uploaded_file is not None:
             ("Plotly", "Matplotlib", "Seaborn")  # Escolha da biblioteca
         )
 
-        # Pergunta para o usuário escolher o tipo de gráfico
-        opcoes_graficos = list(opcoes_bibliotecas[aba_selecionada].keys())
-        grafico_selecionado = st.selectbox("Escolha o gráfico a ser gerado", opcoes_graficos)
+        # Dicionário que mapeia cada tipo de gráfico para os dados correspondentes
+        mapeamento_dados = {
+        "peso": ("medias_peso_ct", "erro_padrao_peso_ct", "medias_peso_dt", "erro_padrao_peso_dt"),
+        "peso em area": ("medias_peso_ct", "erro_padrao_peso_ct", "medias_peso_dt", "erro_padrao_peso_dt"),
+        "consumo de ração": ("medias_racao_ct", "medias_racao_dt"),
+        }
 
-        # Função para gerar o gráfico com os dados carregados
         def plotar_grafico(biblioteca, tipo_grafico, dados):
-            funcao_plotagem = opcoes_bibliotecas[biblioteca][tipo_grafico]
+        funcao_plotagem = opcoes_bibliotecas[biblioteca][tipo_grafico]
     
-            if tipo_grafico == "peso" or tipo_grafico == "peso em area":
-            # Para gráficos de peso, passamos diretamente as médias de peso e erro padrão para CT e DT
-                funcao_plotagem(dados["medias_peso_ct"], dados["erro_padrao_peso_ct"], dados["medias_peso_dt"], dados["erro_padrao_peso_dt"])
-    
-            elif tipo_grafico == "consumo de ração":
-            # Para o gráfico de consumo de ração, passamos as médias de consumo para CT e DT
-                funcao_plotagem(dados["medias_racao_ct"], dados["medias_racao_dt"])
+        # Obtém os dados corretos com base no mapeamento e os passa como argumentos
+        args = [dados[chave] for chave in mapeamento_dados[tipo_grafico]]
+        funcao_plotagem(*args)
 
+        # Exibe as tabelas abaixo das abas
+        st.subheader("Tabela de peso dos animais CT e DT")
+        st.write(pd.concat([dados["df_ct"], dados["df_dt"]]))
 
-    # Exibe as tabelas abaixo das abas
-    st.subheader("Tabela de peso dos animais CT e DT")
-    st.write(pd.concat([dados["df_ct"], dados["df_dt"]]))
-
-    st.subheader("Tabela de consumo de ração das caixas CT e DT")
-    st.write(pd.concat([dados["df_racao_ct"], dados["df_racao_dt"]]))
+        st.subheader("Tabela de consumo de ração das caixas CT e DT")
+        st.write(pd.concat([dados["df_racao_ct"], dados["df_racao_dt"]]))
 
     # Carregar as médias de ração
     racao_processada = carregar_e_processar_excel(uploaded_file)
