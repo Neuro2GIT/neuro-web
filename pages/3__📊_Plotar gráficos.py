@@ -351,7 +351,7 @@ def plotar_consumo_racao_seaborn(medias_racao_ct, medias_racao_dt):
     st.pyplot(fig)
 
 # Função para plotar o gráfico de linhas com erro padrão usando Altair
-def plotar_pesagem_altair(medias_peso_ct, erro_padrao_peso_ct, medias_peso_dt, erro_padrao_peso_dt):
+def plotar_pesagem_alt(medias_peso_ct, erro_padrao_peso_ct, medias_peso_dt, erro_padrao_peso_dt):
     # Criando os dados em formato de DataFrame para o Altair
     dias = np.arange(1, len(medias_peso_ct) + 1)
     
@@ -389,7 +389,6 @@ def plotar_pesagem_altair(medias_peso_ct, erro_padrao_peso_ct, medias_peso_dt, e
 
     # Exibindo o gráfico
     return chart
-
 
     # Exibir o gráfico no Streamlit
     st.altair_chart(chart, use_container_width=True)
