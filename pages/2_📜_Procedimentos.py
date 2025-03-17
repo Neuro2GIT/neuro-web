@@ -73,11 +73,12 @@ def read_docx_file(file_path):
         full_text.append(para.text)
     return '\n'.join(full_text)
 
+import streamlit as st
+
 # Função principal
 def main():
-    
     # Sidebar para navegação e autenticação
-     with st.sidebar:
+    with st.sidebar:
         # Opção de seleção da técnica
         tecnica_selecionada = st.radio(
             "Índice",
@@ -109,7 +110,7 @@ def main():
 # Chamada da função principal
 if __name__ == "__main__":
     main()
-            
+      
              # Aqui você pode colocar o código para baixar e exibir o arquivo .docx no placeholder
             placeholder = st.empty()  # Criando um Placeholder
 
@@ -134,4 +135,4 @@ if __name__ == "__main__":
     #""", unsafe_allow_html=True)
 
 # Chama a função main() para exibir o conteúdo
-main()
+#main()
