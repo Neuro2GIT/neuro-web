@@ -366,6 +366,7 @@ opcoes_graficos = {
     }
 }
 
+
 # Streamlit App
 st.title("Gráficos - peso e consumo de ração")
 
@@ -375,24 +376,25 @@ with st.expander("Como usar?"):
 with st.container(border=True):
     st.write()
     uploaded_file = st.file_uploader("Selecione um arquivo excel (.xlsx) em 'Browse files' ou arraste para carregar os gráficos", type=["xlsx"])
-    
+
 if uploaded_file is not None:
     # Processa os dados
     dados = carregar_e_processar_excel(uploaded_file)
 
     with st.container(border=True):
-        # Cria as abas usando st.radio
+        # Cria a lista de opções para escolher a biblioteca
         aba_selecionada = st.radio(
             "Escolha a biblioteca",
-            ("Plotly", "Matplotlib", "Seaborn"),
-            list(opcoes_graficos[aba_selecionada].keys())
+            ("Plotly", "Matplotlib", "Seaborn")  # Escolha da biblioteca
         )
-  
-        # Obtém a função correspondente do dicionário
-        funcao_escolhida = opcoes_graficos[aba_selecionada][grafico_selecionado]
 
-        # Exibe o gráfico chamando a função escolhida
-        funcao_escolhida(dados)  # Aqui você passa os dados para a função de plotagem
+        # A partir da biblioteca selecionada, obtemos os gráficos disponíveis
+        graficos_disponiveis = opcoes_graficos[aba_selecionada]
+
+        # Para cada gráfico da biblioteca, chamamos a função de plotagem
+        for nome_grafico, funcao in graficos_disponiveis.items():
+            st.subheader(nome_grafico)  # Exibe o nome do gráfico
+            funcao(dados)  # Chama a função de plotagem com os dados
 
     # Exibe as tabelas abaixo das abas
     st.subheader("Tabela de peso dos animais CT e DT")
