@@ -387,12 +387,12 @@ if uploaded_file is not None:
             ("Plotly", "Matplotlib", "Seaborn"),
             list(opcoes_graficos[aba_selecionada].keys())
         )
-
+  
         # Obtém a função correspondente do dicionário
-        aba_selecionada = opcoes_graficos[aba_selecionada][grafico_selecionado]
+        funcao_escolhida = opcoes_graficos[aba_selecionada][grafico_selecionado]
 
         # Exibe o gráfico chamando a função escolhida
-        biblioteca_escolhida(dados)  # Aqui você passa os dados para a função de plotagem
+        funcao_escolhida(dados)  # Aqui você passa os dados para a função de plotagem
 
     # Exibe as tabelas abaixo das abas
     st.subheader("Tabela de peso dos animais CT e DT")
