@@ -136,8 +136,9 @@ def plotar_pesagem_area(medias_peso_ct, erro_padrao_peso_ct, medias_peso_dt, err
         title="Peso médio dos animais em 16 dias de experimento - erro padrão sombreado",
         title_x=(0.5),
         title_xanchor=('center'),
-        xaxis=dict(title="Dias", range=[dias.min(), dias.max()], scaleanchor="y"),
         yaxis_title="Peso (g)",
+        xaxis=dict(title="Dias", tickmode="array", tickvals=dias),
+        #xaxis=dict(title="Dias", range=[dias.min(), dias.max()], scaleanchor="y"),
         legend=dict(orientation="h", x=0.5, y=-0.2, xanchor="center"),
         height=600,
         width=600
