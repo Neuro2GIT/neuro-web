@@ -352,7 +352,6 @@ def plotar_consumo_racao_seaborn(medias_racao_ct, medias_racao_dt):
 
 # Função para plotar o gráfico de linhas com erro padrão usando Altair
 def plotar_pesagem_alt(medias_peso_ct, erro_padrao_peso_ct, medias_peso_dt, erro_padrao_peso_dt):
-    # Criando os dados em formato de DataFrame para o Altair
     dias = np.arange(1, len(medias_peso_ct) + 1)
     
     # Criando os DataFrames para Controle e Deficiente em tiamina
@@ -373,14 +372,15 @@ def plotar_pesagem_alt(medias_peso_ct, erro_padrao_peso_ct, medias_peso_dt, erro
     # Concatenando os dois DataFrames
     df = pd.concat([df_ct, df_dt], ignore_index=True)
 
-    # Criando o gráfico de linhas com erro padrão
+    # Gráfico de linhas com barras de erro
     chart = alt.Chart(df).mark_line().encode(
-        x='Dia:O',  # Tipo ordinal para os dias
-        y='Peso:Q',  # Quantitativo para o peso
-        color='Grupo:N',  # Atribui cor por grupo
+        x='Dia:O',  # Eixo X com tipo ordinal (dias)
+        y='Peso:Q',  # Eixo Y com tipo quantitativo (peso)
+        color='Grupo:N',  # Diferenciar as linhas por grupo
         detail='Grupo:N'
-    ).encode(
-        yError='Erro:Q'  # Erro padrão nas linhas
+    ).mark_errorbar().encode(
+        y='Erro:Q',  # A quantidade de erro
+        y2='Peso:Q'  # De onde começa o erro
     ).properties(
         title=f"Peso médio dos animais em {dias.max() - dias.min() + 1} dias de experimento",
         width=600,
