@@ -370,7 +370,7 @@ plot_funcs = {
 }
 
 # Streamlit App
-st.title("Gráficos - Peso e Consumo de Ração")
+st.title("Peso e Consumo de Ração")
 
 with st.expander("Como usar?"):
     st.write("Converta a sua planilha para o modelo ou gere uma nova no gerador de planilhas")
@@ -403,11 +403,11 @@ if uploaded_file is not None:
     with st.container(border=True):
         plotar_funcoes["consumo_racao"](dados["medias_racao_ct"], dados["medias_racao_dt"])
 
-    # Exibe os gráficos correspondentes de forma dinâmica
-    #for nome_grafico, funcao in plotar_funcoes.items():
-       # with st.container(border=True):
-            # Chama a função de plotagem com os parâmetros corretos
-            #funcao(*parametros_por_grafico[nome_grafico])
+    """# Exibe os gráficos correspondentes de forma dinâmica
+    for nome_grafico, funcao in plotar_funcoes.items():
+    with st.container(border=True):
+            Chama a função de plotagem com os parâmetros corretos
+            funcao(*parametros_por_grafico[nome_grafico])"""
 
     # Exibe as tabelas abaixo das abas
     st.subheader("Tabela de peso dos animais CT e DT")
@@ -417,13 +417,13 @@ if uploaded_file is not None:
     st.write(pd.concat([dados["df_racao_ct"], dados["df_racao_dt"]]))
 
     # Carregar as médias de ração
-    #racao_processada = carregar_e_processar_excel(uploaded_file)
+    racao_processada = carregar_e_processar_excel(uploaded_file)
 
-    ## Criar DataFrame para consumo geral de ração
-    #df_medias_gerais = pd.DataFrame({
-        #"Grupo": ["CT", "DT"],
-        #"Média do consumo de ração": [racao_processada["media_geral_racao_ct"], racao_processada["media_geral_racao_dt"]]
-    #})
+    """# Criar DataFrame para consumo geral de ração
+    df_medias_gerais = pd.DataFrame({
+        "Grupo": ["CT", "DT"],
+        "Média do consumo de ração": [racao_processada["media_geral_racao_ct"], racao_processada["media_geral_racao_dt"]]
+    })"""
 
     # Criar DataFrame para consumo geral de ração
     df_medias_gerais = pd.DataFrame({
@@ -438,13 +438,13 @@ if uploaded_file is not None:
     st.write("### Média geral do consumo de ração")
     st.dataframe(df_medias_gerais)
 
-    # st.expander("Clique para mais informações sobre o aplicativo"):
+    st.expander("Clique para mais informações sobre o aplicativo"):
 
     # Criar gráfico de barras usando dados do DataFrame
     #fig = px.bar(df_medias_gerais, x="Grupo", y="Média do consumo de ração",
                  #title="Média geral de consumo de ração por grupo", text_auto=True)
     #st.plotly_chart(fig)
 
-    # Exibir os valores de forma destacada
-    #st.metric(label="Média do consumo CT", value=round(racao_processada["media_geral_racao_ct"], 2))
-    #st.metric(label="Média do consumo DT", value=round(racao_processada["media_geral_racao_dt"], 2))
+    """# Exibir os valores de forma destacada
+    st.metric(label="Média do consumo CT", value=round(racao_processada["media_geral_racao_ct"], 2))
+    st.metric(label="Média do consumo DT", value=round(racao_processada["media_geral_racao_dt"], 2))"""
