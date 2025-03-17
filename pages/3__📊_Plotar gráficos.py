@@ -405,7 +405,7 @@ def plotar_pesagem_alt(medias_peso_ct, erro_padrao_peso_ct, medias_peso_dt, erro
     )
 
     # Exibindo o gráfico
-    st.altair_chart(final_chart, use_container_width=True)
+    st.altair_chart(final_chart)#, use_container_width=True)
 
 # Função para plotar o gráfico de linhas com erro padrão usando Altair
 """def plotar_pesagem_alt(medias_peso_ct, erro_padrao_peso_ct, medias_peso_dt, erro_padrao_peso_dt):
