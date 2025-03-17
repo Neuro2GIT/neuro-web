@@ -451,6 +451,7 @@ def plotar_pesagem_area_alt(medias_peso_ct, erro_padrao_peso_ct, medias_peso_dt,
     # Combinando os gráficos
     grafico_final = (area_ct + linha_ct + area_dt + linha_dt).properties(
         title=f"Peso médio dos animais em {dias.max() - dias.min() + 1} dias de experimento - erro padrão sombreado",
+        #title='Peso médio dos animais em 16 dias de experimento - erro padrão sombreado'
         titleAnchor='middle'
     ).configure_title(
         fontSize=16,
@@ -461,7 +462,8 @@ def plotar_pesagem_area_alt(medias_peso_ct, erro_padrao_peso_ct, medias_peso_dt,
     )
 
     grafico_final = (area_ct + linha_ct + area_dt + linha_dt).properties(
-        title='Peso médio dos animais em 16 dias de experimento - erro padrão sombreado'
+        title=f"Peso médio dos animais em {dias.max() - dias.min() + 1} dias de experimento - erro padrão sombreado",
+        #title='Peso médio dos animais em 16 dias de experimento - erro padrão sombreado'
     ).configure_title(
         fontSize=16,
         align='center',  # Ajuste do alinhamento do título
