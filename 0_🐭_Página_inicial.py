@@ -93,7 +93,8 @@ def main():
             "Alterações cognitivas espaciais e parâmetros neuroquímicos cerebrais associados aos processos de morte celular em modelos experimentais de deficiência de tiamina e/ou consumo de etanol.":"",
             "Autor": "Rogério de Freitas Lacerda",
             "Tese de doutorado": "2020",
-            "Repositorio UFMG": "http://hdl.handle.net/1843/33624"
+            "Repositorio UFMG": "http://hdl.handle.net/1843/33624",
+            "Baixar PDF": "https://repositorio.ufmg.br/bitstream/1843/33624/1/Tese%20vers%c3%a3o%20FINAL.pdf"
         }
     }
 
