@@ -366,7 +366,27 @@ opcoes_bibliotecas = {
     }
 }
 
-# Pergunta para o usuário escolher o tipo de gráfico
+# Streamlit App
+st.title("Gráficos - peso e consumo de ração")
+
+with st.expander("Como usar?"):
+    st.write("Converta a sua planilha para o modelo ou gere uma nova no gerador de planilhas")
+
+with st.container():
+    uploaded_file = st.file_uploader("Selecione um arquivo excel (.xlsx) em 'Browse files' ou arraste para carregar os gráficos", type=["xlsx"])
+
+if uploaded_file is not None:
+    # Processa os dados
+    dados = carregar_e_processar_excel(uploaded_file)  # Chama a função para carregar e processar os dados
+
+    with st.container():
+        # Cria a lista de opções para escolher a biblioteca
+        aba_selecionada = st.radio(
+            "Escolha a biblioteca",
+            ("Plotly", "Matplotlib", "Seaborn")  # Escolha da biblioteca
+        )
+
+        # Pergunta para o usuário escolher o tipo de gráfico
         opcoes_graficos = list(opcoes_bibliotecas[aba_selecionada].keys())
         grafico_selecionado = st.selectbox("Escolha o gráfico a ser gerado", opcoes_graficos)
 
@@ -377,7 +397,7 @@ opcoes_bibliotecas = {
 
         # Gerar o gráfico com os dados carregados
         plotar_grafico(aba_selecionada, grafico_selecionado, dados)
-        
+
     # Exibe as tabelas abaixo das abas
     st.subheader("Tabela de peso dos animais CT e DT")
     st.write(pd.concat([dados["df_ct"], dados["df_dt"]]))
