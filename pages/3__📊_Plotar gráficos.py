@@ -350,8 +350,65 @@ def plotar_consumo_racao_seaborn(medias_racao_ct, medias_racao_dt):
     # Exibindo o gráfico
     st.pyplot(fig)
 
-# Função para plotar o gráfico de linhas com erro padrão usando Altair
 def plotar_pesagem_alt(medias_peso_ct, erro_padrao_peso_ct, medias_peso_dt, erro_padrao_peso_dt):
+    dias = np.arange(1, len(medias_peso_ct) + 1)
+    
+    # Criando os DataFrames para Controle e Deficiente em tiamina
+    df_ct = pd.DataFrame({
+        'Dia': dias,
+        'Peso': medias_peso_ct.values,
+        'Erro': erro_padrao_peso_ct.values,
+        'Grupo': 'Controle'
+    })
+    
+    df_dt = pd.DataFrame({
+        'Dia': dias,
+        'Peso': medias_peso_dt.values,
+        'Erro': erro_padrao_peso_dt.values,
+        'Grupo': 'Deficiente em tiamina'
+    })
+    
+    # Concatenando os dois DataFrames
+    df = pd.concat([df_ct, df_dt], ignore_index=True)
+
+    # Exibindo o DataFrame no Streamlit para verificação
+    st.write("Dados do gráfico:", df)
+
+    # Ajustando a escala para o eixo Y
+    y_scale = alt.Scale(domain=[df['Peso'].min() - df['Erro'].max(), df['Peso'].max() + df['Erro'].max()])
+
+    # Criação do gráfico de erro
+    error_chart = alt.Chart(df).mark_errorband(extent='stderr').encode(
+        x='Dia:O',
+        y='Peso:Q',
+        color='Grupo:N',
+        detail='Grupo:N',
+        size=alt.value(2)
+    )
+
+    # Criação do gráfico de linha
+    line_chart = alt.Chart(df).mark_line().encode(
+        x='Dia:O',
+        y=alt.Y('Peso:Q', scale=y_scale),  # Aplicando o ajuste no eixo Y
+        color='Grupo:N',
+        detail='Grupo:N'
+    )
+
+    # Combinando o gráfico de erro com a linha
+    final_chart = error_chart + line_chart
+
+    # Ajustando a legenda para ficar centralizada na parte inferior
+    final_chart = final_chart.configure_legend(
+        orient='bottom',
+        labelAlign='center',
+        titleAlign='center'
+    )
+
+    # Exibindo o gráfico
+    st.altair_chart(final_chart, use_container_width=True)
+
+# Função para plotar o gráfico de linhas com erro padrão usando Altair
+"""def plotar_pesagem_alt(medias_peso_ct, erro_padrao_peso_ct, medias_peso_dt, erro_padrao_peso_dt):
     dias = np.arange(1, len(medias_peso_ct) + 1)
     
     # Criando os DataFrames para Controle e Deficiente em tiamina
@@ -446,7 +503,7 @@ def plotar_pesagem_alt(medias_peso_ct, erro_padrao_peso_ct, medias_peso_dt, erro
     #)
 
     # Exibir o gráfico no Streamlit
-    #st.altair_chart(chart, use_container_width=True)
+    #st.altair_chart(chart, use_container_width=True)"""
 
 # Função para plotar o gráfico de área sombreada usando Altair
 """def plotar_pesagem_area_alt(medias_peso_ct, erro_padrao_peso_ct, medias_peso_dt, erro_padrao_peso_dt):
