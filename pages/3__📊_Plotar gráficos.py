@@ -408,7 +408,7 @@ def plotar_pesagem_alt(medias_peso_ct, erro_padrao_peso_ct, medias_peso_dt, erro
     #)
 
     # Combina o gráfico de linha com as barras de erro
-    chart = (line_chart + error_bars).properties(
+    chart = (line_chart).properties(
         title=f"Peso médio dos animais em {dias.max() - dias.min() + 1} dias de experimento",
         width=600,
         height=400
