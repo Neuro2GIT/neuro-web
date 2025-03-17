@@ -86,6 +86,20 @@ def main():
     st.title("🧠 Neuroscience Interest Group")
     
     st.markdown("<br>", unsafe_allow_html=True)
+
+    # Exemplo de conteúdo estático para adicionar expanders
+    static_themes = {
+        "Tema 1: Introdução à Neurociência": {
+            "Resumo": "Este é um resumo introdutório sobre neurociência.",
+            "Detalhes": "Detalhes sobre as várias áreas da neurociência, incluindo estrutura cerebral, neuroplasticidade, etc.",
+            "Referências": "Aqui estão algumas referências importantes para estudar neurociência."
+        },
+        "Tema 2: Neurociência Cognitiva": {
+            "Resumo": "Este tema explora os fundamentos da neurociência cognitiva.",
+            "Detalhes": "Aqui discutimos como o cérebro processa informações, memória, linguagem e percepção.",
+            "Referências": "Referências sobre neurociência cognitiva e suas descobertas mais recentes."
+        }
+    }
     
     # Iterar pelos temas e artigos
     for theme, dois in themes.items():
