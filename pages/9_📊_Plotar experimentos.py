@@ -391,12 +391,22 @@ if uploaded_file is not None:
  
         st.subheader(f"Gráficos com {aba_selecionada}")
 
-        # Exibe as tabelas abaixo das abas
-        st.subheader("Tabela de peso dos animais CT e DT")
-        st.write(pd.concat([dados["df_ct"], dados["df_dt"]]))
+        # Exibe os gráficos correspondentes
+        with st.container(border=True):
+            plotar_funcoes["pesagem"](dados["medias_peso_ct"], dados["erro_padrao_peso_ct"], dados["medias_peso_dt"], dados["erro_padrao_peso_dt"])
+ 
+        with st.container(border=True):
+            plotar_funcoes["pesagem_area"](dados["medias_peso_ct"], dados["erro_padrao_peso_ct"], dados["medias_peso_dt"], dados["erro_padrao_peso_dt"])
+ 
+        with st.container(border=True):
+            plotar_funcoes["consumo_racao"](dados["medias_racao_ct"], dados["medias_racao_dt"])
 
-        st.subheader("Tabela de consumo de ração das caixas CT e DT")
-        st.write(pd.concat([dados["df_racao_ct"], dados["df_racao_dt"]]))
+    # Exibe as tabelas abaixo das abas
+    st.subheader("Tabela de peso dos animais CT e DT")
+    st.write(pd.concat([dados["df_ct"], dados["df_dt"]]))
+
+    st.subheader("Tabela de consumo de ração das caixas CT e DT")
+    st.write(pd.concat([dados["df_racao_ct"], dados["df_racao_dt"]]))
 
     # Carregar as médias de ração
     racao_processada = carregar_e_processar_excel(uploaded_file)
