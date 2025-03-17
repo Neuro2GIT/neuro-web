@@ -366,6 +366,25 @@ opcoes_graficos = {
     }
 }
 
+# Dicionário de opções de gráficos
+opcoes_graficos = { 
+    "Plotly": {
+        "peso": plotar_pesagem, 
+        "peso em area": plotar_pesagem_area, 
+        "consumo de ração": plotar_consumo_racao, 
+    },
+    "Matplotlib": {
+        "peso": plotar_pesagem_mat, 
+        "peso em area": plotar_pesagem_area_mat, 
+        "consumo de ração": plotar_consumo_racao_mat, 
+    },
+    "Seaborn": {
+        "peso": plotar_pesagem_seaborn, 
+        "peso em area": plotar_pesagem_area_seaborn, 
+        "consumo de ração": plotar_consumo_racao_seaborn, 
+    }
+}
+
 # Streamlit App
 st.title("Gráficos - peso e consumo de ração")
 
@@ -396,7 +415,7 @@ if uploaded_file is not None:
         # Cria a lista de opções para escolher a biblioteca
         aba_selecionada = st.radio(
             "Escolha a biblioteca",
-            ("Plotly", "Matplotlib", "Seaborn")  
+            ("Plotly", "Matplotlib", "Seaborn")  # Escolha da biblioteca
         )
 
         # Obtemos os gráficos disponíveis para a biblioteca selecionada
@@ -405,12 +424,12 @@ if uploaded_file is not None:
         # Para cada gráfico disponível, chamamos a função de plotagem
         for nome_grafico, funcao in graficos_disponiveis.items():
             st.subheader(nome_grafico)  # Exibe o nome do gráfico
-
+            
             # Chama a função de plotagem diretamente com os parâmetros necessários
-                    if nome_grafico == "consumo de ração":
-                        funcao(dados)  # Para "consumo de ração", passamos apenas os dados
-                    else:
-                        funcao(dados, erro_padrao_peso_ct, medias_peso_dt, erro_padrao_peso_dt)  # Para os outros, passamos os dados e os parâmetros adicionais
+            if nome_grafico == "consumo de ração":
+                funcao(dados)  # Para "consumo de ração", passamos apenas os dados
+            else:
+                funcao(dados, erro_padrao_peso_ct, medias_peso_dt, erro_padrao_peso_dt)  # Para os outros, passamos os dados e os parâmetros adicionais
             
     # Exibe as tabelas abaixo das abas
     st.subheader("Tabela de peso dos animais CT e DT")
