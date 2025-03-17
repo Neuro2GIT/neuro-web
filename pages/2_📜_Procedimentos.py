@@ -77,7 +77,7 @@ def read_docx_file(file_path):
 def main():
     
     # Sidebar para navegação e autenticação
-    with st.sidebar:
+     with st.sidebar:
         # Opção de seleção da técnica
         tecnica_selecionada = st.radio(
             "Índice",
@@ -109,36 +109,6 @@ def main():
 # Chamada da função principal
 if __name__ == "__main__":
     main()
-        with st.container(border=True):
-            tecnica_selecionada = st.radio(
-                    "Índice",
-                    ("Preparo de ração", "Dosagem de proteínas", "Dosagem de cálcio")
-                )
-
-            
-        #with st.container(border=True):
-            #tecnica_selecionada = st.radio(
-                    #"Dosagem",
-                    #("Cálcio", "Proteínas")
-                #)
-
-    # Criar as tabs dependendo da seleção da técnica
-    if tecnica_selecionada == "Ração - CT":
-        tabs = st.tabs(["Ingredientes", "Preparo"])
-
-        # Conteúdo das tabs para "Preparo de ração CT"
-        with tabs[0]:
-            st.write("Placeholder - Preparo de ração CT")
-        with tabs[1]:
-            st.write("Preparo da ração controle")
-
-    elif tecnica_selecionada == "Ração - DT":
-
-        # Conteúdo das tabs para "Preparo de ração DT"
-        with tabs[0]:
-            st.write("Placeholder - Preparo de ração DT")
-        with tabs[1]:
-            st.write("Preparo da ração dt")
             
              # Aqui você pode colocar o código para baixar e exibir o arquivo .docx no placeholder
             placeholder = st.empty()  # Criando um Placeholder
@@ -156,33 +126,6 @@ if __name__ == "__main__":
                 with placeholder:
                     st.markdown(docx_content)
 
-        with tabs[2]:
-            st.write("Placeholder - Preparo de ração CT")
-    elif opcao_selecionada == "Preparo de ração DT":
-        tabs = st.tabs(["Ingredientes", "Preparo", "Secagem"])
-
-        with tabs[0]:
-            st.write("Placeholder - Preparo de ração DT")
-
-        with tabs[1]:
-            st.write("Placeholder - Preparo de ração DT")
-
-        with tabs[2]:
-            st.write("Placeholder - Preparo de ração DT")
-
-    elif opcao_selecionada == "Preparo de ração DT":
-        tabs = st.tabs(["Ingredientes", "Preparo", "Secagem"])
-
-        # Conteúdo das tabs para "Preparo de ração DT"
-        with tabs[0]:
-            st.write("Placeholder - Preparo de ração DT")
-
-        with tabs[1]:
-            st.write("Placeholder - Preparo de ração DT")
-
-        with tabs[2]:
-            st.write("Placeholder - Preparo de ração DT")
-            
     # Footer com estilo customizado
     #st.markdown("""
         #<footer style='text-align: center; position: fixed; left: 0; background-color: #2C3E50; color: white; padding: 10px; bottom: 0; width: 100%; '>
