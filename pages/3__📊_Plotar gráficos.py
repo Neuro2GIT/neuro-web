@@ -375,12 +375,12 @@ def plotar_pesagem_alt(medias_peso_ct, erro_padrao_peso_ct, medias_peso_dt, erro
     st.write("Dados do gráfico:", df)
 
     # Ajustando a escala para o eixo Y
-    min_peso = df['Peso'].min()  # Calculando o valor mínimo
-    max_peso = df['Peso'].max()  # Calculando o valor máximo
-    y_scale = alt.Scale(domain=[min_peso - 1, max_peso + 1])
+    #min_peso = df['Peso'].min()  # Calculando o valor mínimo
+    #max_peso = df['Peso'].max()  # Calculando o valor máximo
+    #y_scale = alt.Scale(domain=[min_peso - 1, max_peso + 1])
     
     # Ajustando a escala para o eixo Y
-    #y_scale = alt.Scale(domain=[26, 35])#df['Peso'].min() - df['Erro'].max(), df['Peso'].max() + df['Erro'].max()])
+    y_scale = alt.Scale(domain=[20, 40])#df['Peso'].min() - df['Erro'].max(), df['Peso'].max() + df['Erro'].max()])
 
     # Criação do gráfico de erro
     error_chart = alt.Chart(df).mark_errorband(extent='stderr').encode(
