@@ -41,15 +41,15 @@ def plot_timeline(aclim, trat, teste, disseccao):
     
     st.pyplot(fig)
 
-st.title("Delineamento Experimental")
+st.title("Delineamento experimental")
 
 with st.container(border=True):
     
     # Entrada do usuário
-    dias_aclim = st.number_input("Dias de Aclimatação", min_value=1, value=3)
-    dias_trat = st.number_input("Dias de Tratamento", min_value=1, value=7)
-    dias_teste = st.number_input("Dias de Teste Comportamental", min_value=1, value=2)
-    dias_dissec = st.number_input("Dias até a Dissecação", min_value=1, value=1)
+    dias_aclim = st.number_input("Dias de aclimatação", min_value=1, value=3)
+    dias_trat = st.number_input("Dias de tratamento", min_value=1, value=7)
+    dias_teste = st.number_input("Dias de teste comportamental", min_value=1, value=2)
+    dias_dissec = st.number_input("Dias para a dissecação", min_value=1, value=1)
 
-if st.button("Gerar Linha do Tempo"):
+if st.button("Gerar linha do tempo"):
     plot_timeline(dias_aclim, dias_trat, dias_teste, dias_dissec)
