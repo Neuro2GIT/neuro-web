@@ -23,11 +23,11 @@ def carregar_e_processar_excel(uploaded_file):
 
 # Função para calcular as estatísticas para o boxplot
 def calc_boxplot_stats(data):
-    if len(data) == 0:  # Se não houver dados, retornamos um DataFrame vazio
+    if len(data) == 0 or data.isnull().all():  # Se os dados estiverem vazios ou todos nulos
         return pd.DataFrame({
             'Q1': [None], 'Q3': [None], 'Median': [None],
             'IQR': [None], 'Lower Whisker': [None],
-            'Upper Whisker': [None], 'Outliers': [[]]
+            'Upper Whisker': [None], 'Outliers': [None]
         })
     
     Q1 = data.quantile(0.25)  # Primeiro Quartil
