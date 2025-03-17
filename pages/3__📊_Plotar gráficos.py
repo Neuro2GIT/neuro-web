@@ -196,7 +196,7 @@ def plotar_pesagem_mat(medias_peso_ct, erro_padrao_peso_ct, medias_peso_dt, erro
     ax.errorbar(dias, medias_peso_dt.values, yerr=erro_padrao_peso_dt.values, fmt='-o', color='red', label='Deficiente em tiamina')
 
     # Definindo o título e os rótulos dos eixos
-    ax.set_title("Peso médio dos animais em 16 dias de experimento", fontsize=16)
+    ax.set_title(f"Peso médio dos animais em {dias.max() - dias.min() + 1} dias de experimento", fontsize=16)
     ax.set_xlabel("Dias", fontsize=12)
     ax.set_ylabel("Peso (g)", fontsize=12)
 
@@ -232,7 +232,7 @@ def plotar_pesagem_area_mat(medias_peso_ct, erro_padrao_peso_ct, medias_peso_dt,
     ax.plot(dias, medias_peso_dt.values, '-o', color='red', label='Deficiente em tiamina')
 
     # Definindo o título e os rótulos dos eixos
-    ax.set_title("Peso médio dos animais em 16 dias de experimento - erro padrão sombreado", fontsize=16)
+    ax.set_title(f"Peso médio dos animais em {dias.max() - dias.min() + 1} dias de experimento - erro padrão sombreado", fontsize=16)
     ax.set_xlabel("Dias", fontsize=12)
     ax.set_ylabel("Peso (g)", fontsize=12)
 
@@ -256,7 +256,7 @@ def plotar_consumo_racao_mat(medias_racao_ct, medias_racao_dt):
     ax.plot(dias, medias_racao_dt.values, '-o', color='red', label='Ração DT')
 
     # Definindo o título e os rótulos dos eixos
-    ax.set_title("Consumo médio de ração em 16 dias de experimento", fontsize=16)
+    ax.set_title(f"Consumo médio de ração em {dias.max() - dias.min() + 1} dias de experimento", fontsize=16)
     ax.set_xlabel("Dias", fontsize=12)
     ax.set_ylabel("Consumo (g)", fontsize=12)
 
@@ -280,7 +280,7 @@ def plotar_pesagem_seaborn(medias_peso_ct, erro_padrao_peso_ct, medias_peso_dt, 
     ax.errorbar(dias, medias_peso_dt.values, yerr=erro_padrao_peso_dt.values, fmt='-o', color='red', label='Deficiente em tiamina', capsize=5)
 
     # Definindo o título e os rótulos dos eixos
-    ax.set_title("Peso médio dos animais em 16 dias de experimento", fontsize=16)
+    ax.set_title(f"Peso médio dos animais em {dias.max() - dias.min() + 1} dias de experimento", fontsize=16)
     ax.set_xlabel("Dias", fontsize=12)
     ax.set_ylabel("Peso (g)", fontsize=12)
 
@@ -316,7 +316,7 @@ def plotar_pesagem_area_seaborn(medias_peso_ct, erro_padrao_peso_ct, medias_peso
     sns.lineplot(x=dias, y=medias_peso_dt.values, ax=ax, color='red', label='Deficiente em tiamina', marker='o')
 
     # Definindo o título e os rótulos dos eixos
-    ax.set_title("Peso médio dos animais em 16 dias de experimento - erro padrão sombreado", fontsize=16)
+    ax.set_title(f"Peso médio dos animais em {dias.max() - dias.min() + 1} dias de experimento - erro padrão sombreado", fontsize=16)
     ax.set_xlabel("Dias", fontsize=12)
     ax.set_ylabel("Peso (g)", fontsize=12)
 
@@ -340,7 +340,7 @@ def plotar_consumo_racao_seaborn(medias_racao_ct, medias_racao_dt):
     sns.lineplot(x=dias, y=medias_racao_dt.values, ax=ax, color='red', label='Ração DT', marker='o')
 
     # Definindo o título e os rótulos dos eixos
-    ax.set_title("Consumo médio de ração em 16 dias de experimento", fontsize=16)
+    ax.set_title(f"Consumo médio de ração em {dias.max() - dias.min() + 1} dias de experimento", fontsize=16)
     ax.set_xlabel("Dias", fontsize=12)
     ax.set_ylabel("Consumo (g)", fontsize=12)
 
