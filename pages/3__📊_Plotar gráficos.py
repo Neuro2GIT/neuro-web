@@ -388,8 +388,8 @@ def plotar_pesagem_alt(medias_peso_ct, erro_padrao_peso_ct, medias_peso_dt, erro
         #y2='Peso:Q',  # Início da barra de erro
         color='Grupo:N',  # Cor por grupo
         size=alt.value(2)  # Tamanho da barra de erro
-    ).transform_calculate(
-        y2='datum.Peso + datum.Erro'  # A barra de erro vai de Peso até Peso + Erro
+    #).transform_calculate(
+        #y2='datum.Peso + datum.Erro'  # A barra de erro vai de Peso até Peso + Erro
     )
 
     # Combina o gráfico de linha com as barras de erro
@@ -397,6 +397,8 @@ def plotar_pesagem_alt(medias_peso_ct, erro_padrao_peso_ct, medias_peso_dt, erro
         title=f"Peso médio dos animais em {dias.max() - dias.min() + 1} dias de experimento",
         width=600,
         height=400
+    ).configure_scale(
+        bandPaddingInner=0.1
     ).interactive()
 
     # Exibir o gráfico no Streamlit
