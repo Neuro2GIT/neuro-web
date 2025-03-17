@@ -392,7 +392,7 @@ def plotar_pesagem_alt(medias_peso_ct, erro_padrao_peso_ct, medias_peso_dt, erro
     # Criação do gráfico de linha
     line_chart = alt.Chart(df).mark_line().encode(
         x='Dia:O',  # Eixo X como ordinal para os dias
-        y='Peso:Q',  # Eixo Y com valores quantitativos para o peso
+        y='Peso:Q',alt.Y('Peso:Q', scale=y_scale),  # Eixo Y com valores quantitativos para o peso  # Aplicando o ajuste da escala no eixo Y
         color='Grupo:N',  # Cor por grupo (Controle e Deficiente em tiamina)
         detail='Grupo:N'  # Detalhamento por grupo para distinguir as linhas
     )
