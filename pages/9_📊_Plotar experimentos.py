@@ -366,7 +366,6 @@ opcoes_graficos = {
     }
 }
 
-
 # Streamlit App
 st.title("Gráficos - peso e consumo de ração")
 
@@ -381,20 +380,35 @@ if uploaded_file is not None:
     # Processa os dados
     dados = carregar_e_processar_excel(uploaded_file)
 
+    # Extraímos as variáveis necessárias dos dados (ajuste conforme a estrutura real dos dados)
+    erro_padrao_peso_ct = dados['erro_padrao_peso_ct']
+    medias_peso_dt = dados['medias_peso_dt']
+    erro_padrao_peso_dt = dados['erro_padrao_peso_dt']
+    
+    # Mapeamento explícito dos parâmetros necessários para cada gráfico
+    parametros_por_grafico = {
+        "peso": (dados, erro_padrao_peso_ct, medias_peso_dt, erro_padrao_peso_dt),
+        "peso em area": (dados, erro_padrao_peso_ct, medias_peso_dt, erro_padrao_peso_dt),
+        "consumo de ração": (dados,)  # Para "consumo de ração", passamos apenas os dados
+    }
+
     with st.container(border=True):
         # Cria a lista de opções para escolher a biblioteca
         aba_selecionada = st.radio(
             "Escolha a biblioteca",
-            ("Plotly", "Matplotlib", "Seaborn")  # Escolha da biblioteca
+            ("Plotly", "Matplotlib", "Seaborn")  
         )
 
-        # A partir da biblioteca selecionada, obtemos os gráficos disponíveis
+        # Obtemos os gráficos disponíveis para a biblioteca selecionada
         graficos_disponiveis = opcoes_graficos[aba_selecionada]
 
-        # Para cada gráfico da biblioteca, chamamos a função de plotagem
+        # Para cada gráfico disponível, chamamos a função de plotagem
         for nome_grafico, funcao in graficos_disponiveis.items():
             st.subheader(nome_grafico)  # Exibe o nome do gráfico
-            funcao(dados)  # Chama a função de plotagem com os dados
+            
+            # Chama a função de plotagem com os parâmetros
+            funcao(*parametros_por_grafico[nome_grafico]) 
+
 
     # Exibe as tabelas abaixo das abas
     st.subheader("Tabela de peso dos animais CT e DT")
