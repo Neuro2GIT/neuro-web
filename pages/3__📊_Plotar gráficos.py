@@ -370,7 +370,7 @@ def plotar_pesagem_alt(medias_peso_ct, erro_padrao_peso_ct, medias_peso_dt, erro
         detail='grupo:N'  # Detalhando o gráfico por 'grupo' (não altera a linha, mas é importante para as categorias)
     ).properties(
         #title="Peso médio dos animais em 16 dias de experimento",
-        title=f"Peso médio dos animais em {dias.max() - dias.min() + 1} dias de experimento - erro padrão sombreado",
+        title=f"Peso médio dos animais em {dias.max() - dias.min() + 1} dias de experimento",
     ).encode(
         color=alt.Color('grupo:N', legend=alt.Legend(
             title='Grupo',  # Título da legenda
