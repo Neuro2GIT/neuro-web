@@ -351,36 +351,45 @@ def plotar_consumo_racao_seaborn(medias_racao_ct, medias_racao_dt):
     st.pyplot(fig)
 
 # Função para plotar o gráfico de linhas com erro padrão usando Altair
-def plotar_pesagem_alt(medias_peso_ct, erro_padrao_peso_ct, medias_peso_dt, erro_padrao_peso_dt):
+def plotar_pesagem_altair(medias_peso_ct, erro_padrao_peso_ct, medias_peso_dt, erro_padrao_peso_dt):
+    # Criando os dados em formato de DataFrame para o Altair
     dias = np.arange(1, len(medias_peso_ct) + 1)
-
-    # Criando um DataFrame para os dados
-    df = pd.DataFrame({
-        'dias': np.tile(dias, 2),
-        'peso': np.concatenate([medias_peso_ct.values, medias_peso_dt.values]),
-        'erro': np.concatenate([erro_padrao_peso_ct.values, erro_padrao_peso_dt.values]),
-        'grupo': ['Controle'] * len(dias) + ['Deficiente em tiamina'] * len(dias)
+    
+    # Criando os DataFrames para Controle e Deficiente em tiamina
+    df_ct = pd.DataFrame({
+        'Dia': dias,
+        'Peso': medias_peso_ct.values,
+        'Erro': erro_padrao_peso_ct.values,
+        'Grupo': 'Controle'
     })
+    
+    df_dt = pd.DataFrame({
+        'Dia': dias,
+        'Peso': medias_peso_dt.values,
+        'Erro': erro_padrao_peso_dt.values,
+        'Grupo': 'Deficiente em tiamina'
+    })
+    
+    # Concatenando os dois DataFrames
+    df = pd.concat([df_ct, df_dt], ignore_index=True)
 
-    # Criando o gráfico com Altair
+    # Criando o gráfico de linhas com erro padrão
     chart = alt.Chart(df).mark_line().encode(
-        x='dias:Q',  # Definindo que 'dias' é numérico
-        y='peso:Q',  # Definindo que 'peso' é numérico
-        color='grupo:N',  # Usando a coluna 'grupo' para a cor
-        detail='grupo:N'  # Detalhando o gráfico por 'grupo' (não altera a linha, mas é importante para as categorias)
-    ).properties(
-        #title="Peso médio dos animais em 16 dias de experimento",
-        title=f"Peso médio dos animais em {dias.max() - dias.min() + 1} dias de experimento",
+        x='Dia:O',  # Tipo ordinal para os dias
+        y='Peso:Q',  # Quantitativo para o peso
+        color='Grupo:N',  # Atribui cor por grupo
+        detail='Grupo:N'
     ).encode(
-        color=alt.Color('grupo:N', legend=alt.Legend(
-            title='Grupo',  # Título da legenda
-            orient='bottom',  # Colocando a legenda na parte inferior
-            labelFontSize=12,  # Tamanho da fonte dos rótulos da legenda
-            titleFontSize=14,  # Tamanho da fonte do título da legenda
-            padding=10,  # Distância entre a legenda e o gráfico
-            offset=20  # Distância adicional entre a legenda e o gráfico
-        ))
-    )
+        yError='Erro:Q'  # Erro padrão nas linhas
+    ).properties(
+        title=f"Peso médio dos animais em {dias.max() - dias.min() + 1} dias de experimento",
+        width=600,
+        height=400
+    ).interactive()
+
+    # Exibindo o gráfico
+    return chart
+
 
     # Exibir o gráfico no Streamlit
     st.altair_chart(chart, use_container_width=True)
