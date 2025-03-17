@@ -376,7 +376,11 @@ with st.container(border=True):
     st.write()
     uploaded_file = st.file_uploader("Selecione um arquivo excel (.xlsx) em 'Browse files' ou arraste para carregar os gráficos", type=["xlsx"])
 
+if uploaded_file is not None:
+    # Processa os dados
+    dados = carregar_e_processar_excel(uploaded_file)
     with st.container(border=True):
+        
         # Cria a lista de opções para escolher a biblioteca
         aba_selecionada = st.radio(
             "Escolha a biblioteca",
@@ -394,6 +398,7 @@ with st.container(border=True):
 
         # Gerar o gráfico com os dados carregados
         plotar_grafico(aba_selecionada, grafico_selecionado, df)
+        
     # Exibe as tabelas abaixo das abas
     st.subheader("Tabela de peso dos animais CT e DT")
     st.write(pd.concat([dados["df_ct"], dados["df_dt"]]))
