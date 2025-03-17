@@ -373,9 +373,9 @@ def plotar_pesagem_alt(medias_peso_ct, erro_padrao_peso_ct, medias_peso_dt, erro
         y='peso',
         yError='erro',
         color='grupo'
-    ).properties(
-        width=600,
-        height=600
+    #).properties(
+        #width=600,
+        #height=600
     )
 
     # Exibir o gráfico no Streamlit
