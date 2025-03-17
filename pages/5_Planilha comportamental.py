@@ -8,22 +8,12 @@ def criar_planilha(num_animais):
     # Gerar IDs para os animais
     ids = list(range(1, num_animais + 1))
 
-    # Solicitar os tempos no objeto novo e familiar para cada animal
-    tempos_novo = []
-    tempos_familiar = []
-    for i in range(1, num_animais + 1):
-        tempo_novo = st.number_input(f"Informe o tempo no objeto novo (segundos) para o animal {i}", min_value=0.0, value=60.0, step=1.0, key=f"tempo_novo_{i}")
-        tempos_novo.append(tempo_novo)
-        
-        tempo_familiar = st.number_input(f"Informe o tempo no objeto familiar (segundos) para o animal {i}", min_value=0.0, value=60.0, step=1.0, key=f"tempo_familiar_{i}")
-        tempos_familiar.append(tempo_familiar)
-    
-    # Criando a tabela de dados (sem a coluna de Classe preenchida)
+    # Criando a tabela de dados (sem os valores preenchidos, exceto o ID)
     dados = {
         'ID do Animal': ids,
         'Classe do Animal': [''] * num_animais,  # A coluna de classe está vazia para ser preenchida depois
-        'Tempo no Objeto Novo (segundos)': tempos_novo,
-        'Tempo no Objeto Familiar (segundos)': tempos_familiar
+        'Tempo no Objeto Novo (segundos)': [None] * num_animais,  # Coluna de tempo vazia
+        'Tempo no Objeto Familiar (segundos)': [None] * num_animais  # Coluna de tempo vazia
     }
     
     df = pd.DataFrame(dados)
