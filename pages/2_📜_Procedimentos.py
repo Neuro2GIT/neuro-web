@@ -89,7 +89,7 @@ def main():
     if tecnica_selecionada == "Preparo de ração":
 
         with st.container(border=True):
-            st.write("Preparo de ração")
+            st.title("Preparo de ração")
             # Expander para "Ingredientes ração"
             with st.expander("Ingredientes ração"):
                 st.write("Conteúdo sobre os ingredientes da ração CT")
