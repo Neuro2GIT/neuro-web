@@ -90,9 +90,9 @@ def main():
     # Exemplo de conteúdo estático para adicionar expanders
     static_themes = {
         "Modelo de Deficiência de Tiamina": {
-            "Alterações cognitivas espaciais e parâmetros neuroquímicos cerebrais associados aos processos de morte celular em modelos experimentais de deficiência de tiamina e/ou consumo de etanol."
-            "Autor": "Rogério de Freitas Lacerda"
-            "Tese de doutorado": "2020"
+            "Alterações cognitivas espaciais e parâmetros neuroquímicos cerebrais associados aos processos de morte celular em modelos experimentais de deficiência de tiamina e/ou consumo de etanol.",
+            "Autor": "Rogério de Freitas Lacerda",
+            "Tese de doutorado": "2020",
             "Repositorio UFMG": "http://hdl.handle.net/1843/33624"
         }
     }
