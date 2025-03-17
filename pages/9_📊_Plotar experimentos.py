@@ -347,8 +347,8 @@ def plotar_consumo_racao_seaborn(medias_racao_ct, medias_racao_dt):
     # Exibindo o gráfico
     st.pyplot(fig)
 
-# Dicionário de bibliotecas
-opcoes_bibliotecas = {
+# Dicionário de funções (bibliotecas)
+plot_funcs = {
     "Plotly": {
         "peso": plotar_pesagem_plt,
         "peso em area": plotar_pesagem_area_plt,
