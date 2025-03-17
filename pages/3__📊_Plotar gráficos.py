@@ -558,7 +558,7 @@ plot_funcs = {
     },
     "Altair": {
         "pesagem": plotar_pesagem_alt,
-        "pesagem_area": plotar_pesagem_area_alt
+        #"pesagem_area": plotar_pesagem_area_alt
     }
 }
 
