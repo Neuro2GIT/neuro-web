@@ -9,7 +9,7 @@ def calcular_indice_discriminacao(df):
     df["Índice de discriminação"] = ((df["Tempo no objeto novo"] - df["Tempo no objeto familiar"]) /
                                       (df["Tempo no objeto novo"] + df["Tempo no objeto familiar"]))
     df["Índice de preferência"] = ((df["Tempo no objeto novo"]) /
-                                   (df["Tempo no objeto novo"] + df ["Tempo no objeto familiar"])
+                                   (df["Tempo no objeto novo"] + df ["Tempo no objeto familiar"]))
                                    
     return df
 
