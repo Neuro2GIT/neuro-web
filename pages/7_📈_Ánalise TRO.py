@@ -35,7 +35,7 @@ if uploaded_file is not None:
     
     # Exibir os resultados
     with st.container(border=True):
-        st.subheader("Resultados do Índice de Discriminação")
+        st.subheader("")
         for sheet_name, df in resultados.items():
             st.write(f"### {sheet_name}")
             st.dataframe(df[["ID do animal", "Classe do animal", "Tempo no objeto novo", "Tempo no objeto familiar", "Índice de discriminação", "Índice de preferência"]])
