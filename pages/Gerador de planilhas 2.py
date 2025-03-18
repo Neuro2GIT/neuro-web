@@ -53,7 +53,7 @@ def criar_planilha(num_animais_ct, num_animais_dt):
         return b.read()
 
 # Configuração do Streamlit
-st.title("Dados de Comportamento dos Animais")
+st.title("Planilha para o TRO")
 
 with st.container(border=True):
     num_animais_ct = st.number_input("Número de animais na classe CT:", min_value=1, value=5, step=1)
