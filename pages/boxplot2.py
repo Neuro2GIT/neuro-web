@@ -6,13 +6,6 @@ def carregar_e_processar_excel(uploaded_file):
     # Carregando os dados da aba "Dados dos animais" do Excel
     dados_animais = pd.read_excel(uploaded_file, sheet_name="Dados dos animais")
 
-    # Se necessário, podemos limpar ou processar os dados. Por exemplo:
-    #dados_animais = dados_animais.dropna()  # Remover linhas com valores ausentes
-
-    # Exibindo o DataFrame completo após o processamento
-    #st.write("DataFrame completo após processamento:")
-    #st.dataframe(dados_animais)  # Exibindo o DataFrame completo
-
     return dados_animais
 
 # Função principal do Streamlit
