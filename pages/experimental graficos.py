@@ -1,8 +1,6 @@
 import pandas as pd
 import streamlit as st
 
-# Upload do arquivo
-uploaded_file = st.file_uploader("Carregue a planilha Excel", type=["xlsx"])
 
 def calcular_indice_discriminacao(df):
     """Calcula o índice de discriminação para cada animal."""
@@ -14,7 +12,10 @@ def calcular_indice_discriminacao(df):
     return df
 
 # Configuração do Streamlit
-st.title("Cálculo do Índice de Discriminação")
+st.title("Resultados teste comportamental - TRO")
+
+# Upload do arquivo
+uploaded_file = st.file_uploader("Carregue a planilha Excel", type=["xlsx"])
 
 if uploaded_file is not None:
     # Ler o arquivo Excel
