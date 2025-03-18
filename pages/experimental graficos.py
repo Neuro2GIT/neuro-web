@@ -6,8 +6,11 @@ uploaded_file = st.file_uploader("Carregue a planilha Excel", type=["xlsx"])
 
 def calcular_indice_discriminacao(df):
     """Calcula o índice de discriminação para cada animal."""
-    df["Índice de Discriminação"] = ((df["Tempo no objeto novo"] - df["Tempo no objeto familiar"]) /
+    df["Índice de discriminação"] = ((df["Tempo no objeto novo"] - df["Tempo no objeto familiar"]) /
                                       (df["Tempo no objeto novo"] + df["Tempo no objeto familiar"]))
+    df["Índice de preferência"] = ((df["Tempo no objeto novo"]) /
+                                   (df["Tempo no objeto novo"] + df ["Tempo no objeto familiar"])
+                                   
     return df
 
 # Configuração do Streamlit
@@ -30,4 +33,4 @@ if uploaded_file is not None:
     st.subheader("Resultados do Índice de Discriminação")
     for sheet_name, df in resultados.items():
         st.write(f"### {sheet_name}")
-        st.dataframe(df[["ID do animal", "Classe do animal", "Tempo no objeto novo", "Tempo no objeto familiar","Índice de Discriminação"]])
+        st.dataframe(df[["ID do animal", "Classe do animal", "Tempo no objeto novo", "Tempo no objeto familiar","Índice de discriminação", "Índice de preferências]])
