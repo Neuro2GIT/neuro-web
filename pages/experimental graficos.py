@@ -7,7 +7,7 @@ uploaded_file = st.file_uploader("Carregue a planilha Excel", type=["xlsx"])
 def calcular_indice_discriminacao(df):
     """Calcula o índice de discriminação para cada animal."""
     df["Índice de Discriminação"] = ((df["Tempo no objeto novo"] - df["Tempo no objeto familiar"]) /
-                                      (df["Tempo no objeto novo"] + df["Tempo no objeto familiar"])) * 100
+                                      (df["Tempo no objeto novo"] + df["Tempo no objeto familiar"]))
     return df
 
 # Configuração do Streamlit
