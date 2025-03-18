@@ -14,8 +14,8 @@ def calcular_indice_discriminacao(df):
 # Configuração do Streamlit
 st.title("Resultados teste comportamental")
 
-# Upload do arquivo
-uploaded_file = st.file_uploader("Carregue a planilha Excel", type=["xlsx"])
+with st.container(border=True):
+    uploaded_file = st.file_uploader("Carregue a planilha Excel", type=["xlsx"])
 
 if uploaded_file is not None:
     # Ler o arquivo Excel
