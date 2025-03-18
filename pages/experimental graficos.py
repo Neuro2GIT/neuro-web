@@ -12,7 +12,7 @@ def calcular_indice_discriminacao(df):
     return df
 
 # Configuração do Streamlit
-st.title("Resultados do teste comportamental")
+st.title("Análise do teste comportamental")
 
 with st.expander("Como usar?"):
     st.write("Converta a sua planilha com os resultados do TRO para o modelo ou gere uma nova no gerador de planilhas.")
