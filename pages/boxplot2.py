@@ -14,8 +14,8 @@ def carregar_e_processar_excel(uploaded_file):
     #dados_animais = dados_animais.dropna()  # Remover linhas com valores ausentes
 
     # Exibindo o DataFrame completo após o processamento
-    st.write("DataFrame completo após processamento:")
-    st.dataframe(dados_animais)  # Exibindo o DataFrame completo
+    #st.write("DataFrame completo após processamento:")
+    #st.dataframe(dados_animais)  # Exibindo o DataFrame completo
 
     # Verificando as colunas disponíveis no DataFrame
     #st.write("Colunas dos dados carregados:")
