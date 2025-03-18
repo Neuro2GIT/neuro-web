@@ -34,7 +34,7 @@ if uploaded_file is not None:
         resultados[sheet_name] = df
     
     # Exibir os resultados
-    with st.expander("Como usar?"):
+    with st.container(border=True):
         st.subheader("Resultados do Índice de Discriminação")
         for sheet_name, df in resultados.items():
             st.write(f"### {sheet_name}")
