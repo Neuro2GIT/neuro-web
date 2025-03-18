@@ -12,7 +12,7 @@ def calcular_indice_discriminacao(df):
     return df
 
 # Configuração do Streamlit
-st.title("Resultados teste comportamental - TRO")
+st.title("Resultados teste comportamental")
 
 # Upload do arquivo
 uploaded_file = st.file_uploader("Carregue a planilha Excel", type=["xlsx"])
