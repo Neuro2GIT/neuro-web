@@ -28,6 +28,26 @@ def criar_planilha(num_animais_ct, num_animais_dt):
         with pd.ExcelWriter(b, engine='xlsxwriter') as writer:
             df_ct.to_excel(writer, sheet_name='Animais CT', index=False)
             df_dt.to_excel(writer, sheet_name='Animais DT', index=False)
+
+            # Obter o objeto do workbook e worksheets
+            workbook = writer.book
+            worksheet_ct = writer.sheets['Animais CT']
+            worksheet_dt = writer.sheets['Animais DT']
+
+            # Estilo de alinhamento centralizado
+            center_alignment = workbook.add_format({'align': 'center', 'valign': 'vcenter'})
+
+            # Ajustar a largura das colunas da planilha "Animais CT"
+            for i, col in enumerate(df_ct.columns):
+                max_len = df_ct[col].astype(str).map(len).max()
+                max_len = max(max_len, len(col))  # Considera o tamanho do cabeçalho também
+                worksheet_ct.set_column(i, i, max_len + 2, center_alignment)
+
+            # Ajustar a largura das colunas da planilha "Animais DT"
+            for i, col in enumerate(df_dt.columns):
+                max_len = df_dt[col].astype(str).map(len).max()
+                max_len = max(max_len, len(col))  # Considera o tamanho do cabeçalho também
+                worksheet_dt.set_column(i, i, max_len + 2, center_alignment)
         
         b.seek(0)
         return b.read()
