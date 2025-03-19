@@ -394,15 +394,13 @@ if uploaded_file is not None:
     st.subheader(f"{aba_selecionada}")
 
     # Exibe os gráficos correspondentes
-    with st.expander("Gráfico - peso médio dos animais"): 
+    with st.expander("Gráficos - peso médio dos animais e consumo de ração"): 
         with st.container(border=True):
             plotar_funcoes["pesagem"](dados["medias_peso_ct"], dados["erro_padrao_peso_ct"], dados["medias_peso_dt"], dados["erro_padrao_peso_dt"])
 
-    with st.expander("Gráfico - peso médio dos animais - gráfico sombreado"):
         with st.container(border=True):
             plotar_funcoes["pesagem_area"](dados["medias_peso_ct"], dados["erro_padrao_peso_ct"], dados["medias_peso_dt"], dados["erro_padrao_peso_dt"])
 
-    with st.expander("Gráfico - Consumo de ração"):
         with st.container(border=True):
             plotar_funcoes["consumo_racao"](dados["medias_racao_ct"], dados["medias_racao_dt"])
 
