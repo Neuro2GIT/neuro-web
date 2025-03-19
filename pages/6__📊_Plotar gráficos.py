@@ -435,8 +435,7 @@ if uploaded_file is not None:
     })
 
     # Exibir os dados em formato de tabela
-    with st.expander(f"### {sheet_name}"):
-        st.write("### Média geral do consumo de ração")
+    with st.expander("Média geral do consumo de ração"):
         st.dataframe(df_medias_gerais)
 
     # Criar gráfico de barras usando dados do DataFrame
