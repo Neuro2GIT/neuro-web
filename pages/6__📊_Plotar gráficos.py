@@ -414,6 +414,8 @@ if uploaded_file is not None:
 
     # Carregar as médias de ração
     racao_processada = carregar_e_processar_excel(uploaded_file)
+
+    st.markdown("---")
     
     # Exibe as tabelas abaixo das abas
     st.subheader ("Tabelas com os dados brutos")
