@@ -422,6 +422,9 @@ if uploaded_file is not None:
 
     with st.expander("Tabela - consumo de ração das caixas CT e DT"):
         st.write(pd.concat([dados["df_racao_ct"], dados["df_racao_dt"]]))
+        st.dataframe(df_medias_gerais)
+
+
 
     # Criar DataFrame para consumo geral de ração
     #df_medias_gerais = pd.DataFrame({
