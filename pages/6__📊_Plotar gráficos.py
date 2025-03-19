@@ -435,8 +435,9 @@ if uploaded_file is not None:
     })
 
     # Exibir os dados em formato de tabela
-    st.write("### Média geral do consumo de ração")
-    st.dataframe(df_medias_gerais)
+    with st.expander():
+        st.write("### Média geral do consumo de ração")
+        st.dataframe(df_medias_gerais)
 
     # Criar gráfico de barras usando dados do DataFrame
     #fig = px.bar(df_medias_gerais, x="Grupo", y="Média do consumo de ração",
