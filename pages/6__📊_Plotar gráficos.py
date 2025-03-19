@@ -399,6 +399,8 @@ if uploaded_file is not None:
     # Seleciona as funções de acordo com a biblioteca escolhida
     plotar_funcoes = plot_funcs[aba_selecionada]
 
+    st.markdown("---")
+    
     st.subheader(f"{aba_selecionada}")
 
     # Exibe os gráficos correspondentes
