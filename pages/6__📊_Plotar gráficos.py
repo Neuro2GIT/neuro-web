@@ -413,9 +413,8 @@ if uploaded_file is not None:
     with st.expander("Tabela de peso dos animais CT e DT"):
         st.write(pd.concat([dados["df_ct"], dados["df_dt"]]))
 
-    
-    st.subheader("Tabela de consumo de ração das caixas CT e DT")
-    st.write(pd.concat([dados["df_racao_ct"], dados["df_racao_dt"]]))
+    with st.expander("Tabela de consumo de ração das caixas CT e DT"):
+        st.write(pd.concat([dados["df_racao_ct"], dados["df_racao_dt"]]))
 
     # Carregar as médias de ração
     racao_processada = carregar_e_processar_excel(uploaded_file)
