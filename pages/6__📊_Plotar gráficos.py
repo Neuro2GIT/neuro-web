@@ -371,6 +371,7 @@ plot_funcs = {
 
 # Streamlit App
 st.title("Peso e consumo de ração")
+st.markdown("---")
 
 with st.container(border=True):
     uploaded_file = st.file_uploader("Para utilizar, converta a sua planilha para o modelo ou gere uma nova no gerador de planilhas", type=["xlsx"])
