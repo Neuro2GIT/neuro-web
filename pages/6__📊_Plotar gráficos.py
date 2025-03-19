@@ -415,7 +415,8 @@ if uploaded_file is not None:
     racao_processada = carregar_e_processar_excel(uploaded_file)
     
     # Exibe as tabelas abaixo das abas
-    with st.expander("Tabelas - peso dos animais e consumo de ração"):
+    st.subheader ("Tabelas com os dados brutos")
+    with st.expander("Peso dos animais e consumo de ração"):
         with st.container(border=True):
             st.write("Peso dos animais")
             st.write(pd.concat([dados["df_ct"], dados["df_dt"]]))
