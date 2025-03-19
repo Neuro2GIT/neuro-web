@@ -410,7 +410,7 @@ if uploaded_file is not None:
             #funcao(*parametros_por_grafico[nome_grafico])
 
     # Exibe as tabelas abaixo das abas
-    with st.expander()
+    with st.expander(""):
         st.subheader("Tabela de peso dos animais CT e DT")
         st.write(pd.concat([dados["df_ct"], dados["df_dt"]]))
 
