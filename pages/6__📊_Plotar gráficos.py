@@ -398,11 +398,13 @@ if uploaded_file is not None:
         with st.container(border=True):
             plotar_funcoes["pesagem"](dados["medias_peso_ct"], dados["erro_padrao_peso_ct"], dados["medias_peso_dt"], dados["erro_padrao_peso_dt"])
 
-    with st.container(border=True):
-        plotar_funcoes["pesagem_area"](dados["medias_peso_ct"], dados["erro_padrao_peso_ct"], dados["medias_peso_dt"], dados["erro_padrao_peso_dt"])
+    with st.expander("Peso médio dos animais - gráfico sombreado"):
+        with st.container(border=True):
+            plotar_funcoes["pesagem_area"](dados["medias_peso_ct"], dados["erro_padrao_peso_ct"], dados["medias_peso_dt"], dados["erro_padrao_peso_dt"])
 
-    with st.container(border=True):
-        plotar_funcoes["consumo_racao"](dados["medias_racao_ct"], dados["medias_racao_dt"])
+    with st.expander("Consumo de ração"):
+        with st.container(border=True):
+            plotar_funcoes["consumo_racao"](dados["medias_racao_ct"], dados["medias_racao_dt"])
 
     #Exibe os gráficos correspondentes de forma dinâmica
     #for nome_grafico, funcao in plotar_funcoes.items():
