@@ -372,7 +372,8 @@ plot_funcs = {
 # Streamlit App
 st.title("Peso e consumo de ração")
 
-uploaded_file = st.file_uploader("Para utilizar, converta a sua planilha para o modelo ou gere uma nova no gerador de planilhas", type=["xlsx"])
+with st.container(border=True):
+    uploaded_file = st.file_uploader("Para utilizar, converta a sua planilha para o modelo ou gere uma nova no gerador de planilhas", type=["xlsx"])
 
 if uploaded_file is not None:
     # Processa os dados
@@ -387,11 +388,11 @@ if uploaded_file is not None:
         ]
     })
     
-    # Cria as abas usando st.radio
-    aba_selecionada = st.radio(
-        "Escolha a biblioteca",
-        ("Plotly", "Matplotlib", "Seaborn")
-    )
+        # Cria as abas usando st.radio
+        aba_selecionada = st.radio(
+            "Escolha a biblioteca",
+            ("Plotly", "Matplotlib", "Seaborn")
+        )
 
     # Seleciona as funções de acordo com a biblioteca escolhida
     plotar_funcoes = plot_funcs[aba_selecionada]
