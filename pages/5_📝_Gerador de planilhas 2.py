@@ -55,6 +55,9 @@ def criar_planilha(num_animais_ct, num_animais_dt):
 # Configuração do Streamlit
 st.title("Planilha para o TRO")
 
+with st.expander("Como funciona?"):
+    st.write("O gerador criará um arquivo excel contendo duas planilhas, uma para inserir os tempos de exploração para os animais CT e a outra os animais DT")
+
 with st.container(border=True):
     num_animais_ct = st.number_input("Número de animais na classe CT:", min_value=1, value=5, step=1)
     num_animais_dt = st.number_input("Número de animais na classe DT:", min_value=1, value=5, step=1)
@@ -66,6 +69,6 @@ if st.button("Gerar Planilha"):
     st.download_button(
         label="Baixar Planilha Excel",
         data=excel_file,
-        file_name="dados_animais.xlsx",
+        file_name="experimento_tro.xlsx",
         mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
     )
