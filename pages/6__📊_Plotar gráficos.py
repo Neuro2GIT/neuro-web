@@ -388,8 +388,6 @@ if uploaded_file is not None:
             dados["media_geral_racao_dt"]   # Usando a variável 'dados' para acessar a média
         ]
     })
-
-    st.markdown("---")
     
     with st.container(border=True):
         # Cria as abas usando st.radio
