@@ -391,18 +391,18 @@ if uploaded_file is not None:
     # Seleciona as funções de acordo com a biblioteca escolhida
     plotar_funcoes = plot_funcs[aba_selecionada]
 
-    st.title(f"{aba_selecionada}")
+    st.subheader(f"{aba_selecionada}")
 
     # Exibe os gráficos correspondentes
-    with st.expander("Peso médio dos animais"): 
+    with st.expander("Gráfico - peso médio dos animais"): 
         with st.container(border=True):
             plotar_funcoes["pesagem"](dados["medias_peso_ct"], dados["erro_padrao_peso_ct"], dados["medias_peso_dt"], dados["erro_padrao_peso_dt"])
 
-    with st.expander("Peso médio dos animais - gráfico sombreado"):
+    with st.expander("Gráfico - peso médio dos animais - gráfico sombreado"):
         with st.container(border=True):
             plotar_funcoes["pesagem_area"](dados["medias_peso_ct"], dados["erro_padrao_peso_ct"], dados["medias_peso_dt"], dados["erro_padrao_peso_dt"])
 
-    with st.expander("Consumo de ração"):
+    with st.expander("Gráfico - Consumo de ração"):
         with st.container(border=True):
             plotar_funcoes["consumo_racao"](dados["medias_racao_ct"], dados["medias_racao_dt"])
 
@@ -413,10 +413,10 @@ if uploaded_file is not None:
             #funcao(*parametros_por_grafico[nome_grafico])
 
     # Exibe as tabelas abaixo das abas
-    with st.expander("Tabela de peso dos animais CT e DT"):
+    with st.expander("Tabela - peso dos animais CT e DT"):
         st.write(pd.concat([dados["df_ct"], dados["df_dt"]]))
 
-    with st.expander("Tabela de consumo de ração das caixas CT e DT"):
+    with st.expander("Tabela - consumo de ração das caixas CT e DT"):
         st.write(pd.concat([dados["df_racao_ct"], dados["df_racao_dt"]]))
 
     # Carregar as médias de ração
