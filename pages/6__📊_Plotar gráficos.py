@@ -418,14 +418,17 @@ if uploaded_file is not None:
     
     # Exibe as tabelas abaixo das abas
     with st.expander("Tabelas - peso dos animais e consumo de ração"):
-        st.write("Peso dos animais")
-        st.write(pd.concat([dados["df_ct"], dados["df_dt"]]))
+        with st.container(border=True):
+            st.write("Peso dos animais")
+            st.write(pd.concat([dados["df_ct"], dados["df_dt"]]))
 
-        st.write("Consumo de ração por caixa")
-        st.write(pd.concat([dados["df_racao_ct"], dados["df_racao_dt"]]))
+        with st.container(border=True):
+            st.write("Consumo de ração por caixa")
+            st.write(pd.concat([dados["df_racao_ct"], dados["df_racao_dt"]]))
 
-        st.write("Média geral de consumo de ração por grupo")
-        st.dataframe(df_medias_gerais)
+        with st.container(border=True):
+            st.write("Média geral de consumo de ração por grupo")
+            st.dataframe(df_medias_gerais)
 
 
 
