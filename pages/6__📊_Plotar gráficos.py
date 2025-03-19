@@ -389,6 +389,8 @@ if uploaded_file is not None:
         ]
     })
 
+    st.markdown("---")
+    
     with st.container(border=True):
         # Cria as abas usando st.radio
         aba_selecionada = st.radio(
@@ -398,8 +400,6 @@ if uploaded_file is not None:
 
     # Seleciona as funções de acordo com a biblioteca escolhida
     plotar_funcoes = plot_funcs[aba_selecionada]
-
-    st.markdown("---")
     
     st.subheader(f"{aba_selecionada}")
 
