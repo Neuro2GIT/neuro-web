@@ -410,9 +410,11 @@ if uploaded_file is not None:
             #funcao(*parametros_por_grafico[nome_grafico])
 
     # Exibe as tabelas abaixo das abas
-    st.subheader("Tabela de peso dos animais CT e DT")
-    st.write(pd.concat([dados["df_ct"], dados["df_dt"]]))
+    with st.expander()
+        st.subheader("Tabela de peso dos animais CT e DT")
+        st.write(pd.concat([dados["df_ct"], dados["df_dt"]]))
 
+    
     st.subheader("Tabela de consumo de ração das caixas CT e DT")
     st.write(pd.concat([dados["df_racao_ct"], dados["df_racao_dt"]]))
 
