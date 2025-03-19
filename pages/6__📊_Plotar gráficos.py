@@ -394,7 +394,7 @@ if uploaded_file is not None:
     st.subheader(f"Gráficos com {aba_selecionada}")
 
     # Exibe os gráficos correspondentes
-    with st.expander(f"### "title=f"Peso médio dos animais em {dias.max() - dias.min() + 1} dias de experimento"): 
+    with st.expander("Peso médio dos animais"): 
         with st.container(border=True):
             plotar_funcoes["pesagem"](dados["medias_peso_ct"], dados["erro_padrao_peso_ct"], dados["medias_peso_dt"], dados["erro_padrao_peso_dt"])
 
