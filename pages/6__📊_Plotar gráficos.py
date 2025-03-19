@@ -369,15 +369,6 @@ plot_funcs = {
     }
 }
 
-# Criar DataFrame para consumo geral de ração
-df_medias_gerais = pd.DataFrame({
-    "Grupo": ["CT", "DT"],
-    "Média do consumo de ração": [
-        dados["media_geral_racao_ct"],  # Usando a variável 'dados' para acessar a média
-        dados["media_geral_racao_dt"]   # Usando a variável 'dados' para acessar a média
-    ]
-})
-
 # Streamlit App
 st.title("Peso e consumo de ração")
 
@@ -391,6 +382,15 @@ if uploaded_file is not None:
     # Processa os dados
     dados = carregar_e_processar_excel(uploaded_file)
 
+    # Criar DataFrame para consumo geral de ração
+    df_medias_gerais = pd.DataFrame({
+        "Grupo": ["CT", "DT"],
+        "Média do consumo de ração": [
+            dados["media_geral_racao_ct"],  # Usando a variável 'dados' para acessar a média
+            dados["media_geral_racao_dt"]   # Usando a variável 'dados' para acessar a média
+        ]
+    })
+    
     # Cria as abas usando st.radio
     aba_selecionada = st.radio(
         "Escolha a biblioteca",
@@ -413,12 +413,6 @@ if uploaded_file is not None:
         with st.container(border=True):
             plotar_funcoes["consumo_racao"](dados["medias_racao_ct"], dados["medias_racao_dt"])
 
-    #Exibe os gráficos correspondentes de forma dinâmica
-    #for nome_grafico, funcao in plotar_funcoes.items():
-    #with st.container(border=True):
-            #Chama a função de plotagem com os parâmetros corretos
-            #funcao(*parametros_por_grafico[nome_grafico])
-
     # Exibe as tabelas abaixo das abas
     with st.expander("Tabela - peso dos animais CT e DT"):
         st.write(pd.concat([dados["df_ct"], dados["df_dt"]]))
@@ -429,15 +423,21 @@ if uploaded_file is not None:
     # Carregar as médias de ração
     racao_processada = carregar_e_processar_excel(uploaded_file)
 
+    # Exibir os dados em formato de tabela
+    with st.expander("Tabela - média geral do consumo de ração"):
+        st.dataframe(df_medias_gerais)
+
     # Criar DataFrame para consumo geral de ração
     #df_medias_gerais = pd.DataFrame({
         #"Grupo": ["CT", "DT"],
         #"Média do consumo de ração": [racao_processada["media_geral_racao_ct"], racao_processada["media_geral_racao_dt"]]
     #})
 
-    # Exibir os dados em formato de tabela
-    with st.expander("Tabela - média geral do consumo de ração"):
-        st.dataframe(df_medias_gerais)
+    #Exibe os gráficos correspondentes de forma dinâmica
+    #for nome_grafico, funcao in plotar_funcoes.items():
+    #with st.container(border=True):
+            #Chama a função de plotagem com os parâmetros corretos
+            #funcao(*parametros_por_grafico[nome_grafico])
 
     # Criar gráfico de barras usando dados do DataFrame
     #fig = px.bar(df_medias_gerais, x="Grupo", y="Média do consumo de ração",
