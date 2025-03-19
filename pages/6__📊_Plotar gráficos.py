@@ -391,7 +391,7 @@ if uploaded_file is not None:
     # Seleciona as funções de acordo com a biblioteca escolhida
     plotar_funcoes = plot_funcs[aba_selecionada]
 
-    st.subheader(f"Gráficos com {aba_selecionada}")
+    st.title(f"{aba_selecionada}")
 
     # Exibe os gráficos correspondentes
     with st.expander("Peso médio dos animais"): 
