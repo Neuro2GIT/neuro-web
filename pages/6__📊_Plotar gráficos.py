@@ -411,7 +411,7 @@ if uploaded_file is not None:
 
     # Exibe as tabelas abaixo das abas
     with st.expander(""):
-        st.subheader("Tabela de peso dos animais CT e DT")
+        st.title("Tabela de peso dos animais CT e DT")
         st.write(pd.concat([dados["df_ct"], dados["df_dt"]]))
 
     
