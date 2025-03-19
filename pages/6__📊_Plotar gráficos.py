@@ -369,6 +369,15 @@ plot_funcs = {
     }
 }
 
+# Criar DataFrame para consumo geral de ração
+    df_medias_gerais = pd.DataFrame({
+        "Grupo": ["CT", "DT"],
+        "Média do consumo de ração": [
+            dados["media_geral_racao_ct"],  # Usando a variável 'dados' para acessar a média
+            dados["media_geral_racao_dt"]   # Usando a variável 'dados' para acessar a média
+        ]
+    })
+
 # Streamlit App
 st.title("Peso e consumo de ração")
 
@@ -425,15 +434,6 @@ if uploaded_file is not None:
         #"Grupo": ["CT", "DT"],
         #"Média do consumo de ração": [racao_processada["media_geral_racao_ct"], racao_processada["media_geral_racao_dt"]]
     #})
-
-    # Criar DataFrame para consumo geral de ração
-    df_medias_gerais = pd.DataFrame({
-        "Grupo": ["CT", "DT"],
-        "Média do consumo de ração": [
-            dados["media_geral_racao_ct"],  # Usando a variável 'dados' para acessar a média
-            dados["media_geral_racao_dt"]   # Usando a variável 'dados' para acessar a média
-        ]
-    })
 
     # Exibir os dados em formato de tabela
     with st.expander("Tabela - média geral do consumo de ração"):
