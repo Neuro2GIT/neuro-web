@@ -32,10 +32,11 @@ if uploaded_file is not None:
         df = pd.read_excel(xls, sheet_name=sheet_name)
         df = calcular_indice_discriminacao(df)
         resultados[sheet_name] = df
+
+    st.markdown("---")
     
     # Exibir os resultados
-    with st.container(border=True):
-        for sheet_name, df in resultados.items():
-            with st.expander(f"### {sheet_name}"):
-                st.write(f"### {sheet_name}")
-                st.dataframe(df[["ID do animal", "Classe do animal", "Tempo no objeto novo", "Tempo no objeto familiar", "Índice de discriminação", "Índice de preferência"]])
+    for sheet_name, df in resultados.items():
+        with st.expander(f"### {sheet_name}"):
+            st.write(f"### {sheet_name}")
+            st.dataframe(df[["ID do animal", "Classe do animal", "Tempo no objeto novo", "Tempo no objeto familiar", "Índice de discriminação", "Índice de preferência"]])
