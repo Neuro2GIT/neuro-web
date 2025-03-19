@@ -413,19 +413,15 @@ if uploaded_file is not None:
         with st.container(border=True):
             plotar_funcoes["consumo_racao"](dados["medias_racao_ct"], dados["medias_racao_dt"])
 
+    # Carregar as médias de ração
+    racao_processada = carregar_e_processar_excel(uploaded_file)
+    
     # Exibe as tabelas abaixo das abas
-    with st.expander("Tabela - peso dos animais CT e DT"):
+    with st.expander("Tabelas - peso dos animais e consumo de ração"):
         st.write(pd.concat([dados["df_ct"], dados["df_dt"]]))
 
     with st.expander("Tabela - consumo de ração das caixas CT e DT"):
         st.write(pd.concat([dados["df_racao_ct"], dados["df_racao_dt"]]))
-
-    # Carregar as médias de ração
-    racao_processada = carregar_e_processar_excel(uploaded_file)
-
-    # Exibir os dados em formato de tabela
-    with st.expander("Tabela - média geral do consumo de ração"):
-        st.dataframe(df_medias_gerais)
 
     # Criar DataFrame para consumo geral de ração
     #df_medias_gerais = pd.DataFrame({
