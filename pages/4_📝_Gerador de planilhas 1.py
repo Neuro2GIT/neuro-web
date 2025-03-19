@@ -78,6 +78,9 @@ def criar_planilha(num_animais_ct, num_animais_dt, num_dias, num_caixas):
 # Configuração do Streamlit
 st.title("Peso e consumo de ração")
 
+with st.expander("Como funciona?"):
+    st.write("O gerador criará um arquivo excel contendo duas planilhas, uma para inserir o peso dos animais no decorrer do experimento e a outra para inserir o consumo de ração em cada caixa")
+
 with st.container(border=True):
             
     # Widgets para o número de animais e dias do experimento
