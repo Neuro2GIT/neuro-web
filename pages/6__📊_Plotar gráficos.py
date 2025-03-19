@@ -376,6 +376,7 @@ with st.expander("Como usar?"):
     st.write("Converta a sua planilha para o modelo ou gere uma nova no gerador de planilhas")
 
 with st.container(border=True):
+    st.write("Converta a sua planilha para o modelo ou gere uma nova no gerador de planilhas")
     uploaded_file = st.file_uploader("Selecione um arquivo excel (.xlsx)", type=["xlsx"])
 
 if uploaded_file is not None:
