@@ -370,10 +370,9 @@ plot_funcs = {
 }
 
 # Streamlit App
-st.subheader("Peso e consumo de ração")
-st.write("Para utilizar, converta a sua planilha para o modelo ou gere uma nova no gerador de planilhas")
+st.title("Peso e consumo de ração")
 
-uploaded_file = st.file_uploader("Selecione um arquivo excel (.xlsx)", type=["xlsx"])
+uploaded_file = st.file_uploader("Para utilizar, converta a sua planilha para o modelo ou gere uma nova no gerador de planilhas", type=["xlsx"])
 
 if uploaded_file is not None:
     # Processa os dados
