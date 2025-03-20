@@ -18,7 +18,7 @@ st.markdown("---")
 
 with st.expander("Como usar?"):
     st.write("Converta a sua planilha com os resultados do TRO para o modelo ou gere uma nova no gerador de planilhas.")
-    st.write("Usando os tempos de exploração, serão calculados a discriminação absoluta "d1".")
+    st.write("Usando os tempos de exploração, serão calculados a discriminação absoluta 'd1'.")
 
 with st.container(border=True):
     uploaded_file = st.file_uploader("Selecione um arquivo excel (.xlsx)", type=["xlsx"])
