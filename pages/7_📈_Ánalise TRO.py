@@ -3,13 +3,15 @@ import streamlit as st
 
 
 def calcular_indice_discriminacao(df):
-    """Calcula o índice de discriminação para cada animal."""
+    """Calcula o índice de discriminação e de preferencia para cada animal."""
     df["Índice de discriminação"] = ((df["Tempo no objeto novo"] - df["Tempo no objeto familiar"]) /
                                       (df["Tempo no objeto novo"] + df["Tempo no objeto familiar"]))
     df["Índice de preferência"] = ((df["Tempo no objeto novo"]) /
                                    (df["Tempo no objeto novo"] + df ["Tempo no objeto familiar"]))
                                    
     return df
+
+def 
 
 # Configuração do Streamlit
 st.title("Análise do teste comportamental")
@@ -18,6 +20,7 @@ st.markdown("---")
 
 with st.expander("Como usar?"):
     st.write("Converta a sua planilha com os resultados do TRO para o modelo ou gere uma nova no gerador de planilhas.")
+    st.write("Usando os tempos de exploração, serão calculados a discriminação absoluta "d1".")
 
 with st.container(border=True):
     uploaded_file = st.file_uploader("Selecione um arquivo excel (.xlsx)", type=["xlsx"])
