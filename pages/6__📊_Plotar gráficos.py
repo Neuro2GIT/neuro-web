@@ -444,7 +444,7 @@ if uploaded_file is not None:
     })
 
     # Transpor o DataFrame para que os dias fiquem na horizontal
-    #df_peso = df_peso.T
+    df_peso = df_peso.T
 
     # Exibir o DataFrame no Streamlit
     st.write("Médias de Peso por Dia")
