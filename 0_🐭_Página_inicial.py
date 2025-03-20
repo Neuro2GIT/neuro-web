@@ -103,12 +103,13 @@ def main():
             }
         }
 
-    # Exibindo os temas estáticos em expanders
-    for theme, content in static_themes.items():
-        with st.expander(theme):
-            for section_title, section_content in content.items():
-                st.markdown(f"**{section_title}**")
-                st.markdown(section_content)
+    with col2:
+        # Exibindo os temas estáticos em expanders
+        for theme, content in static_themes.items():
+            with st.expander(theme):
+                for section_title, section_content in content.items():
+                    st.markdown(f"**{section_title}**")
+                    st.markdown(section_content)
     
     # Iterar pelos temas e artigos
     for theme, dois in themes.items():
