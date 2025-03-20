@@ -85,7 +85,7 @@ themes = {
 def main():
     st.title("🧠 Neuroscience Interest Group")
 
-    left, middle, right = st.columns(2, border=True)
+    left, right = st.columns(2, border=True)
     
     st.markdown("---")
     
