@@ -433,7 +433,7 @@ if uploaded_file is not None:
             st.dataframe(df_medias_gerais)
 
     # Chamar a função que retorna os dados processados
-    #resultados = carregar_e_processar_excel(uploaded_file)
+    resultados = carregar_e_processar_excel(uploaded_file)
 
     # Criar DataFrame a partir das médias de peso
     df_peso = pd.DataFrame({
