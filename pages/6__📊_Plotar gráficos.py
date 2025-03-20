@@ -49,6 +49,18 @@ def carregar_e_processar_excel(uploaded_file):
         "df_racao_ct": df_racao_ct, "df_racao_dt": df_racao_dt
     }
 
+    # Criar um DataFrame com as métricas
+    df_resultados = pd.DataFrame({
+        "Média Peso CT": dados_processados["medias_peso_ct"],
+        "Erro Padrão Peso CT": dados_processados["erro_padrao_peso_ct"],
+        "Média Peso DT": dados_processados["medias_peso_dt"],
+        "Erro Padrão Peso DT": dados_processados["erro_padrao_peso_dt"],
+        "Média Consumo Ração CT": dados_processados["medias_racao_ct"],
+        "Média Consumo Ração DT": dados_processados["medias_racao_dt"],
+        "Média Geral Consumo Ração CT": [dados_processados["media_geral_racao_ct"]] * len(dados_processados["medias_racao_ct"]),
+        "Média Geral Consumo Ração DT": [dados_processados["media_geral_racao_dt"]] * len(dados_processados["medias_racao_dt"])
+    })
+    
 # Função para plotar o gráfico de linhas com erro padrão usando plotly
 def plotar_pesagem(medias_peso_ct, erro_padrao_peso_ct, medias_peso_dt, erro_padrao_peso_dt):
     dias = np.arange(1, len(medias_peso_ct) + 1)
@@ -431,6 +443,24 @@ if uploaded_file is not None:
         with st.container(border=True):
             st.write("Média geral de consumo de ração por grupo")
             st.dataframe(df_medias_gerais)
+
+    # Exemplo de gráfico: Comparar as médias de peso entre CT e DT
+    df_plot = pd.DataFrame({
+        "Classe": ["CT", "DT"],
+        "Média Peso": [df_resultados["Média Peso CT"].mean(), df_resultados["Média Peso DT"].mean()],
+        "Erro Padrão": [df_resultados["Erro Padrão Peso CT"].mean(), df_resultados["Erro Padrão Peso DT"].mean()]
+    })
+
+    chart = alt.Chart(df_plot).mark_bar().encode(
+        x='Classe',
+        y='Média Peso',
+        color='Classe',
+        tooltip=['Classe', 'Média Peso', 'Erro Padrão']
+    ).properties(
+        title="Média de Peso por Classe"
+    )
+
+    st.altair_chart(chart, use_container_width=True)
 
 
 
