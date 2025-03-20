@@ -432,18 +432,6 @@ if uploaded_file is not None:
             st.write("Média geral de consumo de ração por grupo")
             st.dataframe(df_medias_gerais)
 
-   # Criar o DataFrame com as médias de peso a partir do dicionário retornado
-    df_peso = pd.DataFrame({
-        'Classe': ['CT', 'DT'],
-        'Média Peso': [
-            sum(dados_processados["medias_peso_ct"]) / len(dados_processados["medias_peso_ct"]),  # Média para CT
-            sum(dados_processados["medias_peso_dt"]) / len(dados_processados["medias_peso_dt"])   # Média para DT
-        ]
-    })
-
-    # Exibir o DataFrame no Streamlit
-    st.write("Médias de Peso por Classe:", df_peso)
-
     # Criar DataFrame para consumo geral de ração
     #df_medias_gerais = pd.DataFrame({
         #"Grupo": ["CT", "DT"],
