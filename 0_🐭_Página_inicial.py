@@ -111,24 +111,24 @@ def main():
                     st.markdown(f"**{section_title}**")
                     st.markdown(section_content)
     
-    # Iterar pelos temas e artigos
-    for theme, dois in themes.items():
-        with st.container(border=True):
-            st.subheader(theme)  # Exibir o nome do tema como um subtítulo
-            #st.markdown("---")  # Linha separadora para melhor organização
+        # Iterar pelos temas e artigos
+        for theme, dois in themes.items():
+            with st.container(border=True):
+                st.subheader(theme)  # Exibir o nome do tema como um subtítulo
+                #st.markdown("---")  # Linha separadora para melhor organização
 
-            for doi in dois:
-                title, authors, published_year, url, pdf_link = get_doi_info(doi)
+                for doi in dois:
+                    title, authors, published_year, url, pdf_link = get_doi_info(doi)
             
-                if title:
-                    with st.expander(title):
-                         st.markdown(f"**Autores**: {authors}")
-                         st.markdown(f"**Publicado em**: {published_year}")
-                         st.markdown(f"[Leia o artigo completo]({url})")
+                    if title:
+                        with st.expander(title):
+                             st.markdown(f"**Autores**: {authors}")
+                             st.markdown(f"**Publicado em**: {published_year}")
+                             st.markdown(f"[Leia o artigo completo]({url})")
                     
-                         # Botão para baixar o PDF, se disponível
-                         if pdf_link:
-                             st.markdown(f"[Baixar PDF]({pdf_link})")
+                             # Botão para baixar o PDF, se disponível
+                             if pdf_link:
+                                 st.markdown(f"[Baixar PDF]({pdf_link})")
 
                          #LINK DA TESE DO PROFESSOR: http://hdl.handle.net/1843/33624 PDF: https://repositorio.ufmg.br/bitstream/1843/33624/1/Tese%20vers%c3%a3o%20FINAL.pdf
                     
