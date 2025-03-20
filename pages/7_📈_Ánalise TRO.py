@@ -31,7 +31,7 @@ if uploaded_file is not None:
     xls = pd.ExcelFile(uploaded_file)
 
     # Criando o DataFrame
-    df = pd.DataFrame(data)
+    df = pd.DataFrame(df)
 
     # Exibindo o DataFrame diretamente com os índices calculados
     st.title("Índice de Discriminação e Preferência")
