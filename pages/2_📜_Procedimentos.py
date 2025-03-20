@@ -95,11 +95,11 @@ def main():
         with st.container(border=True):
     
             # Expander para "Ingredientes ração"
-            with st.expander("Ingredientes da ração"):
+            with st.expander("Ingredientes"):
                 st.write("Conteúdo sobre os ingredientes da ração CT")
 
             # Expander para "Ingredientes ração DT"
-            with st.expander("Ingredientes da ração DT"):
+            with st.expander("Ingredientes - ração DT"):
                 st.write("Conteúdo sobre os ingredientes da ração DT")
 
             # Expander para "Modo de preparo"
