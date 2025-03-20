@@ -85,15 +85,14 @@ themes = {
 def main():
     st.title("🧠 Neuroscience Interest Group")
 
-    left, right = st.columns(2, border=True)
+    col1, col2, col3 = st.columns(3)
     
     st.markdown("---")
     
     st.markdown("<br>", unsafe_allow_html=True)
 
     # Conteúdo estático para adicionar a dissertação
-    left.markdown(
-        static_themes = {
+    static_themes = {
         "Modelo de Deficiência de Tiamina": {
             "Alterações cognitivas espaciais e parâmetros neuroquímicos cerebrais associados aos processos de morte celular em modelos experimentais de deficiência de tiamina e/ou consumo de etanol.":"",
             "Autor": "Rogério de Freitas Lacerda",
@@ -101,7 +100,7 @@ def main():
             "Repositorio UFMG": "http://hdl.handle.net/1843/33624",
             "Baixar PDF": "https://repositorio.ufmg.br/bitstream/1843/33624/1/Tese%20vers%c3%a3o%20FINAL.pdf"
         }
-    })
+    }
 
     # Exibindo os temas estáticos em expanders
     for theme, content in static_themes.items():
