@@ -67,7 +67,7 @@ themes = {
     "Publicações": [
         "10.22289/2446-922X.V10N1A23"
     ],
-    "Introdução ao modelo DT": [
+    "Artigos base": [
         "10.1080/09168451.2016.1224639",
         "10.54038/ms.v1i1.2",
         "10.54038/ms.v2i2.20",
