@@ -11,6 +11,9 @@ def calcular_indice_discriminacao(df):
                                    
     return df
 
+# Criar as colunas
+col1, col2, col3 = st.columns(3)
+
 # Configuração do Streamlit
 st.title("Análise do teste comportamental")
 
@@ -19,8 +22,9 @@ st.markdown("---")
 with st.expander("Como usar?"):
     st.write("Converta a sua planilha com os resultados do TRO para o modelo ou gere uma nova no gerador de planilhas.")
 
-with st.container(border=True):
-    uploaded_file = st.file_uploader("Selecione um arquivo excel (.xlsx)", type=["xlsx"])
+with col1:
+    with st.container(border=True):
+        uploaded_file = st.file_uploader("Selecione um arquivo excel (.xlsx)", type=["xlsx"])
 
 if uploaded_file is not None:
     # Ler o arquivo Excel
