@@ -432,36 +432,14 @@ if uploaded_file is not None:
             st.write("Média geral de consumo de ração por grupo")
             st.dataframe(df_medias_gerais)
 
-    # Criar um DataFrame com as métricas
-    df_resultados = pd.DataFrame({
-        "Média Peso CT": dados["medias_peso_ct"],
-        "Erro Padrão Peso CT": dados["erro_padrao_peso_ct"],
-        "Média Peso DT": dados["medias_peso_dt"],
-        "Erro Padrão Peso DT": dados["erro_padrao_peso_dt"],
-        "Média Consumo Ração CT": dados["medias_racao_ct"],
-        "Média Consumo Ração DT": dados["medias_racao_dt"],
-        "Média Geral Consumo Ração CT": [dados["media_geral_racao_ct"]] * len(dados["medias_racao_ct"]),
-        "Média Geral Consumo Ração DT": [dados["media_geral_racao_dt"]] * len(dados["medias_racao_dt"])
+   # Criar DataFrame para consumo geral de ração
+    df_medias_peso = pd.DataFrame({
+        "Grupo": ["CT", "DT"],
+        "Média do peso": [
+            dados["medias_peso_ct"],  # Usando a variável 'dados' para acessar a média
+            dados["medias_peso_dt"]   # Usando a variável 'dados' para acessar a média
+        ]
     })
-    
-    # Exemplo de gráfico: Comparar as médias de peso entre CT e DT
-    df_plot = pd.DataFrame({
-        "Classe": ["CT", "DT"],
-        "Média Peso": [df_resultados["Média Peso CT"].mean(), df_resultados["Média Peso DT"].mean()],
-        "Erro Padrão": [df_resultados["Erro Padrão Peso CT"].mean(), df_resultados["Erro Padrão Peso DT"].mean()]
-    })
-
-    chart = alt.Chart(df_plot).mark_bar().encode(
-        x='Classe',
-        y='Média Peso',
-        color='Classe',
-        tooltip=['Classe', 'Média Peso', 'Erro Padrão']
-    ).properties(
-        title="Média de Peso por Classe"
-    )
-
-    st.altair_chart(chart, use_container_width=True)
-
 
 
     # Criar DataFrame para consumo geral de ração
