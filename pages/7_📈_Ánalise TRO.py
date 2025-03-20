@@ -23,7 +23,7 @@ with st.container(border=True):
     uploaded_file = st.file_uploader("Selecione um arquivo excel (.xlsx)", type=["xlsx"])
     
 # Criar as colunas
-col1, col2, col3 = st.columns(2)
+col1, col2 = st.columns(2)
 
 with col2:
     with st.container(border=True):
