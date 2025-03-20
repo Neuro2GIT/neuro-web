@@ -4,6 +4,9 @@ import streamlit as st
 
 def calcular_indice_discriminacao(df):
     """Calcula o índice de discriminação e de preferencia para cada animal."""
+    
+    df["Discriminação absoluta"] = ((df["Tempo no objeto novo"] - df["Tempo no objeto familiar"])
+                                    
     df["Índice de discriminação"] = ((df["Tempo no objeto novo"] - df["Tempo no objeto familiar"]) /
                                       (df["Tempo no objeto novo"] + df["Tempo no objeto familiar"]))
     df["Índice de preferência"] = ((df["Tempo no objeto novo"]) /
@@ -23,13 +26,6 @@ with st.expander("Como usar?"):
 with st.container(border=True):
     uploaded_file = st.file_uploader("Selecione um arquivo excel (.xlsx)", type=["xlsx"])
     
-# Criar as colunas
-#col1, col2 = st.columns(2)
-
-#with col2:
-    #with st.container(border=True):
-        #st.write("")
-        
 if uploaded_file is not None:
     # Ler o arquivo Excel
     xls = pd.ExcelFile(uploaded_file)
