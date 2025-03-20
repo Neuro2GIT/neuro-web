@@ -43,8 +43,6 @@ def plot_timeline(aclim, trat, teste, disseccao):
 
 st.title("Delineamento experimental")
 
-left, middle, right = st.columns(2, border=True)
-
 st.markdown("---")
 
 st.subheader("⏱️Função em testes⏱️")
