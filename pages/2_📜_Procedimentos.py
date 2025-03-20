@@ -87,9 +87,13 @@ def main():
 
     # Criar um container para a técnica selecionada com três expanders
     if tecnica_selecionada == "Preparo de ração":
+        
+        st.markdown("---")
 
+        st.title("Preparo de ração")
+        
         with st.container(border=True):
-            st.title("Preparo de ração")
+    
             # Expander para "Ingredientes ração"
             with st.expander("Ingredientes ração"):
                 st.write("Conteúdo sobre os ingredientes da ração CT")
