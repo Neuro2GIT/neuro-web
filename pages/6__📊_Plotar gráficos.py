@@ -433,7 +433,7 @@ if uploaded_file is not None:
             st.dataframe(df_medias_gerais)
 
     # Chamar a função que retorna os dados processados
-    resultados = carregar_e_processar_excel(uploaded_file)
+    #resultados = carregar_e_processar_excel(uploaded_file)
 
     # Criar DataFrame a partir das médias de peso
     #df_peso = pd.DataFrame({
@@ -451,43 +451,43 @@ if uploaded_file is not None:
     #st.dataframe(df_peso)
 
     # Criar um DataFrame com os dados organizados para o Altair
-    df_peso = pd.DataFrame({
-        "Dia": resultados["medias_peso_ct"].index,  # Supondo que os índices sejam os dias
-        "CT": resultados["medias_peso_ct"].values,
-        "DT": resultados["medias_peso_dt"].values,
-        "Erro Padrão CT": resultados["erro_padrao_peso_ct"].values,
-        "Erro Padrão DT": resultados["erro_padrao_peso_dt"].values
-    })
+    #df_peso = pd.DataFrame({
+        #"Dia": resultados["medias_peso_ct"].index,  # Supondo que os índices sejam os dias
+        #"CT": resultados["medias_peso_ct"].values,
+        #"DT": resultados["medias_peso_dt"].values,
+        #"Erro Padrão CT": resultados["erro_padrao_peso_ct"].values,
+        #"Erro Padrão DT": resultados["erro_padrao_peso_dt"].values
+    #})
 
     # Transformar o DataFrame para formato longo (melt) para Altair
-    df_longo = df_peso.melt(id_vars=["Dia"], value_vars=["CT", "DT"], var_name="Grupo", value_name="Peso")
+    #df_longo = df_peso.melt(id_vars=["Dia"], value_vars=["CT", "DT"], var_name="Grupo", value_name="Peso")
 
     # Criar o gráfico de linhas
-    linha = alt.Chart(df_longo).mark_line().encode(
-        x=alt.X("Dia:O", title="Dias"),  # Se os dias forem categóricos, use ':O'
-        y=alt.Y("Peso:Q", title="Peso Médio (g)"),
-        color="Grupo:N"
-    )
+    #linha = alt.Chart(df_longo).mark_line().encode(
+        #x=alt.X("Dia:O", title="Dias"),  # Se os dias forem categóricos, use ':O'
+        #y=alt.Y("Peso:Q", title="Peso Médio (g)"),
+        #color="Grupo:N"
+    #)
 
     # Criar a área de erro padrão para CT
-    erro_ct = alt.Chart(df_peso).mark_area(opacity=0.2).encode(
-        x=alt.X("Dia:O"),
-        y=alt.Y("CT - Erro Padrão CT:Q", title=""),
-        y2="CT + Erro Padrão CT:Q",
-        color=alt.value("blue")
-    )
+    #erro_ct = alt.Chart(df_peso).mark_area(opacity=0.2).encode(
+        #x=alt.X("Dia:O"),
+        #y=alt.Y("CT - Erro Padrão CT:Q", title=""),
+        #y2="CT + Erro Padrão CT:Q",
+        #color=alt.value("blue")
+    #)
 
     # Criar a área de erro padrão para DT
-    erro_dt = alt.Chart(df_peso).mark_area(opacity=0.2).encode(
-        x=alt.X("Dia:O"),
-        y=alt.Y("DT - Erro Padrão DT:Q", title=""),
-        y2="DT + Erro Padrão DT:Q",
-        color=alt.value("red")
-    )
+    #erro_dt = alt.Chart(df_peso).mark_area(opacity=0.2).encode(
+        #x=alt.X("Dia:O"),
+        #y=alt.Y("DT - Erro Padrão DT:Q", title=""),
+        #y2="DT + Erro Padrão DT:Q",
+        #color=alt.value("red")
+    #)
 
     # Exibir no Streamlit
-    st.write("Médias de Peso por Dia com Erro Padrão")
-    st.altair_chart(erro_ct + erro_dt + linha, use_container_width=True)
+    #st.write("Médias de Peso por Dia com Erro Padrão")
+    #st.altair_chart(erro_ct + erro_dt + linha, use_container_width=True)
     # Criar DataFrame para consumo geral de ração
     #df_medias_gerais = pd.DataFrame({
         #"Grupo": ["CT", "DT"],
