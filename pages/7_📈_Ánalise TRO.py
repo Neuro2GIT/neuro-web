@@ -26,7 +26,7 @@ with col1:
     with st.container(border=True):
         uploaded_file1 = st.file_uploader("Selecione um arquivo excel (.xlsx)", type=["xlsx"], key="file_uploader_1")
 
-with col1:
+with col2:
     with st.container(border=True):
         uploaded_file2 = st.file_uploader("Selecione um arquivo excel (.xlsx)", type=["xlsx"], key="file_uploader_2")
 
