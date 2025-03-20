@@ -42,6 +42,9 @@ def plot_timeline(aclim, trat, teste, disseccao):
     st.pyplot(fig)
 
 st.title("Delineamento experimental")
+
+st.markdown("---")
+
 st.subheader("⏱️Função em testes⏱️")
 
 with st.container(border=True):
