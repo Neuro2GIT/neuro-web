@@ -11,9 +11,6 @@ def calcular_indice_discriminacao(df):
                                    
     return df
 
-# Criar as colunas
-col1, col2, col3 = st.columns(3)
-
 # Configuração do Streamlit
 st.title("Análise do teste comportamental")
 
@@ -21,6 +18,9 @@ st.markdown("---")
 
 with st.expander("Como usar?"):
     st.write("Converta a sua planilha com os resultados do TRO para o modelo ou gere uma nova no gerador de planilhas.")
+
+# Criar as colunas
+col1, col2, col3 = st.columns(3)
 
 with col1:
     with st.container(border=True):
