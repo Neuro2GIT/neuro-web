@@ -14,6 +14,8 @@ def calcular_indice_discriminacao(df):
                                    
     return df
 
+data = {}
+
 # Configuração do Streamlit
 st.title("Análise do teste comportamental")
 
@@ -31,7 +33,7 @@ if uploaded_file is not None:
     xls = pd.ExcelFile(uploaded_file)
 
     # Criando o DataFrame
-    df = pd.DataFrame(df)
+    df = pd.DataFrame(Data)
 
     # Exibindo o DataFrame diretamente com os índices calculados
     st.title("Índice de Discriminação e Preferência")
