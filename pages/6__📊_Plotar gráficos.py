@@ -485,6 +485,9 @@ if uploaded_file is not None:
         color=alt.value("red")
     )
 
+    # Exibir no Streamlit
+    st.write("Médias de Peso por Dia com Erro Padrão")
+    st.altair_chart(erro_ct + erro_dt + linha, use_container_width=True)
     # Criar DataFrame para consumo geral de ração
     #df_medias_gerais = pd.DataFrame({
         #"Grupo": ["CT", "DT"],
