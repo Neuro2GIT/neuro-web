@@ -58,7 +58,7 @@ st.title("Planilha para o TRO")
 st.markdown("---")
 
 with st.expander("Como funciona?"):
-    st.write("O gerador criará um arquivo excel contendo duas planilhas, uma para inserir os tempos de exploração para os animais CT e a outra para os animais DT.")
+    st.write("O gerador criará um arquivo excel contendo duas planilhas, uma para inserir os tempos de exploração para os animais CT e outra para os animais DT.")
 
 with st.container(border=True):
     num_animais_ct = st.number_input("Número de animais na classe CT:", min_value=1, value=5, step=1)
