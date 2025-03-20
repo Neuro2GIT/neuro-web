@@ -432,16 +432,14 @@ if uploaded_file is not None:
             st.write("Média geral de consumo de ração por grupo")
             st.dataframe(df_medias_gerais)
 
-   # Criar DataFrame para consumo geral de ração
-    df_medias_peso = pd.DataFrame({
-        "Grupo": ["CT", "DT"],
-        "Média do peso": [
-            dados["medias_peso_ct"],  # Usando a variável 'dados' para acessar a média
-            dados["medias_peso_dt"]   # Usando a variável 'dados' para acessar a média
-        ]
-    })
+   # Criar DataFrame com as médias de peso
+    dados_peso = {
+        'Classe': ['CT', 'DT'],
+        'Média Peso': [medias_peso_ct.mean(), medias_peso_dt.mean()]
+    }
 
-    st.dataframe(df_medias_peso)
+    # Criar o DataFrame
+    df_peso = pd.DataFrame(dados_peso)
 
     # Criar DataFrame para consumo geral de ração
     #df_medias_gerais = pd.DataFrame({
