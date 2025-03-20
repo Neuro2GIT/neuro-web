@@ -48,18 +48,6 @@ def carregar_e_processar_excel(uploaded_file):
         "media_geral_racao_dt": media_geral_racao_dt,
         "df_racao_ct": df_racao_ct, "df_racao_dt": df_racao_dt
     }
-
-    # Criar um DataFrame com as métricas
-    df_resultados = pd.DataFrame({
-        "Média Peso CT": dados_processados["medias_peso_ct"],
-        "Erro Padrão Peso CT": dados_processados["erro_padrao_peso_ct"],
-        "Média Peso DT": dados_processados["medias_peso_dt"],
-        "Erro Padrão Peso DT": dados_processados["erro_padrao_peso_dt"],
-        "Média Consumo Ração CT": dados_processados["medias_racao_ct"],
-        "Média Consumo Ração DT": dados_processados["medias_racao_dt"],
-        "Média Geral Consumo Ração CT": [dados_processados["media_geral_racao_ct"]] * len(dados_processados["medias_racao_ct"]),
-        "Média Geral Consumo Ração DT": [dados_processados["media_geral_racao_dt"]] * len(dados_processados["medias_racao_dt"])
-    })
     
 # Função para plotar o gráfico de linhas com erro padrão usando plotly
 def plotar_pesagem(medias_peso_ct, erro_padrao_peso_ct, medias_peso_dt, erro_padrao_peso_dt):
@@ -444,6 +432,18 @@ if uploaded_file is not None:
             st.write("Média geral de consumo de ração por grupo")
             st.dataframe(df_medias_gerais)
 
+    # Criar um DataFrame com as métricas
+    df_resultados = pd.DataFrame({
+        "Média Peso CT": dados_processados["medias_peso_ct"],
+        "Erro Padrão Peso CT": dados_processados["erro_padrao_peso_ct"],
+        "Média Peso DT": dados_processados["medias_peso_dt"],
+        "Erro Padrão Peso DT": dados_processados["erro_padrao_peso_dt"],
+        "Média Consumo Ração CT": dados_processados["medias_racao_ct"],
+        "Média Consumo Ração DT": dados_processados["medias_racao_dt"],
+        "Média Geral Consumo Ração CT": [dados_processados["media_geral_racao_ct"]] * len(dados_processados["medias_racao_ct"]),
+        "Média Geral Consumo Ração DT": [dados_processados["media_geral_racao_dt"]] * len(dados_processados["medias_racao_dt"])
+    })
+    
     # Exemplo de gráfico: Comparar as médias de peso entre CT e DT
     df_plot = pd.DataFrame({
         "Classe": ["CT", "DT"],
