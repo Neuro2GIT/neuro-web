@@ -19,16 +19,15 @@ st.markdown("---")
 with st.expander("Como usar?"):
     st.write("Converta a sua planilha com os resultados do TRO para o modelo ou gere uma nova no gerador de planilhas.")
 
+with st.container(border=True):
+    uploaded_file = st.file_uploader("Selecione um arquivo excel (.xlsx)", type=["xlsx"])
+    
 # Criar as colunas
-col1, col2, col3 = st.columns(3)
-
-with col1:
-    with st.container(border=True):
-        uploaded_file1 = st.file_uploader("Selecione um arquivo excel (.xlsx)", type=["xlsx"], key="file_uploader_1")
+col1, col2, col3 = st.columns(2)
 
 with col2:
     with st.container(border=True):
-        uploaded_file2 = st.file_uploader("Selecione um arquivo excel (.xlsx)", type=["xlsx"], key="file_uploader_2")
+        
 
 
 
