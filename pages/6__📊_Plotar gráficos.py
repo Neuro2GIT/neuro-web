@@ -434,14 +434,14 @@ if uploaded_file is not None:
 
     # Criar um DataFrame com as métricas
     df_resultados = pd.DataFrame({
-        "Média Peso CT": dados_processados["medias_peso_ct"],
-        "Erro Padrão Peso CT": dados_processados["erro_padrao_peso_ct"],
-        "Média Peso DT": dados_processados["medias_peso_dt"],
-        "Erro Padrão Peso DT": dados_processados["erro_padrao_peso_dt"],
-        "Média Consumo Ração CT": dados_processados["medias_racao_ct"],
-        "Média Consumo Ração DT": dados_processados["medias_racao_dt"],
-        "Média Geral Consumo Ração CT": [dados_processados["media_geral_racao_ct"]] * len(dados_processados["medias_racao_ct"]),
-        "Média Geral Consumo Ração DT": [dados_processados["media_geral_racao_dt"]] * len(dados_processados["medias_racao_dt"])
+        "Média Peso CT": dados["medias_peso_ct"],
+        "Erro Padrão Peso CT": dados["erro_padrao_peso_ct"],
+        "Média Peso DT": dados["medias_peso_dt"],
+        "Erro Padrão Peso DT": dados["erro_padrao_peso_dt"],
+        "Média Consumo Ração CT": dados["medias_racao_ct"],
+        "Média Consumo Ração DT": dados["medias_racao_dt"],
+        "Média Geral Consumo Ração CT": [dados["media_geral_racao_ct"]] * len(dados["medias_racao_ct"]),
+        "Média Geral Consumo Ração DT": [dados["media_geral_racao_dt"]] * len(dados["medias_racao_dt"])
     })
     
     # Exemplo de gráfico: Comparar as médias de peso entre CT e DT
