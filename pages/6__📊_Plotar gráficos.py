@@ -441,6 +441,7 @@ if uploaded_file is not None:
         ]
     })
 
+    st.dataframe(df_medias_peso)
 
     # Criar DataFrame para consumo geral de ração
     #df_medias_gerais = pd.DataFrame({
