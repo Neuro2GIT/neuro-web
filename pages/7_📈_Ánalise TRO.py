@@ -11,8 +11,6 @@ def calcular_indice_discriminacao(df):
                                    
     return df
 
-def 
-
 # Configuração do Streamlit
 st.title("Análise do teste comportamental")
 
