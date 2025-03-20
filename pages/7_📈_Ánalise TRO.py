@@ -23,11 +23,11 @@ with st.container(border=True):
     uploaded_file = st.file_uploader("Selecione um arquivo excel (.xlsx)", type=["xlsx"])
     
 # Criar as colunas
-col1, col2 = st.columns(2)
+#col1, col2 = st.columns(2)
 
-with col2:
-    with st.container(border=True):
-        st.write("")
+#with col2:
+    #with st.container(border=True):
+        #st.write("")
         
 if uploaded_file is not None:
     # Ler o arquivo Excel
