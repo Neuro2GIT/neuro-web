@@ -5,7 +5,7 @@ import streamlit as st
 def calcular_indice_discriminacao(df):
     """Calcula o índice de discriminação e de preferencia para cada animal."""
     
-    df["Discriminação absoluta"] = ((df["Tempo no objeto novo"] - df["Tempo no objeto familiar"])
+    df["Discriminação absoluta"] = ((df["Tempo no objeto novo"] - df["Tempo no objeto familiar"]))
                                     
     df["Índice de discriminação"] = ((df["Tempo no objeto novo"] - df["Tempo no objeto familiar"]) /
                                       (df["Tempo no objeto novo"] + df["Tempo no objeto familiar"]))
