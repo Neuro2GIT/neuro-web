@@ -438,7 +438,9 @@ if uploaded_file is not None:
     # Criar DataFrame a partir das médias de peso
     df_peso = pd.DataFrame({
         "CT": resultados["medias_peso_ct"],
-        "DT": resultados["medias_peso_dt"]
+        "DT": resultados["medias_peso_dt"],
+        "Erro Padrão CT": resultados["erro_padrao_peso_ct"],
+        "Erro Padrão DT": resultados["erro_padrao_peso_dt"]
     })
 
     # Transpor o DataFrame para que os dias fiquem na horizontal
