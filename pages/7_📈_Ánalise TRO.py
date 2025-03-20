@@ -26,6 +26,12 @@ with col1:
     with st.container(border=True):
         uploaded_file = st.file_uploader("Selecione um arquivo excel (.xlsx)", type=["xlsx"])
 
+with col1:
+    with st.container(border=True):
+        uploaded_file = st.file_uploader("Selecione um arquivo excel (.xlsx)", type=["xlsx"])
+
+
+
 if uploaded_file is not None:
     # Ler o arquivo Excel
     xls = pd.ExcelFile(uploaded_file)
