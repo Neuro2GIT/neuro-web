@@ -24,11 +24,11 @@ col1, col2, col3 = st.columns(3)
 
 with col1:
     with st.container(border=True):
-        uploaded_file = st.file_uploader("Selecione um arquivo excel (.xlsx)", type=["xlsx"])
+        uploaded_file1 = st.file_uploader("Selecione um arquivo excel (.xlsx)", type=["xlsx"])
 
 with col1:
     with st.container(border=True):
-        uploaded_file = st.file_uploader("Selecione um arquivo excel (.xlsx)", type=["xlsx"])
+        uploaded_file2 = st.file_uploader("Selecione um arquivo excel (.xlsx)", type=["xlsx"])
 
 
 
