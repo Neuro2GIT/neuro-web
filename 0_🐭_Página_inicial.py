@@ -64,7 +64,7 @@ def get_doi_info(doi):
         
 # Definindo temas e artigos (DOIs) agrupados
 themes = {
-    "Publicações": [
+    "Publicações do grupo": [
         "10.22289/2446-922X.V10N1A23"
     ],
     "Artigos base": [
