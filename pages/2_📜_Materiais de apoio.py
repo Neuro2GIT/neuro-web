@@ -6,7 +6,7 @@ from docx import Document
 import io
 
 st.set_page_config(
-    page_title="Métodos e técnicas",
+    page_title="Materiais de apoio",
     page_icon="🐭",
     layout="centered",
     initial_sidebar_state="expanded",
