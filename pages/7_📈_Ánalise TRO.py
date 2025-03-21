@@ -3,7 +3,7 @@ import streamlit as st
 
 
 def calcular_indices(df):
-    """Calcula o índice de discriminação e de preferencia para cada animal."""
+    # Calcula os índices de discriminação e de preferencia para cada animal.
     
     df["Discriminação absoluta"] = ((df["Tempo no objeto novo"] - df["Tempo no objeto familiar"]))
                                     
@@ -49,3 +49,13 @@ if uploaded_file is not None:
         with st.expander(f"### {sheet_name}"):
             #st.write(f"### {sheet_name}")
             st.dataframe(df[["ID do animal", "Classe do animal", "Tempo no objeto novo", "Tempo no objeto familiar", "Índice de discriminação", "Índice de preferência", "Discriminação absoluta"]])
+
+    # Criar um arquivo Excel com os resultados
+    with pd.ExcelWriter("resultados_TRO.xlsx", engine="xlsxwriter") as writer:
+        for sheet_name, df in resultados.items():
+            df.to_excel(writer, sheet_name=sheet_name, index=False)
+
+        writer.close()
+        
+    with open("resultados_TRO.xlsx", "rb") as f:
+        st.download_button("Baixar resultados", f, "resultados_TRO.xlsx", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
