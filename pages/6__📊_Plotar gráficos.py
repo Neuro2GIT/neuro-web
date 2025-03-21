@@ -452,11 +452,11 @@ if uploaded_file is not None:
     })
 
     # Transpor o DataFrame para que os dias fiquem na horizontal
-    #df_peso = df_peso.T
+    df_peso = df_peso.T
 
     # Exibir o DataFrame no Streamlit
-    #st.write("Médias de Peso por Dia")
-    #st.dataframe(df_peso)
+    st.write("Médias de Peso por Dia")
+    st.dataframe(df_peso)
 
     # Criar um DataFrame com os dados organizados para o Altair
     #df_peso = pd.DataFrame({
