@@ -2,7 +2,7 @@ import pandas as pd
 import streamlit as st
 
 
-def calcular_indices(df):
+def calcular_indices(ci):
     # Calcula os índices de discriminação e de preferencia para cada animal.
     
     df["Discriminação absoluta"] = ((df["Tempo no objeto novo"] - df["Tempo no objeto familiar"]))
@@ -12,7 +12,7 @@ def calcular_indices(df):
     df["Índice de preferência"] = ((df["Tempo no objeto novo"]) /
                                    (df["Tempo no objeto novo"] + df ["Tempo no objeto familiar"]))
                                    
-    return df
+    return ci
 
 # Configuração do Streamlit
 st.title("Análise do teste comportamental")
@@ -38,9 +38,9 @@ if uploaded_file is not None:
     
     # Iterar sobre as planilhas (Animais CT e Animais DT)
     for sheet_name in xls.sheet_names:
-        df = pd.read_excel(xls, sheet_name=sheet_name)
-        df = calcular_indices(df)
-        resultados[sheet_name] = df
+        ci = pd.read_excel(xls, sheet_name=sheet_name)
+        ci = calcular_indices(ci)
+        resultados[sheet_name] = ci
 
     st.markdown("---")
     
@@ -49,7 +49,7 @@ if uploaded_file is not None:
         with st.expander(f"### {sheet_name}"):
             #st.write(f"### {sheet_name}")           
             st.dataframe(df[["ID do animal", "Classe do animal", "Tempo no objeto novo", "Tempo no objeto familiar", "Índice de discriminação", "Índice de preferência", "Discriminação absoluta"]])
-            df.set_index("ID do animal", inplace=True)
+
             
 
     # Criar um arquivo Excel com os resultados
