@@ -73,7 +73,7 @@ def read_docx_file(file_path):
         full_text.append(para.text)
     return '\n'.join(full_text)
 
-import streamlit as st
+url = "https://repositorio.ufmg.br/bitstream/1843/33624/1/Tese%20vers%c3%a3o%20FINAL.pdf"
 
 # Função principal
 def main():
@@ -90,7 +90,7 @@ def main():
         
         st.title("Preparo de ração")
         url = "https://repositorio.ufmg.br/bitstream/1843/33624/1/Tese%20vers%c3%a3o%20FINAL.pdf"
-        st.markdown('Fonte [dissertação de doutorado]({url})')
+        st.markdown(f'Fonte [dissertação de doutorado]({url})')
 
         st.markdown("---")
         
