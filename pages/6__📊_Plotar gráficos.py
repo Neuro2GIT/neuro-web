@@ -9,6 +9,14 @@ import seaborn as sns
 import plotly.express as px
 import altair as alt
 
+st.set_page_config(
+    page_title="Grupo neuroscience",
+    page_icon="🐭",
+    layout="wide",
+    initial_sidebar_state="auto",
+    menu_items={})
+st.set_option('client.showErrorDetails', True)
+
 # Função para carregar e processar os dados do arquivo Excel
 def carregar_e_processar_excel(uploaded_file):
     df = pd.read_excel(uploaded_file, sheet_name="Pesagem de Animais")
