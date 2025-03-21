@@ -9,8 +9,7 @@ def calcular_indices(df):
                                     
     df["Índice de discriminação"] = ((df["Tempo no objeto novo"] - df["Tempo no objeto familiar"]) /
                                       (df["Tempo no objeto novo"] + df["Tempo no objeto familiar"]))
-    df["Índice de preferência"] = ((df["Tempo no objeto novo"]) /
-                                   (df["Tempo no objeto novo"] + df ["Tempo no objeto familiar"]))
+    df["Índice de preferência"] = ((df["Tempo no objeto novo"]) / (df["Tempo no objeto novo"] + df ["Tempo no objeto familiar"])) * 100
                                    
     return df
 
@@ -23,7 +22,10 @@ url = "https://pmc.ncbi.nlm.nih.gov/articles/PMC5614391/"
 
 with st.expander("Como usar?"):
     st.write("Converta a sua planilha com os resultados do TRO para o modelo ou gere uma nova no gerador de planilhas.")
-    st.write("Usando os tempos de exploração, serão calculados: discriminação absoluta, índice de discriminação e índice de preferência/reconhecimento.")
+    st.write("Usando os tempos de exploração, serão calculados:")
+    st.write("Índice de discriminação: d2 = tnovo - tfamiliar / tnovo + tfamiliar")
+    st.write("Discriminação absoluta: d1 = tnovo - tfamiliar")
+    st.write("Índice de preferência: d3 = tnovo / tnovo + tfamiliar * 100")
     st.markdown(f"[Leia o artigo base]({url})")
 
 with st.container(border=True):
