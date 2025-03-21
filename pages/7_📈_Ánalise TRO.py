@@ -19,7 +19,7 @@ st.title("Análise do teste comportamental")
 
 st.markdown("---")
 
-url = "https://doi.org/10.3791/55718"
+url = "https://pmc.ncbi.nlm.nih.gov/articles/PMC5614391/"
 
 with st.expander("Como usar?"):
     st.write("Converta a sua planilha com os resultados do TRO para o modelo ou gere uma nova no gerador de planilhas.")
