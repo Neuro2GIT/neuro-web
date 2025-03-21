@@ -12,7 +12,7 @@ import altair as alt
 st.set_page_config(
     page_title="Grupo neuroscience",
     page_icon="🐭",
-    layout="wide",
+    layout="centered",
     initial_sidebar_state="auto",
     menu_items={})
 st.set_option('client.showErrorDetails', True)
