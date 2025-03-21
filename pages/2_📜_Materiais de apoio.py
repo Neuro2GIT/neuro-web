@@ -89,18 +89,20 @@ def main():
     if tecnica_selecionada == "Preparo de ração":
         
         st.title("Preparo de ração")
+        url = "https://repositorio.ufmg.br/bitstream/1843/33624/1/Tese%20vers%c3%a3o%20FINAL.pdf"
+        st.markdown(Fonte f"[dissertação de doutorado]({url})")
 
         st.markdown("---")
         
         with st.container(border=True):
-    
+            
             # Expander para "Ingredientes ração"
             with st.expander("Ingredientes"):
-                st.write("Conteúdo sobre os ingredientes da ração CT")
+                st.write("Inserir a figura de ingredientes da ração CT")
 
             # Expander para "Ingredientes ração DT"
             with st.expander("Ingredientes - ração DT"):
-                st.write("Conteúdo sobre os ingredientes da ração DT")
+                st.write("Inserir a figura de ingredientes da ração DT")
 
             # Expander para "Modo de preparo"
             with st.expander("Modo de preparo"):
