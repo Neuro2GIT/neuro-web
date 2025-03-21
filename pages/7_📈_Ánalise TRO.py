@@ -39,7 +39,7 @@ if uploaded_file is not None:
     # Iterar sobre as planilhas (Animais CT e Animais DT)
     for sheet_name in xls.sheet_names:
         df = pd.read_excel(xls, sheet_name=sheet_name)
-        df = calcular_indices(ci)
+        df = calcular_indices(df)
         resultados[sheet_name] = df
 
     st.markdown("---")
