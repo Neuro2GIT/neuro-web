@@ -441,15 +441,15 @@ if uploaded_file is not None:
             st.dataframe(df_medias_gerais)
 
     # Chamar a função que retorna os dados processados
-    #resultados = carregar_e_processar_excel(uploaded_file)
+    resultados = carregar_e_processar_excel(uploaded_file)
 
     # Criar DataFrame a partir das médias de peso
-    #df_peso = pd.DataFrame({
-        #"CT": resultados["medias_peso_ct"],
-        #"DT": resultados["medias_peso_dt"],
-        #"Erro Padrão CT": resultados["erro_padrao_peso_ct"],
-        #"Erro Padrão DT": resultados["erro_padrao_peso_dt"]
-    #})
+    df_peso = pd.DataFrame({
+        "CT": resultados["medias_peso_ct"],
+        "DT": resultados["medias_peso_dt"],
+        "Erro Padrão CT": resultados["erro_padrao_peso_ct"],
+        "Erro Padrão DT": resultados["erro_padrao_peso_dt"]
+    })
 
     # Transpor o DataFrame para que os dias fiquem na horizontal
     #df_peso = df_peso.T
