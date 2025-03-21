@@ -2,7 +2,7 @@ import pandas as pd
 import streamlit as st
 
 
-def calcular_indice_discriminacao(df):
+def calcular_indices(df):
     """Calcula o índice de discriminação e de preferencia para cada animal."""
     
     df["Discriminação absoluta"] = ((df["Tempo no objeto novo"] - df["Tempo no objeto familiar"]))
@@ -39,7 +39,7 @@ if uploaded_file is not None:
     # Iterar sobre as planilhas (Animais CT e Animais DT)
     for sheet_name in xls.sheet_names:
         df = pd.read_excel(xls, sheet_name=sheet_name)
-        df = calcular_indice_discriminacao(df)
+        df = calcular_indices(df)
         resultados[sheet_name] = df
 
     st.markdown("---")
