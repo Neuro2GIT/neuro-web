@@ -111,7 +111,7 @@ def main():
     for theme, dois in themes.items():
         with st.container(border=True):
             st.subheader(theme)  # Exibir o nome do tema como um subtítulo
-            st.write("")
+            st.markdown("<br><br>", unsafe_allow_html=True)
             #st.markdown("---")  # Linha separadora para melhor organização
             
             for doi in dois:
