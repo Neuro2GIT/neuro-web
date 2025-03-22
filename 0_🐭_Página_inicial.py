@@ -111,8 +111,8 @@ def main():
     for theme, dois in themes.items():
         with st.container(border=True):
             st.subheader(theme)  # Exibir o nome do tema como um subtítulo
-            st.markdown("<br><br>", unsafe_allow_html=True)
             #st.markdown("---")  # Linha separadora para melhor organização
+        st.markdown("<br><br>", unsafe_allow_html=True)
             
             for doi in dois:
                 title, authors, published_year, url, pdf_link = get_doi_info(doi)
