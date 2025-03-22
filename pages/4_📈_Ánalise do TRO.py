@@ -27,7 +27,7 @@ st.markdown("---")
 
 url = "https://pmc.ncbi.nlm.nih.gov/articles/PMC5614391/"
 
-with st.expander("Como usar?"):
+with st.expander("Como funciona?"):
     st.write("Converta a sua planilha com os resultados do TRO para o modelo ou gere uma nova no gerador de planilhas. Usando os tempos de exploração, serão calculados:")
     st.write("Índice de discriminação: d2 = tnovo - tfamiliar / tnovo + tfamiliar")
     st.write("Discriminação absoluta: d1 = tnovo - tfamiliar")
