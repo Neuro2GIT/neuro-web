@@ -4,13 +4,12 @@ import streamlit as st
 
 def calcular_indices(df):
     # Calcula os índices de discriminação e de preferencia para cada animal.
-    
     df["Discriminação absoluta"] = ((df["Tempo no objeto novo"] - df["Tempo no objeto familiar"]))
                                     
     df["Índice de discriminação"] = ((df["Tempo no objeto novo"] - df["Tempo no objeto familiar"]) /
                                       (df["Tempo no objeto novo"] + df["Tempo no objeto familiar"]))
-    df["Índice de preferência"] = ((df["Tempo no objeto novo"]) / (df["Tempo no objeto novo"] + df ["Tempo no objeto familiar"])) * 100
-                                   
+    
+    df["Índice de preferência"] = ((df["Tempo no objeto novo"]) / (df["Tempo no objeto novo"] + df ["Tempo no objeto familiar"])) * 100                        
     return df
 
 # Configuração do Streamlit
@@ -50,8 +49,6 @@ if uploaded_file is not None:
         with st.expander(f"### {sheet_name}"):
             #st.write(f"### {sheet_name}")           
             st.dataframe(df[["ID", "Classe do animal", "Tempo no objeto novo", "Tempo no objeto familiar", "Índice de discriminação", "Índice de preferência", "Discriminação absoluta"]])
-
-            
 
     # Criar um arquivo Excel com os resultados
     with pd.ExcelWriter("resultados_TRO.xlsx", engine="xlsxwriter") as writer:
