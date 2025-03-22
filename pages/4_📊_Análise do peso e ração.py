@@ -430,7 +430,10 @@ if uploaded_file is not None:
     with st.expander("Peso dos animais e consumo de ração"):
         with st.container(border=True):
             st.write("Peso dos animais")
-            st.write(pd.concat([dados["df_ct"], dados["df_dt"]]))
+            df_peso_animais = pd.concat([dados["df_ct"], dados["df_dt"]])
+            df_peso_animais.set_index("ID", inplace=True)  # Substitua "ID" pela sua coluna de índice
+            st.write(df_peso_animais)
+            #st.write(pd.concat([dados["df_ct"], dados["df_dt"]]))
 
         with st.container(border=True):
             st.write("Consumo de ração por caixa")
