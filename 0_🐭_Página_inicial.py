@@ -127,7 +127,7 @@ def main():
                         if pdf_link:
                             st.markdown(f"[Baixar PDF]({pdf_link})")
 
-            st.markdown("<br><br>", unsafe_allow_html=True)
+        st.markdown("<br><br>", unsafe_allow_html=True)
 
                          #LINK DA TESE DO PROFESSOR: http://hdl.handle.net/1843/33624 PDF: https://repositorio.ufmg.br/bitstream/1843/33624/1/Tese%20vers%c3%a3o%20FINAL.pdf
                     
