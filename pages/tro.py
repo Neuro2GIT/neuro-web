@@ -62,7 +62,8 @@ if uploaded_file is not None:
     
     # Exibir os resultados usando o método exibir_resultados
     for resultado in resultados:
-        resultado.exibir_resultados()
+        with st.expander("Peso dos animais e consumo de ração"):
+            resultado.exibir_resultados()
 
     # Criar um arquivo Excel com os resultados
     with pd.ExcelWriter("resultados_TRO.xlsx", engine="xlsxwriter") as writer:
