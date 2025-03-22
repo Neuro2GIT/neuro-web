@@ -47,8 +47,10 @@ if uploaded_file is not None:
     # Exibir os resultados
     for sheet_name, df in resultados.items():
         with st.expander(f"### {sheet_name}"):
+            # Definir "ID" como índice para associar aos dados
+            df.set_index("ID", inplace=True)
             #st.write(f"### {sheet_name}")           
-            st.dataframe(df[["ID", "Classe do animal", "Tempo no objeto novo", "Tempo no objeto familiar", "Índice de discriminação", "Índice de preferência", "Discriminação absoluta"]])
+            st.dataframe(df[["Classe do animal", "Tempo no objeto novo", "Tempo no objeto familiar", "Índice de discriminação", "Índice de preferência", "Discriminação absoluta"]])
 
     # Criar um arquivo Excel com os resultados
     with pd.ExcelWriter("resultados_TRO.xlsx", engine="xlsxwriter") as writer:
