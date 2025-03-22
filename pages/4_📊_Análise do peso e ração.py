@@ -444,7 +444,9 @@ if uploaded_file is not None:
 
         with st.container(border=True):
             st.write("Média geral de consumo de ração por grupo")
+            df_medias_gerais.set_index("Grupo", inplace=True)
             st.dataframe(df_medias_gerais)
+            #st.dataframe(df_medias_gerais)
 
     # Chamar a função que retorna os dados processados
     #resultados = carregar_e_processar_excel(uploaded_file)
