@@ -1,0 +1,66 @@
+import pandas as pd
+import streamlit as st
+
+# Classe simples para armazenar os resultados de cada planilha
+class ResultadoAnimal:
+    def __init__(self, df, nome_planilha):
+        self.df = df
+        self.nome_planilha = nome_planilha
+
+# Função para calcular os índices
+def calcular_indices(df):
+    # Calcula os índices de discriminação e de preferência para cada animal.
+    df["Discriminação absoluta"] = ((df["Tempo no objeto novo"] - df["Tempo no objeto familiar"]))
+    df["Índice de discriminação"] = ((df["Tempo no objeto novo"] - df["Tempo no objeto familiar"]) /
+                                      (df["Tempo no objeto novo"] + df["Tempo no objeto familiar"]))
+    df["Índice de preferência"] = ((df["Tempo no objeto novo"]) / (df["Tempo no objeto novo"] + df ["Tempo no objeto familiar"])) * 100
+    return df
+
+# Configuração do Streamlit
+st.title("Análise do teste comportamental")
+
+st.markdown("---")
+
+url = "https://pmc.ncbi.nlm.nih.gov/articles/PMC5614391/"
+
+with st.expander("Como usar?"):
+    st.write("Converta a sua planilha com os resultados do TRO para o modelo ou gere uma nova no gerador de planilhas. Usando os tempos de exploração, serão calculados:")
+    st.write("Índice de discriminação: d2 = tnovo - tfamiliar / tnovo + tfamiliar")
+    st.write("Discriminação absoluta: d1 = tnovo - tfamiliar")
+    st.write("Índice de preferência: d3 = tnovo / tnovo + tfamiliar * 100")
+    st.markdown(f"[Leia o artigo base]({url})")
+
+with st.container(border=True):
+    uploaded_file = st.file_uploader("Selecione um arquivo excel (.xlsx)", type=["xlsx"])
+
+if uploaded_file is not None:
+    # Ler o arquivo Excel
+    xls = pd.ExcelFile(uploaded_file)
+
+    # Lista para armazenar os objetos de resultados
+    resultados = []
+
+    # Iterar sobre as planilhas (Animais CT e Animais DT)
+    for sheet_name in xls.sheet_names:
+        df = pd.read_excel(xls, sheet_name=sheet_name)
+        df = calcular_indices(df)
+        # Criar o objeto ResultadoAnimal e adicionar à lista de resultados
+        resultado = ResultadoAnimal(df, sheet_name)
+        resultados.append(resultado)
+
+    st.markdown("---")
+    
+    # Exibir os resultados de forma simples
+    for resultado in resultados:
+        st.write(f"### {resultado.nome_planilha}")
+        st.dataframe(resultado.df[["ID", "Classe do animal", "Tempo no objeto novo", 
+                                    "Tempo no objeto familiar", "Índice de discriminação", 
+                                    "Índice de preferência", "Discriminação absoluta"]])
+
+    # Criar um arquivo Excel com os resultados
+    with pd.ExcelWriter("resultados_TRO.xlsx", engine="xlsxwriter") as writer:
+        for resultado in resultados:
+            resultado.df.to_excel(writer, sheet_name=resultado.nome_planilha, index=False)
+
+    with open("resultados_TRO.xlsx", "rb") as f:
+        st.download_button("Baixar resultados", f, "resultados_TRO.xlsx", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
