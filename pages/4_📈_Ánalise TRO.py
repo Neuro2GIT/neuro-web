@@ -2,6 +2,14 @@ import pandas as pd
 import streamlit as st
 
 
+st.set_page_config(
+    page_title="Análise do TRO",
+    page_icon="🐭",
+    layout="centered",
+    initial_sidebar_state="auto",
+    menu_items={})
+st.set_option('client.showErrorDetails', True)
+
 def calcular_indices(df):
     # Calcula os índices de discriminação e de preferencia para cada animal.
     df["Discriminação absoluta"] = ((df["Tempo no objeto novo"] - df["Tempo no objeto familiar"]))
