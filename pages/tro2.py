@@ -64,3 +64,39 @@ if uploaded_file is not None:
 
     with open("resultados_TRO.xlsx", "rb") as f:
         st.download_button("Baixar resultados", f, "resultados_TRO.xlsx", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
+
+def grafico_radar(df, animal_id):
+    # Selecionar os índices para o animal com ID específico
+    animal_data = df[df["ID"] == animal_id][["Índice de discriminação", 
+                                               "Discriminação absoluta", 
+                                               "Índice de preferência"]].values.flatten()
+
+    # Definir os labels e os valores do gráfico
+    categories = ["Índice de discriminação", "Discriminação absoluta", "Índice de preferência"]
+    
+    # Ajustar o gráfico de radar
+    angles = np.linspace(0, 2 * np.pi, len(categories), endpoint=False).tolist()
+    animal_data = np.concatenate((animal_data, [animal_data[0]]))  # Fechar o gráfico
+    angles += angles[:1]  # Fechar o gráfico no final
+    
+    fig, ax = plt.subplots(figsize=(6, 6), dpi=80, subplot_kw=dict(polar=True))
+    ax.fill(angles, animal_data, color='blue', alpha=0.25)
+    ax.plot(angles, animal_data, color='blue', linewidth=2)
+    
+    ax.set_yticklabels([])  # Remove as labels no eixo radial
+    ax.set_xticks(angles[:-1])
+    ax.set_xticklabels(categories)
+    
+    ax.set_title(f"Perfil de {animal_id} nos Índices Comportamentais")
+    
+    st.pyplot(fig)
+
+# Dentro do loop de visualização de resultados:
+for sheet_name, df in resultados.items():
+    with st.expander(f"### {sheet_name}"):
+        st.dataframe(df[["ID", "Classe do animal", "Tempo no objeto novo", 
+                         "Tempo no objeto familiar", "Índice de discriminação", 
+                         "Índice de preferência", "Discriminação absoluta"]])
+        
+        # Exemplo: Adicionar gráfico de radar para o animal com ID específico (por exemplo, 'A01')
+        grafico_radar(df, 'A01')
