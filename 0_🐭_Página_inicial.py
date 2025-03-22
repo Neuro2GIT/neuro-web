@@ -106,14 +106,13 @@ def main():
             for section_title, section_content in content.items():
                 st.markdown(f"**{section_title}**")
                 st.markdown(section_content)
+        st.write("")
     
     # Iterar pelos temas e artigos
     for theme, dois in themes.items():
         with st.container(border=True):
             st.subheader(theme)  # Exibir o nome do tema como um subtítulo
             #st.markdown("---")  # Linha separadora para melhor organização
-        
-        st.write("")
             
         for doi in dois:
             title, authors, published_year, url, pdf_link = get_doi_info(doi)
