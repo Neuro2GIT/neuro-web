@@ -31,20 +31,20 @@ def carregar_e_processar_excel(uploaded_file):
     df_racao_dt = df_racao[df_racao['Classe da Caixa'] == 'DT']
 
     # Calculo da média do peso e erro padrão para animais CT
-    medias_peso_ct = df_ct.iloc[:, 2:].mean(numeric_only=True)
-    erro_padrao_peso_ct = df_ct.iloc[:, 2:].std() / np.sqrt(df_ct.shape[0])
+    medias_peso_ct = df_ct.iloc[:, 2:20].mean() #numeric_only=True
+    erro_padrao_peso_ct = df_ct.iloc[:, 2:20].std() / np.sqrt(df_ct.shape[0])
 
     # Calculo da média do peso e erro padrão para animais DT
-    medias_peso_dt = df_dt.iloc[:, 2:].mean(numeric_only=True)
-    erro_padrao_peso_dt = df_dt.iloc[:, 2:].std() / np.sqrt(df_dt.shape[0])
+    medias_peso_dt = df_dt.iloc[:, 2:20].mean()
+    erro_padrao_peso_dt = df_dt.iloc[:, 2:20].std() / np.sqrt(df_dt.shape[0])
 
     # Calculo da média do consumo de ração CT e DT
-    medias_racao_ct = df_racao_ct.iloc[:, 2:].mean(numeric_only=True)
-    medias_racao_dt = df_racao_dt.iloc[:, 2:].mean(numeric_only=True)
+    medias_racao_ct = df_racao_ct.iloc[:, 2:20].mean()
+    medias_racao_dt = df_racao_dt.iloc[:, 2:20].mean()
 
     # Cálculo da média geral do consumo de ração CT e DT
-    media_geral_racao_ct = medias_racao_ct.mean(numeric_only=True)
-    media_geral_racao_dt = medias_racao_dt.mean(numeric_only=True)
+    media_geral_racao_ct = medias_racao_ct.mean()
+    media_geral_racao_dt = medias_racao_dt.mean()
 
     # Dicionário com o resultado dos dados processados
     return {
