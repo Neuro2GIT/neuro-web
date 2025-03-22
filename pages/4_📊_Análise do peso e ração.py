@@ -431,13 +431,16 @@ if uploaded_file is not None:
         with st.container(border=True):
             st.write("Peso dos animais")
             df_peso_animais = pd.concat([dados["df_ct"], dados["df_dt"]])
-            df_peso_animais.set_index("ID", inplace=True)  # Substitua "ID" pela sua coluna de índice
+            df_peso_animais.set_index("ID do Animal", inplace=True)
             st.write(df_peso_animais)
             #st.write(pd.concat([dados["df_ct"], dados["df_dt"]]))
 
         with st.container(border=True):
             st.write("Consumo de ração por caixa")
-            st.write(pd.concat([dados["df_racao_ct"], dados["df_racao_dt"]]))
+            df_racao = pd.concat([dados["df_racao_ct"], dados["df_racao_dt"]])
+            df_racao.set_index("ID da Caixa", inplace=True)
+            st.write(df_racao)
+            #st.write(pd.concat([dados["df_racao_ct"], dados["df_racao_dt"]]))
 
         with st.container(border=True):
             st.write("Média geral de consumo de ração por grupo")
