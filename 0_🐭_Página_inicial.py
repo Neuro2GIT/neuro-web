@@ -106,6 +106,7 @@ def main():
             for section_title, section_content in content.items():
                 st.markdown(f"**{section_title}**")
                 st.markdown(section_content)
+            st.write("")
     
     # Iterar pelos temas e artigos
     for theme, dois in themes.items():
