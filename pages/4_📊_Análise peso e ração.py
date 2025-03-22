@@ -10,8 +10,8 @@ import plotly.express as px
 import altair as alt
 
 st.set_page_config(
-    page_title="Grupo neuroscience",
-    page_icon="🐭",
+    page_title="Análise de peso e ração",
+    page_icon="⚖️",
     layout="centered",
     initial_sidebar_state="auto",
     menu_items={})
