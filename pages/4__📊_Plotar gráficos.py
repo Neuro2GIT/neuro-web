@@ -430,7 +430,7 @@ if uploaded_file is not None:
     with st.expander("Peso dos animais e consumo de ração"):
         with st.container(border=True):
             st.write("Peso dos animais")
-            df.set_index("ID do Animal", inplace=True)
+            dados.set_index("ID do Animal", inplace=True)
             st.write(pd.concat([dados["df_ct"], dados["df_dt"]]))
 
         with st.container(border=True):
