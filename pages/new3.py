@@ -11,8 +11,8 @@ def processar_peso(uploaded_file):
     df_dt = df[df['Classe do Animal'] == 'DT']
 
     # Garantir que as colunas de peso a partir da 3ª coluna sejam numéricas (ignorando erros)
-    df_ct.iloc[:, 2:] = df_ct.iloc[:, 2:].apply(pd.to_numeric, errors='coerce')
-    df_dt.iloc[:, 2:] = df_dt.iloc[:, 2:].apply(pd.to_numeric, errors='coerce')
+    #df_ct.iloc[:, 2:] = df_ct.iloc[:, 2:].apply(pd.to_numeric, errors='coerce')
+    #df_dt.iloc[:, 2:] = df_dt.iloc[:, 2:].apply(pd.to_numeric, errors='coerce')
 
     # Cálculo da média do peso e erro padrão para animais CT
     medias_peso_ct = df_ct.iloc[:, 2:].mean()  # Médias para CT
