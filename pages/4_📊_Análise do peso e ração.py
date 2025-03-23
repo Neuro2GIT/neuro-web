@@ -542,6 +542,21 @@ with open(arquivo, "rb") as file:
             df_medias_gerais.set_index("Grupo", inplace=True)
             st.dataframe(df_medias_gerais)
 
+# Criar o DataFrame usando a variável `dados`
+df_resultado = pd.DataFrame({
+    "Média Peso CT": dados["medias_peso_ct"],
+    "Erro Padrão Peso CT": dados["erro_padrao_peso_ct"],
+    "Média Peso DT": dados["medias_peso_dt"],
+    "Erro Padrão Peso DT": dados["erro_padrao_peso_dt"]
+})
+
+# Transpor para que as métricas fiquem nas linhas e os dias/observações nas colunas
+df_resultado = df_resultado.T
+
+# Exibir o DataFrame no Streamlit
+st.write("Média e Erro Padrão de Peso por Dia/Observação")
+st.dataframe(df_resultado)
+
     # Chamar a função que retorna os dados processados
     #resultados = carregar_e_processar_excel(uploaded_file)
 
