@@ -64,14 +64,9 @@ if uploaded_file:
     resultados_peso = processar_peso(uploaded_file)
     resultados_racao = processar_consumo_racao(uploaded_file)
 
-    # Exibir a função principal (resultado completo)
-    with st.expander("Peso dos animais"):
-        df_peso = pd.concat([resultados_peso["df_ct"], resultados_peso["df_dt"]])
-        df_peso.set_index("ID do Animal", inplace=True)
-        st.dataframe(df_peso)
-
     # Exibir resumo das médias gerais usando DataFrame
-    with st.container(border=True):
+    
+        with st.container(border=True):
             st.write("Média geral de consumo de ração por grupo")
             df_medias_gerais = pd.DataFrame({"Grupo": ["CT", "DT"],"Média do consumo de ração": [resultados_racao["media_geral_racao_ct"],resultados_racao["media_geral_racao_dt"]]})
             df_medias_gerais.set_index("Grupo", inplace=True)
