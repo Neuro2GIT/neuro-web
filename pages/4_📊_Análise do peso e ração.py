@@ -486,7 +486,24 @@ if uploaded_file is not None:
             st.write("Média geral de consumo de ração por grupo")
             df_medias_gerais.set_index("Grupo", inplace=True)
             st.dataframe(df_medias_gerais)
-            #st.dataframe(df_medias_gerais)
+
+    # Exibindo as médias e erros padrão
+st.subheader("Médias e Erros Padrão")
+st.write(f"**Médias do Peso CT:** {resultados['medias_peso_ct']}")
+st.write(f"**Erro Padrão Peso CT:** {resultados['erro_padrao_peso_ct']}")
+st.write(f"**Médias do Peso DT:** {resultados['medias_peso_dt']}")
+st.write(f"**Erro Padrão Peso DT:** {resultados['erro_padrao_peso_dt']}")
+
+# Exibindo os DataFrames
+st.subheader("DataFrames CT e DT")
+
+# Exibindo o DataFrame 'df_ct'
+st.write("**DataFrame CT:**")
+st.dataframe(resultados['df_ct'])
+
+# Exibindo o DataFrame 'df_dt'
+st.write("**DataFrame DT:**")
+st.dataframe(resultados['df_dt'])
 
     # Chamar a função que retorna os dados processados
     #resultados = carregar_e_processar_excel(uploaded_file)
