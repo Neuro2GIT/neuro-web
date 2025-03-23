@@ -455,11 +455,11 @@ if uploaded_file is not None:
     # Cria um botão para download do arquivo Excel gerado
     with open(arquivo, "rb") as file:
         #st.download_button(
-            label="Fazer download - dados processados",
-            data=file,
-            file_name=arquivo,
-            mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-        )
+            #label="Fazer download - dados processados",
+            #data=file,
+            #file_name=arquivo,
+            #mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+        #)
 
 st.write("Selecione abaixo para navegar entre as opções")
 
