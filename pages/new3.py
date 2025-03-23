@@ -87,6 +87,27 @@ if uploaded_file:
     df_racao = pd.concat([resultados_racao["df_racao_ct"], resultados_racao["df_racao_dt"]])
     df_racao.set_index("Classe da Caixa", inplace=True)
     st.write(df_racao)
+
+    st.subheader ("Tabelas com os dados brutos")
+    with st.expander("Peso dos animais e consumo de ração"):
+        with st.container(border=True):
+            st.write("Peso dos animais")
+            df_peso_animais = pd.concat([dados["df_ct"], dados["df_dt"]])
+            df_peso_animais.set_index("ID do Animal", inplace=True)
+            st.write(df_peso_animais)
+            #st.write(pd.concat([dados["df_ct"], dados["df_dt"]]))
+
+        with st.container(border=True):
+            st.write("Consumo de ração por caixa")
+            df_racao = pd.concat([dados["df_racao_ct"], dados["df_racao_dt"]])
+            df_racao.set_index("ID da Caixa", inplace=True)
+            st.write(df_racao)
+            #st.write(pd.concat([dados["df_racao_ct"], dados["df_racao_dt"]]))
+
+        with st.container(border=True):
+            st.write("Média geral de consumo de ração por grupo")
+            df_medias_gerais.set_index("Grupo", inplace=True)
+            st.dataframe(df_medias_gerais)
     
     #df_media_geral = pd.DataFrame({'Classe': ['CT', 'DT'], 'Média Geral': [media_geral_racao_ct, media_geral_racao_dt]})
     #df_media_geral.set_index("Classe da Caixa", implace=True)
