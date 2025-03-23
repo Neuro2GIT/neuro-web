@@ -54,12 +54,6 @@ def processar_consumo_racao(uploaded_file):
         "media_geral_racao_dt": media_geral_racao_dt,
     }
 
-def carregar_e_processar_excel(uploaded_file):
-    resultado_peso = processar_peso(uploaded_file)
-    resultado_racao = processar_consumo_racao(uploaded_file)
-    resultado_completo = {**resultado_peso, **resultado_racao}
-    return resultado_completo
-
 # Interface Streamlit
 st.title("Análise de Pesagem e Consumo de Ração")
 
