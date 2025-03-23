@@ -446,7 +446,10 @@ if uploaded_file is not None:
         ]
     })
 
-    with st.expander("Dados processados"):
+    st.markdown("---")
+
+    st.subheader ("Tabelas com os dados processados")
+    with st.expander("Médias, erro padrão e consumo de ração"):
         with st.container(border=True):
             st.write("Média geral de consumo de ração por grupo")
             df_medias_gerais.set_index("Grupo", inplace=True)
