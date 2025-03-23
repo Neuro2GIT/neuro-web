@@ -96,17 +96,16 @@ if uploaded_file:
     st.write("Média de consumo de ração para classe DT:")
     st.dataframe(resultado_racao["df_racao_dt"])
     
-    # Exibir resumo das médias gerais
+    # Exibir resumo das médias gerais usando DataFrame
     st.subheader("Médias Gerais de Consumo de Ração")
-    # Criar DataFrame para consumo geral de ração
     df_medias_gerais = pd.DataFrame({
         "Grupo": ["CT", "DT"],
         "Média do consumo de ração": [
-            resultado_racao["media_geral_racao_ct"],  # Usando a variável 'dados' para acessar a média
-            resultado_racao["media_geral_racao_dt"]   # Usando a variável 'dados' para acessar a média
+            resultado_racao["media_geral_racao_ct"],
+            resultado_racao["media_geral_racao_dt"]
         ]
     })
+    st.dataframe(df_medias_gerais)
     #df_media_geral = pd.DataFrame({'Classe': ['CT', 'DT'], 'Média Geral': [media_geral_racao_ct, media_geral_racao_dt]})
     #df_media_geral.set_index("Classe da Caixa", implace=True)
-    st.dataframe(df_medias_gerais)
     #st.dataframe(f"Média geral de ração para CT: {resultado_racao['media_geral_racao_ct']}")
