@@ -60,6 +60,23 @@ def carregar_e_processar_excel(uploaded_file):
         "Erro Padrão Peso DT": erro_padrao_peso_dt
     }).T
 
+    # Criar DataFrame com as médias e erros padrões de peso
+    df_medias_e_erros = pd.DataFrame({
+    "Grupo": ["CT", "DT"],
+    "Média Peso": [
+        dados["medias_peso_ct"].mean(),  # Média do peso para CT
+        dados["medias_peso_dt"].mean()   # Média do peso para DT
+    ],
+    "Erro Padrão Peso": [
+        dados["erro_padrao_peso_ct"],  # Erro padrão do peso para CT
+        dados["erro_padrao_peso_dt"]   # Erro padrão do peso para DT
+    ]
+    })
+
+    # Exibir o DataFrame com Streamlit
+    st.write("Média e Erro Padrão de Peso por Dia/Observação")
+    st.dataframe(df_resultado)
+
 # Função para gerar um arquivo Excel com os dados processados
 def gerar_arquivo_excel(dados):
     with pd.ExcelWriter("dados_processados.xlsx") as writer:
@@ -525,22 +542,6 @@ with open(arquivo, "rb") as file:
             df_medias_gerais.set_index("Grupo", inplace=True)
             st.dataframe(df_medias_gerais)
 
-# Criar DataFrame com as médias e erros padrões de peso
-df_medias_e_erros = pd.DataFrame({
-    "Grupo": ["CT", "DT"],
-    "Média Peso": [
-        dados["medias_peso_ct"].mean(),  # Média do peso para CT
-        dados["medias_peso_dt"].mean()   # Média do peso para DT
-    ],
-    "Erro Padrão Peso": [
-        dados["erro_padrao_peso_ct"],  # Erro padrão do peso para CT
-        dados["erro_padrao_peso_dt"]   # Erro padrão do peso para DT
-    ]
-    })
-
-# Exibir o DataFrame com Streamlit
-st.write("Média e Erro Padrão de Peso por Dia/Observação")
-st.dataframe(df_resultado)
     # Chamar a função que retorna os dados processados
     #resultados = carregar_e_processar_excel(uploaded_file)
 
