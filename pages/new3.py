@@ -91,7 +91,7 @@ if uploaded_file:
     # Exibir DataFrame com o consumo de ração (por classe)
     st.write("Consumo de ração por caixa")
     df_racao = pd.concat([resultado_racao["df_racao_ct"], resultado_racao["df_racao_dt"]])
-    df_racao.set_index("Grupo", inplace=True)
+    df_racao.set_index("Classe da caixa", inplace=True)
     st.write(df_racao)
     
     # Exibir resumo das médias gerais usando DataFrame
