@@ -516,7 +516,7 @@ if uploaded_file is not None:
     })
     df_errpadrao = df_errpadrao.T # Transpor para que as métricas fiquem nas linhas e os dias/observações nas colunas
     st.write("Erro padrão")
-    st.dataframe(errpadrao)
+    st.dataframe(df_errpadrao)
 
     st.markdown("---")
 
