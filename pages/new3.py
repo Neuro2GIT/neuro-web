@@ -10,10 +10,6 @@ def processar_peso(uploaded_file):
     df_ct = df[df['Classe do Animal'] == 'CT']
     df_dt = df[df['Classe do Animal'] == 'DT']
 
-    # Garantir que as colunas de peso a partir da 3ª coluna sejam numéricas (ignorando erros)
-    #df_ct.iloc[:, 2:] = df_ct.iloc[:, 2:].apply(pd.to_numeric, errors='coerce')
-    #df_dt.iloc[:, 2:] = df_dt.iloc[:, 2:].apply(pd.to_numeric, errors='coerce')
-
     # Cálculo da média do peso e erro padrão para animais CT
     medias_peso_ct = df_ct.iloc[:, 2:].mean()  # Médias para CT
     erro_padrao_peso_ct = df_ct.iloc[:, 2:].std() / np.sqrt(df_ct.shape[0])  # Erro padrão para CT
@@ -61,7 +57,6 @@ def processar_consumo_racao(uploaded_file):
 def carregar_e_processar_excel(uploaded_file):
     resultado_peso = processar_peso(uploaded_file)
     resultado_racao = processar_consumo_racao(uploaded_file)
-    consumo_racao = consumo_bruto_racao(uploaded_file)
     resultado_completo = {**resultado_peso, **resultado_racao}
     return resultado_completo
 
@@ -74,21 +69,12 @@ if uploaded_file:
     # Processar os dados
     resultado_peso = processar_peso(uploaded_file)
     resultado_racao = processar_consumo_racao(uploaded_file)
-    consumo_racao = consumo_bruto_racao(uploaded_file)
 
     # Exibir a função principal (resultado completo)
     with st.expander("Peso dos animais"):
         df_peso = pd.concat([resultado_peso["df_ct"], resultado_peso["df_dt"]])
         df_peso.set_index("ID do Animal", inplace=True)
         st.dataframe(df_peso)
-    
-    # Exibir DataFrame com as médias e erros padrão de peso (por classe)
-    #st.subheader("Resultado - Peso dos Animais")
-    #st.write("Médias e erro padrão do peso para animais CT:")
-    #st.dataframe(resultado_peso["df_ct"])
-
-    #st.write("Médias e erro padrão do peso para animais DT:")
-    #st.dataframe(resultado_peso["df_dt"])
 
     # Exibir resumo das médias gerais usando DataFrame
     st.write("Médias Gerais de Consumo de Ração")
@@ -104,7 +90,7 @@ if uploaded_file:
 
     # Exibir dados brutos do consumo das caixas
     st.write("Consumo de ração por caixa")
-    df_racao = pd.concat([consumo_racao["df_racao_ct"], consumo_racao["df_racao_dt"]])
+    df_racao = pd.concat([resultado_racao["df_racao_ct"], resultado_racao["df_racao_dt"]])
     df_racao.set_index("Classe da Caixa", inplace=True)
     st.write(df_racao)
     
