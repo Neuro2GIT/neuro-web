@@ -75,6 +75,8 @@ if uploaded_file:
             df_medias_gerais.set_index("Grupo", inplace=True)
             st.dataframe(df_medias_gerais)
 
+    st.markdown("---")
+
     # Exibir dados brutos do consumo das caixas
     st.subheader ("Tabelas com os dados brutos")
     with st.expander("Peso dos animais e consumo de ração"):
