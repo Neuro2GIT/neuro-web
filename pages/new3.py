@@ -33,11 +33,18 @@ def processar_peso(uploaded_file):
     }
 
 def processar_consumo_racao(uploaded_file):
+
     df_racao = pd.read_excel(uploaded_file, sheet_name="Consumo de Ração")
+    
+    # Filtragem dos dados por classe de caixa
     df_racao_ct = df_racao[df_racao['Classe da Caixa'] == 'CT']
     df_racao_dt = df_racao[df_racao['Classe da Caixa'] == 'DT']
+    
+    # Cálculo da média de consumo para cada dia
     medias_racao_ct = df_racao_ct.iloc[:, 2:].mean()
     medias_racao_dt = df_racao_dt.iloc[:, 2:].mean()
+
+    # Cálculo da média geral de consumo para cada grupo
     media_geral_racao_ct = medias_racao_ct.mean()
     media_geral_racao_dt = medias_racao_dt.mean()
 
@@ -48,9 +55,7 @@ def processar_consumo_racao(uploaded_file):
         "media_geral_racao_ct": media_geral_racao_ct,
         "media_geral_racao_dt": media_geral_racao_dt,
         "df_racao_ct": df_racao_ct, 
-        "df_racao_dt": df_racao_dt,
-        "df_med_ct": media_geral_racao_ct,
-        "df_med_dt": media_geral_racao_dt
+        "df_racao_dt": df_racao_dt
     }
 
 def carregar_e_processar_excel(uploaded_file):
