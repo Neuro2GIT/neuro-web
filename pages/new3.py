@@ -64,8 +64,10 @@ if uploaded_file:
     resultados_peso = processar_peso(uploaded_file)
     resultados_racao = processar_consumo_racao(uploaded_file)
 
+    st.markdown("---")
+
     # Exibir resumo das médias gerais usando DataFrame
-    st.subheader ("Tabelas com os dados dados calculados")
+    st.subheader ("Tabelas com os dados calculados")
     with st.expander("Peso dos animais e consumo de ração"):
         with st.container(border=True):
             st.write("Média geral de consumo de ração por grupo")
@@ -73,8 +75,6 @@ if uploaded_file:
             df_medias_gerais.set_index("Grupo", inplace=True)
             st.dataframe(df_medias_gerais)
 
-    st.markdown("---")
-    
     # Exibir dados brutos do consumo das caixas
     st.subheader ("Tabelas com os dados brutos")
     with st.expander("Peso dos animais e consumo de ração"):
