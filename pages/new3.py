@@ -73,6 +73,8 @@ if uploaded_file:
             df_medias_gerais.set_index("Grupo", inplace=True)
             st.dataframe(df_medias_gerais)
 
+    st.markdown("---")
+    
     # Exibir dados brutos do consumo das caixas
     st.subheader ("Tabelas com os dados brutos")
     with st.expander("Peso dos animais e consumo de ração"):
@@ -82,6 +84,8 @@ if uploaded_file:
             df_peso_animais.set_index("Classe do Animal", inplace=True)
             st.write(df_peso_animais)
             #st.write(pd.concat([dados["df_ct"], dados["df_dt"]]))
+
+    st.markdown("---")
 
         with st.container(border=True):
             st.write("Consumo de ração por caixa")
