@@ -67,6 +67,11 @@ if uploaded_file:
     resultado_racao = processar_consumo_racao(uploaded_file)
     resultado_completo = carregar_e_processar_excel(uploaded_file)
 
+    # Exibir a função principal (resultado completo)
+    st.subheader("Resultado Completo - Peso e Consumo de Ração")
+    st.write("Médias e erros padrões de peso e consumo de ração combinados:")
+    st.dataframe(pd.concat([resultado_peso["df_ct"], resultado_peso["df_dt"]]))
+    
     # Exibir DataFrame com as médias e erros padrão de peso (por classe)
     st.subheader("Resultado - Peso dos Animais")
     st.write("Médias e erro padrão do peso para animais CT:")
@@ -87,8 +92,3 @@ if uploaded_file:
     st.subheader("Médias Gerais de Consumo de Ração")
     st.write(f"Média geral de ração para CT: {resultado_racao['media_geral_racao_ct']}")
     st.write(f"Média geral de ração para DT: {resultado_racao['media_geral_racao_dt']}")
-
-    # Exibir a função principal (resultado completo)
-    st.subheader("Resultado Completo - Peso e Consumo de Ração")
-    st.write("Médias e erros padrões de peso e consumo de ração combinados:")
-    st.dataframe(pd.concat([resultado_completo['df_ct'], resultado_completo['df_dt']]))
