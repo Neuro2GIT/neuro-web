@@ -503,6 +503,8 @@ if uploaded_file is not None:
             st.write("Médias")
             st.dataframe(df_medias)
 
+        st.write("")
+
         # Dataframe com o erro padrão
         with st.container(border=True):
             df_errpadrao = pd.DataFrame({
