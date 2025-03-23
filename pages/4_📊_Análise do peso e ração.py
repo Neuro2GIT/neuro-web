@@ -497,6 +497,8 @@ if uploaded_file is not None:
         ]
     })
 
+    
+
     st.markdown("---")
 
     st.subheader ("Tabelas com os dados processados")
@@ -528,35 +530,75 @@ if uploaded_file is not None:
 
     st.markdown("---")
     
-# Dados brutos de peso e consumo de ração em tabelas
-st.subheader ("Tabelas com os dados brutos")
-with st.expander("Peso dos animais e consumo de ração"):
-    with st.container(border=True):
-        st.write("Peso dos animais")
-        df_peso_animais = pd.concat([dados["df_ct"], dados["df_dt"]])
-        df_peso_animais.set_index("Classe do Animal", inplace=True)
-        st.write(df_peso_animais)
-
-with st.container(border=True):
-    st.write("Consumo de ração por caixa")
-    df_racao = pd.concat([resultados_racao["df_racao_ct"], resultados_racao["df_racao_dt"]])
-    df_racao.set_index("Classe da Caixa", inplace=True)
-    st.write(df_racao)
-        #st.write(pd.concat([dados["df_racao_ct"], dados["df_racao_dt"]]))
-
 # Criar DataFrame para consumo geral de ração
-df_medias_gerais = pd.DataFrame({
-    "Grupo": ["CT", "DT"],
-    "Média do consumo de ração": [
-        resultados_racao["media_geral_racao_ct"],  # Usando a variável 'dados' para acessar a média
-        resultados_racao["media_geral_racao_dt"]   # Usando a variável 'dados' para acessar a média
-    ]
+    df_medias_gerais = pd.DataFrame({
+        "Grupo": ["CT", "DT"],
+        "Média do consumo de ração": [
+            resultados_racao["media_geral_racao_ct"],  # Usando a variável 'dados' para acessar a média
+            resultados_racao["media_geral_racao_dt"]   # Usando a variável 'dados' para acessar a média
+        ]
     })
 
-with st.container(border=True):
-    st.write("Média geral de consumo de ração por grupo")
-    df_medias_gerais.set_index("Grupo", inplace=True)
-    st.dataframe(df_medias_gerais)
+    st.markdown("---")
+
+    st.subheader ("Tabelas com os dados processados")
+    with st.expander("Médias, erro padrão e consumo de ração"):
+        with st.container(border=True):
+            st.write("Média geral de consumo de ração por grupo")
+            df_medias_gerais.set_index("Grupo", inplace=True)
+            st.dataframe(df_medias_gerais)
+
+        # Dataframe com as medias
+        with st.container(border=True):
+            df_medias = pd.DataFrame({
+                "Grupo CT": dados["medias_peso_ct"],
+                "Grupo DT": dados["medias_peso_dt"]
+            })
+            df_medias = df_medias.T # Transpor para que as métricas fiquem nas linhas e os dias/observações nas colunas
+            st.write("Médias")
+            st.dataframe(df_medias)
+
+        # Dataframe com o erro padrão
+        with st.container(border=True):
+            df_errpadrao = pd.DataFrame({
+                "Grupo CT": dados["erro_padrao_peso_ct"],
+                "Grupo DT": dados["erro_padrao_peso_dt"]
+            })
+            df_errpadrao = df_errpadrao.T # Transpor para que as métricas fiquem nas linhas e os dias/observações nas colunas
+            st.write("Erro padrão")
+            st.dataframe(df_errpadrao)
+
+    st.markdown("---")
+    
+    # Dados brutos de peso e consumo de ração em tabelas
+    st.subheader ("Tabelas com os dados brutos")
+    with st.expander("Peso dos animais e consumo de ração"):
+        with st.container(border=True):
+            st.write("Peso dos animais")
+            df_peso_animais = pd.concat([dados["df_ct"], dados["df_dt"]])
+            df_peso_animais.set_index("Classe do Animal", inplace=True)
+            st.write(df_peso_animais)
+
+        with st.container(border=True):
+            st.write("Consumo de ração por caixa")
+            df_racao = pd.concat([resultados_racao["df_racao_ct"], resultados_racao["df_racao_dt"]])
+            df_racao.set_index("Classe da Caixa", inplace=True)
+            st.write(df_racao)
+            #st.write(pd.concat([dados["df_racao_ct"], dados["df_racao_dt"]]))
+
+        # Criar DataFrame para consumo geral de ração
+        df_medias_gerais = pd.DataFrame({
+            "Grupo": ["CT", "DT"],
+            "Média do consumo de ração": [
+                resultados_racao["media_geral_racao_ct"],  # Usando a variável 'dados' para acessar a média
+                resultados_racao["media_geral_racao_dt"]   # Usando a variável 'dados' para acessar a média
+            ]
+        })
+
+        with st.container(border=True):
+            st.write("Média geral de consumo de ração por grupo")
+            df_medias_gerais.set_index("Grupo", inplace=True)
+            st.dataframe(df_medias_gerais)
            
 
     # Chamar a função que retorna os dados processados
