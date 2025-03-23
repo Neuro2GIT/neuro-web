@@ -503,11 +503,7 @@ if uploaded_file is not None:
 
     st.subheader ("Tabelas com os dados processados")
     with st.expander("Médias, erro padrão e consumo de ração"):
-        with st.container(border=True):
-            st.write("Média geral de consumo de ração por grupo")
-            df_medias_gerais.set_index("Grupo", inplace=True)
-            st.dataframe(df_medias_gerais)
-
+        
         # Dataframe com as medias
         with st.container(border=True):
             df_medias = pd.DataFrame({
@@ -528,9 +524,13 @@ if uploaded_file is not None:
             st.write("Erro padrão")
             st.dataframe(df_errpadrao)
 
-    st.markdown("---")
+        # Dataframe com a media geral do cosumo de ração
+        with st.container(border=True):
+            st.write("Média geral de consumo de ração por grupo")
+            df_medias_gerais.set_index("Grupo", inplace=True)
+            st.dataframe(df_medias_gerais)
     
-# Criar DataFrame para consumo geral de ração
+    # Criar DataFrame para consumo geral de ração
     df_medias_gerais = pd.DataFrame({
         "Grupo": ["CT", "DT"],
         "Média do consumo de ração": [
