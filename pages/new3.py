@@ -71,16 +71,16 @@ if uploaded_file:
         st.dataframe(df_peso)
 
     # Exibir resumo das médias gerais usando DataFrame
-    st.write("Médias Gerais de Consumo de Ração")
-    df_medias_gerais = pd.DataFrame({
-        "Grupo": ["CT", "DT"],
-        "Média do consumo de ração": [
-            resultados_racao["media_geral_racao_ct"],
-            resultados_racao["media_geral_racao_dt"]
-        ]
-    })
-    df_medias_gerais.set_index("Grupo", inplace=True)
-    st.dataframe(df_medias_gerais)
+    with st.expander("Médias gerais de consumo de ração"):
+        df_medias_gerais = pd.DataFrame({
+            "Grupo": ["CT", "DT"],
+            "Média do consumo de ração": [
+                resultados_racao["media_geral_racao_ct"],
+                resultados_racao["media_geral_racao_dt"]
+            ]
+        })
+        df_medias_gerais.set_index("Grupo", inplace=True)
+        st.dataframe(df_medias_gerais)
 
     # Exibir dados brutos do consumo das caixas
     st.write("Consumo de ração por caixa")
