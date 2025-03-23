@@ -506,25 +506,27 @@ if uploaded_file is not None:
             df_medias_gerais.set_index("Grupo", inplace=True)
             st.dataframe(df_medias_gerais)
 
-    # Dataframe com as medias
-        df_medias = pd.DataFrame({
-            "Média Peso CT": dados["medias_peso_ct"],
-            "Média Peso DT": dados["medias_peso_dt"]
-        })
-        df_medias = df_medias.T # Transpor para que as métricas fiquem nas linhas e os dias/observações nas colunas
-        st.write("Médias")
-        st.dataframe(df_medias)
+        # Dataframe com as medias
+        with st.container(border=True):
+            df_medias = pd.DataFrame({
+                "Média Peso CT": dados["medias_peso_ct"],
+                "Média Peso DT": dados["medias_peso_dt"]
+            })
+            df_medias = df_medias.T # Transpor para que as métricas fiquem nas linhas e os dias/observações nas colunas
+            st.write("Médias")
+            st.dataframe(df_medias)
 
         # Dataframe com o erro padrão
-        df_errpadrao = pd.DataFrame({
-            "Erro Padrão Peso CT": dados["erro_padrao_peso_ct"],
-            "Erro Padrão Peso DT": dados["erro_padrao_peso_dt"]
-        })
-        df_errpadrao = df_errpadrao.T # Transpor para que as métricas fiquem nas linhas e os dias/observações nas colunas
-        st.write("Erro padrão")
-        st.dataframe(df_errpadrao)
+        with st.container(border=True):
+            df_errpadrao = pd.DataFrame({
+                "Erro Padrão Peso CT": dados["erro_padrao_peso_ct"],
+                "Erro Padrão Peso DT": dados["erro_padrao_peso_dt"]
+            })
+            df_errpadrao = df_errpadrao.T # Transpor para que as métricas fiquem nas linhas e os dias/observações nas colunas
+            st.write("Erro padrão")
+            st.dataframe(df_errpadrao)
 
-        st.markdown("---")
+            st.markdown("---")
     
     # Dados brutos de peso e consumo de ração em tabelas
     st.subheader ("Tabelas com os dados brutos")
