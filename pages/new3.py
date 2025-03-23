@@ -70,7 +70,7 @@ if uploaded_file:
     # Exibir a função principal (resultado completo)
     st.subheader("Resultado Completo - Peso e Consumo de Ração")
     st.write("Médias e erros padrões de peso e consumo de ração combinados:")
-    df_peso = pd.concat([resultado_peso["df_dt"], resultado_peso["df_dt"]])
+    df_peso = pd.concat([resultado_peso["df_ct"], resultado_peso["df_dt"]])
     df_peso.set_index("ID do Animal", inplace=True)
     st.dataframe(df_peso)
     
