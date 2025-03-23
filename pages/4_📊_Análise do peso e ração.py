@@ -444,13 +444,13 @@ if uploaded_file is not None:
         with st.container(border=True):
             st.write("Peso dos animais")
             df_peso_animais = pd.concat([dados["df_ct"], dados["df_dt"]])
-            df_peso_animais.set_index("ID do Animal", inplace=True)
+            df_peso_animais.set_index("Classe do Animal", inplace=True)
             st.write(df_peso_animais)
 
         with st.container(border=True):
             st.write("Consumo de ração por caixa")
             df_racao = pd.concat([resultados_racao["df_racao_ct"], resultados_racao["df_racao_dt"]])
-            df_racao.set_index("ID da Caixa", inplace=True)
+            df_racao.set_index("Classe da Caixa", inplace=True)
             st.write(df_racao)
             #st.write(pd.concat([dados["df_racao_ct"], dados["df_racao_dt"]]))
 
