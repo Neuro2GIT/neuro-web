@@ -68,11 +68,11 @@ if uploaded_file:
     resultado_completo = carregar_e_processar_excel(uploaded_file)
 
     # Exibir a função principal (resultado completo)
-    st.subheader("Resultado Completo - Peso e Consumo de Ração")
-    st.write("Médias e erros padrões de peso e consumo de ração combinados:")
-    df_peso = pd.concat([resultado_peso["df_ct"], resultado_peso["df_dt"]])
-    df_peso.set_index("ID do Animal", inplace=True)
-    st.dataframe(df_peso)
+    st.expander():
+        st.write("Peso dos animais")
+        df_peso = pd.concat([resultado_peso["df_ct"], resultado_peso["df_dt"]])
+        df_peso.set_index("ID do Animal", inplace=True)
+        st.dataframe(df_peso)
     
     # Exibir DataFrame com as médias e erros padrão de peso (por classe)
     #st.subheader("Resultado - Peso dos Animais")
