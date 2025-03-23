@@ -444,13 +444,15 @@ st.markdown("---")
 with st.container(border=True):
     uploaded_file = st.file_uploader("Para utilizar, converta a sua planilha para o modelo ou gere uma nova no gerador de planilhas", type=["xlsx"])
 
+st.write("Selecione abaixo para navegar entre as opções")
+
 if uploaded_file is not None:
     # Processa os dados
     dados = carregar_e_processar_excel(uploaded_file)
     resultados_racao = processar_consumo_racao(uploaded_file)
 
     # Gera o arquivo Excel com os dados
-    arquivo = gerar_arquivo_excel(dados)
+    #arquivo = gerar_arquivo_excel(dados)
 
     # Cria um botão para download do arquivo Excel gerado
     #with open(arquivo, "rb") as file:
@@ -460,8 +462,6 @@ if uploaded_file is not None:
             #file_name=arquivo,
             #mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
         #)
-
-st.write("Selecione abaixo para navegar entre as opções")
 
     with st.container(border=True):
         # Cria as abas usando st.radio
