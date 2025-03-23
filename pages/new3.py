@@ -91,10 +91,7 @@ if uploaded_file:
     # Exibir DataFrame com o consumo de ração (por classe)
     st.subheader("Resultado - Consumo de Ração")
     st.write("Média de consumo de ração para classe CT:")
-    st.dataframe(resultado_racao["df_racao_ct"])
-
-    st.write("Média de consumo de ração para classe DT:")
-    st.dataframe(resultado_racao["df_racao_dt"])
+    st.dataframe(resultado_racao["df_racao_ct"], resultado_racao["df_racao_dt"])
     
     # Exibir resumo das médias gerais usando DataFrame
     st.subheader("Médias Gerais de Consumo de Ração")
