@@ -89,9 +89,10 @@ if uploaded_file:
     #st.dataframe(resultado_peso["df_dt"])
 
     # Exibir DataFrame com o consumo de ração (por classe)
-    st.subheader("Resultado - Consumo de Ração")
-    st.write("Média de consumo de ração para classe CT:")
-    st.dataframe(resultado_racao["df_racao_ct"], resultado_racao["df_racao_dt"])
+    st.write("Consumo de ração por caixa")
+    df_racao = pd.concat([resultado_racao["df_racao_ct"], resultado_racao["df_racao_dt"]])
+    df_racao.set_index("ID da Caixa", inplace=True)
+    st.write(df_racao)
     
     # Exibir resumo das médias gerais usando DataFrame
     st.subheader("Médias Gerais de Consumo de Ração")
