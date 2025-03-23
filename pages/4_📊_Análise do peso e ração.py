@@ -50,11 +50,32 @@ def carregar_e_processar_excel(uploaded_file):
     return {
         "medias_peso_ct": medias_peso_ct, "erro_padrao_peso_ct": erro_padrao_peso_ct, "df_ct": df_ct,
         "medias_peso_dt": medias_peso_dt, "erro_padrao_peso_dt": erro_padrao_peso_dt, "df_dt": df_dt,
-        "medias_racao_ct": medias_racao_ct,
+    }
+
+def processar_consumo_racao(uploaded_file):
+
+    df_racao = pd.read_excel(uploaded_file, sheet_name="Consumo de Ração")
+    
+    # Filtragem dos dados por classe de caixa
+    df_racao_ct = df_racao[df_racao['Classe da Caixa'] == 'CT']
+    df_racao_dt = df_racao[df_racao['Classe da Caixa'] == 'DT']
+    
+    # Cálculo da média de consumo para cada dia
+    medias_racao_ct = df_racao_ct.iloc[:, 2:].mean()
+    medias_racao_dt = df_racao_dt.iloc[:, 2:].mean()
+
+    # Cálculo da média geral de consumo para cada grupo
+    media_geral_racao_ct = medias_racao_ct.mean()
+    media_geral_racao_dt = medias_racao_dt.mean()
+
+    # Dicionário com os resultados do consumo
+    return {
+        "medias_racao_ct": medias_racao_ct, 
         "medias_racao_dt": medias_racao_dt,
+        "df_racao_dt": df_racao_dt,
+        "df_racao_ct": df_racao_ct,
         "media_geral_racao_ct": media_geral_racao_ct,
         "media_geral_racao_dt": media_geral_racao_dt,
-        "df_racao_ct": df_racao_ct, "df_racao_dt": df_racao_dt
     }
     
 # Função para plotar o gráfico de linhas com erro padrão usando plotly
@@ -387,6 +408,7 @@ with st.container(border=True):
 if uploaded_file is not None:
     # Processa os dados
     dados = carregar_e_processar_excel(uploaded_file)
+    resultados_racao = processar_consumo_racao(uploaded_file)
 
     # Criar DataFrame para consumo geral de ração
     df_medias_gerais = pd.DataFrame({
@@ -433,14 +455,22 @@ if uploaded_file is not None:
             df_peso_animais = pd.concat([dados["df_ct"], dados["df_dt"]])
             df_peso_animais.set_index("ID do Animal", inplace=True)
             st.write(df_peso_animais)
-            #st.write(pd.concat([dados["df_ct"], dados["df_dt"]]))
 
         with st.container(border=True):
             st.write("Consumo de ração por caixa")
-            df_racao = pd.concat([dados["df_racao_ct"], dados["df_racao_dt"]])
+            df_racao = pd.concat([resultados_racao["df_racao_ct"], resultados_racao["df_racao_dt"]])
             df_racao.set_index("ID da Caixa", inplace=True)
             st.write(df_racao)
             #st.write(pd.concat([dados["df_racao_ct"], dados["df_racao_dt"]]))
+
+        # Criar DataFrame para consumo geral de ração
+        df_medias_gerais = pd.DataFrame({
+            "Grupo": ["CT", "DT"],
+            "Média do consumo de ração": [
+                dados["media_geral_racao_ct"],  # Usando a variável 'dados' para acessar a média
+                dados["media_geral_racao_dt"]   # Usando a variável 'dados' para acessar a média
+            ]
+        })
 
         with st.container(border=True):
             st.write("Média geral de consumo de ração por grupo")
