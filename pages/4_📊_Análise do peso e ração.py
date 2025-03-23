@@ -510,13 +510,13 @@ if uploaded_file is not None:
     st.dataframe(df_medias)
 
     # Dataframe com o erro padrão
-    df_err_padrao = pd.DataFrame({
+    df_errpadrao = pd.DataFrame({
         "Erro Padrão Peso CT": dados["erro_padrao_peso_ct"],
         "Erro Padrão Peso DT": dados["erro_padrao_peso_dt"]
     })
-    df_err_padrao = df_err_padrao.T # Transpor para que as métricas fiquem nas linhas e os dias/observações nas colunas
+    df_errpadrao = dferr_padrao.T # Transpor para que as métricas fiquem nas linhas e os dias/observações nas colunas
     st.write("Erro padrão")
-    st.dataframe(err_padrao)
+    st.dataframe(errpadrao)
 
     st.markdown("---")
 
