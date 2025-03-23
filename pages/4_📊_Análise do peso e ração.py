@@ -53,18 +53,18 @@ def carregar_e_processar_excel(uploaded_file):
     }
 
 # Função para gerar um arquivo Excel com os dados processados
-def gerar_arquivo_excel(dados_processados):
+def gerar_arquivo_excel(dados):
     with pd.ExcelWriter("dados_processados.xlsx") as writer:
         # Adiciona os DataFrames ao arquivo Excel
-        dados_processados['df_ct'].to_excel(writer, sheet_name='Pesagem_CT', index=False)
-        dados_processados['df_dt'].to_excel(writer, sheet_name='Pesagem_DT', index=False)
+        dados['df_ct'].to_excel(writer, sheet_name='Pesagem_CT', index=False)
+        dados['df_dt'].to_excel(writer, sheet_name='Pesagem_DT', index=False)
         
         # Adiciona as médias e erros padrão em uma nova planilha
         medias_df = pd.DataFrame({
-            "Média Peso CT": dados_processados['medias_peso_ct'],
-            "Erro Padrão Peso CT": dados_processados['erro_padrao_peso_ct'],
-            "Média Peso DT": dados_processados['medias_peso_dt'],
-            "Erro Padrão Peso DT": dados_processados['erro_padrao_peso_dt']
+            "Média Peso CT": dados['medias_peso_ct'],
+            "Erro Padrão Peso CT": dados['erro_padrao_peso_ct'],
+            "Média Peso DT": dados['medias_peso_dt'],
+            "Erro Padrão Peso DT": dados['erro_padrao_peso_dt']
         })
         medias_df.to_excel(writer, sheet_name='Medias_Erros', index=False)
         
@@ -506,7 +506,7 @@ if uploaded_file is not None:
             st.dataframe(df_medias_gerais)
 
 # Gera o arquivo Excel com os dados
-arquivo = gerar_arquivo_excel(dados_processados)
+arquivo = gerar_arquivo_excel(dados)
     
 # Cria um botão para download do arquivo Excel gerado
 with open(arquivo, "rb") as file:
