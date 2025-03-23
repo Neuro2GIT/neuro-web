@@ -67,6 +67,8 @@ def analise_do_consumo(df_racao):
     return {"df_resultado_racao": df_resultado_racao, "df_racao_ct": df_racao_ct, "df_racao_dt": df_racao_dt}
 
 def carregar_e_processar_excel(uploaded_file):
+    with st.container(border=True):
+        uploaded_file = st.file_uploader("Para utilizar, converta a sua planilha para o modelo ou gere uma nova no gerador de planilhas", type=["xlsx"])
     df = pd.read_excel(uploaded_file, sheet_name="Pesagem de Animais")
     df_racao = pd.read_excel(uploaded_file, sheet_name="Consumo de Ração")
     
