@@ -91,4 +91,4 @@ if uploaded_file:
 
     # Exibir resumo das médias gerais
     st.subheader("Médias Gerais de Consumo de Ração")
-    st.dataframe(f"Média geral de ração para CT: {resultado_racao['media_geral_racao_ct']}, Média geral de ração para DT: {resultado_racao['media_geral_racao_dt']}")
+    st.dataframe(f"Média geral de ração para CT: {resultado_racao['media_geral_racao_ct']}")
