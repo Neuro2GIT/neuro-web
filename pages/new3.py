@@ -38,8 +38,8 @@ def processar_consumo_racao(uploaded_file):
     df_racao_dt = df_racao[df_racao['Classe da Caixa'] == 'DT']
     medias_racao_ct = df_racao_ct.iloc[:, 2:].mean()
     medias_racao_dt = df_racao_dt.iloc[:, 2:].mean()
-    media_geral_racao_ct = medias_racao_ct.mean()
-    media_geral_racao_dt = medias_racao_dt.mean()
+    media_geral_racao_ct = medias_gerais_ct.mean()
+    media_geral_racao_dt = medias_gerais_dt.mean()
 
     # Dicionário com os resultados do consumo
     return {
@@ -49,8 +49,8 @@ def processar_consumo_racao(uploaded_file):
         "media_geral_racao_dt": media_geral_racao_dt,
         "df_racao_ct": df_racao_ct, 
         "df_racao_dt": df_racao_dt,
-        "df_med_ct": media_geral_racao_ct,
-        "df_med_dt": media_geral_racao_dt
+        "df_med_ct": medias_gerais_ct,
+        "df_med_dt": medias_gerais_dt
     }
 
 def carregar_e_processar_excel(uploaded_file):
