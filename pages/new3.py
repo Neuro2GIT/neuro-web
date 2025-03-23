@@ -108,5 +108,5 @@ if uploaded_file:
     })
     #df_media_geral = pd.DataFrame({'Classe': ['CT', 'DT'], 'Média Geral': [media_geral_racao_ct, media_geral_racao_dt]})
     #df_media_geral.set_index("Classe da Caixa", implace=True)
-    st.dataframe(df_media_geral)
+    st.dataframe(df_medias_gerais)
     #st.dataframe(f"Média geral de ração para CT: {resultado_racao['media_geral_racao_ct']}")
