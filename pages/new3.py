@@ -73,6 +73,7 @@ if uploaded_file:
     # Processar os dados
     resultado_peso = processar_peso(uploaded_file)
     resultado_racao = processar_consumo_racao(uploaded_file)
+    consumo_racao = consumo_bruto_racao(uploaded_file)
 
     # Exibir a função principal (resultado completo)
     with st.expander("Peso dos animais"):
@@ -88,12 +89,6 @@ if uploaded_file:
     #st.write("Médias e erro padrão do peso para animais DT:")
     #st.dataframe(resultado_peso["df_dt"])
 
-    # Exibir dados brutos do consumo das caixas
-    st.write("Consumo de ração por caixa")
-    df_racao = pd.concat([resultado_racao["df_racao_ct"], resultado_racao["df_racao_dt"]])
-    df_racao.set_index("Classe da Caixa", inplace=True)
-    st.write(df_racao)
-    
     # Exibir resumo das médias gerais usando DataFrame
     st.write("Médias Gerais de Consumo de Ração")
     df_medias_gerais = pd.DataFrame({
@@ -105,6 +100,13 @@ if uploaded_file:
     })
     df_medias_gerais.set_index("Grupo", inplace=True)
     st.dataframe(df_medias_gerais)
+
+    # Exibir dados brutos do consumo das caixas
+    st.write("Consumo de ração por caixa")
+    df_racao = pd.concat([consumo_racao["df_racao_ct"], consumo_racao["df_racao_dt"]])
+    df_racao.set_index("Classe da Caixa", inplace=True)
+    st.write(df_racao)
+    
     #df_media_geral = pd.DataFrame({'Classe': ['CT', 'DT'], 'Média Geral': [media_geral_racao_ct, media_geral_racao_dt]})
     #df_media_geral.set_index("Classe da Caixa", implace=True)
     #st.dataframe(f"Média geral de ração para CT: {resultado_racao['media_geral_racao_ct']}")
