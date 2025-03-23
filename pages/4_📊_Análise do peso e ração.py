@@ -433,12 +433,28 @@ if uploaded_file is not None:
         with st.container(border=True):
             plotar_funcoes["consumo_racao"](resultados_racao["medias_racao_ct"], resultados_racao["medias_racao_dt"])
 
+
     # Carregar as médias de ração
     racao_processada = carregar_e_processar_excel(uploaded_file)
 
+    # Criar DataFrame para consumo geral de ração
+        df_medias_gerais = pd.DataFrame({
+            "Grupo": ["CT", "DT"],
+            "Média do consumo de ração": [
+                resultados_racao["media_geral_racao_ct"],  # Usando a variável 'dados' para acessar a média
+                resultados_racao["media_geral_racao_dt"]   # Usando a variável 'dados' para acessar a média
+            ]
+        })
+
+    with st.expander("Dados processados"):
+        with st.container(border=True):
+            st.write("Média geral de consumo de ração por grupo")
+            df_medias_gerais.set_index("Grupo", inplace=True)
+            st.dataframe(df_medias_gerais)
+
     st.markdown("---")
     
-    # Exibe as tabelas abaixo das abas
+    # Dados brutos de peso e consumo de ração em tabelas
     st.subheader ("Tabelas com os dados brutos")
     with st.expander("Peso dos animais e consumo de ração"):
         with st.container(border=True):
