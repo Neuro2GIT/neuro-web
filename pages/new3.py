@@ -83,9 +83,7 @@ if uploaded_file:
             df_peso_animais = pd.concat([resultados_peso["df_ct"], resultados_peso["df_dt"]])
             df_peso_animais.set_index("Classe do Animal", inplace=True)
             st.write(df_peso_animais)
-            #st.write(pd.concat([dados["df_ct"], dados["df_dt"]]))
-
-    st.markdown("---")
+            st.markdown("---")
 
         with st.container(border=True):
             st.write("Consumo de ração por caixa")
