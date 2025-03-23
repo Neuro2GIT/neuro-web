@@ -453,7 +453,7 @@ if uploaded_file is not None:
     arquivo = gerar_arquivo_excel(dados)
 
     # Cria um botão para download do arquivo Excel gerado
-    with open(arquivo, "rb") as file:
+    #with open(arquivo, "rb") as file:
         #st.download_button(
             #label="Fazer download - dados processados",
             #data=file,
