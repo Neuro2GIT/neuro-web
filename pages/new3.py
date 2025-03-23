@@ -51,11 +51,11 @@ def processar_consumo_racao(uploaded_file):
     # Dicionário com os resultados do consumo
     return {
         "medias_racao_ct": medias_racao_ct,
-        "media_geral_racao_ct": media_geral_racao_ct,
-        "df_racao_ct": df_racao_ct, 
+        "media_geral_racao_ct": media_geral_racao_ct, 
         "medias_racao_dt": medias_racao_dt,
         "media_geral_racao_dt": media_geral_racao_dt,
-        "df_racao_dt": df_racao_dt
+        "df_racao_dt": df_racao_dt,
+        "df_racao_ct": df_racao_ct
     }
 
 def carregar_e_processar_excel(uploaded_file):
@@ -98,7 +98,7 @@ if uploaded_file:
     
     # Exibir resumo das médias gerais
     st.subheader("Médias Gerais de Consumo de Ração")
-    df_media_geral = pd.concat([resultado_racao["media_geral_racao_ct"], resultado_racao["media_geral_racao_dt"]])
+    df_media_geral = pd.DataFrame({'Classe': ['CT', 'DT'], 'Média Geral': [media_geral_racao_ct, media_geral_racao_dt]})
     df_media_geral.set_index("Classe da Caixa", implace=True)
     st.dataframe(df_media_geral)
     #st.dataframe(f"Média geral de ração para CT: {resultado_racao['media_geral_racao_ct']}")
