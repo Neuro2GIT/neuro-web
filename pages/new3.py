@@ -51,10 +51,10 @@ def processar_consumo_racao(uploaded_file):
     # Dicionário com os resultados do consumo
     return {
         "medias_racao_ct": medias_racao_ct,
-        "medias_racao_dt": medias_racao_dt,
         "media_geral_racao_ct": media_geral_racao_ct,
-        "media_geral_racao_dt": media_geral_racao_dt,
         "df_racao_ct": df_racao_ct, 
+        "medias_racao_dt": medias_racao_dt,
+        "media_geral_racao_dt": media_geral_racao_dt,
         "df_racao_dt": df_racao_dt
     }
 
