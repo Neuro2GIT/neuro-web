@@ -455,6 +455,15 @@ if uploaded_file is not None:
 
     # Gera o arquivo Excel com os dados
     arquivo = gerar_arquivo_excel(dados)
+
+    # Cria um botão para download do arquivo Excel gerado
+    with open(arquivo, "rb") as file:
+        st.download_button(
+            label="Fazer download - dados processados",
+            data=file,
+            file_name=arquivo,
+            mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+        )
     
     with st.container(border=True):
         # Cria as abas usando st.radio
@@ -522,15 +531,6 @@ if uploaded_file is not None:
     st.dataframe(df_errpadrao)
 
     st.markdown("---")
-    
-# Cria um botão para download do arquivo Excel gerado
-with open(arquivo, "rb") as file:
-    st.download_button(
-        label="Fazer download - dados processados",
-        data=file,
-        file_name=arquivo,
-        mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-    )
     
     # Dados brutos de peso e consumo de ração em tabelas
     st.subheader ("Tabelas com os dados brutos")
