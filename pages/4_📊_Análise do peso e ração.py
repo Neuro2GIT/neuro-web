@@ -514,7 +514,7 @@ if uploaded_file is not None:
         "Erro Padrão Peso CT": dados["erro_padrao_peso_ct"],
         "Erro Padrão Peso DT": dados["erro_padrao_peso_dt"]
     })
-    df_errpadrao = dferr_padrao.T # Transpor para que as métricas fiquem nas linhas e os dias/observações nas colunas
+    df_errpadrao = df_errpadrao.T # Transpor para que as métricas fiquem nas linhas e os dias/observações nas colunas
     st.write("Erro padrão")
     st.dataframe(errpadrao)
 
