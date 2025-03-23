@@ -88,7 +88,7 @@ if uploaded_file:
     #st.write("Médias e erro padrão do peso para animais DT:")
     #st.dataframe(resultado_peso["df_dt"])
 
-    
+    # Exibir dados brutos do consumo das caixas
     st.write("Consumo de ração por caixa")
     df_racao = pd.concat([resultado_racao["df_racao_ct"], resultado_racao["df_racao_dt"]])
     df_racao.set_index("Classe da Caixa", inplace=True)
