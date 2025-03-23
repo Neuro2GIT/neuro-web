@@ -467,8 +467,8 @@ if uploaded_file is not None:
         df_medias_gerais = pd.DataFrame({
             "Grupo": ["CT", "DT"],
             "Média do consumo de ração": [
-                dados["media_geral_racao_ct"],  # Usando a variável 'dados' para acessar a média
-                dados["media_geral_racao_dt"]   # Usando a variável 'dados' para acessar a média
+                resultados_racao["media_geral_racao_ct"],  # Usando a variável 'dados' para acessar a média
+                resultados_racao["media_geral_racao_dt"]   # Usando a variável 'dados' para acessar a média
             ]
         })
 
