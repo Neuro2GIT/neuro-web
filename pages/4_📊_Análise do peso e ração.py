@@ -431,7 +431,7 @@ if uploaded_file is not None:
             plotar_funcoes["pesagem_area"](dados["medias_peso_ct"], dados["erro_padrao_peso_ct"], dados["medias_peso_dt"], dados["erro_padrao_peso_dt"])
 
         with st.container(border=True):
-            plotar_funcoes["consumo_racao"](dados["medias_racao_ct"], dados["medias_racao_dt"])
+            plotar_funcoes["consumo_racao"](resultados_racao["medias_racao_ct"], resultados_racao["medias_racao_dt"])
 
     # Carregar as médias de ração
     racao_processada = carregar_e_processar_excel(uploaded_file)
