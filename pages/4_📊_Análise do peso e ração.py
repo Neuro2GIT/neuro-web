@@ -52,6 +52,14 @@ def carregar_e_processar_excel(uploaded_file):
         "medias_peso_dt": medias_peso_dt, "erro_padrao_peso_dt": erro_padrao_peso_dt, "df_dt": df_dt,
     }
 
+    # Criar o DataFrame com as métricas (média e erro padrão) nas linhas e os dias nas colunas
+    df_resultado = pd.DataFrame({
+        "Média Peso CT": medias_peso_ct,
+        "Erro Padrão Peso CT": erro_padrao_peso_ct,
+        "Média Peso DT": medias_peso_dt,
+        "Erro Padrão Peso DT": erro_padrao_peso_dt
+    }).T
+
 # Função para gerar um arquivo Excel com os dados processados
 def gerar_arquivo_excel(dados):
     with pd.ExcelWriter("dados_processados.xlsx") as writer:
@@ -530,20 +538,6 @@ df_medias_e_erros = pd.DataFrame({
     ]
     })
 
-# Exibir o DataFrame com Streamlit
-with st.container():
-    st.write("Média e Erro Padrão de Peso por Grupo")
-    df_medias_e_erros.set_index("Grupo", inplace=True)
-    st.dataframe(df_medias_e_erros)
-
-# Criar o DataFrame com as métricas (média e erro padrão) nas linhas e os dias nas colunas
-df_resultado = pd.DataFrame({
-    "Média Peso CT": medias_peso_ct,
-    "Erro Padrão Peso CT": erro_padrao_peso_ct,
-    "Média Peso DT": medias_peso_dt,
-    "Erro Padrão Peso DT": erro_padrao_peso_dt
-}).T  # Transposta para colocar as métricas nas linhas e os dias nas colunas
-    
 # Exibir o DataFrame com Streamlit
 st.write("Média e Erro Padrão de Peso por Dia/Observação")
 st.dataframe(df_resultado)
