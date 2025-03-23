@@ -488,17 +488,6 @@ if uploaded_file is not None:
     # Carregar as médias de ração
     racao_processada = carregar_e_processar_excel(uploaded_file)
 
-    # Criar DataFrame para consumo geral de ração
-    df_medias_gerais = pd.DataFrame({
-        "Grupo": ["CT", "DT"],
-        "Média do consumo de ração": [
-            resultados_racao["media_geral_racao_ct"],  # Usando a variável 'dados' para acessar a média
-            resultados_racao["media_geral_racao_dt"]   # Usando a variável 'dados' para acessar a média
-        ]
-    })
-
-    
-
     st.markdown("---")
 
     st.subheader ("Tabelas com os dados processados")
