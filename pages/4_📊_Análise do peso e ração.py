@@ -73,10 +73,6 @@ def carregar_e_processar_excel(uploaded_file):
     ]
     })
 
-    # Exibir o DataFrame com Streamlit
-    st.write("Média e Erro Padrão de Peso por Dia/Observação")
-    st.dataframe(df_resultado)
-
 # Função para gerar um arquivo Excel com os dados processados
 def gerar_arquivo_excel(dados):
     with pd.ExcelWriter("dados_processados.xlsx") as writer:
