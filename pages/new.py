@@ -35,6 +35,14 @@ def analise_do_peso(df):
         "Erro Padrão DT": erro_padrao_peso_dt.values
     })
     
+    # Reorganizando as colunas para incluir "ID do Animal" e "Classe do Animal"
+    df_resultado_peso['ID do Animal'] = df['ID do Animal'].iloc[0]  # Usando o primeiro valor da coluna 'ID do Animal'
+    df_resultado_peso['Classe do Animal'] = df['Classe do Animal'].iloc[0]  # Usando o primeiro valor da coluna 'Classe do Animal'
+    
+    # Reorganizando a ordem das colunas para incluir as essenciais primeiro
+    colunas_ordenadas = ['ID do Animal', 'Classe do Animal'] + colunas_peso
+    df_resultado_peso = df_resultado_peso[colunas_ordenadas]
+    
     return {"df_resultado_peso": df_resultado_peso, "df_ct": df_ct, "df_dt": df_dt}
 
 # Função para análise do consumo de ração
