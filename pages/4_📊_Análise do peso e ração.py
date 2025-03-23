@@ -444,8 +444,6 @@ st.markdown("---")
 with st.container(border=True):
     uploaded_file = st.file_uploader("Para utilizar, converta a sua planilha para o modelo ou gere uma nova no gerador de planilhas", type=["xlsx"])
 
-st.write("Selecione abaixo para navegar entre as opções")
-
 if uploaded_file is not None:
     # Processa os dados
     dados = carregar_e_processar_excel(uploaded_file)
@@ -466,7 +464,7 @@ if uploaded_file is not None:
     with st.container(border=True):
         # Cria as abas usando st.radio
         aba_selecionada = st.radio(
-            "Escolha uma biblioteca",
+            "Selecione uma biblioteca abaixo para navegar entre as opções",
             ("Plotly", "Matplotlib", "Seaborn")
         )
 
