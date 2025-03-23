@@ -49,8 +49,8 @@ def processar_consumo_racao(uploaded_file):
         "media_geral_racao_dt": media_geral_racao_dt,
         "df_racao_ct": df_racao_ct, 
         "df_racao_dt": df_racao_dt,
-        "df_med_ct": medias_gerais_ct,
-        "df_med_dt": medias_gerais_dt
+        "df_med_ct": media_geral_racao_ct,
+        "df_med_dt": media_geral_racao_dt
     }
 
 def carregar_e_processar_excel(uploaded_file):
