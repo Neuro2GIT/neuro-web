@@ -61,6 +61,7 @@ def processar_consumo_racao(uploaded_file):
 def carregar_e_processar_excel(uploaded_file):
     resultado_peso = processar_peso(uploaded_file)
     resultado_racao = processar_consumo_racao(uploaded_file)
+    consumo_racao = consumo_bruto_racao(uploaded_file)
     resultado_completo = {**resultado_peso, **resultado_racao}
     return resultado_completo
 
