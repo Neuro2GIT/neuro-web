@@ -12,6 +12,8 @@ import altair as alt
 with st.container(border=True):
         uploaded_file = st.file_uploader("Para utilizar, converta a sua planilha para o modelo ou gere uma nova no gerador de planilhas", type=["xlsx"])
 
+st.dataframe(resultado_peso)
+
 def analise_do_peso(df):
     # Verificar se as colunas essenciais existem no DataFrame
     colunas_essenciais = {'ID do Animal', 'Classe do Animal'}
@@ -77,5 +79,3 @@ def carregar_e_processar_excel(uploaded_file):
     resultado_racao = analise_do_consumo(df_racao)
     
     return {**resultado_peso, **resultado_racao}
-  
-    st.dataframe(resultado_peso)
