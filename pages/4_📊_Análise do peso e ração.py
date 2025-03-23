@@ -509,8 +509,8 @@ if uploaded_file is not None:
         # Dataframe com as medias
         with st.container(border=True):
             df_medias = pd.DataFrame({
-                "Média Peso CT": dados["medias_peso_ct"],
-                "Média Peso DT": dados["medias_peso_dt"]
+                "Grupo CT": dados["medias_peso_ct"],
+                "Grupo DT": dados["medias_peso_dt"]
             })
             df_medias = df_medias.T # Transpor para que as métricas fiquem nas linhas e os dias/observações nas colunas
             st.write("Médias")
@@ -519,8 +519,8 @@ if uploaded_file is not None:
         # Dataframe com o erro padrão
         with st.container(border=True):
             df_errpadrao = pd.DataFrame({
-                "Erro Padrão Peso CT": dados["erro_padrao_peso_ct"],
-                "Erro Padrão Peso DT": dados["erro_padrao_peso_dt"]
+                "Grupo CT": dados["erro_padrao_peso_ct"],
+                "Grupo DT": dados["erro_padrao_peso_dt"]
             })
             df_errpadrao = df_errpadrao.T # Transpor para que as métricas fiquem nas linhas e os dias/observações nas colunas
             st.write("Erro padrão")
