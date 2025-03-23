@@ -526,7 +526,7 @@ if uploaded_file is not None:
             st.write("Erro padrão")
             st.dataframe(df_errpadrao)
 
-            st.markdown("---")
+st.markdown("---")
     
     # Dados brutos de peso e consumo de ração em tabelas
     st.subheader ("Tabelas com os dados brutos")
