@@ -61,12 +61,12 @@ uploaded_file = st.file_uploader("Carregar Arquivo Excel", type=["xlsx"])
 
 if uploaded_file:
     # Processar os dados
-    resultado_peso = processar_peso(uploaded_file)
-    resultado_racao = processar_consumo_racao(uploaded_file)
+    resultados_peso = processar_peso(uploaded_file)
+    resultados_racao = processar_consumo_racao(uploaded_file)
 
     # Exibir a função principal (resultado completo)
     with st.expander("Peso dos animais"):
-        df_peso = pd.concat([resultado_peso["df_ct"], resultado_peso["df_dt"]])
+        df_peso = pd.concat([resultados_peso["df_ct"], resultados_peso["df_dt"]])
         df_peso.set_index("ID do Animal", inplace=True)
         st.dataframe(df_peso)
 
@@ -75,8 +75,8 @@ if uploaded_file:
     df_medias_gerais = pd.DataFrame({
         "Grupo": ["CT", "DT"],
         "Média do consumo de ração": [
-            resultado_racao["media_geral_racao_ct"],
-            resultado_racao["media_geral_racao_dt"]
+            resultados_racao["media_geral_racao_ct"],
+            resultados_racao["media_geral_racao_dt"]
         ]
     })
     df_medias_gerais.set_index("Grupo", inplace=True)
@@ -84,7 +84,7 @@ if uploaded_file:
 
     # Exibir dados brutos do consumo das caixas
     st.write("Consumo de ração por caixa")
-    df_racao = pd.concat([resultado_racao["df_racao_ct"], resultado_racao["df_racao_dt"]])
+    df_racao = pd.concat([resultados_racao["df_racao_ct"], resultados_racao["df_racao_dt"]])
     df_racao.set_index("Classe da Caixa", inplace=True)
     st.write(df_racao)
     
