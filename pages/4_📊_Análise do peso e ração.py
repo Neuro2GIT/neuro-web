@@ -474,6 +474,18 @@ if uploaded_file is not None:
             st.dataframe(df_medias_gerais)
 
     st.markdown("---")
+
+# Gera o arquivo Excel com os dados
+arquivo = gerar_arquivo_excel(dados)
+    
+# Cria um botão para download do arquivo Excel gerado
+with open(arquivo, "rb") as file:
+    st.download_button(
+        label="Fazer download - dados processados",
+        data=file,
+        file_name=arquivo,
+        mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+    )
     
     # Dados brutos de peso e consumo de ração em tabelas
     st.subheader ("Tabelas com os dados brutos")
@@ -505,17 +517,24 @@ if uploaded_file is not None:
             df_medias_gerais.set_index("Grupo", inplace=True)
             st.dataframe(df_medias_gerais)
 
-# Gera o arquivo Excel com os dados
-arquivo = gerar_arquivo_excel(dados)
-    
-# Cria um botão para download do arquivo Excel gerado
-with open(arquivo, "rb") as file:
-    st.download_button(
-        label="Baixar Dados Processados",
-        data=file,
-        file_name=arquivo,
-        mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-    )
+# Criar DataFrame com as médias e erros padrões de peso
+df_medias_e_erros = pd.DataFrame({
+    "Grupo": ["CT", "DT"],
+    "Média Peso": [
+        dados["medias_peso_ct"].mean(),  # Média do peso para CT
+        dados["medias_peso_dt"].mean()   # Média do peso para DT
+    ],
+    "Erro Padrão Peso": [
+        dados["erro_padrao_peso_ct"],  # Erro padrão do peso para CT
+        dados["erro_padrao_peso_dt"]   # Erro padrão do peso para DT
+    ]
+    })
+
+# Exibir o DataFrame com Streamlit
+with st.container():
+    st.write("Média e Erro Padrão de Peso por Grupo")
+    df_medias_e_erros.set_index("Grupo", inplace=True)
+    st.dataframe(df_medias_e_erros)
 
     # Chamar a função que retorna os dados processados
     #resultados = carregar_e_processar_excel(uploaded_file)
