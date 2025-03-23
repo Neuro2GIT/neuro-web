@@ -517,24 +517,6 @@ with open(arquivo, "rb") as file:
         mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
     )
 
-"""    # Exibindo as médias e erros padrão
-st.subheader("Médias e Erros Padrão")
-st.write(f"**Médias do Peso CT:** {dados['medias_peso_ct']}")
-st.write(f"**Erro Padrão Peso CT:** {dados['erro_padrao_peso_ct']}")
-st.write(f"**Médias do Peso DT:** {dados['medias_peso_dt']}")
-st.write(f"**Erro Padrão Peso DT:** {dados['erro_padrao_peso_dt']}")
-
-# Exibindo os DataFrames
-st.subheader("DataFrames CT e DT")
-
-# Exibindo o DataFrame 'df_ct'
-st.write("**DataFrame CT:**")
-st.dataframe(dados['df_ct'])
-
-# Exibindo o DataFrame 'df_dt'
-st.write("**DataFrame DT:**")
-st.dataframe(dados['df_dt'])"""
-
     # Chamar a função que retorna os dados processados
     #resultados = carregar_e_processar_excel(uploaded_file)
 
