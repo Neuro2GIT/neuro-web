@@ -78,24 +78,19 @@ if uploaded_file:
             st.dataframe(df_medias_gerais)
 
     # Exibir dados brutos do consumo das caixas
-    st.write("Consumo de ração por caixa")
-    df_racao = pd.concat([resultados_racao["df_racao_ct"], resultados_racao["df_racao_dt"]])
-    df_racao.set_index("Classe da Caixa", inplace=True)
-    st.write(df_racao)
-
     st.subheader ("Tabelas com os dados brutos")
     with st.expander("Peso dos animais e consumo de ração"):
         with st.container(border=True):
             st.write("Peso dos animais")
             df_peso_animais = pd.concat([resultados_peso["df_ct"], resultados_peso["df_dt"]])
-            df_peso_animais.set_index("ID do Animal", inplace=True)
+            df_peso_animais.set_index("Classe do Animal", inplace=True)
             st.write(df_peso_animais)
             #st.write(pd.concat([dados["df_ct"], dados["df_dt"]]))
 
         with st.container(border=True):
             st.write("Consumo de ração por caixa")
             df_racao = pd.concat([resultados_racao["df_racao_ct"], resultados_racao["df_racao_dt"]])
-            df_racao.set_index("ID da Caixa", inplace=True)
+            df_racao.set_index("Classe da Caixa", inplace=True)
             st.write(df_racao)
             #st.write(pd.concat([dados["df_racao_ct"], dados["df_racao_dt"]]))
     
