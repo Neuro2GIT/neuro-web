@@ -527,17 +527,7 @@ if uploaded_file is not None:
             df_medias_gerais.set_index("Grupo", inplace=True)
             st.dataframe(df_medias_gerais)
     
-    # Criar DataFrame para consumo geral de ração
-    df_medias_gerais = pd.DataFrame({
-        "Grupo": ["CT", "DT"],
-        "Média do consumo de ração": [
-            resultados_racao["media_geral_racao_ct"],  # Usando a variável 'dados' para acessar a média
-            resultados_racao["media_geral_racao_dt"]   # Usando a variável 'dados' para acessar a média
-        ]
-    })
 
-    st.markdown("---")
-    
     # Dados brutos de peso e consumo de ração em tabelas
     st.subheader ("Tabelas com os dados brutos")
     with st.expander("Peso dos animais e consumo de ração"):
