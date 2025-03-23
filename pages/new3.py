@@ -41,13 +41,16 @@ def processar_consumo_racao(uploaded_file):
     media_geral_racao_ct = medias_racao_ct.mean()
     media_geral_racao_dt = medias_racao_dt.mean()
 
+    # Dicionário com os resultados do consumo
     return {
         "medias_racao_ct": medias_racao_ct,
         "medias_racao_dt": medias_racao_dt,
         "media_geral_racao_ct": media_geral_racao_ct,
         "media_geral_racao_dt": media_geral_racao_dt,
         "df_racao_ct": df_racao_ct, 
-        "df_racao_dt": df_racao_dt
+        "df_racao_dt": df_racao_dt,
+        "df_med_ct": media_geral_racao_ct,
+        "df_med_dt": media_geral_racao_dt
     }
 
 def carregar_e_processar_excel(uploaded_file):
@@ -65,7 +68,6 @@ if uploaded_file:
     # Processar os dados
     resultado_peso = processar_peso(uploaded_file)
     resultado_racao = processar_consumo_racao(uploaded_file)
-    resultado_completo = carregar_e_processar_excel(uploaded_file)
 
     # Exibir a função principal (resultado completo)
     with st.expander("Peso dos animais"):
