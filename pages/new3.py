@@ -2,16 +2,27 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 
-# Funções para processar o peso e o consumo de ração
 def processar_peso(uploaded_file):
+    # Carregar os dados de pesagem
     df = pd.read_excel(uploaded_file, sheet_name="Pesagem de Animais")
+    
+    # Separar dados de peso por classe
     df_ct = df[df['Classe do Animal'] == 'CT']
     df_dt = df[df['Classe do Animal'] == 'DT']
-    medias_peso_ct = df_ct.iloc[:, 2:].mean()  
-    erro_padrao_peso_ct = df_ct.iloc[:, 2:].std() / np.sqrt(df_ct.shape[0])
-    medias_peso_dt = df_dt.iloc[:, 2:].mean()
-    erro_padrao_peso_dt = df_dt.iloc[:, 2:].std() / np.sqrt(df_dt.shape[0])
 
+    # Garantir que as colunas de peso a partir da 3ª coluna sejam numéricas (ignorando erros)
+    df_ct.iloc[:, 2:] = df_ct.iloc[:, 2:].apply(pd.to_numeric, errors='coerce')
+    df_dt.iloc[:, 2:] = df_dt.iloc[:, 2:].apply(pd.to_numeric, errors='coerce')
+
+    # Cálculo da média do peso e erro padrão para animais CT
+    medias_peso_ct = df_ct.iloc[:, 2:].mean()  # Médias para CT
+    erro_padrao_peso_ct = df_ct.iloc[:, 2:].std() / np.sqrt(df_ct.shape[0])  # Erro padrão para CT
+
+    # Cálculo da média do peso e erro padrão para animais DT
+    medias_peso_dt = df_dt.iloc[:, 2:].mean()  # Médias para DT
+    erro_padrao_peso_dt = df_dt.iloc[:, 2:].std() / np.sqrt(df_dt.shape[0])  # Erro padrão para DT
+
+    # Dicionário com os resultados do peso
     return {
         "medias_peso_ct": medias_peso_ct, 
         "erro_padrao_peso_ct": erro_padrao_peso_ct, 
