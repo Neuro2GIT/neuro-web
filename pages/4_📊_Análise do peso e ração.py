@@ -513,6 +513,8 @@ if uploaded_file is not None:
             st.write("Erro padrão")
             st.dataframe(df_errpadrao)
 
+        st.write("")
+        
         # Dataframe com a media geral do cosumo de ração
         with st.container(border=True):
             # Criar DataFrame para consumo geral de ração
