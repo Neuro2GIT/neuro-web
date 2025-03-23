@@ -65,6 +65,7 @@ if uploaded_file:
     resultados_racao = processar_consumo_racao(uploaded_file)
 
     # Exibir resumo das médias gerais usando DataFrame
+    st.subheader ("Tabelas com os dados dados calculados")
     with st.expander("Peso dos animais e consumo de ração"):
         with st.container(border=True):
             st.write("Média geral de consumo de ração por grupo")
