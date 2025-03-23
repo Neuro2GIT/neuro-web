@@ -506,7 +506,8 @@ if uploaded_file is not None:
         # Dataframe com o erro padrão
         with st.container(border=True):
             df_errpadrao = pd.DataFrame({
-                "Grupo": ["CT"dados["erro_padrao_peso_ct"], "DT"dados["erro_padrao_peso_dt"]]
+                "Grupo": ["CT", "DT"],  # Grupo de interesse
+                "Erro Padrão": [dados["erro_padrao_peso_ct"].mean(), dados["erro_padrao_peso_dt"].mean()]
             })
             df_errpadrao = df_errpadrao.T # Transpor para que as métricas fiquem nas linhas e os dias/observações nas colunas
             st.write("Erro padrão")
