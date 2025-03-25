@@ -402,22 +402,29 @@ def plotar_pesagem_altair(medias_peso_ct, erro_padrao_peso_ct, medias_peso_dt, e
     df_plot = pd.DataFrame({
         "Dias": np.concatenate([np.arange(1, len(medias_peso_ct) + 1)] * 2),
         "Peso Médio": np.concatenate([medias_peso_ct.values, medias_peso_dt.values]),
-        "Erro Padrão": np.concatenate([erro_padrao_peso_ct.values, erro_padrao_peso_dt.values]),
+        "Erro Inferior": np.concatenate([medias_peso_ct.values - erro_padrao_peso_ct.values, 
+                                         medias_peso_dt.values - erro_padrao_peso_dt.values]),
+        "Erro Superior": np.concatenate([medias_peso_ct.values + erro_padrao_peso_ct.values, 
+                                         medias_peso_dt.values + erro_padrao_peso_dt.values]),
         "Grupo": ["Controle"] * len(medias_peso_ct) + ["Deficiente em tiamina"] * len(medias_peso_dt)
     })
 
-    # Criando o gráfico de linha com Altair
+    # Gráfico principal de linha com pontos
     base = alt.Chart(df_plot).mark_line(point=True).encode(
         x=alt.X("Dias:O", title="Dias"),
         y=alt.Y("Peso Médio:Q", title="Peso (g)"),
-        color=alt.Color("Grupo:N", scale=alt.Scale(domain=["Controle", "Deficiente em tiamina"], range=["blue", "red"])),
+        color=alt.Color("Grupo:N", scale=alt.Scale(domain=["Controle", "Deficiente em tiamina"], 
+                                                   range=["blue", "red"])),
         tooltip=["Dias", "Peso Médio", "Grupo"]
     )
 
-    # Criando as barras de erro
-    erro = base.mark_errorbar().encode(
-        y=alt.Y("Peso Médio:Q", title="Peso (g)"),
-        yError=alt.Y("Erro Padrão:Q")
+    # Adicionando as barras de erro com `mark_rule`
+    erro = alt.Chart(df_plot).mark_rule().encode(
+        x="Dias:O",
+        y="Erro Inferior:Q",
+        y2="Erro Superior:Q",
+        color=alt.Color("Grupo:N", scale=alt.Scale(domain=["Controle", "Deficiente em tiamina"], 
+                                                   range=["blue", "red"]))
     )
 
     # Combinando os gráficos
@@ -429,7 +436,6 @@ def plotar_pesagem_altair(medias_peso_ct, erro_padrao_peso_ct, medias_peso_dt, e
 
     # Exibindo no Streamlit
     st.altair_chart(chart, use_container_width=True)
-
 
 # Dicionário de funções
 plot_funcs = {
