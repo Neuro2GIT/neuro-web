@@ -619,6 +619,7 @@ if uploaded_file is not None:
             st.dataframe(df_medias_gerais)
 
         # Criando o DataFrame com os dados
+        dias = np.arange(1, len(medias_peso_ct) + 1)
         df = pd.DataFrame({
             'Dias': dias * 2,  # Replicando os dias para cada grupo
             'Peso (g)': medias_peso_ct + medias_peso_dt,  # Concatenando as médias
