@@ -74,7 +74,6 @@ def carregar_e_processar_excel(uploaded_file):
     #})
 
 def processar_consumo_racao(uploaded_file):
-
     df_racao = pd.read_excel(uploaded_file, sheet_name="Consumo de Ração")
     
     # Filtragem dos dados por classe de caixa
@@ -477,7 +476,58 @@ def plotar_pesagem_area_altair(medias_peso_ct, erro_padrao_peso_ct, medias_peso_
     # Exibindo no Streamlit
     st.altair_chart(chart, use_container_width=True)
 
+def plotar_pesagem_altair(medias_peso_ct, erro_padrao_peso_ct, medias_peso_dt, erro_padrao_peso_dt):
+    """
+    Função para plotar o gráfico de linha com erro padrão usando Altair.
 
+    Parameters:
+    medias_peso_ct (pd.Series): Médias de peso para os animais da classe Controle.
+    erro_padrao_peso_ct (pd.Series): Erro padrão para os animais da classe Controle.
+    medias_peso_dt (pd.Series): Médias de peso para os animais da classe Deficiente em Tiamina.
+    erro_padrao_peso_dt (pd.Series): Erro padrão para os animais da classe Deficiente em Tiamina.
+    """
+    # Gerando os dias com base no número de elementos nas médias
+    dias = np.arange(1, len(medias_peso_ct) + 1)
+
+    # Criando DataFrame para a classe Controle (CT)
+    df_ct = pd.DataFrame({
+        'Dias': dias,
+        'Peso': medias_peso_ct.values,
+        'Erro': erro_padrao_peso_ct.values,
+        'Classe': 'Controle'
+    })
+
+    # Criando DataFrame para a classe Deficiente em Tiamina (DT)
+    df_dt = pd.DataFrame({
+        'Dias': dias,
+        'Peso': medias_peso_dt.values,
+        'Erro': erro_padrao_peso_dt.values,
+        'Classe': 'Deficiente em Tiamina'
+    })
+
+    # Concatenando os dois DataFrames
+    df = pd.concat([df_ct, df_dt])
+
+    # Criando o gráfico de linha com Altair
+    chart = alt.Chart(df).mark_line().encode(
+        x='Dias:O',
+        y='Peso:Q',
+        color='Classe:N',
+        detail='Classe:N'
+    ).properties(
+        title="Peso médio dos animais com erro padrão"
+    )
+
+    # Adicionando as bandas de erro (intervalos de erro)
+    chart = chart + alt.Chart(df).mark_errorbar().encode(
+        x='Dias:O',
+        y='Peso:Q',
+        yError='Erro:Q',
+        color='Classe:N'
+    )
+
+    chart.show()
+    
 # Dicionário de funções
 plot_funcs = {
     "Plotly": {
