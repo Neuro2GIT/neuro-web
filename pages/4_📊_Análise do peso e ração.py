@@ -52,7 +52,7 @@ def carregar_e_processar_excel(uploaded_file):
         "medias_peso_dt": medias_peso_dt, "erro_padrao_peso_dt": erro_padrao_peso_dt, "df_dt": df_dt,
     }
 
-    # Criar o DataFrame com as métricas (média e erro padrão) nas linhas e os dias nas colunas
+    # Criar o DataFrame com as médias para cada dia em cada classe
     df_resultado = pd.DataFrame({
         "Média Peso CT": medias_peso_ct,
         "Erro Padrão Peso CT": erro_padrao_peso_ct,
