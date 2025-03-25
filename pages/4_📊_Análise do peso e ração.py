@@ -397,6 +397,40 @@ def plotar_consumo_racao_seaborn(medias_racao_ct, medias_racao_dt):
     # Exibindo o gráfico
     st.pyplot(fig)
 
+def plotar_pesagem_altair(medias_peso_ct, erro_padrao_peso_ct, medias_peso_dt, erro_padrao_peso_dt):
+    # Criando um DataFrame adequado para Altair
+    df_plot = pd.DataFrame({
+        "Dias": np.concatenate([np.arange(1, len(medias_peso_ct) + 1)] * 2),
+        "Peso Médio": np.concatenate([medias_peso_ct.values, medias_peso_dt.values]),
+        "Erro Padrão": np.concatenate([erro_padrao_peso_ct.values, erro_padrao_peso_dt.values]),
+        "Grupo": ["Controle"] * len(medias_peso_ct) + ["Deficiente em tiamina"] * len(medias_peso_dt)
+    })
+
+    # Criando o gráfico de linha com Altair
+    base = alt.Chart(df_plot).mark_line(point=True).encode(
+        x=alt.X("Dias:O", title="Dias"),
+        y=alt.Y("Peso Médio:Q", title="Peso (g)"),
+        color=alt.Color("Grupo:N", scale=alt.Scale(domain=["Controle", "Deficiente em tiamina"], range=["blue", "red"])),
+        tooltip=["Dias", "Peso Médio", "Grupo"]
+    )
+
+    # Criando as barras de erro
+    erro = base.mark_errorbar().encode(
+        y=alt.Y("Peso Médio:Q", title="Peso (g)"),
+        yError=alt.Y("Erro Padrão:Q")
+    )
+
+    # Combinando os gráficos
+    chart = (base + erro).properties(
+        title="Peso médio dos animais ao longo dos dias",
+        width=600,
+        height=400
+    )
+
+    # Exibindo no Streamlit
+    st.altair_chart(chart, use_container_width=True)
+
+
 # Dicionário de funções
 plot_funcs = {
     "Plotly": {
@@ -413,6 +447,11 @@ plot_funcs = {
         "pesagem": plotar_pesagem_seaborn,
         "pesagem_area": plotar_pesagem_area_seaborn,
         "consumo_racao": plotar_consumo_racao_seaborn
+    },
+    "Altair": {
+        "pesagem": plotar_pesagem_altair,
+        "pesagem_area": none,
+        "consumo_racao": none
     }
 }
 
@@ -432,7 +471,7 @@ if uploaded_file is not None:
         # Cria as abas usando st.radio
         aba_selecionada = st.radio(
             "Selecione uma biblioteca abaixo para navegar entre as opções",
-            ("Plotly", "Matplotlib", "Seaborn")
+            ("Plotly", "Matplotlib", "Seaborn", "Altair")
         )
 
     # Seleciona as funções de acordo com a biblioteca escolhida
