@@ -502,7 +502,7 @@ plot_funcs = {
     },
     "Altair": {
         "pesagem": plotar_pesagem_altair,
-        "pesagem_area": plotar_pesagem_area_alt,
+        "pesagem_area": plotar_pesagem_area_altair,
         "consumo_racao": plotar_consumo_racao_seaborn
     }
 }
