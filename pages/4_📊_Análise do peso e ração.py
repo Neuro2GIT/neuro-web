@@ -450,8 +450,8 @@ plot_funcs = {
     },
     "Altair": {
         "pesagem": plotar_pesagem_altair,
-        "pesagem_area": none,
-        "consumo_racao": none
+        "pesagem_area": None,
+        "consumo_racao": None
     }
 }
 
