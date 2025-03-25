@@ -544,6 +544,8 @@ if uploaded_file is not None:
             df_medias_gerais.set_index("Grupo", inplace=True)
             st.dataframe(df_medias_gerais)
 
+        st.altair_chart(chart, use_container_width=True)
+
     # Exibir os valores de forma destacada
     #st.metric(label="Média do consumo CT", value=round(racao_processada["media_geral_racao_ct"], 2))
     #st.metric(label="Média do consumo DT", value=round(racao_processada["media_geral_racao_dt"], 2))
