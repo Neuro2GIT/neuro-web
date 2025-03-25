@@ -73,19 +73,6 @@ def carregar_e_processar_excel(uploaded_file):
     ]
     })
 
-    # Transformar o DataFrame para um formato longo
-    df_resultado_long = df_resultado.reset_index().melt(id_vars=["index"], var_name="Métrica", value_name="Valor")
-    df_resultado_long.rename(columns={"index": "Dia"}, inplace=True)
-
-    # Criar o gráfico com Altair
-    chart = alt.Chart(df_resultado_long).mark_line().encode(
-    x='Dia:O',  # Eixo X (dias), 'O' para ordinal, pois os dias são categorias
-    y='Valor:Q',  # Eixo Y (valores das médias), 'Q' para quantitativo
-    color='Métrica:N',  # Cor para diferenciar as métricas (Peso CT vs Peso DT)
-    detail='Métrica:N'  # Detalhes para que o gráfico mostre diferentes linhas para cada métrica
-    )
-    
-    st.altair_chart(chart, use_container_width=True)
 # Função para gerar um arquivo Excel com os dados processados
 #def gerar_arquivo_excel(dados):
     #with pd.ExcelWriter("dados_processados.xlsx") as writer:
@@ -573,6 +560,20 @@ if uploaded_file is not None:
             st.write("Média geral de consumo de ração por grupo")
             df_medias_gerais.set_index("Grupo", inplace=True)
             st.dataframe(df_medias_gerais)
+
+        # Transformar o DataFrame para um formato longo
+        df_resultado_long = df_resultado.reset_index().melt(id_vars=["index"], var_name="Métrica", value_name="Valor")
+        df_resultado_long.rename(columns={"index": "Dia"}, inplace=True)
+
+        # Criar o gráfico com Altair
+        chart = alt.Chart(df_resultado_long).mark_line().encode(
+        x='Dia:O',  # Eixo X (dias), 'O' para ordinal, pois os dias são categorias
+        y='Valor:Q',  # Eixo Y (valores das médias), 'Q' para quantitativo
+        color='Métrica:N',  # Cor para diferenciar as métricas (Peso CT vs Peso DT)
+        detail='Métrica:N'  # Detalhes para que o gráfico mostre diferentes linhas para cada métrica
+        )
+    
+        st.altair_chart(chart, use_container_width=True)
 
         
 
