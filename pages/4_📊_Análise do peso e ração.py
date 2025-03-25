@@ -52,6 +52,23 @@ def carregar_e_processar_excel(uploaded_file):
         "medias_peso_dt": medias_peso_dt, "erro_padrao_peso_dt": erro_padrao_peso_dt, "df_dt": df_dt,
     }
 
+    # Criando o DataFrame com os dados
+    df = pd.DataFrame({
+        'Dias': dias * 2,  # Replicando os dias para cada grupo
+        'Peso (g)': medias_peso_ct + medias_peso_dt,  # Concatenando as médias
+        'Grupo': ['Controle'] * len(dias) + ['Deficiente em tiamina'] * len(dias)  # Criando as categorias
+    })
+
+    # Criando o gráfico de linhas com Altair
+    chart = alt.Chart(df).mark_line().encode(
+        x='Dias:O',  # Eixo X como ordinal (dias)
+        y='Peso (g):Q',  # Eixo Y como quantitativo (peso)
+        color='Grupo:N',  # Colorir por grupo
+        detail='Grupo:N'  # Detalhes para o gráfico de linhas, separando por grupo
+    ).properties(
+        title="Peso médio dos animais por dia de experimento"
+    )
+
     # Criar o DataFrame com as médias para cada dia em cada classe
     #df_resultado = pd.DataFrame({
         #"Média Peso CT": medias_peso_ct,
@@ -486,7 +503,6 @@ if uploaded_file is not None:
         
         # Dataframe com a media geral do cosumo de ração
         with st.container(border=True):
-            # Criar DataFrame para consumo geral de ração
             df_medias_gerais = pd.DataFrame({
                 "Grupo": ["CT", "DT"],
                 "Média do consumo de ração": [
