@@ -437,6 +437,52 @@ def plotar_pesagem_altair(medias_peso_ct, erro_padrao_peso_ct, medias_peso_dt, e
     # Exibindo no Streamlit
     st.altair_chart(chart, use_container_width=True)
 
+import altair as alt
+import pandas as pd
+import numpy as np
+import streamlit as st
+
+def plotar_pesagem_area_altair(medias_peso_ct, erro_padrao_peso_ct, medias_peso_dt, erro_padrao_peso_dt):
+    # Criando DataFrame para o gráfico
+    df_plot = pd.DataFrame({
+        "Dias": np.concatenate([np.arange(1, len(medias_peso_ct) + 1)] * 2),
+        "Peso Médio": np.concatenate([medias_peso_ct.values, medias_peso_dt.values]),
+        "Erro Inferior": np.concatenate([medias_peso_ct.values - erro_padrao_peso_ct.values, 
+                                         medias_peso_dt.values - erro_padrao_peso_dt.values]),
+        "Erro Superior": np.concatenate([medias_peso_ct.values + erro_padrao_peso_ct.values, 
+                                         medias_peso_dt.values + erro_padrao_peso_dt.values]),
+        "Grupo": ["Controle"] * len(medias_peso_ct) + ["Deficiente em tiamina"] * len(medias_peso_dt)
+    })
+
+    # Gráfico de área preenchendo a região de erro
+    area = alt.Chart(df_plot).mark_area(opacity=0.3).encode(
+        x=alt.X("Dias:O", title="Dias"),
+        y="Erro Inferior:Q",
+        y2="Erro Superior:Q",
+        color=alt.Color("Grupo:N", scale=alt.Scale(domain=["Controle", "Deficiente em tiamina"], 
+                                                   range=["blue", "red"]))
+    )
+
+    # Gráfico de linha principal com pontos
+    base = alt.Chart(df_plot).mark_line(point=True).encode(
+        x=alt.X("Dias:O", title="Dias"),
+        y=alt.Y("Peso Médio:Q", title="Peso (g)"),
+        color=alt.Color("Grupo:N", scale=alt.Scale(domain=["Controle", "Deficiente em tiamina"], 
+                                                   range=["blue", "red"])),
+        tooltip=["Dias", "Peso Médio", "Grupo"]
+    )
+
+    # Combinando gráficos
+    chart = (area + base).properties(
+        title="Peso médio dos animais com faixa de erro",
+        width=600,
+        height=400
+    )
+
+    # Exibindo no Streamlit
+    st.altair_chart(chart, use_container_width=True)
+
+
 # Dicionário de funções
 plot_funcs = {
     "Plotly": {
@@ -456,8 +502,8 @@ plot_funcs = {
     },
     "Altair": {
         "pesagem": plotar_pesagem_altair,
-        "pesagem_area": None,
-        "consumo_racao": None
+        "pesagem_area": plotar_pesagem_area_alt,
+        "consumo_racao": plotar_consumo_racao_seaborn
     }
 }
 
