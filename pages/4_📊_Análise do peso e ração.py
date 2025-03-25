@@ -74,22 +74,22 @@ def carregar_e_processar_excel(uploaded_file):
     })
 
 # Função para gerar um arquivo Excel com os dados processados
-def gerar_arquivo_excel(dados):
-    with pd.ExcelWriter("dados_processados.xlsx") as writer:
+#def gerar_arquivo_excel(dados):
+    #with pd.ExcelWriter("dados_processados.xlsx") as writer:
         # Adiciona os DataFrames ao arquivo Excel
-        dados['df_ct'].to_excel(writer, sheet_name='Pesagem_CT', index=False)
-        dados['df_dt'].to_excel(writer, sheet_name='Pesagem_DT', index=False)
+        #dados['df_ct'].to_excel(writer, sheet_name='Pesagem_CT', index=False)
+        #dados['df_dt'].to_excel(writer, sheet_name='Pesagem_DT', index=False)
         
         # Adiciona as médias e erros padrão em uma nova planilha
-        medias_df = pd.DataFrame({
-            "Média Peso CT": dados['medias_peso_ct'],
-            "Erro Padrão Peso CT": dados['erro_padrao_peso_ct'],
-            "Média Peso DT": dados['medias_peso_dt'],
-            "Erro Padrão Peso DT": dados['erro_padrao_peso_dt']
-        })
-        medias_df.to_excel(writer, sheet_name='Medias_Erros', index=False)
+        #medias_df = pd.DataFrame({
+            #"Média Peso CT": dados['medias_peso_ct'],
+            #"Erro Padrão Peso CT": dados['erro_padrao_peso_ct'],
+            #"Média Peso DT": dados['medias_peso_dt'],
+            #"Erro Padrão Peso DT": dados['erro_padrao_peso_dt']
+        #})
+        #medias_df.to_excel(writer, sheet_name='Medias_Erros', index=False)
         
-    return "dados_processados.xlsx"
+    #return "dados_processados.xlsx"
 
 def processar_consumo_racao(uploaded_file):
 
@@ -560,7 +560,20 @@ if uploaded_file is not None:
             st.write("Média geral de consumo de ração por grupo")
             df_medias_gerais.set_index("Grupo", inplace=True)
             st.dataframe(df_medias_gerais)
-           
+
+# Transformar o DataFrame para um formato longo
+df_resultado_long = df_resultado.reset_index().melt(id_vars=["index"], var_name="Métrica", value_name="Valor")
+df_resultado_long.rename(columns={"index": "Dia"}, inplace=True)
+
+# Criar o gráfico com Altair
+chart = alt.Chart(df_resultado_long).mark_line().encode(
+    x='Dia:O',  # Eixo X (dias), 'O' para ordinal, pois os dias são categorias
+    y='Valor:Q',  # Eixo Y (valores das médias), 'Q' para quantitativo
+    color='Métrica:N',  # Cor para diferenciar as métricas (Peso CT vs Peso DT)
+    detail='Métrica:N'  # Detalhes para que o gráfico mostre diferentes linhas para cada métrica
+)
+
+st.altair_chart(chart, use_container_width=True)
 
     # Chamar a função que retorna os dados processados
     #resultados = carregar_e_processar_excel(uploaded_file)
