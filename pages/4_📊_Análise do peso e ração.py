@@ -574,7 +574,7 @@ if uploaded_file is not None:
             df_medias_gerais.set_index("Grupo", inplace=True)
             st.dataframe(df_medias_gerais)
 
-        st.altair_chart(chart, use_container_width=True)
+        
 
     # Chamar a função que retorna os dados processados
     #resultados = carregar_e_processar_excel(uploaded_file)
