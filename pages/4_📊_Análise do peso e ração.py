@@ -437,11 +437,6 @@ def plotar_pesagem_altair(medias_peso_ct, erro_padrao_peso_ct, medias_peso_dt, e
     # Exibindo no Streamlit
     st.altair_chart(chart, use_container_width=True)
 
-import altair as alt
-import pandas as pd
-import numpy as np
-import streamlit as st
-
 def plotar_pesagem_area_altair(medias_peso_ct, erro_padrao_peso_ct, medias_peso_dt, erro_padrao_peso_dt):
     # Criando DataFrame para o gráfico
     df_plot = pd.DataFrame({
