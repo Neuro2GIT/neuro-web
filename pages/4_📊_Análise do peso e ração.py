@@ -518,7 +518,7 @@ if uploaded_file is not None:
         # Cria as abas usando st.radio
         aba_selecionada = st.radio(
             "Selecione uma biblioteca abaixo para navegar entre as opções",
-            ("Plotly", "Matplotlib", "Seaborn", "Altair")
+            ("Plotly", "Matplotlib", "Seaborn",)
         )
 
     # Seleciona as funções de acordo com a biblioteca escolhida
