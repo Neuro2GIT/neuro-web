@@ -455,7 +455,9 @@ plot_funcs = {
         "consumo_racao": plotar_consumo_racao_seaborn
     },
     "Altair": {
-        "pesagem": plotar_pesagem_altair
+        "pesagem": plotar_pesagem_altair,
+        "pesagem_area": None,
+        "consumo_racao": None
     }
 }
 
