@@ -491,7 +491,7 @@ if uploaded_file is not None:
     st.markdown("---")
 
     st.subheader ("Tabelas para verificação")
-    with st.expander("Tabelas com os dados processados: médias, erro padrão e consumo de ração"):
+    with st.expander("Dados processados: médias e erro padrão"):
         
         # Dataframe com as medias
         with st.container(border=True):
@@ -533,7 +533,7 @@ if uploaded_file is not None:
     
 
     # Dados brutos de peso e consumo de ração em tabelas
-    with st.expander("Tabelas com os dados brutos: peso e consumo de ração"):
+    with st.expander("Dados brutos: peso e consumo de ração"):
         with st.container(border=True):
             st.write("Peso dos animais")
             df_peso_animais = pd.concat([dados["df_ct"], dados["df_dt"]])
