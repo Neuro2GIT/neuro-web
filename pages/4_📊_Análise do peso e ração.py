@@ -84,6 +84,8 @@ def carregar_e_processar_excel(uploaded_file):
     color='Métrica:N',  # Cor para diferenciar as métricas (Peso CT vs Peso DT)
     detail='Métrica:N'  # Detalhes para que o gráfico mostre diferentes linhas para cada métrica
     )
+    
+    st.altair_chart(chart, use_container_width=True)
 # Função para gerar um arquivo Excel com os dados processados
 #def gerar_arquivo_excel(dados):
     #with pd.ExcelWriter("dados_processados.xlsx") as writer:
