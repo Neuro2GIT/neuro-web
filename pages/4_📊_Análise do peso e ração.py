@@ -618,26 +618,6 @@ if uploaded_file is not None:
             df_medias_gerais.set_index("Grupo", inplace=True)
             st.dataframe(df_medias_gerais)
 
-        # Criando o DataFrame com os dados
-        dias = np.arange(1, len(medias_peso_ct) + 1)
-        df = pd.DataFrame({
-            'Dias': dias * 2,  # Replicando os dias para cada grupo
-            'Peso (g)': medias_peso_ct + medias_peso_dt,  # Concatenando as médias
-            'Grupo': ['Controle'] * len(dias) + ['Deficiente em tiamina'] * len(dias)  # Criando as categorias
-        })
-
-        # Criando o gráfico de linhas com Altair
-        chart = alt.Chart(df).mark_line().encode(
-            x='Dias:O',  # Eixo X como ordinal (dias)
-            y='Peso (g):Q',  # Eixo Y como quantitativo (peso)
-            color='Grupo:N',  # Colorir por grupo
-            detail='Grupo:N'  # Detalhes para o gráfico de linhas, separando por grupo
-        ).properties(
-            title="Peso médio dos animais por dia de experimento"
-        )
-    
-        st.altair_chart(chart, use_container_width=True)
-
     # Exibir os valores de forma destacada
     #st.metric(label="Média do consumo CT", value=round(racao_processada["media_geral_racao_ct"], 2))
     #st.metric(label="Média do consumo DT", value=round(racao_processada["media_geral_racao_dt"], 2))
