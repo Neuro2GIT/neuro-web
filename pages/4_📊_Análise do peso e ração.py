@@ -53,43 +53,25 @@ def carregar_e_processar_excel(uploaded_file):
     }
 
     # Criar o DataFrame com as médias para cada dia em cada classe
-    df_resultado = pd.DataFrame({
-        "Média Peso CT": medias_peso_ct,
-        "Erro Padrão Peso CT": erro_padrao_peso_ct,
-        "Média Peso DT": medias_peso_dt,
-        "Erro Padrão Peso DT": erro_padrao_peso_dt
-    }).T
+    #df_resultado = pd.DataFrame({
+        #"Média Peso CT": medias_peso_ct,
+        #"Erro Padrão Peso CT": erro_padrao_peso_ct,
+        #"Média Peso DT": medias_peso_dt,
+        #"Erro Padrão Peso DT": erro_padrao_peso_dt
+    #}).T
 
     # Criar DataFrame com as médias e erros padrões de peso
-    df_medias_e_erros = pd.DataFrame({
-    "Grupo": ["CT", "DT"],
-    "Média Peso": [
-        dados["medias_peso_ct"].mean(),  # Média do peso para CT
-        dados["medias_peso_dt"].mean()   # Média do peso para DT
-    ],
-    "Erro Padrão Peso": [
-        dados["erro_padrao_peso_ct"],  # Erro padrão do peso para CT
-        dados["erro_padrao_peso_dt"]   # Erro padrão do peso para DT
-    ]
-    })
-
-# Função para gerar um arquivo Excel com os dados processados
-#def gerar_arquivo_excel(dados):
-    #with pd.ExcelWriter("dados_processados.xlsx") as writer:
-        # Adiciona os DataFrames ao arquivo Excel
-        #dados['df_ct'].to_excel(writer, sheet_name='Pesagem_CT', index=False)
-        #dados['df_dt'].to_excel(writer, sheet_name='Pesagem_DT', index=False)
-        
-        # Adiciona as médias e erros padrão em uma nova planilha
-        #medias_df = pd.DataFrame({
-            #"Média Peso CT": dados['medias_peso_ct'],
-            #"Erro Padrão Peso CT": dados['erro_padrao_peso_ct'],
-            #"Média Peso DT": dados['medias_peso_dt'],
-            #"Erro Padrão Peso DT": dados['erro_padrao_peso_dt']
-        #})
-        #medias_df.to_excel(writer, sheet_name='Medias_Erros', index=False)
-        
-    #return "dados_processados.xlsx"
+    #df_medias_e_erros = pd.DataFrame({
+    #"Grupo": ["CT", "DT"],
+    #"Média Peso": [
+        #dados["medias_peso_ct"].mean(),  # Média do peso para CT
+        #dados["medias_peso_dt"].mean()   # Média do peso para DT
+    #],
+    #"Erro Padrão Peso": [
+        #dados["erro_padrao_peso_ct"],  # Erro padrão do peso para CT
+        #dados["erro_padrao_peso_dt"]   # Erro padrão do peso para DT
+    #]
+    #})
 
 def processar_consumo_racao(uploaded_file):
 
@@ -149,7 +131,6 @@ def plotar_pesagem(medias_peso_ct, erro_padrao_peso_ct, medias_peso_dt, erro_pad
         yaxis_title="Peso (g)",
         legend=dict(orientation="h", x=0.5, y=-0.2, xanchor="center"),
         xaxis=dict(title="Dias", tickmode="array", tickvals=dias),
-        #xaxis=dict(title="Dias", range=[dias.min() - 1, dias.max() + 1], scaleanchor="y"),  # Limite do eixo X (dias)
         height=600,
         width=600
     )
@@ -244,8 +225,6 @@ def plotar_consumo_racao(medias_racao_ct, medias_racao_dt):
         title_x=(0.5),
         title_xanchor=('center'),
         legend=dict(orientation="h", x=0.5, y=-0.2, xanchor="center"),
-        #height=600,
-        #width=600
     )
 
     st.plotly_chart(fig)
@@ -449,18 +428,6 @@ if uploaded_file is not None:
     dados = carregar_e_processar_excel(uploaded_file)
     resultados_racao = processar_consumo_racao(uploaded_file)
 
-    # Gera o arquivo Excel com os dados
-    #arquivo = gerar_arquivo_excel(dados)
-
-    # Cria um botão para download do arquivo Excel gerado
-    #with open(arquivo, "rb") as file:
-        #st.download_button(
-            #label="Fazer download - dados processados",
-            #data=file,
-            #file_name=arquivo,
-            #mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-        #)
-
     with st.container(border=True):
         # Cria as abas usando st.radio
         aba_selecionada = st.radio(
@@ -560,81 +527,6 @@ if uploaded_file is not None:
             st.write("Média geral de consumo de ração por grupo")
             df_medias_gerais.set_index("Grupo", inplace=True)
             st.dataframe(df_medias_gerais)
-
-        
-
-    # Chamar a função que retorna os dados processados
-    #resultados = carregar_e_processar_excel(uploaded_file)
-
-    # Criar DataFrame a partir das médias de peso
-    #df_peso = pd.DataFrame({
-        #"CT": resultados["medias_peso_ct"],
-        #"DT": resultados["medias_peso_dt"],
-        #"Erro Padrão CT": resultados["erro_padrao_peso_ct"],
-        #"Erro Padrão DT": resultados["erro_padrao_peso_dt"]
-    #})
-
-    # Transpor o DataFrame para que os dias fiquem na horizontal
-    #df_peso = df_peso.T
-
-    # Exibir o DataFrame no Streamlit
-    #st.write("Médias de Peso por Dia")
-    #st.dataframe(df_peso)
-
-    # Criar um DataFrame com os dados organizados para o Altair
-    #df_peso = pd.DataFrame({
-        #"Dia": resultados["medias_peso_ct"].index,  # Supondo que os índices sejam os dias
-        #"CT": resultados["medias_peso_ct"].values,
-        #"DT": resultados["medias_peso_dt"].values,
-        #"Erro Padrão CT": resultados["erro_padrao_peso_ct"].values,
-        #"Erro Padrão DT": resultados["erro_padrao_peso_dt"].values
-    #})
-
-    # Transformar o DataFrame para formato longo (melt) para Altair
-    #df_longo = df_peso.melt(id_vars=["Dia"], value_vars=["CT", "DT"], var_name="Grupo", value_name="Peso")
-
-    # Criar o gráfico de linhas
-    #linha = alt.Chart(df_longo).mark_line().encode(
-        #x=alt.X("Dia:O", title="Dias"),  # Se os dias forem categóricos, use ':O'
-        #y=alt.Y("Peso:Q", title="Peso Médio (g)"),
-        #color="Grupo:N"
-    #)
-
-    # Criar a área de erro padrão para CT
-    #erro_ct = alt.Chart(df_peso).mark_area(opacity=0.2).encode(
-        #x=alt.X("Dia:O"),
-        #y=alt.Y("CT - Erro Padrão CT:Q", title=""),
-        #y2="CT + Erro Padrão CT:Q",
-        #color=alt.value("blue")
-    #)
-
-    # Criar a área de erro padrão para DT
-    #erro_dt = alt.Chart(df_peso).mark_area(opacity=0.2).encode(
-        #x=alt.X("Dia:O"),
-        #y=alt.Y("DT - Erro Padrão DT:Q", title=""),
-        #y2="DT + Erro Padrão DT:Q",
-        #color=alt.value("red")
-    #)
-
-    # Exibir no Streamlit
-    #st.write("Médias de Peso por Dia com Erro Padrão")
-    #st.altair_chart(erro_ct + erro_dt + linha, use_container_width=True)
-    # Criar DataFrame para consumo geral de ração
-    #df_medias_gerais = pd.DataFrame({
-        #"Grupo": ["CT", "DT"],
-        #"Média do consumo de ração": [racao_processada["media_geral_racao_ct"], racao_processada["media_geral_racao_dt"]]
-    #})
-
-    #Exibe os gráficos correspondentes de forma dinâmica
-    #for nome_grafico, funcao in plotar_funcoes.items():
-    #with st.container(border=True):
-            #Chama a função de plotagem com os parâmetros corretos
-            #funcao(*parametros_por_grafico[nome_grafico])
-
-    # Criar gráfico de barras usando dados do DataFrame
-    #fig = px.bar(df_medias_gerais, x="Grupo", y="Média do consumo de ração",
-                 #title="Média geral de consumo de ração por grupo", text_auto=True)
-    #st.plotly_chart(fig)
 
     # Exibir os valores de forma destacada
     #st.metric(label="Média do consumo CT", value=round(racao_processada["media_geral_racao_ct"], 2))
