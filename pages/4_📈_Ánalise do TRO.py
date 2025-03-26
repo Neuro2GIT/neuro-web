@@ -12,10 +12,6 @@ st.set_option('client.showErrorDetails', True)
 
 def calcular_indices(df):
     # Calcula os índices de discriminação e de preferencia para cada animal.
-
-    # Separar dados de peso por classe
-    df_ct = df[df['Classe do animal'] == 'CT']
-    df_dt = df[df['Classe do animal'] == 'DT']
     
     df["Discriminação absoluta"] = ((df["Tempo no objeto novo"] - df["Tempo no objeto familiar"]))
                                     
@@ -69,7 +65,9 @@ if uploaded_file is not None:
 
     with st.expander("Médias do índice de discriminação"):
         for sheet_name, df in resultados.items():
-            st.dataframe(df["Média dos índices de discriminação"])
+            df_medias = pd.DataFrame({
+                "Grupo CT machos"
+                st.dataframe(df["Média dos índices de discriminação"])
 
     # Criar um arquivo Excel com os resultados
     with pd.ExcelWriter("resultados_TRO.xlsx", engine="xlsxwriter") as writer:
