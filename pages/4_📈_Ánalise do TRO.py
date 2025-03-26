@@ -64,10 +64,10 @@ if uploaded_file is not None:
             st.dataframe(df[["Tempo no objeto novo", "Tempo no objeto familiar", "Índice de discriminação", "Índice de preferência", "Discriminação absoluta", "ID"]])
 
     with st.expander("Médias do índice de discriminação"):
-        for sheet_name, df in resultados.items():
-            df_medias = pd.DataFrame({
-                "Grupo CT machos"
-                st.dataframe(df["Média dos índices de discriminação"])
+        #for sheet_name, df in resultados.items():
+            #df_medias = pd.DataFrame({
+                #"Grupo CT machos"
+                #st.dataframe(df["Média dos índices de discriminação"])
 
     # Criar um arquivo Excel com os resultados
     with pd.ExcelWriter("resultados_TRO.xlsx", engine="xlsxwriter") as writer:
