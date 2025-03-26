@@ -65,9 +65,7 @@ if uploaded_file is not None:
 
     with st.expander("Médias do índice de discriminação"):
         for sheet_name, df in resultados.items():
-            df_medias = pd.DataFrame({
-                "Grupo CT": resultados["Média dos índices de discriminação"]
-            })
+            df_medias = pd.DataFrame({resultados["Média dos índices de discriminação"]})
             st.dataframe(df["Média dos índices de discriminação"])
 
     # Criar um arquivo Excel com os resultados
