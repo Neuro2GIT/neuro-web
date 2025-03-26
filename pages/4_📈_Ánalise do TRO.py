@@ -24,7 +24,7 @@ def calcular_indices(df):
     
     df["Índice de preferência"] = ((df["Tempo no objeto novo"]) / (df["Tempo no objeto novo"] + df ["Tempo no objeto familiar"])) * 100
 
-    df["Média dos I.P"] = df["Índice de discriminação"].mean()
+    df["Média dos índices de discriminação"] = df["Índice de discriminação"].mean()
     
     return df
 
@@ -66,6 +66,9 @@ if uploaded_file is not None:
             df.set_index("Classe do animal", inplace=True)
             #st.write(f"### {sheet_name}")           
             st.dataframe(df[["Tempo no objeto novo", "Tempo no objeto familiar", "Índice de discriminação", "Índice de preferência", "Discriminação absoluta", "ID"]])
+
+    with st.expander("Médias do índice de preferência"):
+        st.dataframe(df["Média dos índices de discriminação"])
 
     # Criar um arquivo Excel com os resultados
     with pd.ExcelWriter("resultados_TRO.xlsx", engine="xlsxwriter") as writer:
