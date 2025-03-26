@@ -17,7 +17,8 @@ def calcular_indices(df):
     df["Índice de discriminação"] = ((df["Tempo no objeto novo"] - df["Tempo no objeto familiar"]) /
                                       (df["Tempo no objeto novo"] + df["Tempo no objeto familiar"]))
     
-    df["Índice de preferência"] = ((df["Tempo no objeto novo"]) / (df["Tempo no objeto novo"] + df ["Tempo no objeto familiar"])) * 100                        
+    df["Índice de preferência"] = ((df["Tempo no objeto novo"]) / (df["Tempo no objeto novo"] + df ["Tempo no objeto familiar"])) * 100
+    
     return df
 
 # Configuração do Streamlit
@@ -55,8 +56,7 @@ if uploaded_file is not None:
     # Exibir os resultados
     for sheet_name, df in resultados.items():
         with st.expander(f"### {sheet_name}"):
-            # Definir "ID" como índice para associar aos dados
-            df.set_index("ID", inplace=True)
+            df.set_index("Classe do animal", inplace=True)
             #st.write(f"### {sheet_name}")           
             st.dataframe(df[["Classe do animal", "Tempo no objeto novo", "Tempo no objeto familiar", "Índice de discriminação", "Índice de preferência", "Discriminação absoluta"]])
 
