@@ -63,7 +63,7 @@ if uploaded_file is not None:
             #st.write(f"### {sheet_name}")           
             st.dataframe(df[["Tempo no objeto novo", "Tempo no objeto familiar", "Índice de discriminação", "Índice de preferência", "Discriminação absoluta", "ID"]])
 
-    with st.expander("Médias do índice de discriminação"):
+    #with st.expander("Médias do índice de discriminação"):
         #for sheet_name, df in resultados.items():
             #df_medias = pd.DataFrame({
                 #"Grupo CT machos"
