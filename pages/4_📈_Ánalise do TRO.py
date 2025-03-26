@@ -63,7 +63,7 @@ if uploaded_file is not None:
         with st.expander(f"### {sheet_name}"):
             df.set_index("Classe do animal", inplace=True)
             #st.write(f"### {sheet_name}")           
-            st.dataframe(df[["ID", "Tempo no objeto novo", "Tempo no objeto familiar", "Índice de discriminação", "Índice de preferência", "Discriminação absoluta"]])
+            st.dataframe(df[["Tempo no objeto novo", "Tempo no objeto familiar", "Índice de discriminação", "Índice de preferência", "Discriminação absoluta"]])
 
     # Criar um arquivo Excel com os resultados
     with pd.ExcelWriter("resultados_TRO.xlsx", engine="xlsxwriter") as writer:
