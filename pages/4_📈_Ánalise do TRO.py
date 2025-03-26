@@ -69,7 +69,6 @@ if uploaded_file is not None:
                 "Grupo CT": resultados["medias_peso_ct"],
                 "Grupo DT": resultados["medias_peso_dt"]
             })
-                "Grupo CT machos"
                 st.dataframe(df["Média dos índices de discriminação"])
 
     # Criar um arquivo Excel com os resultados
