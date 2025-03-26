@@ -64,9 +64,9 @@ if uploaded_file is not None:
             st.dataframe(df[["Tempo no objeto novo", "Tempo no objeto familiar", "Índice de discriminação", "Índice de preferência", "Discriminação absoluta", "ID"]])
 
     with st.expander("Médias do índice de discriminação"):
+        # Para cada planilha, exibe a média do índice de discriminação
         for sheet_name, df in resultados.items():
-            df_medias = pd.DataFrame({resultados["Média dos índices de discriminação"]})
-            st.dataframe(df["Média dos índices de discriminação"])
+            st.write(f"Média do índice de discriminação para {sheet_name}: {df['Média dos índices de discriminação'].iloc[0]:.2f}")
 
     # Criar um arquivo Excel com os resultados
     with pd.ExcelWriter("resultados_TRO.xlsx", engine="xlsxwriter") as writer:
