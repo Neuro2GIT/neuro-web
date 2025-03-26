@@ -69,7 +69,7 @@ if uploaded_file is not None:
                 "Grupo CT": resultados["medias_peso_ct"],
                 "Grupo DT": resultados["medias_peso_dt"]
             })
-                st.dataframe(df["Média dos índices de discriminação"])
+            st.dataframe(df["Média dos índices de discriminação"])
 
     # Criar um arquivo Excel com os resultados
     with pd.ExcelWriter("resultados_TRO.xlsx", engine="xlsxwriter") as writer:
