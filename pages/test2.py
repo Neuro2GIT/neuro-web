@@ -8,12 +8,14 @@ def calcular_metricas(grupo):
     indice_discriminacao = (grupo['Tempo no objeto novo'] - grupo['Tempo no objeto familiar']) / (grupo['Tempo no objeto novo'] + grupo['Tempo no objeto familiar'])
     indice_preferencia = (grupo['Tempo no objeto novo'] / (grupo['Tempo no objeto novo'] + grupo['Tempo no objeto familiar'])) * 100
     
-    # Retornar os resultados como um dicionário
-    return {
-        "Discriminação absoluta": discriminacao_absoluta.mean(),  # Média para representar o valor do grupo
-        "Índice de discriminação": indice_discriminacao.mean(),
-        "Índice de preferência": indice_preferencia.mean()
+    # Retornar os resultados como um dicionário dinâmico baseado na classe
+    resultados = {
+        f"discriminacao_absoluta_{grupo['classe'].iloc[0].lower()}": discriminacao_absoluta.mean(),
+        f"indice_discriminacao_{grupo['classe'].iloc[0].lower()}": indice_discriminacao.mean(),
+        f"indice_preferencia_{grupo['classe'].iloc[0].lower()}": indice_preferencia.mean()
     }
+    
+    return resultados
 
 # Função principal para o Streamlit
 def main():
@@ -34,10 +36,13 @@ def main():
         st.write("Primeiras linhas dos dados:", df.head())
 
         # Agrupar por classe e aplicar a função de cálculo
-        resultados_por_classe = df.groupby('classe').apply(calcular_metricas).to_dict()
+        resultados_por_classe = df.groupby('classe').apply(calcular_metricas)
 
-        # Exibir os resultados na interface Streamlit
-        st.write("### Resultados por Classe", resultados_por_classe)
+        # Transformar os resultados em um DataFrame
+        resultados_df = pd.DataFrame(resultados_por_classe.tolist(), index=resultados_por_classe.index)
+
+        # Exibir o DataFrame no Streamlit
+        st.write("### Resultados Personalizados por Classe", resultados_df)
             
 if __name__ == "__main__":
     main()
