@@ -69,20 +69,6 @@ def calcular_indices(df):
 # Configuração do Streamlit
 st.title("Análise do teste comportamental")
 
-st.markdown("---")
-
-url = "https://pmc.ncbi.nlm.nih.gov/articles/PMC5614391/"
-
-with st.expander("Como funciona?"):
-    st.write("Converta a sua planilha com os resultados do TRO para o modelo ou gere uma nova no gerador de planilhas. Usando os tempos de exploração, serão calculados:")
-    st.write("Índice de discriminação: d2 = tnovo - tfamiliar / tnovo + tfamiliar")
-    st.write("Discriminação absoluta: d1 = tnovo - tfamiliar")
-    st.write("Índice de preferência: d3 = tnovo / tnovo + tfamiliar * 100")
-    st.markdown(f"[Leia o artigo base]({url})")
-
-# Configuração do Streamlit
-st.title("Análise do teste comportamental")
-
 with st.container(border=True):
     uploaded_file = st.file_uploader("Selecione um arquivo excel (.xlsx)", type=["xlsx"])
     
@@ -90,7 +76,7 @@ if uploaded_file is not None:
     # Ler o arquivo Excel
     dados = pd.ExcelFile(uploaded_file)
     
-    # Criar um dicionário para armazenar os índices de discriminação
+    # Criar um dicionário para armazenar os índices
     resultados = {}
     
     # Iterar sobre as planilhas (Animais CT e Animais DT)
@@ -98,8 +84,6 @@ if uploaded_file is not None:
         df = pd.read_excel(dados, sheet_name=sheet_name)
         df, medias = calcular_indices(df)
         resultados[sheet_name] = {"dados": df, "medias": medias}
-
-    st.markdown("---")
     
     # Exibir os resultados
     for sheet_name, df in resultados.items():
@@ -112,13 +96,3 @@ if uploaded_file is not None:
         # Para cada planilha, exibe a média do índice de discriminação
         for sheet_name, df in resultados.items():
             st.write(f"Média do índice de discriminação para {sheet_name}: {df['Média dos índices de discriminação'].iloc[0]:.2f}")
-
-    # Criar um arquivo Excel com os resultados
-    with pd.ExcelWriter("resultados_TRO.xlsx", engine="xlsxwriter") as writer:
-        for sheet_name, df in resultados.items():
-            df.to_excel(writer, sheet_name=sheet_name, index=False)
-
-        writer.close()
-        
-    with open("resultados_TRO.xlsx", "rb") as f:
-        st.download_button("Baixar resultados", f, "resultados_TRO.xlsx", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
