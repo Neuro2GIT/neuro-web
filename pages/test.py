@@ -33,8 +33,8 @@ with st.container(border=True):
     
 if uploaded_file is not None:
     # Ler o arquivo
-    df = pd.read_excel(uploaded_file, sheet_name=None)
-    for name, df in uploaded_file.items():
+    planilha_dados = pd.read_excel(uploaded_file, sheet_name=None)
+    for name, df in planilha_dados.items():
 
    
         # Verifica se as colunas necessárias existem no arquivo
