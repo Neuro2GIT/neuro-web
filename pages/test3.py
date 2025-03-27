@@ -41,3 +41,37 @@ def calcular_indices(df):
     df["Média dos índices de discriminação"] = df["Índice de discriminação"].mean()
     
     return df
+
+# Streamlit: Interface do usuário
+st.title("Cálculo de Índices de Discriminação e Preferência")
+
+# Carregar um arquivo CSV de exemplo ou coletar os dados de outra maneira
+uploaded_file = st.file_uploader("Carregar arquivo CSV", type=["csv"])
+
+if uploaded_file is not None:
+    # Carregar os dados do arquivo CSV
+    df = pd.read_csv(uploaded_file)
+    
+    # Verificar se as colunas necessárias existem
+    if 'Classe do animal' in df.columns and 'Grupo' in df.columns and 'Tempo no objeto novo' in df.columns and 'Tempo no objeto familiar' in df.columns:
+        
+        # Calcular os índices
+        df_calculado = calcular_indices(df)
+        
+        # Exibir a tabela de resultados
+        st.subheader("Resultados")
+        st.dataframe(df_calculado)  # Exibe o DataFrame resultante
+        
+        # Exibir algumas métricas (opcional)
+        st.subheader("Média dos Índices de Discriminação")
+        st.write(f"Média dos Índices de Discriminação: {df_calculado['Média dos índices de discriminação'].iloc[0]:.2f}")
+        
+        # Adicionar gráficos para visualização, por exemplo:
+        st.subheader("Gráfico de Índice de Preferência")
+        st.line_chart(df_calculado[['Índice de preferência']])
+        
+        st.subheader("Gráfico de Discriminação Absoluta")
+        st.line_chart(df_calculado[['Discriminação absoluta']])
+
+    else:
+        st.error("O arquivo CSV não contém as colunas necessárias.")
