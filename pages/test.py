@@ -83,9 +83,6 @@ if uploaded_file is not None:
     for sheet_name, df in resultados.items():
         with st.expander(f"### {sheet_name}"):
             # Concatenar o DataFrame original com a linha de médias
-            df_medio = pd.DataFrame(medias, index=["Média"]).reset_index()
-            df_medio.rename(columns={"index": "Índice"}, inplace=True)
-            df = pd.concat([df, df_medio], ignore_index=True)
             #df.set_index("Classe do animal", inplace=True)
             #st.write(f"### {sheet_name}")           
             st.dataframe(df[["Tempo no objeto novo", "Tempo no objeto familiar", "Índice de discriminação", "Índice de preferência", "Discriminação absoluta", "ID"]])
