@@ -14,8 +14,10 @@ def calcular_indices(df):
     # Calcula os índices de discriminação e de preferencia para cada animal.
 
     # Separar dados de peso por classe
-    df_ct = df[df['Classe do animal'] == 'CT']
-    df_dt = df[df['Classe do animal'] == 'DT']
+    df_ct-m = df[df['Classe do animal'] == 'CT-M']
+    df_dt-m = df[df['Classe do animal'] == 'CT-M']
+    df_ct-f = df[df['Classe do animal'] == 'CT-F']
+    df_dt-m = df[df['Classe do animal'] == 'DT-F']
     
     df["Discriminação absoluta"] = ((df["Tempo no objeto novo"] - df["Tempo no objeto familiar"]))
                                     
@@ -31,8 +33,9 @@ def calcular_indices(df):
     # Dicionário com o resultado dos dados processados
     return {
         "medias_peso_ct": medias_peso_ct, "erro_padrao_peso_ct": erro_padrao_peso_ct, "df_ct": df_ct-m,
-        "medias_peso_ct": medias_peso_ct, "erro_padrao_peso_ct": erro_padrao_peso_ct, "df_ct": df_ct-m,
-        "medias_peso_dt": medias_peso_dt, "erro_padrao_peso_dt": erro_padrao_peso_dt, "df_dt": df_dt,
+        "medias_peso_ct": medias_peso_ct, "erro_padrao_peso_ct": erro_padrao_peso_ct, "df_ct": df_dt-m,
+        "medias_peso_ct": medias_peso_ct, "erro_padrao_peso_ct": erro_padrao_peso_ct, "df_ct": df_ct-f,
+        "medias_peso_dt": medias_peso_dt, "erro_padrao_peso_dt": erro_padrao_peso_dt, "df_dt": df_dt-f,
     }
     
 
