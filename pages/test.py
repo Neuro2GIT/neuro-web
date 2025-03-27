@@ -33,7 +33,7 @@ with st.container(border=True):
     
 if uploaded_file is not None:
     # Ler o arquivo
-    df = pd.read_excel(uploaded_file)
+    df = pd.read_excel(uploaded_file, sheet_name=None)
 
     # Verifica se as colunas necessárias existem no arquivo
     colunas_necessarias = {"Classe do animal", "Tempo no objeto novo", "Tempo no objeto familiar"}
