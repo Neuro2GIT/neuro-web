@@ -38,12 +38,12 @@ def calcular_indices(df):
     df_f_dt["Índice de preferência"] = (df_f_dt["Tempo no objeto novo"] / (df_f_dt["Tempo no objeto novo"] + df_f_dt["Tempo no objeto familiar"])) * 100
 
     # Unir os dataframes de 'M-CT', 'M-DT', 'F-CT' e 'F-DT' novamente
-    df = pd.concat([df_m_ct, df_m_dt, df_f_ct, df_f_dt])
-    
-    # Calcular a média dos índices de discriminação
-    df["Média dos índices de discriminação"] = df["Índice de discriminação"].mean()
-    
-    return df
+    df_completo = pd.concat([df_m_ct, df_m_dt, df_f_ct, df_f_dt])
+
+    # Calcular a média dos índices de discriminação por grupo
+    medias_indices = df_completo.groupby(['Classe do animal', 'Grupo'])['Índice de discriminação'].mean().reset_index()
+
+    return df_completo, medias_indices
 
 # Streamlit: Interface do usuário
 st.title("Cálculo de Índices de Discriminação e Preferência")
@@ -66,17 +66,21 @@ if uploaded_file is not None:
         if 'Classe do animal' in df.columns and 'Grupo' in df.columns and 'Tempo no objeto novo' in df.columns and 'Tempo no objeto familiar' in df.columns:
             
             # Calcular os índices
-            df_calculado = calcular_indices(df)
+            df_calculado, medias_indices = calcular_indices(df)
             
-            # Exibir a tabela de resultados
-            st.subheader("Resultados")
-            st.dataframe(df_calculado)  # Exibe o DataFrame resultante
+            # Exibir a tabela de resultados (dados do animal)
+            st.subheader("Resultados por Animal")
+            st.dataframe(df_calculado)  # Exibe o DataFrame com os índices calculados
+            
+            # Exibir as médias dos índices de discriminação por grupo (Tabela separada)
+            st.subheader("Média dos Índices de Discriminação por Grupo")
+            st.dataframe(medias_indices)  # Exibe a tabela com a média dos índices por grupo
             
             # Exibir algumas métricas (opcional)
-            st.subheader("Média dos Índices de Discriminação")
-            st.write(f"Média dos Índices de Discriminação: {df_calculado['Média dos índices de discriminação'].iloc[0]:.2f}")
+            st.subheader("Média Geral dos Índices de Discriminação")
+            st.write(f"Média geral dos Índices de Discriminação: {df_calculado['Índice de discriminação'].mean():.2f}")
             
-            # Adicionar gráficos para visualização, por exemplo:
+            # Adicionar gráficos para visualização
             st.subheader("Gráfico de Índice de Preferência")
             st.line_chart(df_calculado[['Índice de preferência']])
             
