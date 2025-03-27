@@ -56,13 +56,12 @@ if uploaded_file is not None:
         df, medias = calcular_indices(df)
         resultados[sheet_name] = df
 
-        # Exibir os resultados
-    for sheet_name, resultado in resultados.items():
+    # Exibir os resultados
+    for sheet_name, df in resultados.items():
         with st.expander(f"### {sheet_name}"):
-            st.dataframe(resultado["resultados"][["Tempo no objeto novo", "Tempo no objeto familiar", 
-                                            "Índice de discriminação", "Índice de preferência", 
-                                            "Discriminação absoluta"]])
-            resultado["dados"].set_index("Classe do animal", inplace=True)
+            df.set_index("Classe do animal", inplace=True)
+            #st.write(f"### {sheet_name}")           
+            st.dataframe(df[["Tempo no objeto novo", "Tempo no objeto familiar", "Índice de discriminação", "Índice de preferência", "Discriminação absoluta", "ID"]])
 
 
     with st.expander("Médias do índice de discriminação"):
