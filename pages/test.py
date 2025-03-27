@@ -54,7 +54,7 @@ if uploaded_file is not None:
     for sheet_name in dados.sheet_names:
         df = pd.read_excel(dados, sheet_name=sheet_name)
         df, medias = calcular_indices(df)
-        resultados[sheet_name] = {"dados": df, "medias": medias}
+        resultados[sheet_name] = df
 
         # Exibir os resultados
     for sheet_name, resultado in resultados.items():
