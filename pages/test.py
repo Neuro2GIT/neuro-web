@@ -24,8 +24,9 @@ def calcular_indices(df):
                                     (df["Tempo no objeto novo"] + df["Tempo no objeto familiar"])
     df["Índice de preferência"] = (df["Tempo no objeto novo"]) / (df["Tempo no objeto novo"] + df["Tempo no objeto familiar"]) * 100
 
-    # Calcular as médias por classe de animal
-    medias_por_classe = df.groupby("Classe do animal")[["Discriminação absoluta", "Índice de discriminação", "Índice de preferência"]].mean().reset_index()
+    
+    # Calcular a média do índice de discriminação por classe e adicionar ao DataFrame original
+    df["Média dos índices de discriminação"] = df.groupby("Classe do animal")["Índice de discriminação"].transform("mean")
 
     st.write("Colunas disponíveis no DataFrame:", df.columns)
 
