@@ -32,6 +32,12 @@ st.set_option('client.showErrorDetails', True)
 
 # Função para calcular os índices para cada grupo
 def calcular_indices(df):
+
+    # Separar dados comportamentais por classe
+    df_ct_m = df[df['Classe do animal'] == 'CT-M']
+    df_dt_m = df[df['Classe do animal'] == 'DT-M']
+    df_ct_f = df[df['Classe do animal'] == 'CT-F']
+    df_dt_m = df[df['Classe do animal'] == 'DT-F']
     
     df["Discriminação absoluta"] = df["Tempo no objeto novo"] - df["Tempo no objeto familiar"]
     df["Índice de discriminação"] = (df["Tempo no objeto novo"] - df["Tempo no objeto familiar"]) / \
