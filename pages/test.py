@@ -61,7 +61,7 @@ if uploaded_file is not None:
         # Exibir os dados de cada planilha
         with st.expander(f"### {sheet_name}"):
             df.set_index("Classe do animal", inplace=True)
-            st.dataframe(df[["Tempo no objeto novo", "Tempo no objeto familiar", "Índice de discriminação", "Índice de preferência", "Discriminação absoluta", "Média dos índices de discriminação"]])
+            st.dataframe(df[["Tempo no objeto novo", "Tempo no objeto familiar", "Índice de discriminação", "Índice de preferência", "Discriminação absoluta"]])
 
         # Exibir as médias por classe de animal
         with st.expander(f"Médias por Classe de Animal - {sheet_name}"):
