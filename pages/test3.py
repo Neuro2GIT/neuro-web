@@ -10,16 +10,16 @@ def separar_grupo_subgrupo(df, grupo, subgrupo):
     :param subgrupo: Valor do subgrupo ('CT' ou 'DT')
     :return: DataFrame filtrado
     """
-    return df[(df['Classe do animal'] == subgrupo) & (df['Grupo'] == grupo)]
+    return df[(df['Classe do animal'] == classe) & (df['Grupo'] == grupo)]
 
 def calcular_indices(df):
-    # Usar a função para separar os dados por grupo e subgrupo
-    df_m_ct = separar_grupo_subgrupo(df, 'M', 'CT')  # Machos - CT
-    df_m_dt = separar_grupo_subgrupo(df, 'M', 'DT')  # Machos - DT
-    df_f_ct = separar_grupo_subgrupo(df, 'F', 'CT')  # Fêmeas - CT
-    df_f_dt = separar_grupo_subgrupo(df, 'F', 'DT')  # Fêmeas - DT
+    # Separar dados por classe (M/F) e grupo (CT/DT)
+    df_m_ct = separar_grupo_subgrupo(df, 'M', 'CT')  # Machos - Controle
+    df_m_dt = separar_grupo_subgrupo(df, 'M', 'DT')  # Machos - Tratamento
+    df_f_ct = separar_grupo_subgrupo(df, 'F', 'CT')  # Fêmeas - Controle
+    df_f_dt = separar_grupo_subgrupo(df, 'F', 'DT')  # Fêmeas - Tratamento
     
-    # Calcular discriminação absoluta para os subgrupos M-CT, M-DT, F-CT, F-DT
+    # Calcular discriminação absoluta para os subgrupos
     df_m_ct["Discriminação absoluta"] = df_m_ct["Tempo no objeto novo"] - df_m_ct["Tempo no objeto familiar"]
     df_m_dt["Discriminação absoluta"] = df_m_dt["Tempo no objeto novo"] - df_m_dt["Tempo no objeto familiar"]
     df_f_ct["Discriminação absoluta"] = df_f_ct["Tempo no objeto novo"] - df_f_ct["Tempo no objeto familiar"]
