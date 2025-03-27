@@ -49,11 +49,11 @@ def calcular_indices(df):
 st.title("Cálculo de Índices de Discriminação e Preferência")
 
 # Carregar um arquivo CSV de exemplo ou coletar os dados de outra maneira
-uploaded_file = st.file_uploader("Carregar arquivo CSV", type=["csv"])
+uploaded_file = st.file_uploader("Carregar arquivo", type=["xlsx"])
 
 if uploaded_file is not None:
     # Carregar os dados do arquivo CSV
-    df = pd.read_csv(uploaded_file)
+    df = pd.read_xlsx(uploaded_file)
     
     # Verificar se as colunas necessárias existem
     if 'Classe do animal' in df.columns and 'Grupo' in df.columns and 'Tempo no objeto novo' in df.columns and 'Tempo no objeto familiar' in df.columns:
