@@ -59,12 +59,31 @@ if uploaded_file is not None:
         df, medias, medias_por_classe = calcular_indices(df)
         resultados[sheet_name] = df
 
+    # Gerar lista de classes únicas no DataFrame
+        classes_disponiveis = df['Classe do animal'].unique().tolist()
+
+        # Permitir que o usuário selecione as classes a exibir (usando multiselect ou selectbox)
+        classes_para_exibir = st.multiselect("Escolha as classes para exibir:", classes_disponiveis)
+
+        # Se o usuário escolheu classes, filtrar o DataFrame
+        if classes_para_exibir:
+            df_filtrado = df[df['Classe do animal'].isin(classes_para_exibir)]
+        else:
+            # Caso não tenha sido selecionada nenhuma classe, mostrar todas
+            df_filtrado = df
+
+        # Definindo o índice
+        df_filtrado.set_index("Classe do animal", inplace=True)
+
+        # Exibindo os dados filtrados
+        st.dataframe(df_filtrado[["Tempo no objeto novo", "Tempo no objeto familiar", "Índice de discriminação", 
+                                 "Índice de preferência", "Discriminação absoluta", "ID"]])
     # Exibir os resultados
-    for sheet_name, df in resultados.items():
-        with st.expander(f"### {sheet_name}"):
-            df.set_index("Classe do animal", inplace=True)
+    #for sheet_name, df in resultados.items():
+        #with st.expander(f"### {sheet_name}"):
+            #df.set_index("Classe do animal", inplace=True)
             #st.write(f"### {sheet_name}")           
-            st.dataframe(df)
+            #st.dataframe(df[["Tempo no objeto novo", "Tempo no objeto familiar", "Índice de discriminação", "Índice de preferência", "Discriminação absoluta", "ID"]])
 
 
     with st.expander("Médias do índice de discriminação"):
