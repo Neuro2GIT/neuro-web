@@ -10,9 +10,9 @@ def calcular_metricas(grupo):
     
     # Retornar os resultados como um dicionário dinâmico baseado na classe
     resultados = {
-        f"discriminacao_absoluta_{grupo['classe'].iloc[0].lower()}": discriminacao_absoluta.mean(),
-        f"indice_discriminacao_{grupo['classe'].iloc[0].lower()}": indice_discriminacao.mean(),
-        f"indice_preferencia_{grupo['classe'].iloc[0].lower()}": indice_preferencia.mean()
+        f"discriminacao_absoluta_{grupo['Classe do animal'].iloc[0].lower()}": discriminacao_absoluta.mean(),
+        f"indice_discriminacao_{grupo['Classe do animal'].iloc[0].lower()}": indice_discriminacao.mean(),
+        f"indice_preferencia_{grupo['Classe do animal'].iloc[0].lower()}": indice_preferencia.mean()
     }
     
     return resultados
