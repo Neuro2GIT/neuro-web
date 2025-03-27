@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
 
-def separar_grupo_subgrupo(df, grupo, subgrupo):
+def separar_grupo_subgrupo(df, classe, grupo):
     """
     Função para filtrar o DataFrame com base no grupo e subgrupo.
     
