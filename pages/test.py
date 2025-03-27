@@ -10,34 +10,61 @@ st.set_page_config(
     menu_items={})
 st.set_option('client.showErrorDetails', True)
 
-def calcular_indices(df):
+#def calcular_indices(df):
     # Calcula os índices de discriminação e de preferencia para cada animal.
 
-    # Separar dados de peso por classe
+    # Separar dados comportamentais por classe
+    #df_ct_m = df[df['Classe do animal'] == 'CT-M']
+    #df_dt_m = df[df['Classe do animal'] == 'DT-M']
+    #df_ct_f = df[df['Classe do animal'] == 'CT-F']
+    #df_dt_m = df[df['Classe do animal'] == 'DT-F']
+    
+    #df["Discriminação absoluta"] = ((df["Tempo no objeto novo"] - df["Tempo no objeto familiar"]))
+                                    
+    #df["Índice de discriminação"] = ((df["Tempo no objeto novo"] - df["Tempo no objeto familiar"]) /
+                                      #(df["Tempo no objeto novo"] + df["Tempo no objeto familiar"]))
+    
+    #df["Índice de preferência"] = ((df["Tempo no objeto novo"]) / (df["Tempo no objeto novo"] + df ["Tempo no objeto familiar"])) * 100
+
+    #df["Média dos índices de discriminação"] = df["Índice de discriminação"].mean()
+    
+    #return df
+
+# Função para calcular os índices para cada grupo
+def calcular_indices(df):
+
+    # Separar dados comportamentais por classe
     df_ct_m = df[df['Classe do animal'] == 'CT-M']
     df_dt_m = df[df['Classe do animal'] == 'DT-M']
     df_ct_f = df[df['Classe do animal'] == 'CT-F']
     df_dt_m = df[df['Classe do animal'] == 'DT-F']
     
-    df["Discriminação absoluta"] = ((df["Tempo no objeto novo"] - df["Tempo no objeto familiar"]))
-                                    
-    df["Índice de discriminação"] = ((df["Tempo no objeto novo"] - df["Tempo no objeto familiar"]) /
-                                      (df["Tempo no objeto novo"] + df["Tempo no objeto familiar"]))
-    
-    df["Índice de preferência"] = ((df["Tempo no objeto novo"]) / (df["Tempo no objeto novo"] + df ["Tempo no objeto familiar"])) * 100
+    df["Discriminação absoluta"] = df["Tempo no objeto novo"] - df["Tempo no objeto familiar"]
+    df["Índice de discriminação"] = (df["Tempo no objeto novo"] - df["Tempo no objeto familiar"]) / \
+                                    (df["Tempo no objeto novo"] + df["Tempo no objeto familiar"])
+    df["Índice de preferência"] = (df["Tempo no objeto novo"]) / (df["Tempo no objeto novo"] + df["Tempo no objeto familiar"]) * 100
 
-    df["Média dos índices de discriminação"] = df["Índice de discriminação"].mean()
-    
-    return df
+    # Calcular as médias de cada índice
+    media_discriminacao_absoluta = df["Discriminação absoluta"].mean()
+    media_indice_discriminacao = df["Índice de discriminação"].mean()
+    media_indice_preferencia = df["Índice de preferência"].mean()
 
-    # Dicionário com o resultado dos dados processados
-    return {
-        "medias_peso_ct": medias_peso_ct, "erro_padrao_peso_ct": erro_padrao_peso_ct, "df_ct": df_ct-m,
-        "medias_peso_ct": medias_peso_ct, "erro_padrao_peso_ct": erro_padrao_peso_ct, "df_ct": df_dt-m,
-        "medias_peso_ct": medias_peso_ct, "erro_padrao_peso_ct": erro_padrao_peso_ct, "df_ct": df_ct-f,
-        "medias_peso_dt": medias_peso_dt, "erro_padrao_peso_dt": erro_padrao_peso_dt, "df_dt": df_dt-f,
+    medias = {
+        "Média da Discriminação Absoluta": media_discriminacao_absoluta,
+        "Média do Índice de Discriminação": media_indice_discriminacao,
+        "Média do Índice de Preferência": media_indice_preferencia
     }
-    
+
+    return df, medias
+
+
+# Armazenando as médias em um dicionário ou em uma variável para fácil acesso
+#medias_discriminacao = {
+    #'CT-M': media_discriminacao_ct_m,
+    #'CT-F': media_discriminacao_ct_f,
+    #'DT-M': media_discriminacao_dt_m,
+    #'DT-F': media_discriminacao_dt_f
+#}
 
 # Configuração do Streamlit
 st.title("Análise do teste comportamental")
