@@ -32,14 +32,13 @@ with st.container(border=True):
     uploaded_file = st.file_uploader("Selecione um arquivo excel (.xlsx)", type=["xlsx"])
     
 if uploaded_file is not None:
-    # Ler o arquivo Excel
-    dados = pd.ExcelFile(uploaded_file)
+    # Ler o arquivo
+    df = pd.read_excel(uploaded_file)
 
     # Verifica se as colunas necessárias existem no arquivo
     colunas_necessarias = {"Classe do animal", "Tempo no objeto novo", "Tempo no objeto familiar"}
-    if not colunas_necessarias.issubset(df.columns):
-        st.error(f"O arquivo deve conter as colunas: {', '.join(colunas_necessarias)}")
-    else:
+    
+    if colunas_necessarias.issubset(df.columns):
         # Calcular índices e médias
         df = calcular_indices(df)
         medias_por_classe = calcular_medias(df)
@@ -50,11 +49,11 @@ if uploaded_file is not None:
             "medias_por_classe": medias_por_classe
         }
 
-    # Exibir tabelas no Streamlit
+        # Exibir tabelas no Streamlit
         st.subheader("Dados com Índices Calculados")
         st.dataframe(resultados["dados_com_indices"])
 
         st.subheader("Médias dos Índices por Classe")
         st.dataframe(resultados["medias_por_classe"])
-
-    
+    else:
+        st.error(f"O arquivo deve conter as colunas: {', '.join(colunas_necessarias)}")
