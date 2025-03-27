@@ -51,15 +51,15 @@ if uploaded_file is not None:
     resultados = {}
     
     # Iterar sobre as planilhas (Animais CT e Animais DT)
-    for sheet_name in dados.sheet_names:
-        df = pd.read_excel(dados, sheet_name=sheet_name)
+    for sheet_name in xls.sheet_names:
+        df = pd.read_excel(xls, sheet_name=sheet_name)
         df, medias = calcular_indices(df)
         resultados[sheet_name] = df
 
         # Exibir os resultados
     for sheet_name, resultado in resultados.items():
         with st.expander(f"### {sheet_name}"):
-            st.dataframe(resultado["dados"][["Tempo no objeto novo", "Tempo no objeto familiar", 
+            st.dataframe(resultado["resultados"][["Tempo no objeto novo", "Tempo no objeto familiar", 
                                             "Índice de discriminação", "Índice de preferência", 
                                             "Discriminação absoluta"]])
             resultado["dados"].set_index("Classe do animal", inplace=True)
