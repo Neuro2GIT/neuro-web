@@ -51,8 +51,8 @@ if uploaded_file is not None:
     resultados = {}
     
     # Iterar sobre as planilhas (Animais CT e Animais DT)
-    for sheet_name in xls.sheet_names:
-        df = pd.read_excel(xls, sheet_name=sheet_name)
+    for sheet_name in dados.sheet_names:
+        df = pd.read_excel(dados, sheet_name=sheet_name)
         df, medias = calcular_indices(df)
         resultados[sheet_name] = df
 
