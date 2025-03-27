@@ -14,10 +14,10 @@ def calcular_indices(df):
     # Calcula os índices de discriminação e de preferencia para cada animal.
 
     # Separar dados de peso por classe
-    df_ct-m = df[df['Classe do animal'] == 'CT-M']
-    df_dt-m = df[df['Classe do animal'] == 'CT-M']
-    df_ct-f = df[df['Classe do animal'] == 'CT-F']
-    df_dt-m = df[df['Classe do animal'] == 'DT-F']
+    df_ct_m = df[df['Classe do animal'] == 'CT-M']
+    df_dt_m = df[df['Classe do animal'] == 'DT-M']
+    df_ct_f = df[df['Classe do animal'] == 'CT-F']
+    df_dt_m = df[df['Classe do animal'] == 'DT-F']
     
     df["Discriminação absoluta"] = ((df["Tempo no objeto novo"] - df["Tempo no objeto familiar"]))
                                     
