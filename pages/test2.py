@@ -36,7 +36,7 @@ def main():
         st.write("Primeiras linhas dos dados:", df.head())
 
         # Agrupar por classe e aplicar a função de cálculo
-        resultados_por_classe = df.groupby('classe').apply(calcular_metricas)
+        resultados_por_classe = df.groupby('Classe do animal').apply(calcular_metricas)
 
         # Transformar os resultados em um DataFrame
         resultados_df = pd.DataFrame(resultados_por_classe.tolist(), index=resultados_por_classe.index)
