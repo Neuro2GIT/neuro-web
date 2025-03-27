@@ -47,4 +47,9 @@ if uploaded_file is not None:
     # Criar um dicionário para armazenar os índices
     resultados = {}
 
+    # Exibir dados de cada planilha
+    for sheet in sheet_names:
+        st.write(f"Exibindo dados da planilha: {sheet}")
+        df = dados[sheet]
+
     
