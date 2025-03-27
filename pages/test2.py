@@ -1,54 +1,43 @@
-import pandas as pd
 import streamlit as st
+import pandas as pd
 
-
-st.set_page_config(
-    page_title="Análise do TRO",
-    page_icon="🐭",
-    layout="centered",
-    initial_sidebar_state="auto",
-    menu_items={})
-st.set_option('client.showErrorDetails', True)
-
-# Função para calcular os índices para cada grupo
-def calcular_indices(df):
+# Função para calcular as métricas para cada grupo de classe
+def calcular_metricas(grupo):
+    # Calcular as métricas
+    discriminacao_absoluta = grupo['Tempo no objeto novo'] - grupo['Tempo no objeto familiar']
+    indice_discriminacao = (grupo['Tempo no objeto novo'] - grupo['Tempo no objeto familiar']) / (grupo['Tempo no objeto novo'] + grupo['Tempo no objeto familiar'])
+    indice_preferencia = (grupo['Tempo no objeto novo'] / (grupo['Tempo no objeto novo'] + grupo['Tempo no objeto familiar'])) * 100
     
-    df["Discriminação absoluta"] = df["Tempo no objeto novo"] - df["Tempo no objeto familiar"]
-    df["Índice de discriminação"] = (df["Tempo no objeto novo"] - df["Tempo no objeto familiar"]) / \
-                                    (df["Tempo no objeto novo"] + df["Tempo no objeto familiar"])
-    df["Índice de preferência"] = (df["Tempo no objeto novo"]) / (df["Tempo no objeto novo"] + df["Tempo no objeto familiar"]) * 100
+    # Retornar os resultados como um dicionário
+    return {
+        "Discriminação absoluta": discriminacao_absoluta.mean(),  # Média para representar o valor do grupo
+        "Índice de discriminação": indice_discriminacao.mean(),
+        "Índice de preferência": indice_preferencia.mean()
+    }
 
-    return df
+# Função principal para o Streamlit
+def main():
+    # Título da aplicação
+    st.title('Cálculos de Discriminação e Preferência por Classe')
 
-# Função para calcular as médias por classe
-def calcular_medias(df):
-    
-    return df.groupby("Classe do animal")[["Índice de discriminação", "Índice de preferência", "Discriminação absoluta"]].mean().reset_index()
-    
-# Configuração do Streamlit
-st.title("Análise do teste comportamental")
+    # Carregar arquivo (Excel ou CSV)
+    uploaded_file = st.file_uploader("Escolha uma planilha", type=["xlsx", "csv"])
 
-with st.container(border=True):
-    uploaded_file = st.file_uploader("Selecione um arquivo excel (.xlsx)", type=["xlsx"])
-    
-if uploaded_file is not None:
-    # Ler o arquivo
-    planilha_dados = pd.read_excel(uploaded_file, sheet_name=None)
-    for name, df in planilha_dados.items():
+    if uploaded_file is not None:
+        # Verificar o tipo de arquivo e carregar
+        if uploaded_file.name.endswith('.xlsx'):
+            df = pd.read_excel(uploaded_file)
+        else:
+            df = pd.read_csv(uploaded_file)
+        
+        # Exibir as primeiras linhas dos dados
+        st.write("Primeiras linhas dos dados:", df.head())
 
-        df = calcular_indices(df)
-        medias_por_classe = calcular_medias(df)
+        # Agrupar por classe e aplicar a função de cálculo
+        resultados_por_classe = df.groupby('classe').apply(calcular_metricas).to_dict()
 
-        # Armazenando os resultados organizados
-        resultados = {
-            "dados_com_indices": df,
-            "medias_por_classe": medias_por_classe
-        }
-
-        # Exibir tabelas no Streamlit
-        st.subheader("Dados com Índices Calculados")
-        df.set_index("Classe do animal", inplace=True)
-        st.dataframe(resultados["dados_com_indices"])
-
-        st.subheader("Médias dos Índices por Classe")
-        st.dataframe(resultados["medias_por_classe"])
+        # Exibir os resultados na interface Streamlit
+        st.write("### Resultados por Classe", resultados_por_classe)
+            
+if __name__ == "__main__":
+    main()
