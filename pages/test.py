@@ -67,4 +67,4 @@ if uploaded_file is not None:
     with st.expander("Médias do índice de discriminação"):
         # Para cada planilha, exibe a média do índice de discriminação
         for sheet_name, df in resultados.items():
-            st.write(f"Média do índice de discriminação para {sheet_name}: {médias].iloc[0]:.2f}")
+            st.write(f"Média do índice de discriminação para {sheet_name}: {médias}")
