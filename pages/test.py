@@ -38,7 +38,7 @@ def calcular_indices(df):
     # Calcular as médias por classe de animal
     medias_por_classe = df.groupby("Classe do animal")[["Discriminação absoluta", "Índice de discriminação", "Índice de preferência"]].mean().reset_index()
 
-    return df, medias, medias_por_classes
+    return df, medias, medias_por_classe
 
 # Configuração do Streamlit
 st.title("Análise do teste comportamental")
