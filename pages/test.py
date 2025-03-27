@@ -49,6 +49,13 @@ def calcular_indices(df):
         "Média do Índice de Preferência": media_indice_preferencia
     }
 
+    # Adicionando a linha de médias ao DataFrame
+    df_medio = pd.DataFrame(medias, index=["Média"]).reset_index()
+    df_medio.rename(columns={"index": "Índice"}, inplace=True)
+
+    # Concatenar o DataFrame original com a linha de médias
+    df = pd.concat([df, df_medio], ignore_index=True)
+
     return df, medias
 
 
