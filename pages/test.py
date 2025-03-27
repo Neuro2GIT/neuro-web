@@ -23,7 +23,7 @@ def calcular_indices(df):
 # Função para calcular as médias por classe
 def calcular_medias(df):
     
-    return df.groupby("Classe do animal")[["Índice de discriminação", "Índice de preferência"]].mean().reset_index()
+    return df.groupby("Classe do animal")[["Índice de discriminação", "Índice de preferência", "Preferência absoluta"]].mean().reset_index()
     
 # Configuração do Streamlit
 st.title("Análise do teste comportamental")
@@ -36,11 +36,6 @@ if uploaded_file is not None:
     planilha_dados = pd.read_excel(uploaded_file, sheet_name=None)
     for name, df in planilha_dados.items():
 
-   
-        # Verifica se as colunas necessárias existem no arquivo
-    
-        #colunas_necessarias = {"Classe do animal", "Tempo no objeto novo", "Tempo no objeto familiar"}
-    
         df = calcular_indices(df)
         medias_por_classe = calcular_medias(df)
 
