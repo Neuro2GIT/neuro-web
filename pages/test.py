@@ -36,22 +36,24 @@ if uploaded_file is not None:
     df = pd.read_excel(uploaded_file, sheet_name=None)
     for name, df in dados_excel.items():
 
-    # Verifica se as colunas necessárias existem no arquivo
-    #colunas_necessarias = {"Classe do animal", "Tempo no objeto novo", "Tempo no objeto familiar"}
+   
+        # Verifica se as colunas necessárias existem no arquivo
     
-    df = calcular_indices(df)
-    medias_por_classe = calcular_medias(df)
+        #colunas_necessarias = {"Classe do animal", "Tempo no objeto novo", "Tempo no objeto familiar"}
+    
+        df = calcular_indices(df)
+        medias_por_classe = calcular_medias(df)
 
-    # Armazenando os resultados organizados
-    resultados = {
-        "dados_com_indices": df,
-        "medias_por_classe": medias_por_classe
-    }
+        # Armazenando os resultados organizados
+        resultados = {
+            "dados_com_indices": df,
+            "medias_por_classe": medias_por_classe
+        }
 
-    # Exibir tabelas no Streamlit
-    st.subheader("Dados com Índices Calculados")
-    df.set_index("Classe do animal", inplace=True)
-    st.dataframe(resultados["dados_com_indices"])
+        # Exibir tabelas no Streamlit
+        st.subheader("Dados com Índices Calculados")
+        df.set_index("Classe do animal", inplace=True)
+        st.dataframe(resultados["dados_com_indices"])
 
-    st.subheader("Médias dos Índices por Classe")
-    st.dataframe(resultados["medias_por_classe"])
+        st.subheader("Médias dos Índices por Classe")
+        st.dataframe(resultados["medias_por_classe"])
