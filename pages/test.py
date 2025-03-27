@@ -13,6 +13,8 @@ st.set_option('client.showErrorDetails', True)
 # Função para calcular os índices para cada grupo
 def calcular_indices(df):
 
+    df = pd.read_excel(uploaded_file, sheet_name="Machos", "Femeas")
+    
     # Separar dados comportamentais por classe
     df_ct_m = df[df['Classe do animal'] == 'CT-M']
     df_dt_m = df[df['Classe do animal'] == 'DT-M']
