@@ -78,14 +78,13 @@ if uploaded_file is not None:
         df = pd.read_excel(dados, sheet_name=sheet_name)
         df, medias = calcular_indices(df)
         resultados[sheet_name] = {"dados": df, "medias": medias}
-    
+
     # Exibir os resultados
     for sheet_name, df in resultados.items():
         with st.expander(f"### {sheet_name}"):
-            df.set_index("Classe do animal", inplace=True)
             #st.write(f"### {sheet_name}")           
             st.dataframe(df[["Tempo no objeto novo", "Tempo no objeto familiar", "Índice de discriminação", "Índice de preferência", "Discriminação absoluta", "ID"]])
-
+            df.set_index("Classe do animal", inplace=True)
 
     with st.expander("Médias do índice de discriminação"):
         # Para cada planilha, exibe a média do índice de discriminação
