@@ -34,7 +34,7 @@ with st.container(border=True):
 if uploaded_file is not None:
     # Ler o arquivo
     df = pd.read_excel(uploaded_file, sheet_name=None)
-    for name, df in dados_excel.items():
+    for name, df in uploaded_file.items():
 
    
         # Verifica se as colunas necessárias existem no arquivo
