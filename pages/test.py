@@ -82,8 +82,7 @@ if uploaded_file is not None:
     # Exibir os resultados
     for sheet_name, df in resultados.items():
         with st.expander(f"### {sheet_name}"):
-            # Concatenar o DataFrame original com a linha de médias
-            #df.set_index("Classe do animal", inplace=True)
+            df.set_index("Classe do animal", inplace=True)
             #st.write(f"### {sheet_name}")           
             st.dataframe(df[["Tempo no objeto novo", "Tempo no objeto familiar", "Índice de discriminação", "Índice de preferência", "Discriminação absoluta", "ID"]])
             # Adicionando a linha de médias ao DataFrame
