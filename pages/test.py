@@ -51,7 +51,7 @@ if uploaded_file is not None:
 
         # Exibir tabelas no Streamlit
         st.subheader("Dados com Índices Calculados")
-        df.set_index("Classe", inplace=True)
+        df.set_index("Classe do animal", inplace=True)
         st.dataframe(resultados["dados_com_indices"])
 
         st.subheader("Médias dos Índices por Classe")
