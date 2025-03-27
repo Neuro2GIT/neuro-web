@@ -28,6 +28,12 @@ def calcular_indices(df):
     
     return df
 
+    # Dicionário com o resultado dos dados processados
+    return {
+        "medias_peso_ct": medias_peso_ct, "erro_padrao_peso_ct": erro_padrao_peso_ct, "df_ct": df_ct,
+        "medias_peso_dt": medias_peso_dt, "erro_padrao_peso_dt": erro_padrao_peso_dt, "df_dt": df_dt,
+    }
+
 # Configuração do Streamlit
 st.title("Análise do teste comportamental")
 
