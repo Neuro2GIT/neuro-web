@@ -12,12 +12,19 @@ st.set_option('client.showErrorDetails', True)
 
 def calcular_indices(df):
     # Calcula os índices de discriminação e de preferencia para cada animal.
+
+    # Separar dados de peso por classe
+    df_ct = df[df['Classe do animal'] == 'CT']
+    df_dt = df[df['Classe do animal'] == 'DT']
+    
     df["Discriminação absoluta"] = ((df["Tempo no objeto novo"] - df["Tempo no objeto familiar"]))
                                     
     df["Índice de discriminação"] = ((df["Tempo no objeto novo"] - df["Tempo no objeto familiar"]) /
                                       (df["Tempo no objeto novo"] + df["Tempo no objeto familiar"]))
     
     df["Índice de preferência"] = ((df["Tempo no objeto novo"]) / (df["Tempo no objeto novo"] + df ["Tempo no objeto familiar"])) * 100
+
+    df["Média dos índices de discriminação"] = df["Índice de discriminação"].mean()
     
     return df
 
@@ -58,7 +65,12 @@ if uploaded_file is not None:
         with st.expander(f"### {sheet_name}"):
             df.set_index("Classe do animal", inplace=True)
             #st.write(f"### {sheet_name}")           
-            st.dataframe(df[["Classe do animal", "Tempo no objeto novo", "Tempo no objeto familiar", "Índice de discriminação", "Índice de preferência", "Discriminação absoluta"]])
+            st.dataframe(df[["Tempo no objeto novo", "Tempo no objeto familiar", "Índice de discriminação", "Índice de preferência", "Discriminação absoluta", "ID"]])
+
+    with st.expander("Médias do índice de discriminação"):
+        # Para cada planilha, exibe a média do índice de discriminação
+        for sheet_name, df in resultados.items():
+            st.write(f"Média do índice de discriminação para {sheet_name}: {df['Média dos índices de discriminação'].iloc[0]:.2f}")
 
     # Criar um arquivo Excel com os resultados
     with pd.ExcelWriter("resultados_TRO.xlsx", engine="xlsxwriter") as writer:
