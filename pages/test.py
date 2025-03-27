@@ -80,21 +80,24 @@ with st.expander("Como funciona?"):
     st.write("Índice de preferência: d3 = tnovo / tnovo + tfamiliar * 100")
     st.markdown(f"[Leia o artigo base]({url})")
 
+# Configuração do Streamlit
+st.title("Análise do teste comportamental")
+
 with st.container(border=True):
     uploaded_file = st.file_uploader("Selecione um arquivo excel (.xlsx)", type=["xlsx"])
     
 if uploaded_file is not None:
     # Ler o arquivo Excel
-    xls = pd.ExcelFile(uploaded_file)
+    dados = pd.ExcelFile(uploaded_file)
     
     # Criar um dicionário para armazenar os índices de discriminação
     resultados = {}
     
     # Iterar sobre as planilhas (Animais CT e Animais DT)
-    for sheet_name in xls.sheet_names:
-        df = pd.read_excel(xls, sheet_name=sheet_name)
-        df = calcular_indices(df)
-        resultados[sheet_name] = df
+    for sheet_name in dados.sheet_names:
+        df = pd.read_excel(dados, sheet_name=sheet_name)
+        df, medias = calcular_indices(df)
+        resultados[sheet_name] = {"dados": df, "medias": medias}
 
     st.markdown("---")
     
