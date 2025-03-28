@@ -611,16 +611,16 @@ if uploaded_file is not None:
 
         st.write("")
         
-        # Dataframe com a media geral do cosumo de ração
+        # Dataframe com as medias do cosumo de ração
         with st.container(border=True):
             df_medias_gerais = pd.DataFrame({
                 "Grupo": ["CT", "DT"],
-                "Média do consumo de ração": [
-                    resultados_racao["media_geral_racao_ct"],  # Usando a variável 'dados' para acessar a média
-                    resultados_racao["media_geral_racao_dt"]   # Usando a variável 'dados' para acessar a média
+                "Médias de consumo de ração": [
+                    resultados_racao["medias_racao_ct"],  # Usando a variável 'dados' para acessar a média
+                    resultados_racao["medias_racao_dt"]   # Usando a variável 'dados' para acessar a média
                 ]
             })
-            st.write("Média geral de consumo de ração por grupo")
+            st.write("Médias de consumo de ração por grupo")
             df_medias_gerais.set_index("Grupo", inplace=True)
             st.dataframe(df_medias_gerais)
     
