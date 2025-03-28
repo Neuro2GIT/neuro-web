@@ -623,14 +623,7 @@ if uploaded_file is not None:
             st.write("Médias de consumo de ração por grupo")
             df_racao = pd.concat([resultados_racao["medias_racao_ct"], resultados_racao["medias_racao_dt"]])
             st.write(df_racao)
-
-        with st.container(border=True):
-            st.write("Médias do consumo de ração")
-            df_media_racao = pd.concat([resultados_racao["medias_racao_ct"], resultados_racao["medias_racao_ct"]])
-            df_media_racao.set_index("Classe da Caixa", inplace=True)
-            st.write(df_media_racao)
     
-
     # Dados brutos de peso e consumo de ração em tabelas
     with st.expander("Dados brutos: peso e consumo de ração"):
         with st.container(border=True):
