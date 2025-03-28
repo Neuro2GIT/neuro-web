@@ -29,6 +29,10 @@ def calcular_indices(df):
 
     # Calcular a média do índice de discriminação para cada combinação de Classe do animal e Grupo
     media_discriminacao = df_validos.groupby(["Classe do animal", "Grupo"], as_index=False)["Índice de discriminação"].mean()
+
+    # Exibir os resultados no Streamlit
+    st.markdown("### Médias do Índice de Discriminação por Sexo e Grupo")
+    st.dataframe(media_discriminacao.style.format({"Índice de discriminação": "{:.2f}"}))
     
     return df
 
@@ -84,11 +88,6 @@ if uploaded_file is not None:
 
     # Calcular a média do índice de discriminação para cada combinação de Classe do animal e Grupo
     #media_discriminacao = df_validos.groupby(["Classe do animal", "Grupo"], as_index=False)["Índice de discriminação"].mean()
-
-    # Exibir os resultados no Streamlit
-    st.markdown("### Médias do Índice de Discriminação por Sexo e Grupo")
-    st.dataframe(media_discriminacao.style.format({"Índice de discriminação": "{:.2f}"}))
-
 
     output = BytesIO()
     with pd.ExcelWriter(output, engine="xlsxwriter") as writer:
