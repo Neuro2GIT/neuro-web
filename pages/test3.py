@@ -60,17 +60,15 @@ st.title("Cálculo de Índices de Discriminação e Preferência")
 uploaded_file = st.file_uploader("Carregar arquivo Excel", type=["xlsx"])
 
 if uploaded_file is not None:
-    # Tentar ler o arquivo Excel
-    try:
-        df = pd.read_excel(uploaded_file)
+    df = pd.read_excel(uploaded_file)
 
-        # Calcular os índices
-        df_m_ct, df_m_dt, df_f_ct, df_f_dt, medias_indices = calcular_indices(df)
+    # Calcular os índices
+    df_m_ct, df_m_dt, df_f_ct, df_f_dt, medias_indices = calcular_indices(df)
             
-        # Exibir as médias dos índices de discriminação por grupo (Tabela separada)
-        st.subheader("Média dos Índices de Discriminação por Grupo")
-        st.write(medias_indices)  # Exibe a tabela com a média dos índices por grupo
+    # Exibir as médias dos índices de discriminação por grupo (Tabela separada)
+    st.subheader("Média dos Índices de Discriminação por Grupo")
+    st.write(medias_indices)  # Exibe a tabela com a média dos índices por grupo
 
-    except Exception as e:
-        st.error(f"Ocorreu um erro ao processar o arquivo: {e}")
+except Exception as e:
+    st.error(f"Ocorreu um erro ao processar o arquivo: {e}")
 
