@@ -50,8 +50,8 @@ def calcular_indices(df):
         'Fêmea - Tratamento': medias_indices_f_dt
     }
 
-    df_controle = pd.concat([df_m_ct, df_f_ct])
-    df_deficiencia = pd.concat([df_m_dt, df_f_dt])
+    df_controle = pd.concat([df_m_ct, df_f_ct], ignore_index=True)
+    df_deficiencia = pd.concat([df_m_dt, df_f_dt], ignore_index=True)
     
     # Retornar os dataframes
     return df_controle, df_deficiencia, medias_indices
