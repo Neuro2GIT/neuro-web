@@ -25,6 +25,8 @@ def calcular_indices(df):
     # Retornar os DataFrames concatenados
     return df_controle, df_deficiencia
 
+st.write(df.columns)
+
 # Streamlit: Interface do usuário
 st.title("Cálculo de Índices de Discriminação e Preferência")
 
