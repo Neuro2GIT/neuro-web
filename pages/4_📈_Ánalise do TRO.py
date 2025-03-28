@@ -63,7 +63,7 @@ if uploaded_file is not None:
             #st.write(f"### {sheet_name}")           
             st.dataframe(df[["Grupo", "Tempo no objeto novo", "Tempo no objeto familiar", "Índice de discriminação", "Índice de preferência", "Discriminação absoluta", "ID"]])
 
-    st.write("Colunas encontradas:", df.columns.tolist())
+    #st.write("Colunas encontradas:", df.columns.tolist())
     
    # Garantir que a coluna "Classe do animal" e "Grupo" estão no formato correto
     #df["Classe do animal"] = df["Classe do animal"].astype(str).str.upper().str.strip()
