@@ -623,6 +623,12 @@ if uploaded_file is not None:
             st.write("Médias de consumo de ração por grupo")
             df_medias_gerais.set_index("Grupo", inplace=True)
             st.dataframe(df_medias_gerais)
+
+        with st.container(border=True):
+            st.write("Médias de consumo de ração por grupo")
+            df_racao = pd.concat([resultados_racao["medias_racao_ct"], resultados_racao["medias_racao_dt"]])
+            df_racao.set_index("Classe da Caixa", inplace=True)
+            st.write(df_racao)
     
 
     # Dados brutos de peso e consumo de ração em tabelas
