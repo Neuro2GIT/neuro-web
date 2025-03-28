@@ -627,7 +627,6 @@ if uploaded_file is not None:
         with st.container(border=True):
             st.write("Médias de consumo de ração por grupo")
             df_racao = pd.concat([resultados_racao["medias_racao_ct"], resultados_racao["medias_racao_dt"]])
-            df_racao.set_index("Classe da Caixa", inplace=True)
             st.write(df_racao)
     
 
