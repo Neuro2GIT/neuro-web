@@ -580,7 +580,7 @@ if uploaded_file is not None:
 
 
     # Carregar as médias de ração
-    racao_processada = carregar_e_processar_excel(uploaded_file)
+    #racao_processada = carregar_e_processar_excel(uploaded_file)
 
     st.markdown("---")
 
