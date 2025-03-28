@@ -578,11 +578,9 @@ if uploaded_file is not None:
         with st.container(border=True):
             plotar_funcoes["consumo_racao"](resultados_racao["medias_racao_ct"], resultados_racao["medias_racao_dt"])
 
-
-    # Carregar as médias de ração
-    #racao_processada = carregar_e_processar_excel(uploaded_file)
-
     st.markdown("---")
+
+    
 
     st.subheader ("Tabelas para verificação")
     with st.expander("Dados processados: médias e erro padrão"):
