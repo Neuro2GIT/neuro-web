@@ -29,7 +29,7 @@ def calcular_indices(df):
     df_deficiencia = pd.concat([df_m_dt, df_f_dt])
     
     # Retornar os dataframes
-    return
+    return df_controle, df_deficiencia
 
 # Streamlit: Interface do usuário
 st.title("Cálculo de Índices de Discriminação e Preferência")
