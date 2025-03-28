@@ -63,7 +63,7 @@ if uploaded_file is not None:
 
     st.write("Colunas encontradas:", df.columns.tolist())
     
-    # Garantir que a coluna "Classe do animal" e "Grupo" estão no formato correto
+   # Garantir que a coluna "Classe do animal" e "Grupo" estão no formato correto
     df["Classe do animal"] = df["Classe do animal"].astype(str).str.upper().str.strip()
     df["Grupo"] = df["Grupo"].astype(str).str.upper().str.strip()
 
