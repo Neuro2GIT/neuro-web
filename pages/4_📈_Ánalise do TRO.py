@@ -14,9 +14,9 @@ st.set_option('client.showErrorDetails', True)
 def calcular_indices(df):
     # Calcula os índices de discriminação e de preferencia para cada animal.
 
-    # Separar dados de peso por classe
-    df_ct = df[df['Classe do animal'] == 'CT']
-    df_dt = df[df['Classe do animal'] == 'DT']
+    # Separar dados comportamentais por classe
+    #df_ct = df[df['Classe do animal'] == 'CT']
+    #df_dt = df[df['Classe do animal'] == 'DT']
     
     df["Discriminação absoluta"] = ((df["Tempo no objeto novo"] - df["Tempo no objeto familiar"]))
                                     
@@ -25,10 +25,13 @@ def calcular_indices(df):
     
     df["Índice de preferência"] = ((df["Tempo no objeto novo"]) / (df["Tempo no objeto novo"] + df ["Tempo no objeto familiar"])) * 100
 
-    df["Média dos índices de discriminação"] = df["Índice de discriminação"].mean()
+    #df["Média dos índices de discriminação"] = df["Índice de discriminação"].mean()
     
     return df
 
+def calcular_medias(df):
+
+    
 # Configuração do Streamlit
 st.title("Análise do teste comportamental")
 
