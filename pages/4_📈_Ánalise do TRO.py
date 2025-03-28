@@ -66,18 +66,18 @@ if uploaded_file is not None:
     st.write("Colunas encontradas:", df.columns.tolist())
     
    # Garantir que a coluna "Classe do animal" e "Grupo" estão no formato correto
-    df["Classe do animal"] = df["Classe do animal"].astype(str).str.upper().str.strip()
-    df["Grupo"] = df["Grupo"].astype(str).str.upper().str.strip()
+    #df["Classe do animal"] = df["Classe do animal"].astype(str).str.upper().str.strip()
+    #df["Grupo"] = df["Grupo"].astype(str).str.upper().str.strip()
 
     # Filtrar dados válidos antes do cálculo (evita problemas com valores nulos)
-    df_validos = df.dropna(subset=["Índice de discriminação", "Classe do animal", "Grupo"])
+    #df_validos = df.dropna(subset=["Índice de discriminação", "Classe do animal", "Grupo"])
 
     # Calcular a média do índice de discriminação para cada combinação de Classe do animal e Grupo
-    media_discriminacao = df_validos.groupby(["Classe do animal", "Grupo"], as_index=False)["Índice de discriminação"].mean()
+    #media_discriminacao = df_validos.groupby(["Classe do animal", "Grupo"], as_index=False)["Índice de discriminação"].mean()
 
     # Exibir os resultados no Streamlit
-    st.markdown("### Médias do Índice de Discriminação por Sexo e Grupo")
-    st.dataframe(media_discriminacao.style.format({"Índice de discriminação": "{:.2f}"}))
+    #st.markdown("### Médias do Índice de Discriminação por Sexo e Grupo")
+    #st.dataframe(media_discriminacao.style.format({"Índice de discriminação": "{:.2f}"}))
 
 
     output = BytesIO()
