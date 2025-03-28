@@ -25,7 +25,7 @@ def calcular_indices(df):
     # Retornar os DataFrames concatenados
     return df_controle, df_deficiencia
 
-    st.write(df.columns)
+    st.write(df.controle)
 
 
 # Streamlit: Interface do usuário
