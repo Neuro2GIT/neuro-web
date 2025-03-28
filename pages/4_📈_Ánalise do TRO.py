@@ -62,7 +62,7 @@ if uploaded_file is not None:
             st.dataframe(df[["Grupo", "Tempo no objeto novo", "Tempo no objeto familiar", "Índice de discriminação", "Índice de preferência", "Discriminação absoluta", "ID"]])
 
     # Calcular a média do índice de discriminação para cada combinação de Classe e Grupo
-    media_discriminacao = df.groupby(["Classe", "Grupo"])["Índice de discriminação"].mean().reset_index()
+    media_discriminacao = df.groupby(["Classe do animal", "Grupo"])["Índice de discriminação"].mean().reset_index()
 
     # Exibir os resultados no Streamlit
     st.markdown("### Médias do Índice de Discriminação por Sexo e Grupo")
