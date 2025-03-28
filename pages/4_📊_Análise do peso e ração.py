@@ -594,7 +594,7 @@ if uploaded_file is not None:
                 "Grupo DT": dados["medias_peso_dt"]
             })
             df_medias = df_medias.T # Transpor para que as métricas fiquem nas linhas e os dias/observações nas colunas
-            st.write("Médias")
+            st.write("Médias de peso")
             st.dataframe(df_medias)
 
         st.write("")
@@ -606,7 +606,7 @@ if uploaded_file is not None:
                 "Grupo DT": dados["erro_padrao_peso_dt"]
             })
             df_errpadrao = df_errpadrao.T # Transpor para que as métricas fiquem nas linhas e os dias/observações nas colunas
-            st.write("Erro padrão")
+            st.write("Erro padrão dos pesos")
             st.dataframe(df_errpadrao)
 
         st.write("")
@@ -640,18 +640,17 @@ if uploaded_file is not None:
             st.write(df_racao)
             #st.write(pd.concat([dados["df_racao_ct"], dados["df_racao_dt"]]))
 
-        # Criar DataFrame para consumo geral de ração
-        #df_medias_gerais = pd.DataFrame({
-            #"Grupo": ["CT", "DT"],
-            #"Média do consumo de ração": [
-                #resultados_racao["media_geral_racao_ct"],  # Usando a variável 'dados' para acessar a média
-                #resultados_racao["media_geral_racao_dt"]   # Usando a variável 'dados' para acessar a média
-            #]
-        #})
-
+        # Dataframe com a media geral do cosumo de ração
         with st.container(border=True):
+            df_medias_gerais = pd.DataFrame({
+                "Grupo": ["CT", "DT"],
+                "Média do consumo de ração": [
+                    resultados_racao["media_geral_racao_ct"],  # Usando a variável 'dados' para acessar a média
+                    resultados_racao["media_geral_racao_dt"]   # Usando a variável 'dados' para acessar a média
+                ]
+            })
             st.write("Média geral de consumo de ração por grupo")
-            #df_medias_gerais.set_index("Classe da Caixa", inplace=True)
+            df_medias_gerais.set_index("Grupo", inplace=True)
             st.dataframe(df_medias_gerais)
 
     # Exibir os valores de forma destacada
