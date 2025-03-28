@@ -26,8 +26,8 @@ def carregar_e_processar_excel(uploaded_file):
     df_dt = df[df['Classe do Animal'] == 'DT']
 
     # Separar dados de consumo por classe
-    df_racao_ct = df_racao[df_racao['Classe da Caixa'] == 'CT']
-    df_racao_dt = df_racao[df_racao['Classe da Caixa'] == 'DT']
+    #df_racao_ct = df_racao[df_racao['Classe da Caixa'] == 'CT']
+    #df_racao_dt = df_racao[df_racao['Classe da Caixa'] == 'DT']
 
     # Calculo da média do peso e erro padrão para animais CT
     medias_peso_ct = df_ct.iloc[:, 2:].mean() #numeric_only=True
