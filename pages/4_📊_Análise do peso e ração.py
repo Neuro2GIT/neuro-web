@@ -616,7 +616,7 @@ if uploaded_file is not None:
                 #"Médias de consumo de ração": [
                     #resultados_racao["medias_racao_ct"],  # Usando a variável 'dados' para acessar a média
                     #resultados_racao["medias_racao_dt"]   # Usando a variável 'dados' para acessar a média
-                #]})
+                ]})
             st.write("Médias de consumo de ração por grupo")
             df_medias_gerais.set_index("Grupo", inplace=True)
             st.dataframe(df_medias_gerais)
