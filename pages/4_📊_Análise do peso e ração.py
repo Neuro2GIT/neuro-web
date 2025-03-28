@@ -651,7 +651,7 @@ if uploaded_file is not None:
 
         with st.container(border=True):
             st.write("Média geral de consumo de ração por grupo")
-            df_medias_gerais.set_index("Grupo", inplace=True)
+            df_medias_gerais.set_index("Classe da caixa", inplace=True)
             st.dataframe(df_medias_gerais)
 
     # Exibir os valores de forma destacada
