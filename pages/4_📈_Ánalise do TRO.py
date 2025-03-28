@@ -27,7 +27,7 @@ def calcular_indices(df):
     # Filtrar dados válidos antes do cálculo (evita problemas com valores nulos)
     df_validos = df.dropna(subset=["Índice de discriminação", "Classe do animal", "Grupo"])
 
-     Calcular a média do índice de discriminação para cada combinação de Classe do animal e Grupo
+    # Calcular a média do índice de discriminação para cada combinação de Classe do animal e Grupo
     media_discriminacao = df_validos.groupby(["Classe do animal", "Grupo"], as_index=False)["Índice de discriminação"].mean()
     
     return df
