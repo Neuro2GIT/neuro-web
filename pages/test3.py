@@ -50,8 +50,11 @@ def calcular_indices(df):
         'Fêmea - Tratamento': medias_indices_f_dt
     }
 
-    # Retornar os dataframes separados
-    return df_m_ct, df_m_dt, df_f_ct, df_f_dt, medias_indices
+    df_controle = pd.concat([df_m_ct, df_f_ct])
+    df_deficiencia = pd.concat(df_m_dt, df_f_dt])
+    
+    # Retornar os dataframes
+    return df_controle, df_deficiencia, medias_indices
 
 # Streamlit: Interface do usuário
 st.title("Cálculo de Índices de Discriminação e Preferência")
@@ -60,12 +63,16 @@ st.title("Cálculo de Índices de Discriminação e Preferência")
 uploaded_file = st.file_uploader("Carregar arquivo Excel", type=["xlsx"])
 
 if uploaded_file is not None:
+    # Ler o arquivo Excel
     df = pd.read_excel(uploaded_file)
 
     # Calcular os índices
-    df_m_ct, df_m_dt, df_f_ct, df_f_dt, medias_indices = calcular_indices(df)
-
-    # Concatenar os DataFrames df_m_ct e df_f_ct para exibir juntos
-    df_m_f_ct = pd.concat([df_m_ct, df_f_ct])
+    df_controle, df_deficiencia, medias_indices = calcular_indices(df)
+    
+    # Exibir o DataFrame concatenado de Controle (M-CT e F-CT)
     st.subheader("Resultados de Machos e Fêmeas - Controle (M-CT e F-CT)")
-    st.dataframe(df_m_f_ct)
+    st.dataframe(df_controle)
+
+    # Exibir o DataFrame concatenado de Deficiência (M-DT e F-DT)
+    st.subheader("Resultados de Machos e Fêmeas - Deficiência (M-DT e F-DT)")
+    st.dataframe(df_deficiencia)
