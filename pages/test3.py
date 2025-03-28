@@ -64,3 +64,8 @@ if uploaded_file is not None:
 
     # Calcular os índices
     df_m_ct, df_m_dt, df_f_ct, df_f_dt, medias_indices = calcular_indices(df)
+
+    # Concatenar os DataFrames df_m_ct e df_f_ct para exibir juntos
+    df_m_f_ct = pd.concat([df_m_ct, df_f_ct])
+    st.subheader("Resultados de Machos e Fêmeas - Controle (M-CT e F-CT)")
+    st.dataframe(df_m_f_ct)
