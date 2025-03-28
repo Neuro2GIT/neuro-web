@@ -18,10 +18,11 @@ def calcular_indices(df):
     df_f_ct["Índice de discriminação"] = df_f_ct["Tempo no objeto novo"] - df_f_ct["Tempo no objeto familiar"] / (df_f_ct["Tempo no objeto novo"] + df_f_ct["Tempo no objeto familiar"])
     df_f_dt["Índice de discriminação"] = df_f_dt["Tempo no objeto novo"] - df_f_dt["Tempo no objeto familiar"] / (df_f_dt["Tempo no objeto novo"] + df_f_dt["Tempo no objeto familiar"])
 
-    df_controle = pd.concat([df_m_ct, df_m_dt])
-    df_deficiencia = pd.concat([df_f_ct, df_f_dt])
+    # Concatenar os DataFrames (M-CT, M-DT, F-CT, F-DT)
+    df_controle = pd.concat([df_m_ct, df_f_ct], ignore_index=True)  # Concatenando Machos e Fêmeas - Controle
+    df_deficiencia = pd.concat([df_m_dt, df_f_dt], ignore_index=True)  # Concatenando Machos e Fêmeas - Deficiência
     
-    # Retornar os dataframes
+    # Retornar os DataFrames concatenados
     return df_controle, df_deficiencia
 
 # Streamlit: Interface do usuário
