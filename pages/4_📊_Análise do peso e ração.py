@@ -25,10 +25,6 @@ def carregar_e_processar_excel(uploaded_file):
     df_ct = df[df['Classe do Animal'] == 'CT']
     df_dt = df[df['Classe do Animal'] == 'DT']
 
-    # Separar dados de consumo por classe
-    #df_racao_ct = df_racao[df_racao['Classe da Caixa'] == 'CT']
-    #df_racao_dt = df_racao[df_racao['Classe da Caixa'] == 'DT']
-
     # Calculo da média do peso e erro padrão para animais CT
     medias_peso_ct = df_ct.iloc[:, 2:].mean() #numeric_only=True
     erro_padrao_peso_ct = df_ct.iloc[:, 2:].std() / np.sqrt(df_ct.shape[0])
@@ -74,6 +70,10 @@ def processar_consumo_racao(uploaded_file):
     # Cálculo da média de consumo de ração CT e DT para cada dia
     medias_racao_ct = df_racao_ct.iloc[:, 2:].mean()
     medias_racao_dt = df_racao_dt.iloc[:, 2:].mean()
+
+    # Transformando as médias em DataFrames para exibição
+    df_medias_racao_ct = pd.DataFrame(medias_racao_ct, columns=['Média de Consumo CT'])
+    df_medias_racao_dt = pd.DataFrame(medias_racao_dt, columns=['Média de Consumo DT'])
 
     # Cálculo da média geral de consumo para cada grupo
     media_geral_racao_ct = medias_racao_ct.mean()
