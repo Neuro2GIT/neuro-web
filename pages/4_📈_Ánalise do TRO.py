@@ -61,8 +61,15 @@ if uploaded_file is not None:
             #st.write(f"### {sheet_name}")           
             st.dataframe(df[["Grupo", "Tempo no objeto novo", "Tempo no objeto familiar", "Índice de discriminação", "Índice de preferência", "Discriminação absoluta", "ID"]])
 
+    # Garantir que a coluna "Classe" e "Grupo" estão no formato correto
+    df["Classe"] = df["Classe"].astype(str).str.upper().str.strip()
+    df["Grupo"] = df["Grupo"].astype(str).str.upper().str.strip()
+
+    # Filtrar dados válidos antes do cálculo (evita problemas com valores nulos)
+    df_validos = df.dropna(subset=["Índice de discriminação", "Classe", "Grupo"])
+
     # Calcular a média do índice de discriminação para cada combinação de Classe e Grupo
-    media_discriminacao = df.groupby(["Classe do animal", "Grupo"])["Índice de discriminação"].mean().reset_index()
+    media_discriminacao = df_validos.groupby(["Classe", "Grupo"], as_index=False)["Índice de discriminação"].mean()
 
     # Exibir os resultados no Streamlit
     st.markdown("### Médias do Índice de Discriminação por Sexo e Grupo")
