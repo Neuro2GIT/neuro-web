@@ -29,7 +29,9 @@ def calcular_indices(df):
     
     return df
 
-def calcular_medias(df):
+#def calcular_medias(df):
+
+    #df["Média dos índices de discriminação"] = df["Índice de discriminação"].mean()
 
     
 # Configuração do Streamlit
@@ -63,10 +65,10 @@ if uploaded_file is not None:
         resultados[sheet_name] = df
 
     # Iterar sobre as planilhas (Animais CT e Animais DT)
-    for sheet_name in xls.sheet_names:
-        df = pd.read_excel(xls, sheet_name=sheet_name)
-        df = calcular_medias(df)
-        resultados[sheet_name] = dfmed
+    #for sheet_name in xls.sheet_names:
+        #df = pd.read_excel(xls, sheet_name=sheet_name)
+        #df = calcular_medias(df)
+        #resultados[sheet_name] = dfmed
 
     st.markdown("---")
     
