@@ -628,7 +628,6 @@ if uploaded_file is not None:
             df_racao = pd.concat([resultados_racao["medias_racao_ct"], resultados_racao["medias_racao_dt"]])
             st.write(df_racao)
 
-        with st.expander(" peso e consumo de ração"):
         with st.container(border=True):
             st.write("Médias do consumo de ração")
             df_media_racao = pd.concat([dados["df_ct"], dados["df_dt"]])
