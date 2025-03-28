@@ -12,28 +12,16 @@ st.set_page_config(
 st.set_option('client.showErrorDetails', True)
 
 def calcular_indices(df):
-    # Calcula os índices de discriminação e de preferencia para cada animal.
-
-    # Separar dados comportamentais por classe
-    #df_ct = df[df['Classe do animal'] == 'CT']
-    #df_dt = df[df['Classe do animal'] == 'DT']
-    
+    # Calcula os índices de discriminação e de preferencia para cada animal. 
     df["Discriminação absoluta"] = ((df["Tempo no objeto novo"] - df["Tempo no objeto familiar"]))
                                     
     df["Índice de discriminação"] = ((df["Tempo no objeto novo"] - df["Tempo no objeto familiar"]) /
                                       (df["Tempo no objeto novo"] + df["Tempo no objeto familiar"]))
     
     df["Índice de preferência"] = ((df["Tempo no objeto novo"]) / (df["Tempo no objeto novo"] + df ["Tempo no objeto familiar"])) * 100
-
-    #df["Média dos índices de discriminação"] = df["Índice de discriminação"].mean()
     
     return df
 
-#def calcular_medias(df):
-
-    #df["Média dos índices de discriminação"] = df["Índice de discriminação"].mean()
-
-    
 # Configuração do Streamlit
 st.title("Análise do teste comportamental")
 
@@ -64,12 +52,6 @@ if uploaded_file is not None:
         df = calcular_indices(df)
         resultados[sheet_name] = df
 
-    # Iterar sobre as planilhas (Animais CT e Animais DT)
-    #for sheet_name in xls.sheet_names:
-        #df = pd.read_excel(xls, sheet_name=sheet_name)
-        #df = calcular_medias(df)
-        #resultados[sheet_name] = dfmed
-
     st.markdown("---")
     
     # Exibir os resultados
@@ -79,10 +61,13 @@ if uploaded_file is not None:
             #st.write(f"### {sheet_name}")           
             st.dataframe(df[["Grupo", "Tempo no objeto novo", "Tempo no objeto familiar", "Índice de discriminação", "Índice de preferência", "Discriminação absoluta", "ID"]])
 
-    #with st.expander("Médias do índice de discriminação"):
-        # Para cada planilha, exibe a média do índice de discriminação
-        #for sheet_name, df in resultados.items():
-            #st.write(f"Média do índice de discriminação para {sheet_name}: {df['Média dos índices de discriminação'].iloc[0]:.2f}")
+    # Calcular a média do índice de discriminação para cada combinação de Classe e Grupo
+    media_discriminacao = df.groupby(["Classe", "Grupo"])["Índice de discriminação"].mean().reset_index()
+
+    # Exibir os resultados no Streamlit
+    st.markdown("### Médias do Índice de Discriminação por Sexo e Grupo")
+    st.dataframe(media_discriminacao.style.format({"Índice de discriminação": "{:.2f}"}))
+
 
     output = BytesIO()
     with pd.ExcelWriter(output, engine="xlsxwriter") as writer:
