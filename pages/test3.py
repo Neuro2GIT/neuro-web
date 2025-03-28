@@ -42,7 +42,7 @@ if uploaded_file is not None:
     df = pd.read_excel(uploaded_file)
 
     # Calcular os índices
-    df_controle, df_deficiencia, medias_indices = calcular_indices(df)
+    df_controle, df_deficiencia = calcular_indices(df)
     
     # Exibir o DataFrame concatenado de Controle (M-CT e F-CT)
     st.subheader("Resultados de Machos e Fêmeas - Controle (M-CT e F-CT)")
