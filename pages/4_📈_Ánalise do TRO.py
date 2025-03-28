@@ -31,7 +31,7 @@ def calcular_indices(df):
     media_discriminacao = df_validos.groupby(["Classe do animal", "Grupo"], as_index=False)["Índice de discriminação"].mean()
 
     # Exibir os resultados no Streamlit
-    st.markdown("### Médias do Índice de Discriminação por Sexo e Grupo")
+    st.markdown("### Médias do índice de discriminação")
     st.dataframe(media_discriminacao.style.format({"Índice de discriminação": "{:.2f}"}))
     
     return df
