@@ -59,6 +59,12 @@ if uploaded_file is not None:
         df = calcular_indices(df)
         resultados[sheet_name] = df
 
+    # Iterar sobre as planilhas (Animais CT e Animais DT)
+    for sheet_name in xls.sheet_names:
+        df = pd.read_excel(xls, sheet_name=sheet_name)
+        df = calcular_medias(df)
+        resultados[sheet_name] = dfmed
+
     st.markdown("---")
     
     # Exibir os resultados
