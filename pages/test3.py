@@ -37,19 +37,6 @@ def calcular_indices(df):
     df_f_ct["Índice de preferência"] = (df_f_ct["Tempo no objeto novo"] / (df_f_ct["Tempo no objeto novo"] + df_f_ct["Tempo no objeto familiar"])) * 100
     df_f_dt["Índice de preferência"] = (df_f_dt["Tempo no objeto novo"] / (df_f_dt["Tempo no objeto novo"] + df_f_dt["Tempo no objeto familiar"])) * 100
 
-    # Calcular a média dos índices de discriminação por grupo
-    medias_indices_m_ct = df_m_ct["Índice de discriminação"].mean()
-    medias_indices_m_dt = df_m_dt["Índice de discriminação"].mean()
-    medias_indices_f_ct = df_f_ct["Índice de discriminação"].mean()
-    medias_indices_f_dt = df_f_dt["Índice de discriminação"].mean()
-
-    medias_indices = {
-        'Macho - Controle': medias_indices_m_ct,
-        'Macho - Tratamento': medias_indices_m_dt,
-        'Fêmea - Controle': medias_indices_f_ct,
-        'Fêmea - Tratamento': medias_indices_f_dt
-    }
-
     df_controle = pd.concat([df_m_ct, df_f_ct], ignore_index=True)
     df_deficiencia = pd.concat([df_m_dt, df_f_dt], ignore_index=True)
     
@@ -67,7 +54,7 @@ if uploaded_file is not None:
     df = pd.read_excel(uploaded_file)
 
     # Calcular os índices
-    df_controle, df_deficiencia, medias_indices = calcular_indices(df)
+    df_controle, df_deficiencia = calcular_indices(df)
     
     # Exibir o DataFrame concatenado de Controle (M-CT e F-CT)
     st.subheader("Resultados de Machos e Fêmeas - Controle (M-CT e F-CT)")
