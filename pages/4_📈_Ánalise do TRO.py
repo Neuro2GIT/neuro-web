@@ -66,7 +66,7 @@ if uploaded_file is not None:
         with st.expander(f"### {sheet_name}"):
             df.set_index("Classe do animal", inplace=True)
             #st.write(f"### {sheet_name}")           
-            st.dataframe(df[["Tempo no objeto novo", "Tempo no objeto familiar", "Índice de discriminação", "Índice de preferência", "Discriminação absoluta", "ID"]])
+            st.dataframe(df[["Grupo", "Tempo no objeto novo", "Tempo no objeto familiar", "Índice de discriminação", "Índice de preferência", "Discriminação absoluta", "ID"]])
 
     with st.expander("Médias do índice de discriminação"):
         # Para cada planilha, exibe a média do índice de discriminação
