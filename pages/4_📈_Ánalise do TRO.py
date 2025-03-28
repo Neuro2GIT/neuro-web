@@ -19,6 +19,8 @@ def calcular_indices(df):
                                       (df["Tempo no objeto novo"] + df["Tempo no objeto familiar"]))
     
     df["Índice de preferência"] = ((df["Tempo no objeto novo"]) / (df["Tempo no objeto novo"] + df ["Tempo no objeto familiar"])) * 100
+
+    st.write("Colunas encontradas:", df.columns.tolist())
     
     return df
 
