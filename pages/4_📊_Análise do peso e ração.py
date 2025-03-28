@@ -630,7 +630,7 @@ if uploaded_file is not None:
 
         with st.container(border=True):
             st.write("Médias do consumo de ração")
-            df_media_racao = pd.concat([racao_processada["df_ct"], racao_processada["df_dt"]])
+            df_media_racao = pd.concat([racao_processada["df_racao_ct"], racao_processada["df_racao_ct"]])
             df_media_racao.set_index("Classe da Caixa", inplace=True)
             st.write(df_media_racao)
     
