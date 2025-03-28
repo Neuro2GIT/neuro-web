@@ -64,7 +64,3 @@ if uploaded_file is not None:
 
     # Calcular os índices
     df_m_ct, df_m_dt, df_f_ct, df_f_dt, medias_indices = calcular_indices(df)
-            
-    # Exibir as médias dos índices de discriminação por grupo (Tabela separada)
-    st.subheader("Média dos Índices de Discriminação por Grupo")
-    st.write(medias_indices)  # Exibe a tabela com a média dos índices por grupo
