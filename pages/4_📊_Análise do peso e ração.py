@@ -642,9 +642,7 @@ if uploaded_file is not None:
         with st.container(border=True):
             st.write("Consumo de ração por caixa")
             df_racao = pd.concat([resultados_racao["df_racao_ct"], resultados_racao["df_racao_dt"]])
-            df_racao.set_index("Classe da Caixa", inplace=True)
             st.write(df_racao)
-            #st.write(pd.concat([dados["df_racao_ct"], dados["df_racao_dt"]]))
 
         # Dataframe com a media geral do cosumo de ração
         with st.container(border=True):
