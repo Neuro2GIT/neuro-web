@@ -37,14 +37,6 @@ def carregar_e_processar_excel(uploaded_file):
     medias_peso_dt = df_dt.iloc[:, 2:].mean()
     erro_padrao_peso_dt = df_dt.iloc[:, 2:].std() / np.sqrt(df_dt.shape[0])
 
-    # Calculo da média do consumo de ração CT e DT
-    medias_racao_ct = df_racao_ct.iloc[:, 2:].mean()
-    medias_racao_dt = df_racao_dt.iloc[:, 2:].mean()
-
-    # Cálculo da média geral do consumo de ração CT e DT
-    media_geral_racao_ct = medias_racao_ct.mean()
-    media_geral_racao_dt = medias_racao_dt.mean()
-
     # Dicionário com o resultado dos dados processados
     return {
         "medias_peso_ct": medias_peso_ct, "erro_padrao_peso_ct": erro_padrao_peso_ct, "df_ct": df_ct,
@@ -78,8 +70,8 @@ def processar_consumo_racao(uploaded_file):
     # Filtragem dos dados por classe de caixa
     df_racao_ct = df_racao[df_racao['Classe da Caixa'] == 'CT']
     df_racao_dt = df_racao[df_racao['Classe da Caixa'] == 'DT']
-    
-    # Cálculo da média de consumo para cada dia
+
+    # Cálculo da média de consumo de ração CT e DT para cada dia
     medias_racao_ct = df_racao_ct.iloc[:, 2:].mean()
     medias_racao_dt = df_racao_dt.iloc[:, 2:].mean()
 
