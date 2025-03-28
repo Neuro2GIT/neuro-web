@@ -2,14 +2,7 @@ import streamlit as st
 import pandas as pd
 
 def separar_grupo_subgrupo(df, classe, grupo):
-    """
-    Função para filtrar o DataFrame com base no grupo e subgrupo.
-    
-    :param df: DataFrame original
-    :param grupo: Valor do grupo ('M' ou 'F')
-    :param subgrupo: Valor do subgrupo ('CT' ou 'DT')
-    :return: DataFrame filtrado
-    """
+
     return df[(df['Classe do animal'] == classe) & (df['Grupo'] == grupo)]
 
 def calcular_indices(df):
@@ -25,8 +18,8 @@ def calcular_indices(df):
     df_f_ct["Índice de discriminação"] = df_f_ct["Tempo no objeto novo"] - df_f_ct["Tempo no objeto familiar"] / (df_f_ct["Tempo no objeto novo"] + df_f_ct["Tempo no objeto familiar"])
     df_f_dt["Índice de discriminação"] = df_f_dt["Tempo no objeto novo"] - df_f_dt["Tempo no objeto familiar"] / (df_f_dt["Tempo no objeto novo"] + df_f_dt["Tempo no objeto familiar"])
 
-    df_controle = pd.concat([df_m_ct, df_f_ct])
-    df_deficiencia = pd.concat([df_m_dt, df_f_dt])
+    df_controle = pd.concat([df_m_ct, df_m_dt])
+    df_deficiencia = pd.concat([df_f_ct, df_f_dt])
     
     # Retornar os dataframes
     return df_controle, df_deficiencia
