@@ -587,7 +587,7 @@ if uploaded_file is not None:
     st.subheader ("Tabelas para verificação")
     with st.expander("Dados processados: médias e erro padrão"):
         
-        # Dataframe com as medias
+        # Dataframe com as medias de peso
         with st.container(border=True):
             df_medias = pd.DataFrame({
                 "Grupo CT": dados["medias_peso_ct"],
@@ -599,7 +599,7 @@ if uploaded_file is not None:
 
         st.write("")
 
-        # Dataframe com o erro padrão
+        # Dataframe com o erro padrão dos pesos
         with st.container(border=True):
             df_errpadrao = pd.DataFrame({
                 "Grupo CT": dados["erro_padrao_peso_ct"],
@@ -618,8 +618,7 @@ if uploaded_file is not None:
                 "Médias de consumo de ração": [
                     resultados_racao["medias_racao_ct"],  # Usando a variável 'dados' para acessar a média
                     resultados_racao["medias_racao_dt"]   # Usando a variável 'dados' para acessar a média
-                ]
-            })
+                ]})
             st.write("Médias de consumo de ração por grupo")
             df_medias_gerais.set_index("Grupo", inplace=True)
             st.dataframe(df_medias_gerais)
@@ -628,6 +627,13 @@ if uploaded_file is not None:
             st.write("Médias de consumo de ração por grupo")
             df_racao = pd.concat([resultados_racao["medias_racao_ct"], resultados_racao["medias_racao_dt"]])
             st.write(df_racao)
+
+        with st.expander(" peso e consumo de ração"):
+        with st.container(border=True):
+            st.write("Médias do consumo de ração")
+            df_media_racao = pd.concat([dados["df_ct"], dados["df_dt"]])
+            df_media_racao.set_index("Classe da Caixa", inplace=True)
+            st.write(df_media_racao)
     
 
     # Dados brutos de peso e consumo de ração em tabelas
