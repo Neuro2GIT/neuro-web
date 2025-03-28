@@ -34,7 +34,7 @@ def calcular_indices(df):
     #st.markdown("### Médias do índice de discriminação")
     #st.dataframe(media_discriminacao.style.format({"Índice de discriminação": "{:.2f}"}))
 
-    st.write("Colunas encontradas:", df.columns.tolist())
+    #st.write("Colunas encontradas:", df.columns.tolist())
     
     return df
 
