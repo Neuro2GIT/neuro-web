@@ -68,7 +68,3 @@ if uploaded_file is not None:
     # Exibir as médias dos índices de discriminação por grupo (Tabela separada)
     st.subheader("Média dos Índices de Discriminação por Grupo")
     st.write(medias_indices)  # Exibe a tabela com a média dos índices por grupo
-
-except Exception as e:
-    st.error(f"Ocorreu um erro ao processar o arquivo: {e}")
-
