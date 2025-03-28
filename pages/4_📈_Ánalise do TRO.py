@@ -79,10 +79,10 @@ if uploaded_file is not None:
             #st.write(f"### {sheet_name}")           
             st.dataframe(df[["Grupo", "Tempo no objeto novo", "Tempo no objeto familiar", "Índice de discriminação", "Índice de preferência", "Discriminação absoluta", "ID"]])
 
-    with st.expander("Médias do índice de discriminação"):
+    #with st.expander("Médias do índice de discriminação"):
         # Para cada planilha, exibe a média do índice de discriminação
-        for sheet_name, df in resultados.items():
-            st.write(f"Média do índice de discriminação para {sheet_name}: {df['Média dos índices de discriminação'].iloc[0]:.2f}")
+        #for sheet_name, df in resultados.items():
+            #st.write(f"Média do índice de discriminação para {sheet_name}: {df['Média dos índices de discriminação'].iloc[0]:.2f}")
 
     output = BytesIO()
     with pd.ExcelWriter(output, engine="xlsxwriter") as writer:
