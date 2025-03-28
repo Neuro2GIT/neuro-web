@@ -72,12 +72,17 @@ if uploaded_file is not None:
         for sheet_name, df in resultados.items():
             st.write(f"Média do índice de discriminação para {sheet_name}: {df['Média dos índices de discriminação'].iloc[0]:.2f}")
 
-    # Criar um arquivo Excel com os resultados
-    with pd.ExcelWriter("resultados_TRO.xlsx", engine="xlsxwriter") as writer:
+    output = BytesIO()
+    with pd.ExcelWriter(output, engine="xlsxwriter") as writer:
         for sheet_name, df in resultados.items():
             df.to_excel(writer, sheet_name=sheet_name, index=False)
-
         writer.close()
-        
-    with open("resultados_TRO.xlsx", "rb") as f:
-        st.download_button("Baixar resultados", f, "resultados_TRO.xlsx", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
+
+    output.seek(0)
+
+    st.download_button(
+        "Baixar resultados",
+        output,
+        "resultados_TRO.xlsx",
+        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+    )
